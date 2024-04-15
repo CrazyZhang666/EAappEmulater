@@ -1,5 +1,5 @@
 ﻿<LSX>
     <Response id="##ID##" sender="EALS">
-        <ChallengeAccepted response="##RESPONSE##"/>
+        <ChallengeAccepted response="##RESPONSE##" />
     </Response>
 </LSX>

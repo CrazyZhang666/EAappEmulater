@@ -66,17 +66,66 @@ public partial class FriendView : UserControl
                 _friendInfoList.Sort((x, y) => x.DisplayName.CompareTo(y.DisplayName));
 
                 var index = 0;
-                foreach (var friend in _friendInfoList)
+                foreach (var friendInfo in _friendInfoList)
                 {
-                    friend.Index = ++index;
-                    ObsCol_FriendInfos.Add(friend);
+                    friendInfo.Index = ++index;
+                    ObsCol_FriendInfos.Add(friendInfo);
                 }
 
+                // 选中第一个
                 if (ObsCol_FriendInfos.Count != 0)
                     ListBox_FriendInfo.SelectedIndex = 0;
+
+                // 生成玩家列表字符串
+                GenerateXmlString();
 
                 break;
             }
         }
+    }
+
+    private void GenerateXmlString()
+    {
+        if (_friendInfoList.Count == 0)
+            return;
+
+        var doc = new XmlDocument();
+
+        var lsx = doc.CreateElement("LSX");
+        doc.AppendChild(lsx);
+
+        var response = doc.CreateElement("Response");
+        response.SetAttribute("id", "##ID##");
+        response.SetAttribute("sender", "XMPP");
+        lsx.AppendChild(response);
+
+        var queryFreiResp = doc.CreateElement("QueryFriendsResponse");
+        response.AppendChild(queryFreiResp);
+
+        var title = "正在遊玩《戰地風雲4》上海之圍 征服模式...";
+
+        foreach (var friendInfo in _friendInfoList)
+        {
+            var friend = doc.CreateElement("Friend");
+
+            friend.SetAttribute("RichPresence", title);
+            friend.SetAttribute("AvatarId", "##AvatarId##");
+            friend.SetAttribute("UserId", $"{friendInfo.UserId}");
+            friend.SetAttribute("Group", "");
+            friend.SetAttribute("Title", title);
+            friend.SetAttribute("TitleId", "Origin.OFR.50.0004152");
+            friend.SetAttribute("GamePresence", "");
+            friend.SetAttribute("Persona", friendInfo.DisplayName);
+            friend.SetAttribute("PersonaId", $"{friendInfo.PersonaId}");
+            friend.SetAttribute("State", "MUTUAL");
+            friend.SetAttribute("MultiplayerId", "196216");
+            friend.SetAttribute("GroupId", "");
+            friend.SetAttribute("Presence", "INGAME");
+
+            queryFreiResp.AppendChild(friend);
+        }
+
+        Globals.FriendsXmlString = doc.InnerXml;
+        Globals.IsGetFriendsSuccess = true;
     }
 }

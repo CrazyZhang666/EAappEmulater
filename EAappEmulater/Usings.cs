@@ -3,6 +3,7 @@ global using System.IO;
 global using System.IO.Pipes;
 global using System.Net;
 global using System.Net.Sockets;
+global using System.Xml;
 global using System.Data;
 global using System.Linq;
 global using System.Xml.Linq;

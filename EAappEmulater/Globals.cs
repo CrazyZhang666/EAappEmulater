@@ -17,6 +17,9 @@ public static class Globals
     /// </summary>
     public static AccountSlot AccountSlot { get; set; } = AccountSlot.S0;
 
+    public static bool IsGetFriendsSuccess { get; set; } = false;
+    public static string FriendsXmlString { get; set; } = string.Empty;
+
     static Globals()
     {
         _configPath = Path.Combine(CoreUtil.Dir_Config, "Config.ini");

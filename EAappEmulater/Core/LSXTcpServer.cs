@@ -9,9 +9,9 @@ public static class LSXTcpServer
     private static TcpListener _tcpServer = null;
     private static bool _isRunning = true;
 
-    private static readonly List<string> StockMSGBFV = new();
-    private static readonly List<string> StockMSGBFH = new();
-    private static readonly List<string> StockMSGTTF2 = new();
+    private static readonly List<string> ScoketMsgBFV = new();
+    private static readonly List<string> ScoketMsgBFH = new();
+    private static readonly List<string> ScoketMsgTTF2 = new();
 
     static LSXTcpServer()
     {
@@ -23,25 +23,25 @@ public static class LSXTcpServer
 
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFV.{i:D2}.xml");
 
-            // 头像（不清楚为啥不显示）
+            // 头像 \AppData\Local\Origin\AvatarsCache（不清楚为啥不显示）
             text = text.Replace("##AvatarId##", "Avatars40.jpg");
             // 当前时间
             text = text.Replace("##SystemTime##", $"{DateTime.Now:s}");
 
-            StockMSGBFV.Add(text);
+            ScoketMsgBFV.Add(text);
         }
 
-        StockMSGBFV[0] = string.Concat(StockMSGBFV[0], "\0");
-        StockMSGBFV[1] = string.Concat(StockMSGBFV[1], "\0");
+        ScoketMsgBFV[0] = string.Concat(ScoketMsgBFV[0], "\0");
+        ScoketMsgBFV[1] = string.Concat(ScoketMsgBFV[1], "\0");
 
         for (int i = 0; i <= 16; i++)
         {
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFH.{i:D2}.xml");
-            StockMSGBFH.Add(text);
+            ScoketMsgBFH.Add(text);
         }
 
-        StockMSGBFH[0] = string.Concat(StockMSGBFH[0], "\0");
-        StockMSGBFH[1] = string.Concat(StockMSGBFH[1], "\0");
+        ScoketMsgBFH[0] = string.Concat(ScoketMsgBFH[0], "\0");
+        ScoketMsgBFH[1] = string.Concat(ScoketMsgBFH[1], "\0");
 
         for (int i = 0; i <= 0; i++)
         {
@@ -50,7 +50,7 @@ public static class LSXTcpServer
             // 当前时间
             text = text.Replace("##SystemTime##", $"{DateTime.Now:s}");
 
-            StockMSGTTF2.Add(text);
+            ScoketMsgTTF2.Add(text);
         }
     }
 
@@ -93,6 +93,17 @@ public static class LSXTcpServer
     }
 
     /// <summary>
+    /// 获取玩家列表Xml字符串
+    /// </summary>
+    private static string GetFriendsXmlString()
+    {
+        if (Globals.IsGetFriendsSuccess)
+            return Globals.FriendsXmlString;
+
+        return ScoketMsgBFV[11];
+    }
+
+    /// <summary>
     /// 监听本地端口3216线程
     /// </summary>
     private static async void ListenerLocal3216Thread()
@@ -124,7 +135,7 @@ public static class LSXTcpServer
         try
         {
             var startKey = "cacf897a20b6d612ad0c05e011df52bb";
-            var buffer = Encoding.UTF8.GetBytes(StockMSGBFV[0].Replace("##KEY##", startKey));
+            var buffer = Encoding.UTF8.GetBytes(ScoketMsgBFV[0].Replace("##KEY##", startKey));
 
             // 异步写入网络流
             await networkStream.WriteAsync(buffer);
@@ -182,7 +193,7 @@ public static class LSXTcpServer
             LoggerHelper.Debug($"处理解密 Challenge 响应 Seed {newResponse}");
 
             // 处理 战地硬仗 
-            buffer = Encoding.UTF8.GetBytes(StockMSGBFH[1].Replace("##RESPONSE##", newResponse).Replace("##ID##", partArray[3]));
+            buffer = Encoding.UTF8.GetBytes(ScoketMsgBFH[1].Replace("##RESPONSE##", newResponse).Replace("##ID##", partArray[3]));
 
             // 异步写入网络流
             await networkStream.WriteAsync(buffer);
@@ -311,42 +322,42 @@ public static class LSXTcpServer
 
         return requestType switch
         {
-            "><GetConfig version=" => StockMSGBFV[2].Replace("##ID##", id),
-            "><GetAuthCode ClientId=" => StockMSGBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(settingId)),
-            "><GetAuthCode UserId=" => StockMSGBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(partArray[7])),
-            "><GetBlockList version=" => StockMSGBFV[4].Replace("##ID##", id),
+            "><GetConfig version=" => ScoketMsgBFV[2].Replace("##ID##", id),
+            "><GetAuthCode ClientId=" => ScoketMsgBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(settingId)),
+            "><GetAuthCode UserId=" => ScoketMsgBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(partArray[7])),
+            "><GetBlockList version=" => ScoketMsgBFV[4].Replace("##ID##", id),
             "><GetGameInfo GameInfoId=" => settingId switch
             {
-                "FREETRIAL" => StockMSGBFV[19].Replace("##ID##", id),
-                "UPTODATE" => StockMSGBFV[20].Replace("##ID##", id),
-                _ => StockMSGBFV[5].Replace("##ID##", id),
+                "FREETRIAL" => ScoketMsgBFV[19].Replace("##ID##", id),
+                "UPTODATE" => ScoketMsgBFV[20].Replace("##ID##", id),
+                _ => ScoketMsgBFV[5].Replace("##ID##", id),
             },
-            "><GetInternetConnectedState version=" => StockMSGBFV[6].Replace("##ID##", id),
-            "><GetPresence UserId=" => StockMSGBFV[7].Replace("##ID##", id),
-            "><GetProfile index=" => StockMSGBFV[8].Replace("##ID##", id).Replace("##PID##", "1515810").Replace("##DSNM##", Account.PlayerName),
-            "><RequestLicense UserId=" => StockMSGBFV[15].Replace("##ID##", id).Replace("##License##", await EasyEaApi.GetLSXLicense(partArray[7], contentid)),
+            "><GetInternetConnectedState version=" => ScoketMsgBFV[6].Replace("##ID##", id),
+            "><GetPresence UserId=" => ScoketMsgBFV[7].Replace("##ID##", id),
+            "><GetProfile index=" => ScoketMsgBFV[8].Replace("##ID##", id).Replace("##PID##", "1515810").Replace("##DSNM##", Account.PlayerName),
+            "><RequestLicense UserId=" => ScoketMsgBFV[15].Replace("##ID##", id).Replace("##License##", await EasyEaApi.GetLSXLicense(partArray[7], contentid)),
             "><GetSetting SettingId=" => settingId switch
             {
-                "ENVIRONMENT" => StockMSGBFV[9].Replace("##ID##", id),
-                "IS_IGO_AVAILABLE" => StockMSGBFV[10].Replace("##ID##", id),
-                "IS_IGO_ENABLED" => StockMSGBFV[10].Replace("##ID##", id),
+                "ENVIRONMENT" => ScoketMsgBFV[9].Replace("##ID##", id),
+                "IS_IGO_AVAILABLE" => ScoketMsgBFV[10].Replace("##ID##", id),
+                "IS_IGO_ENABLED" => ScoketMsgBFV[10].Replace("##ID##", id),
                 _ => string.Empty,
             },
-            "><QueryFriends UserId=" => StockMSGBFV[11].Replace("##ID##", id),
-            "><QueryImage ImageId=" => StockMSGBFV[12].Replace("##ID##", id).Replace("##ImageId##", settingId).Replace("##Width##", partArray[7]),
-            "><QueryPresence UserId=" => StockMSGBFV[13].Replace("##ID##", id),
-            "><SetPresence UserId=" => StockMSGBFV[14].Replace("##ID##", id),
+            "><QueryFriends UserId=" => GetFriendsXmlString().Replace("##ID##", id),
+            "><QueryImage ImageId=" => ScoketMsgBFV[12].Replace("##ID##", id).Replace("##ImageId##", settingId).Replace("##Width##", partArray[7]),
+            "><QueryPresence UserId=" => ScoketMsgBFV[13].Replace("##ID##", id),
+            "><SetPresence UserId=" => ScoketMsgBFV[14].Replace("##ID##", id),
             "><GetAllGameInfo version=" => contentid switch
             {
-                "1039093" => StockMSGTTF2[0].Replace("##ID##", id),
-                _ => StockMSGBFV[16].Replace("##ID##", id),
+                "1039093" => ScoketMsgTTF2[0].Replace("##ID##", id),
+                _ => ScoketMsgBFV[16].Replace("##ID##", id),
             },
-            "><IsProgressiveInstallationAvailable ItemId=" => StockMSGBFV[17].Replace("##ID##", id).Replace("Origin.OFR.50.0004342", "Origin.OFR.50.0001455"),
-            "><QueryContent UserId=" => StockMSGBFV[18].Replace("##ID##", id),
-            "><QueryEntitlements UserId=" => StockMSGBFV[21].Replace("##ID##", id),
-            "><QueryOffers UserId=" => StockMSGBFV[22].Replace("##ID##", id),
-            "><SetDownloaderUtilization Utilization=" => StockMSGBFV[23].Replace("##ID##", id),
-            "><QueryChunkStatus ItemId=" => StockMSGBFV[24].Replace("##ID##", id),
+            "><IsProgressiveInstallationAvailable ItemId=" => ScoketMsgBFV[17].Replace("##ID##", id).Replace("Origin.OFR.50.0004342", "Origin.OFR.50.0001455"),
+            "><QueryContent UserId=" => ScoketMsgBFV[18].Replace("##ID##", id),
+            "><QueryEntitlements UserId=" => ScoketMsgBFV[21].Replace("##ID##", id),
+            "><QueryOffers UserId=" => ScoketMsgBFV[22].Replace("##ID##", id),
+            "><SetDownloaderUtilization Utilization=" => ScoketMsgBFV[23].Replace("##ID##", id),
+            "><QueryChunkStatus ItemId=" => ScoketMsgBFV[24].Replace("##ID##", id),
             _ => string.Empty,
         };
     }
@@ -376,26 +387,26 @@ public static class LSXTcpServer
 
         return requestType switch
         {
-            "><GetConfig version=" => StockMSGBFH[2].Replace("##ID##", id),
-            "><GetAuthCode version=" => StockMSGBFH[3].Replace("##ID##", id).Replace("##AUTHCODE##", await EasyEaApi.GetLSXAutuCode(partArray[7])),
-            "><GetBlockList version=" => StockMSGBFH[4].Replace("##ID##", id),
-            "><GetGameInfo version=" => StockMSGBFH[5].Replace("##ID##", id),
-            "><GetInternetConnectedState version=" => StockMSGBFH[6].Replace("##ID##", id),
-            "><GetPresence version=" => StockMSGBFH[7].Replace("##ID##", id),
-            "><GetProfile version=" => StockMSGBFH[8].Replace("##ID##", id),
-            "><RequestLicense UserId=" => StockMSGBFH[15].Replace("##ID##", id),
+            "><GetConfig version=" => ScoketMsgBFH[2].Replace("##ID##", id),
+            "><GetAuthCode version=" => ScoketMsgBFH[3].Replace("##ID##", id).Replace("##AUTHCODE##", await EasyEaApi.GetLSXAutuCode(partArray[7])),
+            "><GetBlockList version=" => ScoketMsgBFH[4].Replace("##ID##", id),
+            "><GetGameInfo version=" => ScoketMsgBFH[5].Replace("##ID##", id),
+            "><GetInternetConnectedState version=" => ScoketMsgBFH[6].Replace("##ID##", id),
+            "><GetPresence version=" => ScoketMsgBFH[7].Replace("##ID##", id),
+            "><GetProfile version=" => ScoketMsgBFH[8].Replace("##ID##", id),
+            "><RequestLicense UserId=" => ScoketMsgBFH[15].Replace("##ID##", id),
             "><GetSetting version=" => settingId switch
             {
-                "ENVIRONMENT" => StockMSGBFH[9].Replace("##ID##", id),
-                "IS_IGO_AVAILABLE" => StockMSGBFH[10].Replace("##ID##", id),
-                " SettingId=" => StockMSGBFH[10].Replace("##ID##", id),
+                "ENVIRONMENT" => ScoketMsgBFH[9].Replace("##ID##", id),
+                "IS_IGO_AVAILABLE" => ScoketMsgBFH[10].Replace("##ID##", id),
+                " SettingId=" => ScoketMsgBFH[10].Replace("##ID##", id),
                 _ => string.Empty,
             },
-            "><QueryFriends UserId=" => StockMSGBFH[11].Replace("##ID##", id),
-            "><QueryImage ImageId=" => StockMSGBFH[12].Replace("##ID##", id),
-            "><QueryPresence UserId=" => StockMSGBFH[13].Replace("##ID##", id),
-            "><SetPresence version=" => StockMSGBFH[14].Replace("##ID##", id),
-            "><GetAuthToken version=" => StockMSGBFH[16].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode("GOS-BlazeServer-HAVANA-PC")),
+            "><QueryFriends UserId=" => ScoketMsgBFH[11].Replace("##ID##", id),
+            "><QueryImage ImageId=" => ScoketMsgBFH[12].Replace("##ID##", id),
+            "><QueryPresence UserId=" => ScoketMsgBFH[13].Replace("##ID##", id),
+            "><SetPresence version=" => ScoketMsgBFH[14].Replace("##ID##", id),
+            "><GetAuthToken version=" => ScoketMsgBFH[16].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode("GOS-BlazeServer-HAVANA-PC")),
             _ => string.Empty,
         };
     }

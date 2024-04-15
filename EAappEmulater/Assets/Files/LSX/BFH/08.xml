@@ -1,5 +1,8 @@
 ﻿<LSX>
     <Response sender="EbisuSDK" id="##ID##">
-        <GetProfileResponse UserId="1" GeoCountry="HK" UserIndex="0" IsSubscriber="true" PersonaId="1201618778" SubscriberLevel="1" Persona="Misaka_Mikoto_01" Country="CN" CommerceCurrency="HKD" IsUnderAge="false" AvatarId="" CommerceCountry="HK" IsTrialSubscriber="false"/>
+        <GetProfileResponse UserId="1" GeoCountry="HK" UserIndex="0" IsSubscriber="true"
+            PersonaId="1201618778" SubscriberLevel="1" Persona="Misaka_Mikoto_01" Country="CN"
+            CommerceCurrency="HKD" IsUnderAge="false" AvatarId="" CommerceCountry="HK"
+            IsTrialSubscriber="false" />
     </Response>
 </LSX>

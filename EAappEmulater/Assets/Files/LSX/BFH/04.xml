@@ -1,5 +1,5 @@
 ﻿<LSX>
     <Response sender="EbisuSDK" id="##ID##">
-        <GetBlockListResponse Return="Success"/>
+        <GetBlockListResponse Return="Success" />
     </Response>
 </LSX>

@@ -1,5 +1,5 @@
 ﻿<LSX>
     <Response sender="Utility" id="##ID##">
-        <InternetConnectedState connected="1"/>
+        <InternetConnectedState connected="1" />
     </Response>
 </LSX>
