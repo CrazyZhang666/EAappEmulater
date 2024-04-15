@@ -139,6 +139,7 @@ public partial class LoadWindow
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
+                Loading_Normal.Visibility = Visibility.Hidden;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
                 DisplayLoadState("刷新基础 Token 信息失败，程序终止，请检查网络连接");
                 LoggerHelper.Error("刷新基础 Token 信息失败，程序终止，请检查网络连接");
@@ -168,17 +169,18 @@ public partial class LoadWindow
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
+                Loading_Normal.Visibility = Visibility.Hidden;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
-                DisplayLoadState("刷新基础 Token 信息失败，程序终止，请检查网络连接");
-                LoggerHelper.Error("刷新基础 Token 信息失败，程序终止，请检查网络连接");
+                DisplayLoadState("获取当前登录玩家信息失败，程序终止，请检查网络连接");
+                LoggerHelper.Error("获取当前登录玩家信息失败，程序终止，请检查网络连接");
                 return;
             }
 
             // 第1次不提示重试
             if (i > 0)
             {
-                DisplayLoadState($"刷新基础 Token 信息失败，开始第 {i} 次重试中...");
-                LoggerHelper.Info($"刷新基础 Token 信息失败，开始第 {i} 次重试中...");
+                DisplayLoadState($"获取当前登录玩家信息失败，开始第 {i} 次重试中...");
+                LoggerHelper.Info($"获取当前登录玩家信息失败，开始第 {i} 次重试中...");
             }
 
             if (await Ready.GetLoginAccountInfo())
@@ -190,7 +192,7 @@ public partial class LoadWindow
 
         /////////////////////////////////////////////////
 
-        // 防止新数据丢失
+        // 保存新数据，防止丢失
         Globals.Write(true);
 
         DisplayLoadState("初始化完成，开始启动主程序...");
