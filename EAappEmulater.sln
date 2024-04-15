@@ -11,11 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EADesktop", "EADesktop\EADe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OriginDebug", "OriginDebug\OriginDebug.csproj", "{36B7E168-C1AF-49A7-B494-7A64BB92B898}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{C4484AC9-2262-4360-93F6-B8B528537012}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{C4484AC9-2262-4360-93F6-B8B528537012}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		ToDoList.txt = ToDoList.txt
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{748E8399-7161-480B-9D96-2C2FEAE812EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1B9854E2-8332-4D88-81D6-AE940023557C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +42,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{32B06A09-9C1B-4DA1-B88D-41747ECE8166} = {1B9854E2-8332-4D88-81D6-AE940023557C}
+		{3EEC12DE-500B-4697-88C7-5ACA6AEBD4D8} = {1B9854E2-8332-4D88-81D6-AE940023557C}
+		{727E5CAF-4772-419A-8717-E0B7661AF50F} = {748E8399-7161-480B-9D96-2C2FEAE812EB}
+		{36B7E168-C1AF-49A7-B494-7A64BB92B898} = {748E8399-7161-480B-9D96-2C2FEAE812EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ACF53880-21E7-4FA3-B3B1-4EF810F8BD9F}
