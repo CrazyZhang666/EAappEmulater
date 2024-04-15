@@ -320,7 +320,7 @@ public static class LSXTcpServer
             },
             "><GetInternetConnectedState version=" => StockMSGBFV[6].Replace("##ID##", id),
             "><GetPresence UserId=" => StockMSGBFV[7].Replace("##ID##", id),
-            "><GetProfile index=" => StockMSGBFV[8].Replace("##ID##", id).Replace("##PID##", "1515810").Replace("##DSNM##", await EasyEaApi.GetLoginAccountName()),
+            "><GetProfile index=" => StockMSGBFV[8].Replace("##ID##", id).Replace("##PID##", "1515810").Replace("##DSNM##", Account.PlayerName),
             "><RequestLicense UserId=" => StockMSGBFV[15].Replace("##ID##", id).Replace("##License##", await EasyEaApi.GetLSXLicense(partArray[7], contentid)),
             "><GetSetting SettingId=" => settingId switch
             {

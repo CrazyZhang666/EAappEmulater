@@ -4,6 +4,7 @@
     xmlns:cvt="clr-namespace:EAappEmulater.UI.Converters">
 
     <cvt:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />
+    <cvt:StringToImageSource2Converter x:Key="StringToImageSourceConverter2" />
     <cvt:IsNullOrWhiteSpaceConverter x:Key="IsNullOrWhiteSpaceConverter" />
     <cvt:IsNullOrWhiteSpace2Converter x:Key="IsNullOrWhiteSpace2Converter" />
     <cvt:IsNullObjectConverter x:Key="IsNullObjectConverter" />

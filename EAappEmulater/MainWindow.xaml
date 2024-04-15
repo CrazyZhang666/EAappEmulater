@@ -39,7 +39,7 @@
                         FontSize="10"
                         Text="{Binding MainModel.PersonaId}" />
                 </StackPanel>
-                <ui:Image
+                <ui:Avatar
                     Width="30"
                     Height="30"
                     Margin="10,0,0,0"
@@ -81,45 +81,51 @@
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Bottom">
                         <ui:NavMenu
-                            Title="账户"
                             Command="{Binding NavigateCommand}"
                             CommandParameter="AccountView"
                             GroupName="NavMenu"
-                            Icon="&#xE748;" />
+                            Icon="&#xE748;"
+                            ToolTip="账户" />
                         <ui:NavMenu
-                            Title="设置"
                             Command="{Binding NavigateCommand}"
                             CommandParameter="SettingView"
                             GroupName="NavMenu"
-                            Icon="&#xE713;" />
+                            Icon="&#xE713;"
+                            ToolTip="设置" />
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Top">
                         <ui:NavMenu
-                            Title="游戏库"
                             Margin="5"
                             Command="{Binding NavigateCommand}"
                             CommandParameter="GameView"
                             GroupName="NavMenu"
                             Icon="&#xFA00;"
-                            IsChecked="True" />
+                            IsChecked="True"
+                            ToolTip="游戏库" />
                         <ui:NavMenu
-                            Title="商城"
                             Command="{Binding NavigateCommand}"
                             CommandParameter="Game2View"
                             GroupName="NavMenu"
-                            Icon="&#xE719;" />
+                            Icon="&#xE719;"
+                            ToolTip="商城" />
                         <ui:NavMenu
-                            Title="日志"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="FriendView"
+                            GroupName="NavMenu"
+                            Icon="&#xE716;"
+                            ToolTip="好友" />
+                        <ui:NavMenu
                             Command="{Binding NavigateCommand}"
                             CommandParameter="LogView"
                             GroupName="NavMenu"
-                            Icon="&#xF0E3;" />
+                            Icon="&#xF0E3;"
+                            ToolTip="日志" />
                         <ui:NavMenu
-                            Title="关于"
                             Command="{Binding NavigateCommand}"
                             CommandParameter="AboutView"
                             GroupName="NavMenu"
-                            Icon="&#xFA01;" />
+                            Icon="&#xFA01;"
+                            ToolTip="关于" />
                     </StackPanel>
                 </DockPanel>
             </Border>

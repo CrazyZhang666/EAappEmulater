@@ -14,6 +14,7 @@
         <ResourceDictionary Source="/EAappEmulater.UI;component/Styles/ToggleButton.xaml" />
 
         <ResourceDictionary Source="/EAappEmulater.UI;component/Styles/Image.xaml" />
+        <ResourceDictionary Source="/EAappEmulater.UI;component/Styles/Avatar.xaml" />
         <ResourceDictionary Source="/EAappEmulater.UI;component/Styles/NavMenu.xaml" />
         <ResourceDictionary Source="/EAappEmulater.UI;component/Styles/IconButton.xaml" />
         <ResourceDictionary Source="/EAappEmulater.UI;component/Styles/TextBoxHint.xaml" />

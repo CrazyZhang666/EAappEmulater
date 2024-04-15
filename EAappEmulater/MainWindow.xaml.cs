@@ -56,9 +56,13 @@ public partial class MainWindow
         MainModel.PlayerName = Account.PlayerName;
         MainModel.PersonaId = Account.PersonaId;
 
+        // 玩家头像为空处理
+        if (string.IsNullOrWhiteSpace(Account.Avatar))
+            MainModel.Avatar = "Default";
+
+        // 获取更新头像通知
         WeakReferenceMessenger.Default.Register<string, string>(this, "LoadAvatar", (s, e) =>
         {
-            MainModel.Avatar = string.Empty;
             MainModel.Avatar = Account.Avatar;
         });
 
@@ -86,6 +90,7 @@ public partial class MainWindow
     {
         NavDictionary.Add("GameView", new GameView());
         NavDictionary.Add("Game2View", new Game2View());
+        NavDictionary.Add("FriendView", new FriendView());
         NavDictionary.Add("LogView", new LogView());
         NavDictionary.Add("AboutView", new AboutView());
 

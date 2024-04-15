@@ -45,6 +45,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\EAappEmulater.UI\EAappEmulater.UI.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
         <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2420.47" />
         <PackageReference Include="NLog" Version="5.2.8" />
@@ -110,12 +114,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\EAappEmulater.UI\EAappEmulater.UI.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Resource Include="Assets\Icons\Favicon.ico" />
-        <Resource Include="Assets\Images\Avatars\Default.png" />
         <Resource Include="Assets\Images\Games\BF1.jpg" />
         <Resource Include="Assets\Images\Games\BF1_Logo.jpg" />
         <Resource Include="Assets\Images\Games\BF2042.jpg" />

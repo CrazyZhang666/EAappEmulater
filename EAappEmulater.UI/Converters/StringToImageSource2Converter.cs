@@ -1,6 +1,6 @@
 ﻿namespace EAappEmulater.UI.Converters;
 
-public class StringToImageSourceConverter : IValueConverter
+public class StringToImageSource2Converter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -36,7 +36,7 @@ public class StringToImageSourceConverter : IValueConverter
     IMAGE:
         var bitmapImage = new BitmapImage();
         bitmapImage.BeginInit();
-        bitmapImage.DecodePixelWidth = 200;
+        bitmapImage.DecodePixelWidth = 100;
         bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
         //bitmapImage.CreateOptions = BitmapCreateOptions.DelayCreation;
         bitmapImage.UriSource = new Uri(imgPath, UriKind.RelativeOrAbsolute);

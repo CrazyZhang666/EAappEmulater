@@ -2,6 +2,7 @@
 using EAappEmulater.Utils;
 using EAappEmulater.Helper;
 using CommunityToolkit.Mvvm.Messaging;
+using EAappEmulater.UI.Controls;
 
 namespace EAappEmulater.Core;
 
@@ -20,7 +21,7 @@ public static class Ready
         LoggerHelper.Info("正在启动 Battlelog 监听服务...");
         BattlelogHttpServer.Run();
 
-        LoggerHelper.Info("正在加载玩家头像中...");
+        // 加载玩家头像
         await LoadAvatar();
     }
 
@@ -41,7 +42,7 @@ public static class Ready
 
     /// <summary>
     /// 非常重要，Api请求前置条件
-    /// 刷新基础请求必备Token (d多个)
+    /// 刷新基础请求必备Token (多个)
     /// </summary>
     public static async Task<bool> RefreshBaseTokens()
     {
@@ -97,72 +98,106 @@ public static class Ready
         Account.UserId = persona.pidId.ToString();
         LoggerHelper.Info($"玩家UserId {Account.UserId}");
 
-        if (string.IsNullOrWhiteSpace(Account.Avatar))
-        {
-            Account.Avatar = "Assets/Images/Avatars/Default.png";
-            LoggerHelper.Warn("未发现玩家头像，将使用默认头像");
-        }
-
         return true;
     }
 
     private static async Task LoadAvatar()
     {
+        // 玩家头像存在的时候不获取
+        if (!string.IsNullOrWhiteSpace(Account.Avatar))
+        {
+            LoggerHelper.Info("玩家头像文件已存在，跳过重新获取操作");
+            return;
+        }
+
+        LoggerHelper.Info("正在获取当前登录玩家头像中...");
+
         // 最多执行4次
         for (int i = 0; i <= 4; i++)
         {
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
-                LoggerHelper.Error("加载玩家头像失败，请检查网络");
+                LoggerHelper.Error("获取当前登录玩家头像失败，请检查网络连接");
                 return;
             }
 
             // 第1次不提示重试
             if (i > 0)
             {
-                LoggerHelper.Warn($"加载玩家头像失败，开始第 {i} 次重试中...");
+                LoggerHelper.Info($"获取当前登录玩家头像，开始第 {i} 次重试中...");
             }
 
-            if (await GetUserAvatars())
+            // 判断玩家头像Id是否为空
+            if (string.IsNullOrWhiteSpace(Account.AvatarId))
             {
-                LoggerHelper.Info($"加载玩家头像成功 {Account.Avatar}");
-                WeakReferenceMessenger.Default.Send("", "LoadAvatar");
-                return;
+                // 如果头像Id为空，先获取
+                if (await GetAvatarByUserIds())
+                {
+                    // 获取头像Id成功，然后下载头像
+                    if (await DownloadAvatar(Account.AvatarId))
+                    {
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                // 如果头像Id不为空，直接下载头像
+                if (await DownloadAvatar(Account.AvatarId))
+                {
+                    return;
+                }
             }
         }
     }
 
     /// <summary>
-    /// 获取当前登录玩家头像
+    /// 批量获取玩家头像Id
     /// </summary>
-    private static async Task<bool> GetUserAvatars()
+    private static async Task<bool> GetAvatarByUserIds()
     {
-        LoggerHelper.Info("正在获取当前登录玩家头像...");
-        var result = await EasyEaApi.GetUserAvatars(Account.UserId);
+        LoggerHelper.Info("正在获取当前登录玩家头像Id中...");
+
+        var userIds = new List<string>
+        {
+            Account.UserId
+        };
+
+        var result = await EasyEaApi.GetAvatarByUserIds(userIds);
         if (result is null)
         {
-            LoggerHelper.Warn("获取当前登录玩家头像失败");
+            LoggerHelper.Warn("获取当前登录玩家头像Id失败");
             return false;
         }
 
         var avatar = result.users.First().avatar;
         Account.AvatarId = avatar.avatarId.ToString();
-        LoggerHelper.Info("获取当前登录玩家头像成功");
 
-        LoggerHelper.Info($"玩家AvatarId {Account.AvatarId}");
+        LoggerHelper.Info("获取当前登录玩家头像Id成功");
+        LoggerHelper.Info($"玩家 AvatarId {Account.AvatarId}");
+
+        return true;
+    }
+
+    private static async Task<bool> DownloadAvatar(string avatarId)
+    {
+        var avatarLink = $"https://secure.download.dm.origin.com/production/avatar/prod/userAvatar/{avatarId}/208x208.JPEG ";
 
         // 开始缓存玩家头像到本地
         var savePath = Path.Combine(CoreUtil.Dir_Avatar, $"{Account.AvatarId}.png");
-        if (!await CoreApi.DownloadWebImage(avatar.link, savePath))
+        if (!await CoreApi.DownloadWebImage(avatarLink, savePath))
         {
-            LoggerHelper.Info($"下载玩家头像失败 {avatar.link}");
+            LoggerHelper.Info($"下载当前登录玩家头像失败 {Account.AvatarId}");
             return false;
         }
 
-        LoggerHelper.Info($"下载玩家头像成功");
         Account.Avatar = savePath;
-        LoggerHelper.Info($"玩家Avatar {Account.Avatar}");
+
+        LoggerHelper.Info($"下载当前登录玩家头像成功");
+        LoggerHelper.Info($"玩家 Avatar {Account.Avatar}");
+
+        WeakReferenceMessenger.Default.Send("", "LoadAvatar");
 
         return true;
     }

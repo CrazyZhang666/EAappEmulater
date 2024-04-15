@@ -51,26 +51,26 @@ public static class EasyEaApi
     }
 
     /// <summary>
-    /// 获取登录玩家账号名称
+    /// 批量获取玩家头像
     /// </summary>
-    public static async Task<string> GetLoginAccountName()
+    public static async Task<Avatars> GetAvatarByUserIds(List<string> userIds)
     {
-        var result = await GetLoginAccountInfo();
-        if (result is null)
-            return string.Empty;
-
-        return result.personas.persona.First().displayName;
-    }
-
-    /// <summary>
-    /// 获取登录玩家头像
-    /// </summary>
-    public static async Task<Avatars> GetUserAvatars(string userId)
-    {
-        var result = await EaApi.GetUserAvatars(userId);
+        var result = await EaApi.GetAvatarByUserIds(userIds);
         if (!result.IsSuccess)
             return null;
 
         return JsonHelper.JsonDeserialize<Avatars>(result.Content);
+    }
+
+    /// <summary>
+    /// 获取登录玩家好友列表
+    /// </summary>
+    public static async Task<Friends> GetUserFriends()
+    {
+        var result = await EaApi.GetUserFriends();
+        if (!result.IsSuccess)
+            return null;
+
+        return JsonHelper.JsonDeserialize<Friends>(result.Content);
     }
 }

@@ -78,7 +78,8 @@ public static class Account
         AvatarId = ReadString("Account", "AvatarId");
 
         var avatar = ReadString("Account", "Avatar");
-        if (File.Exists(avatar))
+        // 玩家头像存在，并在玩家头像名称和头像Id一致
+        if (File.Exists(avatar) && Path.GetFileNameWithoutExtension(avatar) == AvatarId)
             Avatar = avatar;
 
         Remid = ReadString("Cookie", "Remid");
@@ -109,9 +110,7 @@ public static class Account
         WriteString("Account", "PersonaId", PersonaId);
         WriteString("Account", "UserId", UserId);
         WriteString("Account", "AvatarId", AvatarId);
-
-        if (File.Exists(Avatar))
-            WriteString("Account", "Avatar", Avatar);
+        WriteString("Account", "Avatar", Avatar);
 
         WriteString("Cookie", "Remid", Remid);
         WriteString("Cookie", "Sid", Sid);

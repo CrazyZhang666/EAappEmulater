@@ -178,7 +178,7 @@ public partial class LoadWindow
             if (i > 0)
             {
                 DisplayLoadState($"刷新基础 Token 信息失败，开始第 {i} 次重试中...");
-                LoggerHelper.Warn($"刷新基础 Token 信息失败，开始第 {i} 次重试中...");
+                LoggerHelper.Info($"刷新基础 Token 信息失败，开始第 {i} 次重试中...");
             }
 
             if (await Ready.GetLoginAccountInfo())

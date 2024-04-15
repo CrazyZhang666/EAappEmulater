@@ -24,7 +24,7 @@ public partial class AccountView : UserControl
     {
         foreach (var item in Account.AccountPathDb)
         {
-            ObsCol_AccountInfos.Add(new()
+            var account = new AccountInfo()
             {
                 Index = (int)item.Key,
                 IsUse = item.Key == Globals.AccountSlot,
@@ -37,7 +37,13 @@ public partial class AccountView : UserControl
 
                 Remid = IniHelper.ReadString("Cookie", "Remid", item.Value),
                 Sid = IniHelper.ReadString("Cookie", "Sid", item.Value)
-            });
+            };
+
+            // 玩家头像为空处理（仅有数据账号）
+            if (!string.IsNullOrWhiteSpace(account.Remid) && string.IsNullOrWhiteSpace(account.Avatar))
+                account.Avatar = "Default";
+
+            ObsCol_AccountInfos.Add(account);
         }
 
         ListBox_AccountInfo.SelectedIndex = (int)Globals.AccountSlot;
@@ -46,7 +52,6 @@ public partial class AccountView : UserControl
 
         WeakReferenceMessenger.Default.Register<string, string>(this, "LoadAvatar", (s, e) =>
         {
-            ObsCol_AccountInfos[(int)Globals.AccountSlot].Avatar = string.Empty;
             ObsCol_AccountInfos[(int)Globals.AccountSlot].Avatar = Account.Avatar;
         });
     }

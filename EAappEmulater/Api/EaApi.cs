@@ -171,11 +171,11 @@ public static class EaApi
     }
 
     /// <summary>
-    /// 通过 userId 获取玩家头像 (access_token)
+    /// 批量获取玩家头像 (access_token)
     /// </summary>
-    public static async Task<RespResult> GetUserAvatars(string userId)
+    public static async Task<RespResult> GetAvatarByUserIds(List<string> userIds)
     {
-        var respResult = new RespResult("GetUserAvatars Api");
+        var respResult = new RespResult("GetAvatarByUserIds Api");
 
         if (string.IsNullOrWhiteSpace(Account.AccessToken))
         {
@@ -183,9 +183,9 @@ public static class EaApi
             return respResult;
         }
 
-        if (string.IsNullOrWhiteSpace(userId))
+        if (userIds.Count == 0)
         {
-            LoggerHelper.Warn($"UserId 为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn($"UserId列表 为空，{respResult.ApiName} 请求终止");
             return respResult;
         }
 
@@ -193,7 +193,8 @@ public static class EaApi
         {
             respResult.Start();
 
-            var request = new RestRequest($"https://api1.origin.com/avatar/user/{userId}/avatars")
+            var idStr = string.Join(";", userIds);
+            var request = new RestRequest($"https://api1.origin.com/avatar/user/{idStr}/avatars")
             {
                 Method = Method.Get
             };
@@ -221,7 +222,70 @@ public static class EaApi
         catch (Exception ex)
         {
             respResult.Exception = ex.Message;
-            LoggerHelper.Error("GetUserAvatars Api请求异常", ex);
+            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
+        }
+        finally
+        {
+            respResult.Stop();
+        }
+
+        return respResult;
+    }
+
+    /// <summary>
+    /// 获取登录玩家好友列表 (access_token)
+    /// </summary>
+    public static async Task<RespResult> GetUserFriends()
+    {
+        var respResult = new RespResult("GetUserFriends Api");
+
+        if (string.IsNullOrWhiteSpace(Account.AccessToken))
+        {
+            LoggerHelper.Warn($"AccessToken 为空，{respResult.ApiName} 请求终止");
+            return respResult;
+        }
+
+        if (string.IsNullOrWhiteSpace(Account.UserId))
+        {
+            LoggerHelper.Warn($"UserId 为空，{respResult.ApiName} 请求终止");
+            return respResult;
+        }
+
+        try
+        {
+            respResult.Start();
+
+            var request = new RestRequest($"https://friends.gs.ea.com/friends/2/users/{Account.UserId}/friends")
+            {
+                Method = Method.Get
+            };
+
+            request.AddParameter("count", "250");
+            request.AddParameter("names", "true");
+
+            request.AddHeader("X-Api-Version", "2");
+            request.AddHeader("X-Application-Key", "origin");
+            request.AddHeader("X-AuthToken", Account.AccessToken);
+
+            var response = await _client.ExecuteAsync(request);
+            LoggerHelper.Info($"{respResult.ApiName} 请求完成，状态码 {response.StatusCode}");
+
+            respResult.StatusCode = response.StatusCode;
+            respResult.Content = response.Content;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                respResult.IsSuccess = true;
+            }
+            else
+            {
+                LoggerHelper.Info($"{respResult.ApiName} 请求失败，返回结果 {response.Content}");
+            }
+        }
+        catch (Exception ex)
+        {
+            respResult.Exception = ex.Message;
+            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
         }
         finally
         {
@@ -454,7 +518,7 @@ public static class EaApi
         catch (Exception ex)
         {
             respResult.Exception = ex.Message;
-            LoggerHelper.Error("GetLicense Api请求异常", ex);
+            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
         }
         finally
         {
