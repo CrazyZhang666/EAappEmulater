@@ -64,14 +64,12 @@
                 <DockPanel Margin="5,0,0,0">
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                         <ui:IconButton
-                            Width="120"
-                            Margin="0,0,10,5"
+                            Margin="0,0,5,5"
                             Command="{Binding SwitchAccountCommand}"
                             Content="切换此账号"
                             Icon="&#xE895;"
                             IsEnabled="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem, Converter={StaticResource IsNullObject2Converter}}" />
                         <ui:IconButton
-                            Width="120"
                             Margin="0,0,5,5"
                             Command="{Binding LogoutAccountCommand}"
                             Content="注销此账号"

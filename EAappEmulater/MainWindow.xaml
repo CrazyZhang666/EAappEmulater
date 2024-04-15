@@ -23,18 +23,13 @@
     <ui:Window.TitleContent>
         <DockPanel>
             <StackPanel
-                Margin="0,0,10,0"
                 VerticalAlignment="Center"
                 DockPanel.Dock="Right"
-                Orientation="Horizontal"
-                WindowChrome.IsHitTestVisibleInChrome="True">
+                Orientation="Horizontal">
                 <StackPanel VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Right" Text="{Binding MainModel.PlayerName}" />
                     <TextBlock
-                        HorizontalAlignment="Right"
-                        FontSize="12"
-                        Text="{Binding MainModel.PlayerName}" />
-                    <TextBlock
-                        Margin="0,1,0,0"
+                        Margin="0,2,0,0"
                         HorizontalAlignment="Right"
                         FontSize="10"
                         Text="{Binding MainModel.PersonaId}" />
@@ -42,8 +37,8 @@
                 <ui:Avatar
                     Width="30"
                     Height="30"
-                    Margin="10,0,0,0"
-                    BorderThickness="1"
+                    Margin="7,0,7,0"
+                    VerticalAlignment="Center"
                     Source="{Binding MainModel.Avatar}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
