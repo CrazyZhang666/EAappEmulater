@@ -116,7 +116,7 @@ public partial class MainWindow
         LoggerHelper.Info("正在检测新版本中...");
         NotifierHelper.Notice("正在检测新版本中...");
 
-        var webVersion = await EaApi.GetWebUpdateVersion();
+        var webVersion = await CoreApi.GetWebUpdateVersion();
         if (webVersion is null)
         {
             LoggerHelper.Warn("检测新版本失败");

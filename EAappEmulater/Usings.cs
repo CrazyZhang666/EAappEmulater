@@ -1,7 +1,6 @@
 ﻿global using System;
 global using System.IO;
 global using System.IO.Pipes;
-global using System.Web;
 global using System.Net;
 global using System.Net.Sockets;
 global using System.Data;
@@ -20,7 +19,6 @@ global using System.Windows.Threading;
 global using System.Runtime.InteropServices;
 global using System.Collections;
 global using System.Collections.Generic;
-global using System.Collections.Specialized;
 global using System.Collections.ObjectModel;
 global using System.Security.Principal;
 global using System.Security.Cryptography;

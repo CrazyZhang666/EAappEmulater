@@ -154,7 +154,7 @@ public static class Ready
 
         // 开始缓存玩家头像到本地
         var savePath = Path.Combine(CoreUtil.Dir_Avatar, $"{Account.AvatarId}.png");
-        if (!await EaApi.DownloadWebImage(avatar.link, savePath))
+        if (!await CoreApi.DownloadWebImage(avatar.link, savePath))
         {
             LoggerHelper.Info($"下载玩家头像失败 {avatar.link}");
             return false;
