@@ -171,21 +171,21 @@ public partial class LoadWindow
             {
                 Loading_Normal.Visibility = Visibility.Hidden;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
-                DisplayLoadState("获取当前登录玩家信息失败，程序终止，请检查网络连接");
-                LoggerHelper.Error("获取当前登录玩家信息失败，程序终止，请检查网络连接");
+                DisplayLoadState("获取玩家账号信息失败，程序终止，请检查网络连接");
+                LoggerHelper.Error("获取玩家账号信息失败，程序终止，请检查网络连接");
                 return;
             }
 
             // 第1次不提示重试
             if (i > 0)
             {
-                DisplayLoadState($"获取当前登录玩家信息失败，开始第 {i} 次重试中...");
-                LoggerHelper.Info($"获取当前登录玩家信息失败，开始第 {i} 次重试中...");
+                DisplayLoadState($"获取玩家账号信息失败，开始第 {i} 次重试中...");
+                LoggerHelper.Info($"获取玩家账号信息失败，开始第 {i} 次重试中...");
             }
 
             if (await Ready.GetLoginAccountInfo())
             {
-                LoggerHelper.Info("获取当前登录玩家信息成功");
+                LoggerHelper.Info("获取玩家账号信息成功");
                 break;
             }
         }

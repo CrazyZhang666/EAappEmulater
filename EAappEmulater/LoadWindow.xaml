@@ -84,7 +84,7 @@
                     x:Name="TextBlock_CheckState"
                     Width="280"
                     Margin="0,20,0,0"
-                    d:Text="刷新基础 Token 信息失败，程序终止，请检查网络"
+                    d:Text="刷新基础 Token 信息失败，程序终止，请检查网络连接"
                     FontSize="14"
                     Text="正在验证玩家账号有效性..."
                     TextAlignment="Center"

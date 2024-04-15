@@ -26,25 +26,22 @@ public static class EaApi
     /// </summary>
     private static void UpdateCookie(CookieCollection cookies, string apiName)
     {
-        if (cookies.Count == 2)
+        LoggerHelper.Info($"{apiName} Cookie 数量为 {cookies.Count}");
+
+        foreach (var item in cookies.ToList())
         {
-            if (cookies[0].Name.Equals("remid", StringComparison.OrdinalIgnoreCase))
+            if (item.Name.Equals("remid", StringComparison.OrdinalIgnoreCase))
             {
-                Account.Remid = cookies[0].Value;
+                Account.Remid = item.Value;
                 LoggerHelper.Info($"{apiName} 获取 Remid 成功 {Account.Remid}");
+                continue;
             }
-            if (cookies[1].Name.Equals("sid", StringComparison.OrdinalIgnoreCase))
+
+            if (item.Name.Equals("sid", StringComparison.OrdinalIgnoreCase))
             {
-                Account.Sid = cookies[1].Value;
+                Account.Sid = item.Value;
                 LoggerHelper.Info($"{apiName} 获取 Sid 成功 {Account.Sid}");
-            }
-        }
-        else
-        {
-            if (cookies[0].Name.Equals("sid", StringComparison.OrdinalIgnoreCase))
-            {
-                Account.Sid = cookies[0].Value;
-                LoggerHelper.Info($"{apiName} 获取 Sid 成功 {Account.Sid}");
+                continue;
             }
         }
     }
@@ -353,6 +350,8 @@ public static class EaApi
                     LoggerHelper.Info($"{respResult.ApiName} 获取 OriginPCAuth 成功 {Account.OriginPCAuth}");
 
                     respResult.IsSuccess = true;
+
+                    UpdateCookie(response.Cookies, respResult.ApiName);
                 }
             }
             else
@@ -426,6 +425,8 @@ public static class EaApi
                 LoggerHelper.Info($"{respResult.ApiName} 获取 OriginPCToken 成功 {Account.OriginPCToken}");
 
                 respResult.IsSuccess = true;
+
+                UpdateCookie(response.Cookies, respResult.ApiName);
             }
             else
             {
@@ -504,6 +505,8 @@ public static class EaApi
                     LoggerHelper.Debug($"{respResult.ApiName} 获取 License 成功 {decryptArray[1]}");
 
                     respResult.IsSuccess = true;
+
+                    UpdateCookie(response.Cookies, respResult.ApiName);
                 }
                 else
                 {

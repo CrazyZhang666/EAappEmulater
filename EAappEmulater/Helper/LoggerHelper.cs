@@ -18,7 +18,7 @@ public static class LoggerHelper
             FileName = "${specialfolder:folder=MyDocuments}/EAappEmulater/Log/NLog/${shortdate}.log",
             Layout = "${longdate} ${level:upperCase=true} ${message} ${exception:format=message}",
             MaxArchiveFiles = 30,
-            ArchiveAboveSize = 1024 * 1024,
+            ArchiveAboveSize = 1024 * 1024 * 10,
             ArchiveEvery = FileArchivePeriod.Day,
             Encoding = Encoding.UTF8
         };
