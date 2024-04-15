@@ -7,7 +7,7 @@
     xmlns:ntf="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
     x:Name="Window_Main"
-    Title="EAapp模拟器"
+    Title="EA app 模拟器"
     Width="1000"
     Height="600"
     MinWidth="1000"

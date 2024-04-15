@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
     x:Name="Window_Advanced"
-    Title="游戏高级设置"
+    Title="EA app 模拟器"
     Width="550"
     Height="370"
     CaptionHeight="60"

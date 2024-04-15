@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
     x:Name="Window_Dialog"
-    Title="Origin/EA App模拟"
+    Title="EA app 模拟器"
     Width="560"
     Height="350"
     Closing="Window_Dialog_Closing"

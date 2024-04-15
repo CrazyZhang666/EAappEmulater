@@ -22,7 +22,7 @@
             Margin="10"
             FontSize="30"
             FontWeight="Bold"
-            Text="Origin/EA App模拟"
+            Text="EA app 模拟器"
             TextAlignment="Center" />
 
         <TextBlock
