@@ -1,0 +1,21 @@
+﻿<ui:Window
+    x:Class="EAappEmulater.Windows.DialogWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
+    x:Name="Window_Dialog"
+    Title="Origin/EA App模拟"
+    Width="560"
+    Height="350"
+    Closing="Window_Dialog_Closing"
+    Loaded="Window_Dialog_Loaded"
+    ResizeMode="NoResize"
+    Style="{StaticResource SystemWindowStyle}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <Grid />
+
+</ui:Window>

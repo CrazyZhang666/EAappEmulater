@@ -1,0 +1,136 @@
+{
+  "offers": [
+    {
+      "offerId": "Origin.OFR.50.0000426",
+      "contentId": "1013920",
+      "softwareId": "Origin.SFT.50.0000189",
+      "displayName": "Battlefield™ Hardline",
+      "contentType": "BASE_GAME",
+      "progress": 0.8534,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "1.4.0.10"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000822@subscription",
+      "contentId": "",
+      "softwareId": "",
+      "displayName": "Battlefield™ Hardline Premium",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000514@subscription",
+      "contentId": "1025240",
+      "softwareId": "",
+      "displayName": "Suppression Battlepack",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000825",
+      "contentId": "1013928",
+      "softwareId": "Origin.SFT.50.0000353",
+      "displayName": "Battlefield™ Hardline Robbery",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000846@subscription",
+      "contentId": "1013920",
+      "softwareId": "Origin.SFT.50.0000189",
+      "displayName": "Battlefield™ Hardline Ultimate Edition",
+      "contentType": "BASE_GAME",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "1.4.0.10"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000826@subscription",
+      "contentId": "1031281",
+      "softwareId": "Origin.SFT.50.0000354",
+      "displayName": "Battlefield™ Hardline Getaway",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000827",
+      "contentId": "",
+      "softwareId": "Origin.SFT.50.0000355",
+      "displayName": "Battlefield™ Hardline: Betrayal",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000602",
+      "contentId": "1024943",
+      "softwareId": "Origin.SFT.50.0000286",
+      "displayName": "Battlefield™ Hardline Beta",
+      "contentType": "BASE_GAME",
+      "progress": 0,
+      "state": "NOT_INSTALLED",
+      "playState": "NOT_PLAYABLE",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000824",
+      "contentId": "",
+      "softwareId": "Origin.SFT.50.0000352",
+      "displayName": "Battlefield™ Hardline Criminal Activity",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000513@subscription",
+      "contentId": "1025238",
+      "softwareId": "",
+      "displayName": "Precision Battlepack",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000512@subscription",
+      "contentId": "1013921",
+      "softwareId": "",
+      "displayName": "Versatility Battlepack",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    }
+  ]
+}

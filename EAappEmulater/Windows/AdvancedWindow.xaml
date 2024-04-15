@@ -1,0 +1,171 @@
+﻿<ui:Window
+    x:Class="EAappEmulater.Windows.AdvancedWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
+    x:Name="Window_Advanced"
+    Title="游戏高级设置"
+    Width="550"
+    Height="370"
+    CaptionHeight="60"
+    Closing="Window_Advanced_Closing"
+    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+    Icon="/Assets/Icons/Favicon.ico"
+    Loaded="Window_Advanced_Loaded"
+    ResizeMode="NoResize"
+    Style="{StaticResource FitSystemWindowStyle}"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  标题栏  -->
+        <StackPanel Orientation="Horizontal">
+            <ui:Image
+                Width="46"
+                Height="46"
+                Margin="5"
+                VerticalAlignment="Center"
+                d:Source="Assets/Images/Games/SWBF2_Logo.jpg"
+                DockPanel.Dock="Left"
+                Source="{Binding AdvancedModel.Image2}" />
+            <StackPanel Margin="5,0,0,0" VerticalAlignment="Center">
+                <TextBlock
+                    d:Text="星球大战 : 前线2"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Text="{Binding AdvancedModel.Name}" />
+                <TextBlock
+                    Margin="0,5,0,0"
+                    d:Text="Star Wars : Battle Front II"
+                    Text="{Binding AdvancedModel.Name2}" />
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <!--  主要功能区域  -->
+            <TabControl>
+                <!--  注册表  -->
+                <ui:IconTabItem Header="注册表" Icon="&#xE80A;">
+                    <DockPanel Margin="0,3,0,0">
+                        <!--  标题  -->
+                        <ui:IconHeader Title="游戏位置" DockPanel.Dock="Top" />
+                        <!--  游戏路径  -->
+                        <ui:TextBoxHint
+                            DockPanel.Dock="Top"
+                            Hint="显示注册表游戏安装目录位置"
+                            IsReadOnly="True"
+                            Text="{Binding AdvancedModel.GameDir}" />
+                        <!--  标题  -->
+                        <ui:IconHeader
+                            Title="启动参数"
+                            Margin="5,0,5,0"
+                            DockPanel.Dock="Top" />
+                        <!--  启动参数  -->
+                        <ui:TextBoxHint
+                            Hint="输入游戏高级启动参数，比如：-PerfOverlay.DrawFps 1"
+                            Style="{StaticResource TextBoxHintStyle_MultiLine}"
+                            Text="{Binding AdvancedModel.GameArgs}" />
+                    </DockPanel>
+                </ui:IconTabItem>
+
+                <!--  自定义  -->
+                <ui:IconTabItem Header="自定义" Icon="&#xF8A5;">
+                    <DockPanel Margin="0,3,0,0">
+                        <!--  标题  -->
+                        <ui:IconHeader Title="游戏位置" DockPanel.Dock="Top" />
+                        <!--  游戏路径  -->
+                        <DockPanel DockPanel.Dock="Top">
+                            <ui:IconButton
+                                x:Name="IconButton_SelcetMainAppPath"
+                                Margin="0,5,5,5"
+                                Click="IconButton_SelcetMainAppPath_Click"
+                                Content="浏览"
+                                DockPanel.Dock="Right"
+                                Icon="&#xE721;" />
+                            <ui:TextBoxHint
+                                Hint="请选择游戏安装目录主程序exe文件位置"
+                                Icon="&#xE838;"
+                                IsReadOnly="True"
+                                Text="{Binding AdvancedModel.GameDir2}" />
+                        </DockPanel>
+                        <!--  标题  -->
+                        <ui:IconHeader
+                            Title="启动参数"
+                            Margin="5,0,5,0"
+                            DockPanel.Dock="Top" />
+                        <!--  启动参数  -->
+                        <ui:TextBoxHint
+                            Hint="输入游戏高级启动参数，比如：-PerfOverlay.DrawFps 1"
+                            Style="{StaticResource TextBoxHintStyle_MultiLine}"
+                            Text="{Binding AdvancedModel.GameArgs2}" />
+                    </DockPanel>
+                </ui:IconTabItem>
+            </TabControl>
+
+            <StackPanel
+                Margin="0,8,5,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Text="使用自定义位置" />
+                <ToggleButton Margin="10,0,0,0" IsChecked="{Binding AdvancedModel.IsUseCustom}" />
+            </StackPanel>
+        </Grid>
+
+        <!--  底部面板  -->
+        <DockPanel Grid.Row="2">
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                <!--  游戏语言  -->
+                <ComboBox
+                    x:Name="ComboBox_LocaleInfos"
+                    Width="180"
+                    Margin="5,5,0,5"
+                    ItemsSource="{Binding LocaleInfos}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel
+                                Background="Transparent"
+                                Orientation="Horizontal"
+                                ToolTip="{Binding Code}">
+                                <ui:Image
+                                    Width="28"
+                                    Height="21"
+                                    Margin="0,0,8,0"
+                                    Source="{Binding Image}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Name}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="NoWrap" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <ui:IconButton
+                    x:Name="IconButton_SaveOption"
+                    Margin="0,5,5,5"
+                    Click="IconButton_SaveOption_Click"
+                    Content="保存"
+                    Icon="&#xE74E;" />
+                <ui:IconButton
+                    x:Name="IconButton_CancelOption"
+                    Margin="0,5,5,5"
+                    Click="IconButton_CancelOption_Click"
+                    Content="取消"
+                    Icon="&#xE711;" />
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+
+</ui:Window>

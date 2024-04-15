@@ -1,0 +1,136 @@
+{
+  "offers": [
+    {
+      "offerId": "OFB-EAST:109550763",
+      "contentId": "1004841",
+      "softwareId": "Origin.SFT.50.0000105",
+      "displayName": "Battlefield 4™ China Rising",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "OFB-EAST:109550765",
+      "contentId": "1004842",
+      "softwareId": "Origin.SFT.50.0000175",
+      "displayName": "Battlefield 4™ Naval Strike",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "111433"
+    },
+    {
+      "offerId": "OFB-EAST:109550764",
+      "contentId": "1011893",
+      "softwareId": "Origin.SFT.50.0000193",
+      "displayName": "Battlefield 4™ Dragon's Teeth",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "1.0.0.0"
+    },
+    {
+      "offerId": "OFB-EAST:109546867",
+      "contentId": "1007968",
+      "softwareId": "Origin.SFT.50.0000019",
+      "displayName": "Battlefield 4™",
+      "contentType": "BASE_GAME",
+      "progress": 0.8153,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "1.8.2.48475"
+    },
+    {
+      "offerId": "OFB-EAST:109550761",
+      "contentId": "1011887",
+      "softwareId": "Origin.SFT.50.0000133",
+      "displayName": "Battlefield 4™ Second Assault",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "OFB-EAST:109550823",
+      "contentId": "1011899",
+      "softwareId": "Origin.SFT.50.0000194",
+      "displayName": "Battlefield 4™ Final Stand",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "1.0.0.0"
+    },
+    {
+      "offerId": "OFB-EAST:109552316@subscription",
+      "contentId": "1007077",
+      "softwareId": "Origin.SFT.50.0000019",
+      "displayName": "Battlefield 4™ Premium Edition",
+      "contentType": "BASE_GAME",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "1.8.2.48475"
+    },
+    {
+      "offerId": "OFB-EAST:109550762",
+      "contentId": "",
+      "softwareId": "",
+      "displayName": "Battlefield 4™ Premium Membership",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000909",
+      "contentId": "1031208",
+      "softwareId": "Origin.SFT.50.0000422",
+      "displayName": "Battlefield 4™ Community Operations",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000910",
+      "contentId": "1031205",
+      "softwareId": "Origin.SFT.50.0000423",
+      "displayName": "Battlefield 4™ Night Operations",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "Origin.OFR.50.0000911",
+      "contentId": "1032167",
+      "softwareId": "Origin.SFT.50.0000424",
+      "displayName": "Battlefield 4™ Legacy Operations",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    }
+  ]
+}
