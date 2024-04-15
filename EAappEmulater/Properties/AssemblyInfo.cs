@@ -11,13 +11,13 @@
 [assembly: Guid("a1155efc-e1c6-4abc-b91e-8a6a391490e3")]
 
 // PropertyGroup Generate????Attribute
-[assembly: AssemblyTitle("EAapp模拟器")]
-[assembly: AssemblyCompany("http://ea.sb")]
-[assembly: AssemblyProduct("EAapp模拟器")]
+[assembly: AssemblyTitle("EA app 模拟器")]
+[assembly: AssemblyCompany("https://battlefield.vip")]
+[assembly: AssemblyProduct("EA app 模拟器")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: AssemblyInformationalVersion("1.0.0.0")]
 
 // 不重复
-[assembly: AssemblyDescription("http://ea.sb")]
+[assembly: AssemblyDescription("https://battlefield.vip")]
 [assembly: AssemblyCopyright("Copyright © 2024-2024")]
