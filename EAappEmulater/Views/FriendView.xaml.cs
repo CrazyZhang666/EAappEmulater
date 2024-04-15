@@ -12,7 +12,7 @@ public partial class FriendView : UserControl
 {
     public ObservableCollection<FriendInfo> ObsCol_FriendInfos { get; set; } = new();
 
-    private List<FriendInfo> _friendInfoList = new();
+    private readonly List<FriendInfo> _friendInfoList = new();
 
     public FriendView()
     {
@@ -102,11 +102,11 @@ public partial class FriendView : UserControl
         var queryFreiResp = doc.CreateElement("QueryFriendsResponse");
         response.AppendChild(queryFreiResp);
 
-        var title = "正在遊玩《戰地風雲4》上海之圍 征服模式...";
-
         foreach (var friendInfo in _friendInfoList)
         {
             var friend = doc.CreateElement("Friend");
+
+            var title = MiscUtil.GetRandomFriendTitle();
 
             friend.SetAttribute("RichPresence", title);
             friend.SetAttribute("AvatarId", "##AvatarId##");
