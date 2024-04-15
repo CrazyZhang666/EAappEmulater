@@ -101,13 +101,13 @@
                             GroupName="NavMenu"
                             Icon="&#xFA00;"
                             IsChecked="True"
-                            ToolTip="游戏库" />
+                            ToolTip="已安装" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"
                             CommandParameter="Game2View"
                             GroupName="NavMenu"
                             Icon="&#xE719;"
-                            ToolTip="商城" />
+                            ToolTip="游戏库" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"
                             CommandParameter="FriendView"
