@@ -131,8 +131,8 @@ public partial class MainWindow
 
         if (CoreUtil.VersionInfo >= webVersion)
         {
-            LoggerHelper.Info($"恭喜，当前是最新版本 {webVersion}");
-            NotifierHelper.Info($"恭喜，当前是最新版本 {webVersion}");
+            LoggerHelper.Info($"恭喜，当前是最新版本 {CoreUtil.VersionInfo}");
+            NotifierHelper.Info($"恭喜，当前是最新版本 {CoreUtil.VersionInfo}");
             return;
         }
 
