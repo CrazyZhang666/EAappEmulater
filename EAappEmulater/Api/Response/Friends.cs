@@ -12,7 +12,7 @@ public class EntriesItem
     public string friendType { get; set; }
     public string dateTime { get; set; }
     public long userId { get; set; }
-    public string favorite { get; set; }
+    public bool favorite { get; set; }
     [JsonIgnore]
     public object edgeAttribute { get; set; }
     public string userType { get; set; }

@@ -23,8 +23,10 @@ public static class LSXTcpServer
 
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFV.{i:D2}.xml");
 
-            text = text.Replace("##BaseDirectory##", AppDomain.CurrentDomain.BaseDirectory);
-            text = text.Replace("##DateTimeNow##", $"{DateTime.Now:s}");
+            // 头像（不清楚为啥不显示）
+            text = text.Replace("##AvatarId##", "Avatars40.jpg");
+            // 当前时间
+            text = text.Replace("##SystemTime##", $"{DateTime.Now:s}");
 
             StockMSGBFV.Add(text);
         }
@@ -45,7 +47,8 @@ public static class LSXTcpServer
         {
             var text = FileHelper.GetEmbeddedResourceText($"LSX.TTF2.{i:D2}.xml");
 
-            text = text.Replace("##DateTimeNow##", $"{DateTime.Now:s}");
+            // 当前时间
+            text = text.Replace("##SystemTime##", $"{DateTime.Now:s}");
 
             StockMSGTTF2.Add(text);
         }

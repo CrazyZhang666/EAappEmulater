@@ -140,8 +140,8 @@ public partial class LoadWindow
             if (i > 3)
             {
                 IconFont_NetworkError.Visibility = Visibility.Visible;
-                DisplayLoadState("刷新基础 Token 信息失败，程序终止，请检查网络");
-                LoggerHelper.Error("刷新基础 Token 信息失败，程序终止，请检查网络");
+                DisplayLoadState("刷新基础 Token 信息失败，程序终止，请检查网络连接");
+                LoggerHelper.Error("刷新基础 Token 信息失败，程序终止，请检查网络连接");
                 return;
             }
 
@@ -169,8 +169,8 @@ public partial class LoadWindow
             if (i > 3)
             {
                 IconFont_NetworkError.Visibility = Visibility.Visible;
-                DisplayLoadState("刷新基础 Token 信息失败，程序终止，请检查网络");
-                LoggerHelper.Error("刷新基础 Token 信息失败，程序终止，请检查网络");
+                DisplayLoadState("刷新基础 Token 信息失败，程序终止，请检查网络连接");
+                LoggerHelper.Error("刷新基础 Token 信息失败，程序终止，请检查网络连接");
                 return;
             }
 

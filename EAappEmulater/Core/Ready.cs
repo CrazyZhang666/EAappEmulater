@@ -2,7 +2,6 @@
 using EAappEmulater.Utils;
 using EAappEmulater.Helper;
 using CommunityToolkit.Mvvm.Messaging;
-using EAappEmulater.UI.Controls;
 
 namespace EAappEmulater.Core;
 
@@ -135,7 +134,7 @@ public static class Ready
                 if (await GetAvatarByUserIds())
                 {
                     // 获取头像Id成功，然后下载头像
-                    if (await DownloadAvatar(Account.AvatarId))
+                    if (await DownloadAvatar())
                     {
                         return;
                     }
@@ -144,7 +143,7 @@ public static class Ready
             else
             {
                 // 如果头像Id不为空，直接下载头像
-                if (await DownloadAvatar(Account.AvatarId))
+                if (await DownloadAvatar())
                 {
                     return;
                 }
@@ -171,6 +170,7 @@ public static class Ready
             return false;
         }
 
+        // 仅获取数组第一个
         var avatar = result.users.First().avatar;
         Account.AvatarId = avatar.avatarId.ToString();
 
@@ -180,15 +180,18 @@ public static class Ready
         return true;
     }
 
-    private static async Task<bool> DownloadAvatar(string avatarId)
+    /// <summary>
+    /// 下载玩家头像
+    /// </summary>
+    private static async Task<bool> DownloadAvatar()
     {
-        var avatarLink = $"https://secure.download.dm.origin.com/production/avatar/prod/userAvatar/{avatarId}/208x208.JPEG ";
+        var avatarLink = $"https://secure.download.dm.origin.com/production/avatar/prod/userAvatar/{Account.AvatarId}/208x208.JPEG ";
 
         // 开始缓存玩家头像到本地
         var savePath = Path.Combine(CoreUtil.Dir_Avatar, $"{Account.AvatarId}.png");
         if (!await CoreApi.DownloadWebImage(avatarLink, savePath))
         {
-            LoggerHelper.Info($"下载当前登录玩家头像失败 {Account.AvatarId}");
+            LoggerHelper.Warn($"下载当前登录玩家头像失败 {Account.AvatarId}");
             return false;
         }
 

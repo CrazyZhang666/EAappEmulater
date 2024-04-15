@@ -115,6 +115,7 @@
 
     <ItemGroup>
         <Resource Include="Assets\Icons\Favicon.ico" />
+        <Resource Include="Assets\Images\Avatars\Default.png" />
         <Resource Include="Assets\Images\Games\BF1.jpg" />
         <Resource Include="Assets\Images\Games\BF1_Logo.jpg" />
         <Resource Include="Assets\Images\Games\BF2042.jpg" />

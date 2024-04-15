@@ -37,14 +37,14 @@
                             Visibility="{Binding IsUse, Converter={StaticResource BoolToVisibilityConverter}}" />
 
                         <ui:Avatar
-                            Width="45"
-                            Height="45"
+                            Width="40"
+                            Height="40"
                             Margin="0,5,0,5"
                             VerticalAlignment="Center"
                             DockPanel.Dock="Left"
                             Source="{Binding Avatar}" />
                         <StackPanel Margin="10,0,5,0" VerticalAlignment="Center">
-                            <TextBlock FontSize="16" Text="{Binding PlayerName}" />
+                            <TextBlock FontSize="14" Text="{Binding PlayerName}" />
                             <TextBlock Margin="0,3,0,0" Text="{Binding PersonaId}" />
                         </StackPanel>
                     </DockPanel>
