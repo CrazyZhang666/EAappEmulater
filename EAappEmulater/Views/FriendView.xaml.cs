@@ -12,6 +12,8 @@ public partial class FriendView : UserControl
 {
     public ObservableCollection<FriendInfo> ObsCol_FriendInfos { get; set; } = new();
 
+    private List<FriendInfo> _friendInfoList = new();
+
     public FriendView()
     {
         InitializeComponent();
@@ -44,13 +46,13 @@ public partial class FriendView : UserControl
             {
                 LoggerHelper.Info("获取当前登录玩家列表成功");
 
-                var index = 0;
                 foreach (var entry in friends.entries)
                 {
-                    ObsCol_FriendInfos.Add(new()
+                    _friendInfoList.Add(new()
                     {
-                        Index = ++index,
                         Avatar = "Assets/Images/Avatars/Default.png",
+                        DiffDays = CoreUtil.DiffDays(entry.timestamp),
+
                         DisplayName = entry.displayName,
                         NickName = entry.nickName,
                         UserId = entry.userId,
@@ -59,6 +61,19 @@ public partial class FriendView : UserControl
                         DateTime = CoreUtil.TimestampToDataTimeString(entry.timestamp)
                     });
                 }
+
+                // 升序排序
+                _friendInfoList.Sort((x, y) => x.DisplayName.CompareTo(y.DisplayName));
+
+                var index = 0;
+                foreach (var friend in _friendInfoList)
+                {
+                    friend.Index = ++index;
+                    ObsCol_FriendInfos.Add(friend);
+                }
+
+                if (ObsCol_FriendInfos.Count != 0)
+                    ListBox_FriendInfo.SelectedIndex = 0;
 
                 break;
             }

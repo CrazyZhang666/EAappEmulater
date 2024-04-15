@@ -36,7 +36,8 @@ public partial class AccountView : UserControl
                 Avatar = IniHelper.ReadString("Account", "Avatar", item.Value),
 
                 Remid = IniHelper.ReadString("Cookie", "Remid", item.Value),
-                Sid = IniHelper.ReadString("Cookie", "Sid", item.Value)
+                Sid = IniHelper.ReadString("Cookie", "Sid", item.Value),
+                Token = IniHelper.ReadString("Cookie", "AccessToken", item.Value)
             };
 
             // 玩家头像为空处理（仅有数据账号）

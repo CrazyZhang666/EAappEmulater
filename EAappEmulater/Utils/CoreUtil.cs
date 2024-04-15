@@ -131,18 +131,30 @@ public static class CoreUtil
     /// <summary>
     /// 时间戳转本地时间
     /// </summary>
-    public static DateTime TimestampToDataTime(long timestamp)
+    public static DateTime TimestampToDataTime(long timeStamp)
     {
-        return DateTimeOffset.FromUnixTimeMilliseconds(timestamp).LocalDateTime;
+        return DateTimeOffset.FromUnixTimeMilliseconds(timeStamp).LocalDateTime;
     }
 
     /// <summary>
     /// 时间戳转本地时间字符串
     /// </summary>
-    public static string TimestampToDataTimeString(long timestamp)
+    public static string TimestampToDataTimeString(long timeStamp)
     {
-        var dateTime = DateTimeOffset.FromUnixTimeMilliseconds(timestamp).LocalDateTime;
+        var dateTime = TimestampToDataTime(timeStamp);
         return dateTime.ToString("yyyy/MM/dd HH:mm:ss");
+    }
+
+    /// <summary>
+    /// 返回时间戳相差天数
+    /// </summary>
+    /// <param name="timeStamp"></param>
+    /// <returns></returns>
+    public static int DiffDays(long timeStamp)
+    {
+        var dateTime = TimestampToDataTime(timeStamp);
+        var daysSpan = new TimeSpan(DateTime.Now.Ticks - dateTime.Ticks);
+        return daysSpan.Days;
     }
 
     /// <summary>

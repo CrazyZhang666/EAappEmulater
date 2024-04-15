@@ -12,8 +12,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
-            <ColumnDefinition Width="600" />
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="550" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -25,10 +25,19 @@
                 <DataTemplate>
                     <DockPanel>
                         <TextBlock
+                            Width="30"
                             Margin="5,0,10,0"
                             VerticalAlignment="Center"
                             DockPanel.Dock="Right"
-                            Text="{Binding Index}" />
+                            Text="{Binding Index}"
+                            TextAlignment="Right" />
+                        <TextBlock
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Right"
+                            FontSize="10"
+                            Text="{Binding DiffDays, StringFormat='{}{0} 天'}"
+                            TextAlignment="Right" />
 
                         <ui:Avatar
                             Width="40"
@@ -45,6 +54,67 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        <StackPanel Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <ui:Avatar
+                    Width="60"
+                    Height="60"
+                    Margin="5"
+                    BorderThickness="1"
+                    DockPanel.Dock="Left"
+                    Source="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.Avatar}" />
+                <StackPanel Margin="5,0,0,0" VerticalAlignment="Center">
+                    <TextBlock
+                        d:Text="PlayerName"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.DisplayName}" />
+                    <TextBlock
+                        Margin="0,5,0,0"
+                        d:Text="你们已经成为好友 360 天"
+                        Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.DiffDays, StringFormat='你们已经成为好友 {0} 天'}" />
+                </StackPanel>
+            </StackPanel>
+
+            <ui:IconHeader Title="DisplayName" DockPanel.Dock="Top" />
+            <ui:TextBoxHint
+                Hint="显示选中账号DisplayName信息"
+                IsReadOnly="True"
+                Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.DisplayName}" />
+
+            <ui:IconHeader Title="NickName" DockPanel.Dock="Top" />
+            <ui:TextBoxHint
+                Hint="显示选中账号NickName信息"
+                IsReadOnly="True"
+                Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.NickName}" />
+
+            <ui:IconHeader Title="PersonaId" DockPanel.Dock="Top" />
+            <ui:TextBoxHint
+                Hint="显示选中账号PersonaId信息"
+                IsReadOnly="True"
+                Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.PersonaId}" />
+
+            <ui:IconHeader Title="UserId" DockPanel.Dock="Top" />
+            <ui:TextBoxHint
+                Hint="显示选中账号UserId信息"
+                IsReadOnly="True"
+                Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.UserId}" />
+
+            <ui:IconHeader Title="FriendType" DockPanel.Dock="Top" />
+            <ui:TextBoxHint
+                Hint="显示选中账号FriendType信息"
+                IsReadOnly="True"
+                Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.FriendType}" />
+
+            <ui:IconHeader Title="DateTime" DockPanel.Dock="Top" />
+            <ui:TextBoxHint
+                Hint="显示选中账号DateTime信息"
+                IsReadOnly="True"
+                Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.DateTime}" />
+
+        </StackPanel>
+
 
     </Grid>
 

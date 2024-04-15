@@ -90,7 +90,7 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Margin" Value="5" />
         <Setter Property="Padding" Value="5" />
-        <Setter Property="MinHeight" Value="70" />
+        <Setter Property="MinHeight" Value="35" />
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="Background" Value="White" />
         <Setter Property="BorderThickness" Value="1" />

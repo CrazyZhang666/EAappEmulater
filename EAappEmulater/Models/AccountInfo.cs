@@ -18,4 +18,5 @@ public partial class AccountInfo : ObservableObject
 
     public string Remid { get; set; }
     public string Sid { get; set; }
+    public string Token { get; set; }
 }

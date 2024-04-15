@@ -55,8 +55,8 @@
         <StackPanel Grid.Column="1">
             <StackPanel Orientation="Horizontal">
                 <ui:Avatar
-                    Width="80"
-                    Height="80"
+                    Width="70"
+                    Height="70"
                     Margin="5"
                     BorderThickness="1"
                     DockPanel.Dock="Left"
@@ -65,8 +65,7 @@
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                         <ui:IconButton
                             Width="120"
-                            Height="35"
-                            Margin="0,0,5,5"
+                            Margin="0,0,10,5"
                             Command="{Binding SwitchAccountCommand}"
                             Content="切换此账号"
                             Icon="&#xE895;"
@@ -82,11 +81,17 @@
                     <TextBlock
                         VerticalAlignment="Center"
                         d:Text="PlayerName"
-                        FontSize="24"
+                        FontSize="22"
                         FontWeight="Bold"
                         Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.PlayerName}" />
                 </DockPanel>
             </StackPanel>
+
+            <ui:IconHeader Title="PlayerName" DockPanel.Dock="Top" />
+            <ui:TextBoxHint
+                Hint="显示选中账号PlayerName信息"
+                IsReadOnly="True"
+                Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.PlayerName}" />
 
             <ui:IconHeader Title="PersonaId" DockPanel.Dock="Top" />
             <ui:TextBoxHint
@@ -102,7 +107,7 @@
 
             <ui:IconHeader Title="Remid" DockPanel.Dock="Top" />
             <ui:TextBoxHint
-                Height="100"
+                Height="60"
                 Hint="显示选中账号Remid信息"
                 IsReadOnly="True"
                 Style="{StaticResource TextBoxHintStyle_MultiLine}"
@@ -110,11 +115,19 @@
 
             <ui:IconHeader Title="Sid" DockPanel.Dock="Top" />
             <ui:TextBoxHint
-                Height="100"
+                Height="60"
                 Hint="显示选中账号Sid信息"
                 IsReadOnly="True"
                 Style="{StaticResource TextBoxHintStyle_MultiLine}"
                 Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Sid}" />
+
+            <ui:IconHeader Title="Token" DockPanel.Dock="Top" />
+            <ui:TextBoxHint
+                Height="60"
+                Hint="显示选中账号Token信息"
+                IsReadOnly="True"
+                Style="{StaticResource TextBoxHintStyle_MultiLine}"
+                Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Token}" />
 
         </StackPanel>
 
