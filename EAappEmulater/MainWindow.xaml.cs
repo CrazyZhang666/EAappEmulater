@@ -5,6 +5,7 @@ using EAappEmulater.Views;
 using EAappEmulater.Helper;
 using EAappEmulater.Models;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace EAappEmulater;
 
@@ -54,6 +55,12 @@ public partial class MainWindow
         MainModel.Avatar = Account.Avatar;
         MainModel.PlayerName = Account.PlayerName;
         MainModel.PersonaId = Account.PersonaId;
+
+        WeakReferenceMessenger.Default.Register<string, string>(this, "LoadAvatar", (s, e) =>
+        {
+            MainModel.Avatar = string.Empty;
+            MainModel.Avatar = Account.Avatar;
+        });
 
         // 检查更新（放到最后执行）
         await CheckUpdate();
@@ -109,18 +116,18 @@ public partial class MainWindow
         LoggerHelper.Info("正在检测新版本中...");
         NotifierHelper.Notice("正在检测新版本中...");
 
-        var version = await EaApi.GetWebUpdateVersion();
-        if (version is null)
+        var webVersion = await EaApi.GetWebUpdateVersion();
+        if (webVersion is null)
         {
             LoggerHelper.Warn("检测新版本失败");
             NotifierHelper.Warning("检测新版本失败");
             return;
         }
 
-        if (CoreUtil.VersionInfo == version)
+        if (CoreUtil.VersionInfo >= webVersion)
         {
-            LoggerHelper.Info($"恭喜，当前是最新版本 {version}");
-            NotifierHelper.Info($"恭喜，当前是最新版本 {version}");
+            LoggerHelper.Info($"恭喜，当前是最新版本 {webVersion}");
+            NotifierHelper.Info($"恭喜，当前是最新版本 {webVersion}");
             return;
         }
 

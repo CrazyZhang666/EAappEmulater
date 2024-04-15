@@ -15,8 +15,8 @@ public static class Account
     public static string PlayerName { get; set; }
     public static string PersonaId { get; set; }
     public static string UserId { get; set; }
-    public static string Avatar { get; set; }
     public static string AvatarId { get; set; }
+    public static string Avatar { get; set; }
 
     /////////////////////////////////////////////////
 
@@ -51,8 +51,8 @@ public static class Account
         PlayerName = string.Empty;
         PersonaId = string.Empty;
         UserId = string.Empty;
-        Avatar = string.Empty;
         AvatarId = string.Empty;
+        Avatar = string.Empty;
 
         Remid = string.Empty;
         Sid = string.Empty;
@@ -75,8 +75,11 @@ public static class Account
         PlayerName = ReadString("Account", "PlayerName");
         PersonaId = ReadString("Account", "PersonaId");
         UserId = ReadString("Account", "UserId");
-        Avatar = ReadString("Account", "Avatar");
         AvatarId = ReadString("Account", "AvatarId");
+
+        var avatar = ReadString("Account", "Avatar");
+        if (File.Exists(avatar))
+            Avatar = avatar;
 
         Remid = ReadString("Cookie", "Remid");
         Sid = ReadString("Cookie", "Sid");
@@ -105,8 +108,10 @@ public static class Account
         WriteString("Account", "PlayerName", PlayerName);
         WriteString("Account", "PersonaId", PersonaId);
         WriteString("Account", "UserId", UserId);
-        WriteString("Account", "Avatar", Avatar);
         WriteString("Account", "AvatarId", AvatarId);
+
+        if (File.Exists(Avatar))
+            WriteString("Account", "Avatar", Avatar);
 
         WriteString("Cookie", "Remid", Remid);
         WriteString("Cookie", "Sid", Sid);

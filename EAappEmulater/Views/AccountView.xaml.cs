@@ -2,6 +2,7 @@
 using EAappEmulater.Helper;
 using EAappEmulater.Models;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace EAappEmulater.Views;
 
@@ -40,6 +41,14 @@ public partial class AccountView : UserControl
         }
 
         ListBox_AccountInfo.SelectedIndex = (int)Globals.AccountSlot;
+
+        //////////////////////////////////////////
+
+        WeakReferenceMessenger.Default.Register<string, string>(this, "LoadAvatar", (s, e) =>
+        {
+            ObsCol_AccountInfos[(int)Globals.AccountSlot].Avatar = string.Empty;
+            ObsCol_AccountInfos[(int)Globals.AccountSlot].Avatar = Account.Avatar;
+        });
     }
 
     private void RunLoadWindow(bool isLogout = false)
@@ -56,34 +65,6 @@ public partial class AccountView : UserControl
 
         // 显示初始化窗口
         loadWindow.Show();
-    }
-
-    [RelayCommand]
-    private async Task LoadAvatar()
-    {
-        var index = ListBox_AccountInfo.SelectedIndex;
-
-        if (string.IsNullOrWhiteSpace(ObsCol_AccountInfos[index].UserId))
-        {
-            LoggerHelper.Warn("玩家 UserId 为空，操作取消");
-            NotifierHelper.Warning("玩家 UserId 为空，操作取消");
-        }
-
-        LoggerHelper.Info("正在获取玩家头像中...");
-        NotifierHelper.Notice("正在获取玩家头像中...");
-
-        if (await Ready.GetUserAvatars())
-        {
-            ObsCol_AccountInfos[index].Avatar = Account.Avatar;
-
-            LoggerHelper.Info($"获取玩家头像成功 {Account.Avatar}");
-            NotifierHelper.Success("获取玩家头像成功");
-
-            return;
-        }
-
-        LoggerHelper.Warn("获取玩家头像失败");
-        NotifierHelper.Warning("获取玩家头像失败");
     }
 
     [RelayCommand]

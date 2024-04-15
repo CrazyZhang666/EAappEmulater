@@ -1,12 +1,13 @@
 ﻿using EAappEmulater.Api;
 using EAappEmulater.Utils;
 using EAappEmulater.Helper;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace EAappEmulater.Core;
 
 public static class Ready
 {
-    public static void Run()
+    public static async void Run()
     {
         // 打开服务进程
         LoggerHelper.Info("正在启动服务进程...");
@@ -18,6 +19,9 @@ public static class Ready
 
         LoggerHelper.Info("正在启动 Battlelog 监听服务...");
         BattlelogHttpServer.Run();
+
+        LoggerHelper.Info("正在加载玩家头像中...");
+        await LoadAvatar();
     }
 
     public static void Stop()
@@ -102,10 +106,37 @@ public static class Ready
         return true;
     }
 
+    private static async Task LoadAvatar()
+    {
+        // 最多执行4次
+        for (int i = 0; i <= 4; i++)
+        {
+            // 当第4次还是失败，终止程序
+            if (i > 3)
+            {
+                LoggerHelper.Error("加载玩家头像失败，请检查网络");
+                return;
+            }
+
+            // 第1次不提示重试
+            if (i > 0)
+            {
+                LoggerHelper.Warn($"加载玩家头像失败，开始第 {i} 次重试中...");
+            }
+
+            if (await GetUserAvatars())
+            {
+                LoggerHelper.Info($"加载玩家头像成功 {Account.Avatar}");
+                WeakReferenceMessenger.Default.Send("", "LoadAvatar");
+                return;
+            }
+        }
+    }
+
     /// <summary>
     /// 获取当前登录玩家头像
     /// </summary>
-    public static async Task<bool> GetUserAvatars()
+    private static async Task<bool> GetUserAvatars()
     {
         LoggerHelper.Info("正在获取当前登录玩家头像...");
         var result = await EasyEaApi.GetUserAvatars(Account.UserId);
