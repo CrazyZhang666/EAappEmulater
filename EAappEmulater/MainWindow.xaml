@@ -15,7 +15,7 @@
     CaptionHeight="40"
     Closing="Window_Main_Closing"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-    Icon="/Assets/Icons/Favicon.ico"
+    Icon="Assets/Icons/Favicon.ico"
     Loaded="Window_Main_Loaded"
     Style="{StaticResource CustomSystemWindowStyle}"
     mc:Ignorable="d">
@@ -52,7 +52,7 @@
                     Width="22"
                     Height="22"
                     Margin="7,0,0,0"
-                    Source="{Binding Icon}" />
+                    Source="Assets/Icons/Favicon.ico" />
                 <TextBlock
                     Margin="7,0,0,0"
                     VerticalAlignment="Center"

@@ -12,7 +12,7 @@
     Height="660"
     Closing="Window_Load_Closing"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-    Icon="/Assets/Icons/Favicon.ico"
+    Icon="Assets/Icons/Favicon.ico"
     Loaded="Window_Load_Loaded"
     ResizeMode="NoResize"
     Style="{StaticResource CustomSystemWindowStyle}"
@@ -50,7 +50,7 @@
                     Width="18"
                     Height="18"
                     Margin="7,0,0,0"
-                    Source="{Binding Icon}" />
+                    Source="Assets/Icons/Favicon.ico" />
                 <TextBlock
                     Margin="7,0,0,0"
                     VerticalAlignment="Center"
