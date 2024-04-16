@@ -42,7 +42,9 @@ public static class LSXTcpServer
 
         _tcpServer = new TcpListener(IPAddress.Parse("127.0.0.1"), 3216);
         _tcpServer.Start();
-        LoggerHelper.Info("启动 LSX 监听服务成功，监听端口为 3216");
+
+        LoggerHelper.Info("启动 LSX 监听服务成功");
+        LoggerHelper.Debug("LSX 服务监听端口为 3216");
 
         // 注意线程释放问题，避免重复创建
         _isRunning = true;

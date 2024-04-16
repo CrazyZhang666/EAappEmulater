@@ -75,8 +75,8 @@ public static class CoreUtil
 
         File_FrostyMod_FrostyModManager = Path.Combine(Dir_AppData, "FrostyMod\\FrostyModManager.exe");
         File_FrostyMod_Frosty_ManagerConfig = Path.Combine(Dir_AppData, "FrostyMod\\Frosty\\manager_config.json");
-        File_Marne_MarneLauncher = Path.Combine(Dir_AppData, "FrostyMod\\Marne\\MarneLauncher.exe");
-        File_Marne_MarneDll = Path.Combine(Dir_AppData, "FrostyMod\\Marne\\Marne.dll");
+        File_Marne_MarneLauncher = Path.Combine(Dir_AppData, "Marne\\MarneLauncher.exe");
+        File_Marne_MarneDll = Path.Combine(Dir_AppData, "Marne\\Marne.dll");
         File_BattlefieldChat = Path.Combine(Dir_AppData, "Tools\\BattlefieldChat.exe");
         #endregion
 

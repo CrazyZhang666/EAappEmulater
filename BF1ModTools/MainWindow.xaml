@@ -65,6 +65,9 @@
 
             <!--  主要功能区  -->
             <views:LaunchView Grid.Row="1" />
+
+            <!--  程序日志区域  -->
+            <views:LogView Grid.Row="2" />
         </Grid>
 
         <!--  通知区域  -->

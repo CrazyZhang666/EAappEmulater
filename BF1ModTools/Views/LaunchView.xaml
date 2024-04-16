@@ -15,7 +15,7 @@
         <!--  分区一  -->
         <ui:CardMenu
             Title="Frosty Mod Manager"
-            Margin="0,2,0,2"
+            Margin="5,2,5,2"
             Source="pack://application:,,,/BF1ModTools;component/Assets/Images/FrostyModManager.png">
             <ui:CardMenu.Description>
                 用于安装和启动战地1Mod工具，若要游玩Mod服则需要用此工具启动，否则Mod将不会生效
@@ -43,7 +43,7 @@
         <!--  分区二  -->
         <ui:CardMenu
             Title="BF1 Marne Launcher"
-            Margin="5,2,5,2"
+            Margin="0,2,0,2"
             Source="pack://application:,,,/BF1ModTools;component/Assets/Images/MarneLauncher.png">
             <ui:CardMenu.Description>
                 用于游玩战地1Marne专用私人服务器，与EA官方服务器无关，数据不互通，支持自定义中文ID

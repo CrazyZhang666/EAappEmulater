@@ -54,7 +54,8 @@ public static class BattlelogHttpServer
         _httpListener.Prefixes.Add("http://127.0.0.1:4219/");
         _httpListener.Start();
 
-        LoggerHelper.Info("启动 Battlelog 监听服务成功，监听端口为 3215 和 4219");
+        LoggerHelper.Info("启动 Battlelog 监听服务成功");
+        LoggerHelper.Debug("Battlelog 服务监听端口为 3215 和 4219");
 
         _httpListener.BeginGetContext(Result, null);
 
