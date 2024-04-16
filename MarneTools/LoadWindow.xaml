@@ -1,0 +1,21 @@
+﻿<ui:Window
+    x:Class="MarneTools.LoadWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
+    x:Name="Window_Load"
+    Title="马恩工具箱"
+    Width="380"
+    Height="660"
+    Closing="Window_Load_Closing"
+    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+    Loaded="Window_Load_Loaded"
+    ResizeMode="NoResize"
+    Style="{StaticResource CustomSystemWindowStyle}"
+    mc:Ignorable="d">
+
+    <Grid />
+
+</ui:Window>

@@ -46,12 +46,10 @@
                     Background="Gray" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Image
+                <ui:Image
                     Width="18"
                     Height="18"
                     Margin="7,0,0,0"
-                    VerticalAlignment="Center"
-                    RenderOptions.BitmapScalingMode="HighQuality"
                     Source="{Binding Icon}" />
                 <TextBlock
                     Margin="7,0,0,0"
