@@ -59,9 +59,9 @@ public static class ProcessHelper
     }
 
     /// <summary>
-    /// 打开指定进程（支持静默）
+    /// 打开指定进程，可以附带启动参数
     /// </summary>
-    public static void OpenProcess(string appPath, bool isSilent = false)
+    public static void OpenProcess(string appPath, string args = "")
     {
         if (!File.Exists(appPath))
         {
@@ -82,11 +82,8 @@ public static class ProcessHelper
                 WorkingDirectory = fileInfo.DirectoryName
             };
 
-            if (isSilent)
-            {
-                processInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                processInfo.CreateNoWindow = true;
-            }
+            if (!string.IsNullOrWhiteSpace(args))
+                processInfo.Arguments = args;
 
             Process.Start(processInfo);
             LoggerHelper.Info($"启动程序成功 {appPath}");
@@ -127,6 +124,28 @@ public static class ProcessHelper
         catch (Exception ex)
         {
             LoggerHelper.Error($"关闭进程异常 {appName}", ex);
+        }
+    }
+
+    /// <summary>
+    /// 获取指定进程命令行参数
+    /// </summary>
+    public static string GetProcessCommandLineArgs(string appName)
+    {
+        try
+        {
+            using var searcher = new ManagementObjectSearcher(
+                $"SELECT CommandLine FROM Win32_Process WHERE Name='{appName}.exe'");
+
+            var args = searcher.Get();
+            var mgmBaseOnject = args.Cast<ManagementBaseObject>().SingleOrDefault();
+
+            return mgmBaseOnject["CommandLine"].ToString();
+        }
+        catch (Exception ex)
+        {
+            LoggerHelper.Error($"获取指定进程命令行参数异常 {appName}", ex);
+            return string.Empty;
         }
     }
 }

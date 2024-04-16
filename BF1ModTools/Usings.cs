@@ -23,6 +23,7 @@ global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
 global using System.Security.Principal;
 global using System.Security.Cryptography;
+global using System.Management;
 global using System.Text;
 global using System.Text.Json;
 global using System.Text.Unicode;

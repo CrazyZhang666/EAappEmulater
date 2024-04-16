@@ -66,8 +66,12 @@
             <!--  主要功能区  -->
             <views:LaunchView Grid.Row="1" />
 
-            <!--  程序日志区域  -->
-            <views:LogView Grid.Row="2" />
+            <DockPanel Grid.Row="2">
+                <!--  其他工具区域  -->
+                <views:ToolsView DockPanel.Dock="Right" />
+                <!--  程序日志区域  -->
+                <views:LogView />
+            </DockPanel>
         </Grid>
 
         <!--  通知区域  -->

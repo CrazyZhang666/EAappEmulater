@@ -1,0 +1,45 @@
+﻿<UserControl
+    x:Class="BF1ModTools.Views.ToolsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
+    d:DesignHeight="600"
+    d:DesignWidth="150"
+    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+    mc:Ignorable="d">
+
+    <Border Padding="3,5,3,3" SnapsToDevicePixels="True">
+        <StackPanel>
+            <ui:IconButton
+                Margin="2.5"
+                Command="{Binding CheckModStateCommand}"
+                Content="检测Mod状态"
+                Icon="&#xE704;" />
+            <ui:IconButton
+                Margin="2.5"
+                Command="{Binding ClearModDataCommand}"
+                Content="清理Mod数据"
+                Icon="&#xE74D;" />
+            <ui:IconButton
+                Margin="2.5"
+                Command="{Binding KillBf1ProcessCommand}"
+                Content="结束战地1进程"
+                Icon="&#xF78A;" />
+
+            <Label />
+            <ui:IconButton
+                Margin="2.5"
+                Command="{Binding OpenBF1FloderCommand}"
+                Content="打开战地1目录"
+                Icon="&#xED43;" />
+            <ui:IconButton
+                Margin="2.5"
+                Command="{Binding RunBattlefieldChatCommand}"
+                Content="启用中文聊天"
+                Icon="&#xE8F2;" />
+        </StackPanel>
+    </Border>
+
+</UserControl>

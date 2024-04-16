@@ -9,7 +9,7 @@ namespace BF1ModTools.Views;
 /// </summary>
 public partial class LogView : UserControl
 {
-    private const int _maxRowCount = 100;
+    private const int _maxRowCount = 250;
 
     public LogView()
     {
@@ -42,7 +42,7 @@ public partial class LogView : UserControl
                 TextBox_Logger.Clear();
 
             // 追加日志
-            TextBox_Logger.AppendText($"[{logEvent.TimeStamp:HH:mm:ss}] [{logEvent.Level.Name}] {logEvent.Message} {logEvent.Exception?.Message}{Environment.NewLine}");
+            TextBox_Logger.AppendText($"[{logEvent.TimeStamp:HH:mm:ss}] ({logEvent.Level.Name}) {logEvent.Message} {logEvent.Exception?.Message}{Environment.NewLine}");
 
             // 滚动最后一行
             TextBox_Logger.ScrollToEnd();
