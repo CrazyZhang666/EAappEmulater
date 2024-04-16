@@ -38,7 +38,7 @@ public partial class LoadWindow
     }
 
     /// <summary>
-    /// 窗口关闭事件
+    /// 窗口关闭时事件
     /// </summary>
     private void Window_Load_Closing(object sender, CancelEventArgs e)
     {

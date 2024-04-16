@@ -1,4 +1,4 @@
-﻿namespace MarneTools;
+﻿namespace BF1ModTools;
 
 /// <summary>
 /// App.xaml 的交互逻辑
