@@ -61,8 +61,6 @@ public static class EaApi
 
         try
         {
-            respResult.Start();
-
             var request = new RestRequest("https://accounts.ea.com/connect/auth")
             {
                 Method = Method.Get
@@ -106,10 +104,6 @@ public static class EaApi
             respResult.Exception = ex.Message;
             LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
         }
-        finally
-        {
-            respResult.Stop();
-        }
 
         return respResult;
     }
@@ -129,8 +123,6 @@ public static class EaApi
 
         try
         {
-            respResult.Start();
-
             var request = new RestRequest("https://gateway.ea.com/proxy/identity/pids/me/personas")
             {
                 Method = Method.Get
@@ -159,10 +151,6 @@ public static class EaApi
             respResult.Exception = ex.Message;
             LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
         }
-        finally
-        {
-            respResult.Stop();
-        }
 
         return respResult;
     }
@@ -188,8 +176,6 @@ public static class EaApi
 
         try
         {
-            respResult.Start();
-
             var idStr = string.Join(";", userIds);
             var request = new RestRequest($"https://api1.origin.com/avatar/user/{idStr}/avatars")
             {
@@ -221,10 +207,6 @@ public static class EaApi
             respResult.Exception = ex.Message;
             LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
         }
-        finally
-        {
-            respResult.Stop();
-        }
 
         return respResult;
     }
@@ -250,8 +232,6 @@ public static class EaApi
 
         try
         {
-            respResult.Start();
-
             var request = new RestRequest($"https://friends.gs.ea.com/friends/2/users/{Account.UserId}/friends")
             {
                 Method = Method.Get
@@ -284,10 +264,6 @@ public static class EaApi
             respResult.Exception = ex.Message;
             LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
         }
-        finally
-        {
-            respResult.Stop();
-        }
 
         return respResult;
     }
@@ -315,8 +291,6 @@ public static class EaApi
 
         try
         {
-            respResult.Start();
-
             var request = new RestRequest("https://accounts.ea.com/connect/auth")
             {
                 Method = Method.Get
@@ -364,10 +338,6 @@ public static class EaApi
             respResult.Exception = ex.Message;
             LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
         }
-        finally
-        {
-            respResult.Stop();
-        }
 
         return respResult;
     }
@@ -395,8 +365,6 @@ public static class EaApi
 
         try
         {
-            respResult.Start();
-
             var request = new RestRequest("https://accounts.ea.com/connect/token")
             {
                 Method = Method.Post
@@ -438,10 +406,6 @@ public static class EaApi
             respResult.Exception = ex.Message;
             LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
         }
-        finally
-        {
-            respResult.Stop();
-        }
 
         return respResult;
     }
@@ -471,8 +435,6 @@ public static class EaApi
 
         try
         {
-            respResult.Start();
-
             var request = new RestRequest("https://proxy.novafusion.ea.com/licenses")
             {
                 Method = Method.Get
@@ -523,10 +485,6 @@ public static class EaApi
             respResult.Exception = ex.Message;
             LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
         }
-        finally
-        {
-            respResult.Stop();
-        }
 
         return respResult;
     }
@@ -557,8 +515,6 @@ public static class EaApi
 
         try
         {
-            respResult.Start();
-
             var request = new RestRequest("https://accounts.ea.com/connect/auth")
             {
                 Method = Method.Get
@@ -606,10 +562,6 @@ public static class EaApi
         {
             respResult.Exception = ex.Message;
             LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
-        }
-        finally
-        {
-            respResult.Stop();
         }
 
         return respResult;
