@@ -24,6 +24,17 @@ public partial class App : Application
     {
         LoggerHelper.Info($"欢迎使用 {AppName} 程序");
 
+        AppMainMutex = new Mutex(true, AppName, out var createdNew);
+        if (!createdNew)
+        {
+            LoggerHelper.Warn("请不要重复打开，程序已经运行");
+            MsgBoxHelper.Warning($"请不要重复打开，程序已经运行\n如果一直提示，请到\"任务管理器-详细信息（win7为进程）\"里\n强制结束 \"{AppName}.exe\" 程序");
+            Current.Shutdown();
+            return;
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////
+
         LoggerHelper.Info("正在进行 .NET 6.0 版本检测中...");
         if (Environment.Version < new Version("6.0.29"))
         {
@@ -32,9 +43,9 @@ public partial class App : Application
             {
                 ProcessHelper.OpenLink("https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-6.0.29-windows-x64-installer");
                 Current.Shutdown();
+                return;
             }
         }
-
         LoggerHelper.Info($"当前系统 .NET 6.0 版本为 {Environment.Version}");
 
         LoggerHelper.Info("正在进行 WebVieww2 环境检测中...");
@@ -45,25 +56,50 @@ public partial class App : Application
             {
                 ProcessHelper.OpenLink("https://go.microsoft.com/fwlink/p/?LinkId=2124703");
                 Current.Shutdown();
+                return;
             }
         }
+        LoggerHelper.Info($"当前系统 WebVieww2 环境正常");
 
-        AppMainMutex = new Mutex(true, AppName, out var createdNew);
-        if (createdNew)
+        LoggerHelper.Info("正在进行工具箱文件路径检测中...");
+        var currentDir = Directory.GetCurrentDirectory();
+        if (CoreUtil.HasChinesePath(currentDir))
         {
-            // 注册异常捕获
-            RegisterEvents();
-            // 注册编码
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
-            base.OnStartup(e);
-        }
-        else
-        {
-            LoggerHelper.Warn("请不要重复打开，程序已经运行");
-            MsgBoxHelper.Warning($"请不要重复打开，程序已经运行\n如果一直提示，请到\"任务管理器-详细信息（win7为进程）\"里\n强制结束 \"{AppName}.exe\" 程序");
+            MsgBoxHelper.Warning($"检测到工具箱运行路径含有中文，请在英文目录下运行\n{currentDir}");
+            LoggerHelper.Warn($"检测到工具箱运行路径含有中文，请在英文目录下运行 {currentDir}");
             Current.Shutdown();
+            return;
         }
+        LoggerHelper.Info($"工具箱运行路径正常 {currentDir}");
+
+        LoggerHelper.Info("正在进行工具箱数据目录 AppData 完整性检测中...");
+        if (!CoreUtil.IsFullAppData())
+        {
+            MsgBoxHelper.Warning("检测到工具箱数据目录 AppData 已损坏，请重新解压文件");
+            LoggerHelper.Warn("检测到工具箱数据目录 AppData 已损坏，请重新解压文件");
+            Current.Shutdown();
+            return;
+        }
+        LoggerHelper.Info("工具箱数据目录 AppData 完整");
+
+        LoggerHelper.Info("正在进行工具箱管理员权限检测中...");
+        if (!CoreUtil.IsRunAsAdmin())
+        {
+            MsgBoxHelper.Warning("检测到工具箱未拥有管理员权限，请尝试右键管理员运行");
+            LoggerHelper.Warn("检测到工具箱未拥有管理员权限，请尝试右键管理员运行");
+            Current.Shutdown();
+            return;
+        }
+        LoggerHelper.Info("工具箱管理员正常");
+
+        //////////////////////////////////////////////////////////////////////////////////
+
+        // 注册异常捕获
+        RegisterEvents();
+        // 注册编码
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        base.OnStartup(e);
     }
 
     /// <summary>

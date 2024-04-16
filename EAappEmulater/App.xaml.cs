@@ -24,6 +24,17 @@ public partial class App : Application
     {
         LoggerHelper.Info($"欢迎使用 {AppName} 程序");
 
+        AppMainMutex = new Mutex(true, AppName, out var createdNew);
+        if (!createdNew)
+        {
+            LoggerHelper.Warn("请不要重复打开，程序已经运行");
+            MsgBoxHelper.Warning($"请不要重复打开，程序已经运行\n如果一直提示，请到\"任务管理器-详细信息（win7为进程）\"里\n强制结束 \"{AppName}.exe\" 程序");
+            Current.Shutdown();
+            return;
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////
+
         LoggerHelper.Info("正在进行 .NET 6.0 版本检测中...");
         if (Environment.Version < new Version("6.0.29"))
         {
@@ -32,9 +43,9 @@ public partial class App : Application
             {
                 ProcessHelper.OpenLink("https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-6.0.29-windows-x64-installer");
                 Current.Shutdown();
+                return;
             }
         }
-
         LoggerHelper.Info($"当前系统 .NET 6.0 版本为 {Environment.Version}");
 
         LoggerHelper.Info("正在进行 WebVieww2 环境检测中...");
@@ -45,25 +56,19 @@ public partial class App : Application
             {
                 ProcessHelper.OpenLink("https://go.microsoft.com/fwlink/p/?LinkId=2124703");
                 Current.Shutdown();
+                return;
             }
         }
+        LoggerHelper.Info($"当前系统 WebVieww2 环境正常");
 
-        AppMainMutex = new Mutex(true, AppName, out var createdNew);
-        if (createdNew)
-        {
-            // 注册异常捕获
-            RegisterEvents();
-            // 注册编码
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        //////////////////////////////////////////////////////////////////////////////////
 
-            base.OnStartup(e);
-        }
-        else
-        {
-            LoggerHelper.Warn("请不要重复打开，程序已经运行");
-            MsgBoxHelper.Warning($"请不要重复打开，程序已经运行\n如果一直提示，请到\"任务管理器-详细信息（win7为进程）\"里\n强制结束 \"{AppName}.exe\" 程序");
-            Current.Shutdown();
-        }
+        // 注册异常捕获
+        RegisterEvents();
+        // 注册编码
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        base.OnStartup(e);
     }
 
     /// <summary>

@@ -132,6 +132,61 @@ public static class CoreUtil
     }
 
     /// <summary>
+    /// 检测字符串路径中是否含有中文
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public static bool HasChinesePath(string path)
+    {
+        return Regex.IsMatch(path, @"[\u4e00-\u9fa5]");
+    }
+
+    /// <summary>
+    /// 检测是否为战地1主程序文件
+    /// </summary>
+    /// <param name="bf1Path"></param>
+    /// <returns></returns>
+    public static async Task<bool> IsBf1MainAppFile(string bf1Path, bool isDir = false)
+    {
+        if (string.IsNullOrWhiteSpace(bf1Path))
+            return false;
+
+        if (isDir)
+        {
+            bf1Path = Path.Combine(bf1Path, "bf1.exe");
+        }
+
+        if (!File.Exists(bf1Path))
+            return false;
+
+        return await FileHelper.GetFileMD5(bf1Path) == "190075FC83A4782EDDAFAADAE414391F";
+    }
+
+    /// <summary>
+    /// 检测AppData数据是否完整
+    /// </summary>
+    /// <returns></returns>
+    public static bool IsFullAppData()
+    {
+        if (!Directory.Exists(Dir_AppData))
+            return false;
+
+        if (!File.Exists(File_FrostyMod_FrostyModManager))
+            return false;
+
+        if (!File.Exists(File_Marne_MarneDll))
+            return false;
+
+        if (!File.Exists(File_Marne_MarneLauncher))
+            return false;
+
+        if (!File.Exists(File_BattlefieldChat))
+            return false;
+
+        return true;
+    }
+
+    /// <summary>
     /// 保存崩溃日志
     /// </summary>
     public static void SaveCrashLog(string log)

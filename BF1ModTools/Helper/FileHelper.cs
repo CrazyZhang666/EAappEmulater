@@ -2,6 +2,8 @@
 
 public static class FileHelper
 {
+    private static readonly MD5 md5 = MD5.Create();
+
     /// <summary>
     /// 创建文件夹
     /// </summary>
@@ -61,5 +63,21 @@ public static class FileHelper
         {
             LoggerHelper.Error($"清空文件夹异常 {dirPath}", ex);
         }
+    }
+
+    /// <summary>
+    /// 获取文件MD5值
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
+    public static async Task<string> GetFileMD5(string filePath)
+    {
+        if (!File.Exists(filePath))
+            return string.Empty;
+
+        using var fileStream = File.OpenRead(filePath);
+        var fileMD5 = await md5.ComputeHashAsync(fileStream);
+
+        return BitConverter.ToString(fileMD5).Replace("-", "");
     }
 }

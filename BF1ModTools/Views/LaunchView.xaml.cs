@@ -16,8 +16,11 @@ public partial class LaunchView : UserControl
     }
 
     #region Frosty Mod Manager
+    /// <summary>
+    /// 选择战地1Mod文件
+    /// </summary>
     [RelayCommand]
-    private void SelectFbmodFiles()
+    private async Task SelectFbmodFiles()
     {
         // 如果战地1正在运行，则不允许启动FrostyModManager
         if (ProcessHelper.IsAppRun(CoreUtil.Name_BF1))
@@ -33,9 +36,13 @@ public partial class LaunchView : UserControl
             return;
         }
 
+        if (!await IsValidBf1Path())
+            return;
+
+        // 选择要安装的Mod文件（支持多选）
         var dialog = new OpenFileDialog
         {
-            Title = "请选择要安装的寒霜Mod文件（支持多选）",
+            Title = "请选择要安装的战地1寒霜Mod文件（支持多选）",
             DefaultExt = ".fbmod",
             Filter = "寒霜Mod文件 (.fbmod)|*.fbmod",
             Multiselect = true,
@@ -46,60 +53,90 @@ public partial class LaunchView : UserControl
             CheckPathExists = true
         };
 
-        if (dialog.ShowDialog() == true)
+        // 如果未选择，则退出程序
+        if (dialog.ShowDialog() == false)
+            return;
+
+        // 记住本次选择的文件路径
+        Globals.DialogDir2 = Path.GetDirectoryName(dialog.FileName);
+
+        // 输出选择Mod文件数量
+        LoggerHelper.Info($"当前选择战地1 Mod 数量: {dialog.FileNames.Length}");
+
+        try
         {
-            Globals.DialogDir2 = Path.GetDirectoryName(dialog.FileName);
+            // 清空旧版Mod文件夹
+            FileHelper.ClearDirectory(CoreUtil.Dir_FrostyMod_Mods_Bf1);
+            LoggerHelper.Info("清空旧版 Mod 文件夹 成功");
 
-            try
+            // 创建FrostyMod配置文件
+            var modConfig = new ModConfig();
+
+            // 设置战地1安装目录
+            modConfig.Games.bf1.GamePath = Globals.BF1InstallDir;
+
+            // 临时保存选择Mod文件名称列表
+            var modFiles = new List<string>();
+            // 遍历选择的Mod文件列表
+            foreach (var file in dialog.FileNames)
             {
-                // 清空旧版Mod文件夹
-                FileHelper.ClearDirectory(CoreUtil.Dir_FrostyMod_Mods_Bf1);
-                LoggerHelper.Info("清空旧版 Mod 文件夹 成功");
+                // 获取文件名称，带扩展名
+                var fileName = Path.GetFileName(file);
 
-                // 创建FrostyMod配置文件
-                var modConfig = new ModConfig();
+                // 复制mod文件到寒霜mod管理器指定文件夹
+                File.Copy(file, Path.Combine(CoreUtil.Dir_FrostyMod_Mods_Bf1, fileName), true);
+                // 添加Mod文件名全称+特定后缀到列表中
+                modFiles.Add($"{fileName}:True");
 
-                // 设置战地1安装目录
-                modConfig.Games.bf1.GamePath = Globals.BF1InstallDir;
-
-                LoggerHelper.Info($"当前选中 Mod 数量: {dialog.FileNames.Length}");
-
-                var modFiles = new List<string>();
-                foreach (var file in dialog.FileNames)
-                {
-                    var fileName = Path.GetFileName(file);
-
-                    // 复制mod文件到寒霜mod管理器特定文件夹
-                    File.Copy(file, Path.Combine(CoreUtil.Dir_FrostyMod_Mods_Bf1, fileName));
-                    modFiles.Add($"{fileName}:True");
-
-                    LoggerHelper.Info($"已选择 Mod 名称: {fileName}");
-                }
-
-                // 设置Mod名称并启用
-                modConfig.Games.bf1.Packs.Default = string.Join("|", modFiles);
-
-                // 写入Frosty\manager_config.json配置文件
-                File.WriteAllText(CoreUtil.File_FrostyMod_Frosty_ManagerConfig, JsonHelper.JsonSerialize(modConfig));
-                LoggerHelper.Info("写入 FrostyModManager 配置文件成功");
-
-                LoggerHelper.Info("正在启动 FrostyModManager 中...");
-                ProcessHelper.OpenProcess(CoreUtil.File_FrostyMod_FrostyModManager);
+                LoggerHelper.Info($"已选择战地1 Mod 名称: {fileName}");
             }
-            catch (Exception ex)
-            {
-                NotifierHelper.Error("安装 Mod 过程中发生异常");
-                LoggerHelper.Error($"安装 Mod 过程中发生异常 {ex.Message}");
-            }
+
+            // 设置Mod名称并启用
+            modConfig.Games.bf1.Packs.Default = string.Join("|", modFiles);
+
+            // 写入Frosty\manager_config.json配置文件
+            File.WriteAllText(CoreUtil.File_FrostyMod_Frosty_ManagerConfig, JsonHelper.JsonSerialize(modConfig));
+            LoggerHelper.Info("写入 FrostyModManager 配置文件成功");
+
+            LoggerHelper.Info("正在启动 FrostyModManager 中...");
+            ProcessHelper.OpenProcess(CoreUtil.File_FrostyMod_FrostyModManager);
+        }
+        catch (Exception ex)
+        {
+            NotifierHelper.Error("安装 Mod 过程中发生异常");
+            LoggerHelper.Error($"安装 Mod 过程中发生异常 {ex.Message}");
         }
     }
 
+    /// <summary>
+    /// 运行寒霜Mod管理器
+    /// </summary>
     [RelayCommand]
-    private void RunFrostyModManager()
+    private async Task RunFrostyModManager()
     {
+        // 如果战地1正在运行，则不允许启动FrostyModManager
+        if (ProcessHelper.IsAppRun(CoreUtil.Name_BF1))
+        {
+            NotifierHelper.Warning("战地1正在运行，请关闭后再启动本程序");
+            return;
+        }
+
+        // 如果程序已经在运行，则结束操作
+        if (ProcessHelper.IsAppRun("FrostyModManager"))
+        {
+            NotifierHelper.Warning("程序已经运行了，请不要重复运行");
+            return;
+        }
+
+        if (!await IsValidBf1Path())
+            return;
+
         ProcessHelper.OpenProcess(CoreUtil.File_FrostyMod_FrostyModManager);
     }
 
+    /// <summary>
+    /// 关闭寒霜Mod管理器
+    /// </summary>
     [RelayCommand]
     private async Task CloseFrostyModManager()
     {
@@ -108,16 +145,61 @@ public partial class LaunchView : UserControl
     #endregion
 
     #region BF1 Marne Launcher
+    /// <summary>
+    /// 运行马恩启动器
+    /// </summary>
     [RelayCommand]
     private void RunMarneLauncher()
     {
         ProcessHelper.OpenProcess(CoreUtil.File_Marne_MarneLauncher);
     }
 
+    /// <summary>
+    /// 关闭马恩启动器
+    /// </summary>
     [RelayCommand]
     private async Task CloseMarneLauncher()
     {
         await ProcessHelper.CloseProcess(CoreUtil.Name_MarneLauncher);
     }
     #endregion
+
+    private async Task<bool> IsValidBf1Path()
+    {
+        // 检查战地1路径真实性
+        if (await CoreUtil.IsBf1MainAppFile(Globals.BF1InstallDir, true))
+            return true;
+
+        var dialog = new OpenFileDialog
+        {
+            Title = "请选择战地1游戏主程序 bf1.exe 路径",
+            FileName = "bf1.exe",
+            DefaultExt = ".exe",
+            Filter = "可执行文件 (.exe)|*.exe",
+            Multiselect = false,
+            InitialDirectory = Globals.DialogDir,
+            RestoreDirectory = true,
+            AddExtension = true,
+            CheckFileExists = true,
+            CheckPathExists = true
+        };
+
+        // 如果未选择，则退出程序
+        if (dialog.ShowDialog() == false)
+            return false;
+
+        var installDir = Path.GetDirectoryName(dialog.FileName);
+        // 记住本次选择的文件路径
+        Globals.DialogDir = installDir;
+
+        if (await CoreUtil.IsBf1MainAppFile(dialog.FileName))
+        {
+            Globals.BF1InstallDir = installDir;
+            LoggerHelper.Info($"获取战地1游戏主程序 bf1.exe 路径成功 {dialog.FileName}");
+            return true;
+        }
+
+        LoggerHelper.Error($"无效的战地1游戏主程序 bf1.exe 路径，请重新选择 {dialog.FileName}");
+        return false;
+    }
 }

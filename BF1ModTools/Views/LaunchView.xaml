@@ -18,14 +18,14 @@
             Margin="5,5,5,0"
             Source="pack://application:,,,/BF1ModTools;component/Assets/Images/FrostyModManager.png">
             <ui:CardMenu.Description>
-                用于安装和启动战地1Mod工具，若要游玩Mod服则需要用此工具启动，否则Mod将不会生效
+                用于安装和启动战地1Mod工具，若要使用Mod服则需要用此工具启动，否则Mod不会生效
             </ui:CardMenu.Description>
             <ui:CardMenu.CardContent>
                 <WrapPanel HorizontalAlignment="Right">
                     <ui:IconButton
                         Margin="5,5,0,0"
                         Command="{Binding SelectFbmodFilesCommand}"
-                        Content="选择"
+                        Content="选择Mod"
                         Icon="&#xE721;" />
                     <ui:IconButton
                         Margin="5,5,0,0"
