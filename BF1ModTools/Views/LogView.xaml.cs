@@ -42,7 +42,7 @@ public partial class LogView : UserControl
                 TextBox_Logger.Clear();
 
             // 追加日志
-            TextBox_Logger.AppendText($"[{logEvent.TimeStamp:HH:mm:ss}] ({logEvent.Level.Name}) {logEvent.Message} {logEvent.Exception?.Message}{Environment.NewLine}");
+            TextBox_Logger.AppendText($"{logEvent.TimeStamp:HH:mm:ss} [{logEvent.Level.Name}] {logEvent.Message} {logEvent.Exception?.Message}{Environment.NewLine}");
 
             // 滚动最后一行
             TextBox_Logger.ScrollToEnd();

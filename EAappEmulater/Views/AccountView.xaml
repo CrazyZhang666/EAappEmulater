@@ -66,17 +66,18 @@
                         <ui:IconButton
                             Margin="0,0,5,5"
                             Command="{Binding SwitchAccountCommand}"
-                            Content="切换此账号"
+                            Content="切换账号"
                             Icon="&#xE895;"
                             IsEnabled="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem, Converter={StaticResource IsNullObject2Converter}}" />
                         <ui:IconButton
                             Margin="0,0,5,5"
                             Command="{Binding LogoutAccountCommand}"
-                            Content="注销此账号"
+                            Content="注销登录"
                             Icon="&#xF3B1;"
                             Visibility="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.IsUse, Converter={StaticResource BoolToVisibilityConverter}}" />
                     </StackPanel>
                     <TextBlock
+                        Margin="0,5,0,0"
                         VerticalAlignment="Center"
                         d:Text="PlayerName"
                         FontSize="22"

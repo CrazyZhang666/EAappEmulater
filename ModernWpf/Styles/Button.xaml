@@ -8,7 +8,7 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Margin" Value="5" />
-        <Setter Property="Padding" Value="12,9" />
+        <Setter Property="Padding" Value="9" />
         <Setter Property="Foreground" Value="#FFFFFF" />
         <Setter Property="Background" Value="#76B900" />
         <Setter Property="Cursor" Value="Hand" />

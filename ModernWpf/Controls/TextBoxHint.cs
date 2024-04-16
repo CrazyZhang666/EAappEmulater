@@ -14,6 +14,17 @@ public class TextBoxHint : TextBox
         DependencyProperty.Register("Icon", typeof(string), typeof(TextBoxHint), new PropertyMetadata(default));
 
     /// <summary>
+    /// 圆角值
+    /// </summary>
+    public CornerRadius CornerRadius
+    {
+        get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+        set { SetValue(CornerRadiusProperty, value); }
+    }
+    public static readonly DependencyProperty CornerRadiusProperty =
+        DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(TextBoxHint), new PropertyMetadata(default));
+
+    /// <summary>
     /// 提示信息
     /// </summary>
     public string Hint

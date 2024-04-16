@@ -5,13 +5,12 @@
         <Setter Property="Margin" Value="5" />
         <Setter Property="Padding" Value="5,7,5,7" />
         <Setter Property="Background" Value="White" />
-        <Setter Property="BorderBrush" Value="#ACACAC" />
+        <Setter Property="BorderBrush" Value="#BBBBBB" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border
-                        x:Name="border"
                         AllowDrop="{TemplateBinding AllowDrop}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
@@ -25,13 +24,13 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                            <Setter Property="Opacity" Value="0.56" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="BorderBrush" Value="Gray" />
+                            <Setter Property="BorderBrush" Value="Gray" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="true">
-                            <Setter TargetName="border" Property="BorderBrush" Value="Gray" />
+                            <Setter Property="BorderBrush" Value="Gray" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -48,7 +47,7 @@
         <Setter Property="Padding" Value="5" />
         <Setter Property="Opacity" Value="1" />
         <Setter Property="Background" Value="White" />
-        <Setter Property="BorderBrush" Value="#808080" />
+        <Setter Property="BorderBrush" Value="#BBBBBB" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="IsReadOnly" Value="True" />
@@ -60,10 +59,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border
-                        x:Name="border"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5"
                         Opacity="{TemplateBinding Opacity}"
                         SnapsToDevicePixels="True">
                         <ScrollViewer
@@ -75,7 +74,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="border" Property="Opacity" Value="0.5" />
+                            <Setter Property="Opacity" Value="0.5" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

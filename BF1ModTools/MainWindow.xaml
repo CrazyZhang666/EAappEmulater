@@ -11,7 +11,8 @@
     Title="战地1模组工具箱"
     Width="800"
     Height="550"
-    CaptionHeight="40"
+    Background="#F3F3F3"
+    CaptionBackground="#F3F3F3"
     Closing="Window_Main_Closing"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
     Loaded="Window_Main_Loaded"
@@ -64,14 +65,13 @@
             </Grid.RowDefinitions>
 
             <!--  主要功能区  -->
-            <views:LaunchView Grid.Row="1" />
+            <views:LaunchView />
 
-            <DockPanel Grid.Row="2">
-                <!--  其他工具区域  -->
-                <views:ToolsView DockPanel.Dock="Right" />
-                <!--  程序日志区域  -->
-                <views:LogView />
-            </DockPanel>
+            <!--  工具区域  -->
+            <views:ToolsView Grid.Row="1" />
+
+            <!--  程序日志区域  -->
+            <views:LogView Grid.Row="2" />
         </Grid>
 
         <!--  通知区域  -->

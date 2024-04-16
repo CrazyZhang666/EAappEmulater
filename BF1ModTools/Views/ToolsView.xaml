@@ -5,13 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
-    d:DesignHeight="600"
-    d:DesignWidth="150"
+    d:DesignHeight="100"
+    d:DesignWidth="800"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
     mc:Ignorable="d">
 
-    <Border Padding="3,5,3,3" SnapsToDevicePixels="True">
-        <StackPanel>
+    <Border Padding="3" SnapsToDevicePixels="True">
+        <WrapPanel>
             <ui:IconButton
                 Margin="2.5"
                 Command="{Binding CheckModStateCommand}"
@@ -39,7 +39,13 @@
                 Command="{Binding RunBattlefieldChatCommand}"
                 Content="启用中文聊天"
                 Icon="&#xE8F2;" />
-        </StackPanel>
+
+            <Label />
+            <ui:IconButton
+                Margin="2.5"
+                Content="更换登录账号"
+                Icon="&#xF3B1;" />
+        </WrapPanel>
     </Border>
 
 </UserControl>

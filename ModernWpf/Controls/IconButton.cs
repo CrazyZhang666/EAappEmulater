@@ -12,4 +12,15 @@ public class IconButton : Button
     }
     public static readonly DependencyProperty IconProperty =
         DependencyProperty.Register("Icon", typeof(string), typeof(IconButton), new PropertyMetadata(null));
+
+    /// <summary>
+    /// 圆角值
+    /// </summary>
+    public CornerRadius CornerRadius
+    {
+        get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+        set { SetValue(CornerRadiusProperty, value); }
+    }
+    public static readonly DependencyProperty CornerRadiusProperty =
+        DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(IconButton), new PropertyMetadata(default));
 }

@@ -10,12 +10,12 @@
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
     mc:Ignorable="d">
 
-    <TextBox
+    <ui:TextBoxHint
         x:Name="TextBox_Logger"
-        Margin="5,5,0,5"
-        d:Text="加载中..."
-        Cursor="Arrow"
+        Margin="5,0,5,5"
+        d:Text="日志加载中..."
+        CornerRadius="5"
         IsReadOnly="True"
-        Style="{StaticResource TextBoxStyle_Logger}" />
+        Style="{StaticResource TextBoxHintStyle_Logger}" />
 
 </UserControl>
