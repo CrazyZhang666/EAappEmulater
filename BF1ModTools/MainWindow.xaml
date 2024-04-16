@@ -4,7 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ntf="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
+    xmlns:views="clr-namespace:BF1ModTools.Views"
     x:Name="Window_Main"
     Title="战地1模组工具箱"
     Width="800"
@@ -52,6 +54,25 @@
         </DockPanel>
     </ui:Window.TitleContent>
 
-    <Grid />
+    <Grid>
+        <!--  主区域  -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--  主要功能区  -->
+            <views:LaunchView Grid.Row="1" />
+        </Grid>
+
+        <!--  通知区域  -->
+        <ntf:NotificationArea
+            x:Name="MainWindowArea"
+            d:Visibility="Collapsed"
+            MaxItems="3"
+            Position="BottomCenter" />
+    </Grid>
 
 </ui:Window>

@@ -15,6 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BF1ModTools", "BF1ModTools\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C4484AC9-2262-4360-93F6-B8B528537012}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		README.md = README.md
 		ToDoList.txt = ToDoList.txt
 	EndProjectSection

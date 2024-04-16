@@ -24,6 +24,8 @@
         <ResourceDictionary Source="/ModernWpf;component/Styles/IconHeader.xaml" />
         <ResourceDictionary Source="/ModernWpf;component/Styles/FormLabel.xaml" />
         <ResourceDictionary Source="/ModernWpf;component/Styles/GameMenu.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/CardMenu.xaml" />
+
 
         <ResourceDictionary Source="/ModernWpf;component/Styles/WinButton.xaml" />
         <ResourceDictionary Source="/ModernWpf;component/Styles/Window.xaml" />

@@ -7,13 +7,13 @@ public static class Account
 {
     private static readonly string _iniPath;
 
-    /////////////////////////////////////////////////
+    ///////////////////////////////////
 
     public static string PlayerName { get; set; }
     public static string PersonaId { get; set; }
     public static string UserId { get; set; }
 
-    /////////////////////////////////////////////////
+    ///////////////////////////////////
 
     public static string Remid { get; set; }
     public static string Sid { get; set; }
@@ -22,12 +22,11 @@ public static class Account
     public static string OriginPCToken { get; set; }
     public static string LSXAuthCode { get; set; }
 
-    /////////////////////////////////////////////////
+    ///////////////////////////////////
 
     static Account()
     {
         _iniPath = Path.Combine(CoreUtil.Dir_Config, "Account.ini");
-        LoggerHelper.Info($"当前重置配置文件路径 {_iniPath}");
     }
 
     /// <summary>
@@ -46,7 +45,6 @@ public static class Account
         OriginPCToken = string.Empty;
         LSXAuthCode = string.Empty;
     }
-
     /// <summary>
     /// 读取配置文件
     /// </summary>

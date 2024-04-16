@@ -40,17 +40,26 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Assets\Images\FrostyModManager.png" />
+      <None Remove="Assets\Images\MarneLauncher.png" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
         <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2420.47" />
         <PackageReference Include="NLog" Version="5.2.8" />
+        <PackageReference Include="Notification.Wpf" Version="8.0.0" />
         <PackageReference Include="RestSharp" Version="110.2.0" />
     </ItemGroup>
 
     <ItemGroup>
         <Resource Include="Assets\Icons\Favicon.ico" />
+        <Resource Include="Assets\Images\FrostyModManager.png" />
+        <Resource Include="Assets\Images\MarneLauncher.png" />
     </ItemGroup>
 
     <ItemGroup>
@@ -79,11 +88,6 @@
         <EmbeddedResource Include="Assets\Files\LSX\BFV\22.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\23.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\24.xml" />
-    </ItemGroup>
-    
-    <ItemGroup>
-        <Folder Include="Views\" />
-        <Folder Include="Models\" />
     </ItemGroup>
 
     <ItemGroup>
