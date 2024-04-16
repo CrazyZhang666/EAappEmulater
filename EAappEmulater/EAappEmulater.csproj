@@ -45,10 +45,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\EAappEmulater.UI\EAappEmulater.UI.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
         <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2420.47" />
         <PackageReference Include="NLog" Version="5.2.8" />
@@ -110,6 +106,10 @@
         <EmbeddedResource Include="Assets\Files\LSX\BFV\23.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\24.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\TTF2\00.xml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
     </ItemGroup>
 
     <ItemGroup>

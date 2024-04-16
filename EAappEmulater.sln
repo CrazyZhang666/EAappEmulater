@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EAappEmulater", "EAappEmulater\EAappEmulater.csproj", "{32B06A09-9C1B-4DA1-B88D-41747ECE8166}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EAappEmulater.UI", "EAappEmulater.UI\EAappEmulater.UI.csproj", "{3EEC12DE-500B-4697-88C7-5ACA6AEBD4D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModernWpf", "ModernWpf\ModernWpf.csproj", "{3EEC12DE-500B-4697-88C7-5ACA6AEBD4D8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EADesktop", "EADesktop\EADesktop.csproj", "{727E5CAF-4772-419A-8717-E0B7661AF50F}"
 EndProject
