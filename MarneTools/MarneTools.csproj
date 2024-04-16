@@ -8,6 +8,17 @@
         <Nullable>disable</Nullable>
         <ImplicitUsings>disable</ImplicitUsings>
         <StartupObject>MarneTools.App</StartupObject>
+        <ApplicationIcon>Assets\Icons\Favicon.ico</ApplicationIcon>
+        <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+        <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+        <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+        <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -20,17 +31,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2420.47" />
-      <PackageReference Include="NLog" Version="5.2.8" />
-      <PackageReference Include="RestSharp" Version="110.2.0" />
+        <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2420.47" />
+        <PackageReference Include="NLog" Version="5.2.8" />
+        <PackageReference Include="RestSharp" Version="110.2.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
+        <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Assets\" />
+        <Resource Include="Assets\Icons\Favicon.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="AppData\FrostyMod\" />
+      <Folder Include="AppData\Marne\" />
+      <Folder Include="AppData\Tools\" />
     </ItemGroup>
 
 </Project>
