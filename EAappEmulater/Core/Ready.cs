@@ -24,7 +24,7 @@ public static class Ready
         await LoadAvatar();
     }
 
-    public static void Stop()
+    public static async void Stop()
     {
         // 保存配置文件
         Globals.Write();
@@ -36,7 +36,7 @@ public static class Ready
         BattlelogHttpServer.Stop();
 
         // 关闭服务进程
-        CoreUtil.CloseServerProcess();
+        await CoreUtil.CloseServerProcess();
     }
 
     /// <summary>

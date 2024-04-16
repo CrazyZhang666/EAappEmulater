@@ -93,11 +93,12 @@ public static class CoreUtil
     /// <summary>
     /// 关闭服务进程
     /// </summary>
-    public static void CloseServerProcess()
+    public static async Task CloseServerProcess()
     {
         LoggerHelper.Info("准备关闭服务进程");
-        ProcessHelper.CloseProcess("EADesktop");
-        ProcessHelper.CloseProcess("OriginDebug");
+        await ProcessHelper.CloseProcess("EADesktop");
+        await ProcessHelper.CloseProcess("OriginDebug");
+        await ProcessHelper.CloseProcess("Origin");
     }
 
     /// <summary>

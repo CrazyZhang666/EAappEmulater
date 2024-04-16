@@ -30,7 +30,7 @@ public partial class LoadWindow
     {
         if (await CheckCookie())
         {
-            InitGameInfo();
+            await InitGameInfo();
             return;
         }
 
@@ -83,14 +83,14 @@ public partial class LoadWindow
     /// <summary>
     /// 初始化游戏信息
     /// </summary>
-    private async void InitGameInfo()
+    private async Task InitGameInfo()
     {
         Grid_Part1.Visibility = Visibility.Visible;
         Grid_Part2.Visibility = Visibility.Hidden;
         Part2_BtnTools.Visibility = Visibility.Hidden;
 
         // 关闭服务进程
-        CoreUtil.CloseServerProcess();
+        await CoreUtil.CloseServerProcess();
 
         DisplayLoadState("正在释放资源服务进程文件...");
         LoggerHelper.Info("正在释放资源服务进程文件...");
@@ -299,7 +299,7 @@ public partial class LoadWindow
             }
         }
 
-        InitGameInfo();
+        await InitGameInfo();
     }
 
     private void CoreWebView2_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
