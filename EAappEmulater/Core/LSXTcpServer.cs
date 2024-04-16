@@ -16,11 +16,8 @@ public static class LSXTcpServer
     static LSXTcpServer()
     {
         // 加载XML字符串
-        for (int i = 0; i <= 25; i++)
+        for (int i = 0; i <= 24; i++)
         {
-            if (i == 3)
-                continue;
-
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFV.{i:D2}.xml");
 
             // 头像 \AppData\Local\Origin\AvatarsCache（不清楚为啥不显示）

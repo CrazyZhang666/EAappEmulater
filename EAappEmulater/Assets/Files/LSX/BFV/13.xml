@@ -1,8 +1,5 @@
 ﻿<LSX>
-    <Response id="##ID##" sender="EbisuSDK">
-        <QueryImageResponse Result="0">
-            <Image ImageId="##ImageId##" Width="##Width##" Height="##Width##"
-                ResourcePath="##ResourcePath##Avatars##Width##.jpg" />
-        </QueryImageResponse>
+    <Response id="##ID##" sender="XMPP">
+        <QueryPresenceResponse> </QueryPresenceResponse>
     </Response>
 </LSX>

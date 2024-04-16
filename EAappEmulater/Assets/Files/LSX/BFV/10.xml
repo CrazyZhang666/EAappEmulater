@@ -1,5 +1,5 @@
 ﻿<LSX>
     <Response id="##ID##" sender="EbisuSDK">
-        <GetSettingResponse Setting="production" />
+        <GetSettingResponse Setting="true" />
     </Response>
 </LSX>
