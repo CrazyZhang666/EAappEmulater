@@ -11,7 +11,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="#E5E5E5" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">

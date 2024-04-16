@@ -11,12 +11,12 @@
     mc:Ignorable="d">
 
     <StackPanel HorizontalAlignment="Center">
-        <Image
+        <ui:Image
             Width="100"
             Height="100"
             Margin="0,20,0,0"
             DockPanel.Dock="Left"
-            Source="/Assets/Icons/Favicon.ico" />
+            Source="pack://application:,,,/EAappEmulater;component/Assets/Icons/Favicon.ico" />
 
         <TextBlock
             Margin="10"

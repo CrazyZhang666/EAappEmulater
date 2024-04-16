@@ -43,6 +43,9 @@ public static class Account
         Reload();
     }
 
+    /// <summary>
+    /// 重置配置文件
+    /// </summary>
     public static void Reset()
     {
         Reload();
@@ -62,11 +65,17 @@ public static class Account
         LSXAuthCode = string.Empty;
     }
 
+    /// <summary>
+    /// 重新加载配置文件路径
+    /// </summary>
     public static void Reload()
     {
         _iniPath = AccountPathDb[Globals.AccountSlot];
     }
 
+    /// <summary>
+    /// 读取配置文件
+    /// </summary>
     public static void Read()
     {
         Reload();
@@ -81,6 +90,8 @@ public static class Account
         // 玩家头像存在，并在玩家头像名称和头像Id一致
         if (File.Exists(avatar) && Path.GetFileNameWithoutExtension(avatar) == AvatarId)
             Avatar = avatar;
+        else
+            Avatar = string.Empty;
 
         Remid = ReadString("Cookie", "Remid");
         Sid = ReadString("Cookie", "Sid");
@@ -102,6 +113,9 @@ public static class Account
         }
     }
 
+    /// <summary>
+    /// 保存配置文件
+    /// </summary>
     public static void Write()
     {
         LoggerHelper.Info($"当前保存配置文件路径 {_iniPath}");

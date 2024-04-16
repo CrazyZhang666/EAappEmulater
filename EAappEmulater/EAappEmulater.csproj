@@ -12,7 +12,6 @@
         <StartupObject>EAappEmulater.App</StartupObject>
         <ApplicationIcon>Assets\Icons\Favicon.ico</ApplicationIcon>
         <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -22,6 +21,10 @@
         <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
         <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
         <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -50,6 +53,10 @@
         <PackageReference Include="NLog" Version="5.2.8" />
         <PackageReference Include="Notification.Wpf" Version="8.0.0" />
         <PackageReference Include="RestSharp" Version="110.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -109,12 +116,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Resource Include="Assets\Icons\Favicon.ico" />
-        <Resource Include="Assets\Images\Avatars\Default.png" />
         <Resource Include="Assets\Images\Games\BF1.jpg" />
         <Resource Include="Assets\Images\Games\BF1_Logo.jpg" />
         <Resource Include="Assets\Images\Games\BF2042.jpg" />

@@ -16,11 +16,8 @@ public class StringToImageSourceConverter : IValueConverter
         // 3. 本地图片  C:\
 
         // 资源图片
-        if (imgPath.StartsWith("Assets"))
-        {
-            imgPath = $"pack://application:,,,/EAappEmulater;component/{imgPath}";
+        if (imgPath.StartsWith("pack://application"))
             goto IMAGE;
-        }
 
         /// 网络图片
         if (imgPath.StartsWith("http://") || imgPath.StartsWith("https://"))

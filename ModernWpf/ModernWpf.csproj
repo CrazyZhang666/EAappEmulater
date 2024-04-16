@@ -18,6 +18,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Resource Include="Assets\Images\Avatar.png" />
         <Resource Include="Assets\Images\Default.png" />
         <Resource Include="Assets\Fonts\SegoeMDL2Assets-Regular.ttf" />
     </ItemGroup>

@@ -52,7 +52,7 @@
                     Width="22"
                     Height="22"
                     Margin="7,0,0,0"
-                    Source="Assets/Icons/Favicon.ico" />
+                    Source="pack://application:,,,/EAappEmulater;component/Assets/Icons/Favicon.ico" />
                 <TextBlock
                     Margin="7,0,0,0"
                     VerticalAlignment="Center"

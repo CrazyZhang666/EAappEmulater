@@ -16,8 +16,8 @@ public static class Base
             GameType = GameType.BF3,
             Name = "战地风云3",
             Name2 = "Battlefield 3",
-            Image = "Assets/Images/Games/BF3.jpg",
-            Image2 = "Assets/Images/Games/BF3_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF3.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF3_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -37,8 +37,8 @@ public static class Base
             GameType = GameType.BF4,
             Name = "战地风云4",
             Name2 = "Battlefield 4",
-            Image = "Assets/Images/Games/BF4.jpg",
-            Image2 = "Assets/Images/Games/BF4_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF4.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF4_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -58,8 +58,8 @@ public static class Base
             GameType = GameType.BFH,
             Name = "战地风云 硬仗",
             Name2 = "Battlefield : Hardline",
-            Image = "Assets/Images/Games/BFH.jpg",
-            Image2 = "Assets/Images/Games/BFH_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BFH.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BFH_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -79,8 +79,8 @@ public static class Base
             GameType = GameType.BF1,
             Name = "战地风云1",
             Name2 = "Battlefield 1",
-            Image = "Assets/Images/Games/BF1.jpg",
-            Image2 = "Assets/Images/Games/BF1_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF1.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF1_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -100,8 +100,8 @@ public static class Base
             GameType = GameType.BFV,
             Name = "战地风云V",
             Name2 = "Battlefield V",
-            Image = "Assets/Images/Games/BFV.jpg",
-            Image2 = "Assets/Images/Games/BFV_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BFV.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BFV_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -121,8 +121,8 @@ public static class Base
             GameType = GameType.BF2042,
             Name = "战地风云2042",
             Name2 = "Battlefield 2042",
-            Image = "Assets/Images/Games/BF2042.jpg",
-            Image2 = "Assets/Images/Games/BF2042_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF2042.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF2042_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -142,8 +142,8 @@ public static class Base
             GameType = GameType.FIFA23,
             Name = "FIFA 23",
             Name2 = "EA SPORTS™ FIFA 23",
-            Image = "Assets/Images/Games/FIFA23.jpg",
-            Image2 = "Assets/Images/Games/FIFA23_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/FIFA23.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/FIFA23_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -163,8 +163,8 @@ public static class Base
             GameType = GameType.PVZGW2,
             Name = "植物大战僵尸 : 花园战争2",
             Name2 = "Plants vs. Zombies Garden Warfare 2",
-            Image = "Assets/Images/Games/PVZGW2.jpg",
-            Image2 = "Assets/Images/Games/PVZGW2_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/PVZGW2.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/PVZGW2_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -184,8 +184,8 @@ public static class Base
             GameType = GameType.SWBF2,
             Name = "星球大战 : 前线2",
             Name2 = "Star Wars : Battle Front II",
-            Image = "Assets/Images/Games/SWBF2.jpg",
-            Image2 = "Assets/Images/Games/SWBF2_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWBF2.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWBF2_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -205,8 +205,8 @@ public static class Base
             GameType = GameType.FC24,
             Name = "FC™ 24",
             Name2 = "EA SPORTS FC™ 24",
-            Image = "Assets/Images/Games/FC24.jpg",
-            Image2 = "Assets/Images/Games/FC24_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/FC24.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/FC24_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -226,8 +226,8 @@ public static class Base
             GameType = GameType.TTF2,
             Name = "泰坦陨落2",
             Name2 = "Titanfall 2",
-            Image = "Assets/Images/Games/TTF2.jpg",
-            Image2 = "Assets/Images/Games/TTF2_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/TTF2.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/TTF2_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -247,8 +247,8 @@ public static class Base
             GameType = GameType.F123,
             Name = "F1® 23",
             Name2 = "EA SPORTS™ F1® 23 3",
-            Image = "Assets/Images/Games/F123.jpg",
-            Image2 = "Assets/Images/Games/F123_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/F123.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/F123_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -268,8 +268,8 @@ public static class Base
             GameType = GameType.NFS22,
             Name = "极品飞车 : 不羁",
             Name2 = "Need For Speed™ : Unbound",
-            Image = "Assets/Images/Games/NFS22.jpg",
-            Image2 = "Assets/Images/Games/NFS22_Logo.jpg",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS22.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS22_Logo.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
             Args = string.Empty,
@@ -290,168 +290,168 @@ public static class Base
         {
             Code = "NULL",
             Name = "未知语言",
-            Image = "Assets/Images/Regions/NULL.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/NULL.png"
         };
 
         GameLocaleDb["en_US"] = new()
         {
             Code = "en_US",
             Name = "英语",
-            Image = "Assets/Images/Regions/en_US.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/en_US.png"
         };
 
         GameLocaleDb["fr_FR"] = new()
         {
             Code = "fr_FR",
             Name = "法语",
-            Image = "Assets/Images/Regions/fr_FR.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/fr_FR.png"
         };
 
         GameLocaleDb["de_DE"] = new()
         {
             Code = "de_DE",
             Name = "德语",
-            Image = "Assets/Images/Regions/de_DE.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/de_DE.png"
         };
 
         GameLocaleDb["es_ES"] = new()
         {
             Code = "es_ES",
             Name = "西班牙语 - 西班牙",
-            Image = "Assets/Images/Regions/es_ES.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/es_ES.png"
         };
 
         GameLocaleDb["es_MX"] = new()
         {
             Code = "es_MX",
             Name = "西班牙语 - 拉丁美洲",
-            Image = "Assets/Images/Regions/es_MX.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/es_MX.png"
         };
 
         GameLocaleDb["it_IT"] = new()
         {
             Code = "it_IT",
             Name = "意大利语",
-            Image = "Assets/Images/Regions/it_IT.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/it_IT.png"
         };
 
         GameLocaleDb["ja_JP"] = new()
         {
             Code = "ja_JP",
             Name = "日语",
-            Image = "Assets/Images/Regions/ja_JP.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/ja_JP.png"
         };
 
         GameLocaleDb["ru_RU"] = new()
         {
             Code = "ru_RU",
             Name = "俄语",
-            Image = "Assets/Images/Regions/ru_RU.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/ru_RU.png"
         };
 
         GameLocaleDb["pl_PL"] = new()
         {
             Code = "pl_PL",
             Name = "波兰语",
-            Image = "Assets/Images/Regions/pl_PL.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/pl_PL.png"
         };
 
         GameLocaleDb["zh_TW"] = new()
         {
             Code = "zh_TW",
             Name = "繁体中文",
-            Image = "Assets/Images/Regions/zh_TW.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/zh_TW.png"
         };
 
         GameLocaleDb["zh_CN"] = new()
         {
             Code = "zh_CN",
             Name = "简体中文",
-            Image = "Assets/Images/Regions/zh_CN.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/zh_CN.png"
         };
 
         GameLocaleDb["ko_KR"] = new()
         {
             Code = "ko_KR",
             Name = "韩语",
-            Image = "Assets/Images/Regions/ko_KR.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/ko_KR.png"
         };
 
         GameLocaleDb["pt_BR"] = new()
         {
             Code = "pt_BR",
             Name = "葡萄牙语 - 巴西",
-            Image = "Assets/Images/Regions/pt_BR.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/pt_BR.png"
         };
 
         GameLocaleDb["ar_SA"] = new()
         {
             Code = "ar_SA",
             Name = "阿拉伯语",
-            Image = "Assets/Images/Regions/ar_SA.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/ar_SA.png"
         };
 
         GameLocaleDb["cs_CZ"] = new()
         {
             Code = "cs_CZ",
             Name = "捷克语",
-            Image = "Assets/Images/Regions/cs_CZ.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/cs_CZ.png"
         };
 
         GameLocaleDb["tr_TR"] = new()
         {
             Code = "tr_TR",
             Name = "土耳其语",
-            Image = "Assets/Images/Regions/tr_TR.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/tr_TR.png"
         };
 
         GameLocaleDb["pt_PT"] = new()
         {
             Code = "pt_PT",
             Name = "葡萄牙语",
-            Image = "Assets/Images/Regions/pt_PT.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/pt_PT.png"
         };
 
         GameLocaleDb["zh_HK"] = new()
         {
             Code = "zh_HK",
             Name = "繁体中文",
-            Image = "Assets/Images/Regions/zh_HK.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/zh_HK.png"
         };
 
         GameLocaleDb["da_DK"] = new()
         {
             Code = "da_DK",
             Name = "丹麦语",
-            Image = "Assets/Images/Regions/da_DK.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/da_DK.png"
         };
 
         GameLocaleDb["no_NO"] = new()
         {
             Code = "no_NO",
             Name = "挪威语",
-            Image = "Assets/Images/Regions/no_NO.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/no_NO.png"
         };
 
         GameLocaleDb["sv_SE"] = new()
         {
             Code = "sv_SE",
             Name = "瑞典语",
-            Image = "Assets/Images/Regions/sv_SE.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/sv_SE.png"
         };
 
         GameLocaleDb["nl_NL"] = new()
         {
             Code = "nl_NL",
             Name = "荷兰语",
-            Image = "Assets/Images/Regions/nl_NL.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/nl_NL.png"
         };
 
         GameLocaleDb["en_GB"] = new()
         {
             Code = "en_GB",
             Name = "英语 - 英国",
-            Image = "Assets/Images/Regions/en_GB.png"
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/en_GB.png"
         };
     }
 }

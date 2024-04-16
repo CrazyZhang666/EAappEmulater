@@ -50,7 +50,7 @@ public partial class FriendView : UserControl
                 {
                     _friendInfoList.Add(new()
                     {
-                        Avatar = "Assets/Images/Avatars/Default.png",
+                        Avatar = "Default",
                         DiffDays = CoreUtil.DiffDays(entry.timestamp),
 
                         DisplayName = entry.displayName,

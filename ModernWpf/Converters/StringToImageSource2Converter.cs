@@ -16,11 +16,8 @@ public class StringToImageSource2Converter : IValueConverter
         // 3. 本地图片  C:\
 
         // 资源图片
-        if (imgPath.StartsWith("Assets"))
-        {
-            imgPath = $"pack://application:,,,/EAappEmulater;component/{imgPath}";
+        if (imgPath.StartsWith("pack://application"))
             goto IMAGE;
-        }
 
         /// 网络图片
         if (imgPath.StartsWith("http://") || imgPath.StartsWith("https://"))
@@ -31,7 +28,7 @@ public class StringToImageSource2Converter : IValueConverter
             goto IMAGE;
 
         // 默认图片路径
-        imgPath = "pack://application:,,,/ModernWpf;component/Assets/Images/Default.png";
+        imgPath = "pack://application:,,,/ModernWpf;component/Assets/Images/Avatar.png";
 
     IMAGE:
         var bitmapImage = new BitmapImage();
