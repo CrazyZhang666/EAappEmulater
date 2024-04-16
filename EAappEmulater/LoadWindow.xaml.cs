@@ -130,8 +130,8 @@ public partial class LoadWindow
 
         /////////////////////////////////////////////////
 
-        DisplayLoadState("正在刷新基础 Token 信息...");
-        LoggerHelper.Info("正在刷新基础 Token 信息...");
+        DisplayLoadState("正在刷新 BaseToken 数据...");
+        LoggerHelper.Info("正在刷新 BaseToken 数据...");
 
         // 最多执行4次
         for (int i = 0; i <= 4; i++)
@@ -141,21 +141,21 @@ public partial class LoadWindow
             {
                 Loading_Normal.Visibility = Visibility.Hidden;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
-                DisplayLoadState("刷新基础 Token 信息失败，程序终止，请检查网络连接");
-                LoggerHelper.Error("刷新基础 Token 信息失败，程序终止，请检查网络连接");
+                DisplayLoadState("刷新 BaseToken 数据失败，程序终止，请检查网络连接");
+                LoggerHelper.Error("刷新 BaseToken 数据失败，程序终止，请检查网络连接");
                 return;
             }
 
             // 第1次不提示重试
             if (i > 0)
             {
-                DisplayLoadState($"刷新基础 Token 信息失败，开始第 {i} 次重试中...");
-                LoggerHelper.Warn($"刷新基础 Token 信息失败，开始第 {i} 次重试中...");
+                DisplayLoadState($"刷新 BaseToken 数据失败，开始第 {i} 次重试中...");
+                LoggerHelper.Warn($"刷新 BaseToken 数据失败，开始第 {i} 次重试中...");
             }
 
             if (await Ready.RefreshBaseTokens())
             {
-                LoggerHelper.Info("刷新基础 Token 信息成功");
+                LoggerHelper.Info("刷新 BaseToken 数据成功");
                 break;
             }
         }

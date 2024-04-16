@@ -7,6 +7,8 @@ namespace EAappEmulater.Core;
 
 public static class Ready
 {
+    private static Timer _autoUpdateTimer;
+
     public static async void Run()
     {
         // 打开服务进程
@@ -22,6 +24,11 @@ public static class Ready
 
         // 加载玩家头像
         await LoadAvatar();
+
+        // 定时刷新 BaseToken 数据
+        LoggerHelper.Info("正在启动 定时刷新 BaseToken 服务...");
+        _autoUpdateTimer = new Timer(AutoUpdateBaseToken, null, TimeSpan.FromHours(2), TimeSpan.FromHours(2));
+        LoggerHelper.Info("启动 定时刷新 BaseToken 服务成功");
     }
 
     public static async void Stop()
@@ -35,8 +42,42 @@ public static class Ready
         LoggerHelper.Info("正在关闭 Battlelog 监听服务...");
         BattlelogHttpServer.Stop();
 
+        LoggerHelper.Info("正在关闭 定时刷新 BaseToken 服务...");
+        _autoUpdateTimer?.Dispose();
+        _autoUpdateTimer = null;
+        LoggerHelper.Info("关闭 定时刷新 BaseToken 服务成功");
+
         // 关闭服务进程
         await CoreUtil.CloseServerProcess();
+    }
+
+    /// <summary>
+    /// 定时刷新 BaseToken 数据
+    /// </summary>
+    private static async void AutoUpdateBaseToken(object obj)
+    {
+        // 最多执行4次
+        for (int i = 0; i <= 4; i++)
+        {
+            // 当第4次还是失败，终止程序
+            if (i > 3)
+            {
+                LoggerHelper.Error("定时刷新 BaseToken 数据失败，请检查网络连接");
+                return;
+            }
+
+            // 第1次不提示重试
+            if (i > 0)
+            {
+                LoggerHelper.Warn($"定时刷新 BaseToken 数据失败，开始第 {i} 次重试中...");
+            }
+
+            if (await RefreshBaseTokens())
+            {
+                LoggerHelper.Info("定时刷新 BaseToken 数据成功");
+                break;
+            }
+        }
     }
 
     /// <summary>
