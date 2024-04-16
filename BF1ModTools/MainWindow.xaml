@@ -7,8 +7,9 @@
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
     x:Name="Window_Main"
     Title="战地1模组工具箱"
-    Width="900"
-    Height="600"
+    Width="800"
+    Height="550"
+    CaptionHeight="40"
     Closing="Window_Main_Closing"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
     Loaded="Window_Main_Loaded"
@@ -38,12 +39,6 @@
                     Source="{Binding MainModel.Avatar}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <ui:IconFont
-                    Width="40"
-                    Height="40"
-                    Margin="5,0"
-                    FontSize="16"
-                    Icon="&#xE700;" />
                 <ui:Image
                     Width="22"
                     Height="22"

@@ -1,0 +1,5 @@
+﻿<LSX>
+    <Event sender="EALS">
+        <Challenge build="release" key="##KEY##" version="10,5,30,15625" />
+    </Event>
+</LSX>

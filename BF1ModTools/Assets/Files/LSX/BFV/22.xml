@@ -1,0 +1,14 @@
+﻿<LSX>
+    <Response id="##ID##" sender="Commerce">
+        <QueryOffersResponse>
+            <Offer Currency="EUR" bHidden="false" UseEndDate="0000-00-00T00:00:00"
+                bIsDiscounted="false" ImageId="" Description="馬上購買至尊離子讓您的離子擁有專屬機身、獨特音效和新處決動畫。"
+                LocalizedOriginalPrice="€4.99" GameDistributionSubType="" InventorySold="-1"
+                Name="Titanfall™ 2：至尊離子" Price="4.99" InventoryCap="-1" OriginalPrice="4.99"
+                PlayableDate="2016-11-29T23:45:00" DownloadSize="0"
+                DownloadDate="2016-11-29T23:45:00" LocalizedPrice="€4.99" bCanPurchase="true"
+                InventoryAvailable="-1" PurchaseDate="0000-00-00T00:00:00" bIsOwned="false"
+                Type="Extra Content" OfferId="Origin.OFR.50.0001873" />
+        </QueryOffersResponse>
+    </Response>
+</LSX>
