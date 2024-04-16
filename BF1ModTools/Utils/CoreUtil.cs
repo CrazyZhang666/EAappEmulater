@@ -33,7 +33,7 @@ public static class CoreUtil
     {
         #region 配置目录
         Dir_MyDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        Dir_Default = Path.Combine(Dir_MyDocuments, "EAappEmulater");
+        Dir_Default = Path.Combine(Dir_MyDocuments, "BF1ModTools");
 
         Dir_Cache = Path.Combine(Dir_Default, "Cache");
         Dir_Config = Path.Combine(Dir_Default, "Config");
@@ -64,6 +64,17 @@ public static class CoreUtil
         RuntimeVersion = RuntimeInformation.FrameworkDescription;
         OSArchitecture = RuntimeInformation.OSArchitecture.ToString();
         RuntimeIdentifier = RuntimeInformation.RuntimeIdentifier;
+    }
+
+    /// <summary>
+    /// 关闭服务进程
+    /// </summary>
+    public static async Task CloseServerProcess()
+    {
+        LoggerHelper.Info("准备关闭服务进程");
+        await ProcessHelper.CloseProcess("EADesktop");
+        await ProcessHelper.CloseProcess("OriginDebug");
+        await ProcessHelper.CloseProcess("Origin");
     }
 
     /// <summary>

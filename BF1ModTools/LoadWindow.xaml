@@ -7,7 +7,7 @@
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
     xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     x:Name="Window_Load"
-    Title="马恩工具箱"
+    Title="战地1模组工具箱"
     Width="380"
     Height="660"
     Closing="Window_Load_Closing"
@@ -50,7 +50,7 @@
                     Width="18"
                     Height="18"
                     Margin="7,0,0,0"
-                    Source="pack://application:,,,/EAappEmulater;component/Assets/Icons/Favicon.ico" />
+                    Source="pack://application:,,,/BF1ModTools;component/Assets/Icons/Favicon.ico" />
                 <TextBlock
                     Margin="7,0,0,0"
                     VerticalAlignment="Center"

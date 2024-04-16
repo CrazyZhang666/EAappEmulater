@@ -1,15 +1,62 @@
-﻿<Window
+﻿<ui:Window
     x:Class="BF1ModTools.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:BF1ModTools"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainWindow"
-    Width="800"
-    Height="450"
+    xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
+    x:Name="Window_Main"
+    Title="战地1模组工具箱"
+    Width="900"
+    Height="600"
+    Closing="Window_Main_Closing"
+    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+    Loaded="Window_Main_Loaded"
+    ResizeMode="CanMinimize"
+    Style="{StaticResource CustomSystemWindowStyle}"
     mc:Ignorable="d">
+
+    <ui:Window.TitleContent>
+        <DockPanel>
+            <StackPanel
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right"
+                Orientation="Horizontal">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Right" Text="{Binding MainModel.PlayerName}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        HorizontalAlignment="Right"
+                        FontSize="10"
+                        Text="{Binding MainModel.PersonaId}" />
+                </StackPanel>
+                <ui:Avatar
+                    Width="30"
+                    Height="30"
+                    Margin="7,0,7,0"
+                    VerticalAlignment="Center"
+                    Source="{Binding MainModel.Avatar}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <ui:IconFont
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    FontSize="16"
+                    Icon="&#xE700;" />
+                <ui:Image
+                    Width="22"
+                    Height="22"
+                    Margin="7,0,0,0"
+                    Source="pack://application:,,,/BF1ModTools;component/Assets/Icons/Favicon.ico" />
+                <TextBlock
+                    Margin="7,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding Title}" />
+            </StackPanel>
+        </DockPanel>
+    </ui:Window.TitleContent>
 
     <Grid />
 
-</Window>
+</ui:Window>

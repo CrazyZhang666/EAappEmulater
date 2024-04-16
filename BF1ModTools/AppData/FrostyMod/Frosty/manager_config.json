@@ -1,0 +1,23 @@
+{
+  "Games": {
+    "bf1": {
+      "GamePath": "D:\\Origin Games\\Battlefield 1",
+      "BookmarkDb": "[Asset Bookmarks]|[Legacy Bookmarks]",
+      "Options": {
+        "SelectedPack": "Default",
+        "CommandLineArgs": ""
+      },
+      "Packs": {
+        "Default": "mod_name_version.fbmod:True"
+      }
+    }
+  },
+  "GlobalOptions": {
+    "ApplyModOrder": "List",
+    "UseDefaultProfile": false,
+    "DeleteCollectionMods": false,
+    "UpdateCheck": false,
+    "UpdateCheckPrerelease": false,
+    "MaxCasFileSize": "1GB"
+  }
+}

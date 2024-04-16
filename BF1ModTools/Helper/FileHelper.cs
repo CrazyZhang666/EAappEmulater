@@ -12,6 +12,27 @@ public static class FileHelper
     }
 
     /// <summary>
+    /// 获取嵌入资源流（自动添加前缀）
+    /// </summary>
+    public static Stream GetEmbeddedResourceStream(string resPath)
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        return assembly.GetManifestResourceStream($"BF1ModTools.Assets.Files.{resPath}");
+    }
+
+    /// <summary>
+    /// 获取嵌入资源文本内容
+    /// </summary>
+    public static string GetEmbeddedResourceText(string resPath)
+    {
+        var stream = GetEmbeddedResourceStream(resPath);
+        if (stream is null)
+            return string.Empty;
+
+        return new StreamReader(stream).ReadToEnd();
+    }
+
+    /// <summary>
     /// 清空指定文件夹下的文件及文件夹
     /// </summary>
     public static void ClearDirectory(string dirPath)
