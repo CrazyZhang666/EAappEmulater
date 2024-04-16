@@ -42,6 +42,8 @@ public partial class MainWindow
     {
         LoggerHelper.Info("启动主程序成功");
 
+        Title = $"EA app 模拟器 v{CoreUtil.VersionInfo}";
+
         // 向外暴露主窗口实例
         MainWindowInstance = this;
 
