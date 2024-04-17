@@ -2,7 +2,6 @@
 using BF1ModTools.Helper;
 using BF1ModTools.Models;
 using CommunityToolkit.Mvvm.Input;
-using BF1ModTools.Core;
 
 namespace BF1ModTools.Views;
 
@@ -14,6 +13,53 @@ public partial class LaunchView : UserControl
     public LaunchView()
     {
         InitializeComponent();
+
+        ToDoList();
+    }
+
+    private void ToDoList()
+    {
+
+    }
+
+    private async Task<bool> IsValidBf1Path()
+    {
+        // 检查战地1路径真实性
+        if (await CoreUtil.IsBf1MainAppFile(Globals.BF1InstallDir, true))
+            return true;
+
+        var dialog = new OpenFileDialog
+        {
+            Title = "请选择战地1游戏主程序 bf1.exe 路径",
+            FileName = "bf1.exe",
+            DefaultExt = ".exe",
+            Filter = "可执行文件 (.exe)|*.exe",
+            Multiselect = false,
+            InitialDirectory = Globals.DialogDir,
+            RestoreDirectory = true,
+            AddExtension = true,
+            CheckFileExists = true,
+            CheckPathExists = true
+        };
+
+        // 如果未选择，则退出程序
+        if (dialog.ShowDialog() == false)
+            return false;
+
+        var installDir = Path.GetDirectoryName(dialog.FileName);
+        // 记住本次选择的文件路径
+        Globals.DialogDir = installDir;
+
+        if (await CoreUtil.IsBf1MainAppFile(dialog.FileName))
+        {
+            Globals.BF1AppPath = dialog.FileName;
+            Globals.BF1InstallDir = installDir;
+            LoggerHelper.Info($"获取战地1游戏主程序路径成功 {Globals.BF1AppPath}");
+            return true;
+        }
+
+        LoggerHelper.Error($"无效的战地1游戏主程序路径，请重新选择 {Globals.BF1AppPath}");
+        return false;
     }
 
     #region Frosty Mod Manager
@@ -164,44 +210,4 @@ public partial class LaunchView : UserControl
         await ProcessHelper.CloseProcess(CoreUtil.Name_MarneLauncher);
     }
     #endregion
-
-    private async Task<bool> IsValidBf1Path()
-    {
-        // 检查战地1路径真实性
-        if (await CoreUtil.IsBf1MainAppFile(Globals.BF1InstallDir, true))
-            return true;
-
-        var dialog = new OpenFileDialog
-        {
-            Title = "请选择战地1游戏主程序 bf1.exe 路径",
-            FileName = "bf1.exe",
-            DefaultExt = ".exe",
-            Filter = "可执行文件 (.exe)|*.exe",
-            Multiselect = false,
-            InitialDirectory = Globals.DialogDir,
-            RestoreDirectory = true,
-            AddExtension = true,
-            CheckFileExists = true,
-            CheckPathExists = true
-        };
-
-        // 如果未选择，则退出程序
-        if (dialog.ShowDialog() == false)
-            return false;
-
-        var installDir = Path.GetDirectoryName(dialog.FileName);
-        // 记住本次选择的文件路径
-        Globals.DialogDir = installDir;
-
-        if (await CoreUtil.IsBf1MainAppFile(dialog.FileName))
-        {
-            Globals.BF1AppPath = dialog.FileName;
-            Globals.BF1InstallDir = installDir;
-            LoggerHelper.Info($"获取战地1游戏主程序路径成功 {Globals.BF1AppPath}");
-            return true;
-        }
-
-        LoggerHelper.Error($"无效的战地1游戏主程序路径，请重新选择 {Globals.BF1AppPath}");
-        return false;
-    }
 }

@@ -1,0 +1,59 @@
+﻿<UserControl
+    x:Class="BF1ModTools.Views.NameView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
+    d:DesignHeight="160"
+    d:DesignWidth="266"
+    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+    mc:Ignorable="d">
+
+    <Border
+        Height="130"
+        Margin="5,5,5,0"
+        Padding="7"
+        Background="White"
+        BorderBrush="#BBBBBB"
+        BorderThickness="1"
+        CornerRadius="5">
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Bottom">
+                <ui:IconButton
+                    Margin="5,0,0,0"
+                    Command="{Binding ChangePlayerNameCommand}"
+                    Content="修改"
+                    DockPanel.Dock="Right"
+                    Icon="&#xE713;"
+                    IsEnabled="{Binding ElementName=TextBox_CustomName, Path=Text, Converter={StaticResource IsNullOrWhiteSpace2Converter}}" />
+                <ui:TextBoxHint
+                    x:Name="TextBox_CustomName"
+                    Margin="0"
+                    CornerRadius="5"
+                    Hint="输入自定义中文ID"
+                    Icon="&#xE13D;" />
+            </DockPanel>
+            <StackPanel>
+                <DockPanel>
+                    <ui:Avatar
+                        Width="45"
+                        Height="45"
+                        Margin="0,5,7,0"
+                        DockPanel.Dock="Left"
+                        Source="Default" />
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock
+                            x:Name="TextBlock_PlayerName"
+                            Margin="0,0,0,5"
+                            d:Text="PlayerName"
+                            FontSize="16"
+                            FontWeight="Bold" />
+                        <TextBlock x:Name="TextBlock_PersonaId" d:Text="0123456789" />
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+        </DockPanel>
+    </Border>
+
+</UserControl>
