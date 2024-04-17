@@ -10,38 +10,46 @@ internal class Program
 {
     static void Main(string[] args)
     {
-#if DEBUG
-        var path = "F:\\Downloads\\EAappEmulater.dll";
-#else
+        Console.Title = "Eazfuscator.NET 7天试用移除工具";
+
         if (args.Length == 0)
         {
-            Console.WriteLine("未发现运行参数");
+            Console.WriteLine("未发现运行参数！按回车键退出");
+            Console.ReadLine();
             return;
         }
 
         var path = args[0];
         Console.WriteLine($"传入文件路径 {path}");
-#endif
 
         if (!path.EndsWith("dll"))
         {
-            Console.WriteLine("请输入dll文件");
+            Console.WriteLine("请输入dll文件！按回车键退出");
+            Console.ReadLine();
             return;
         }
 
         if (!File.Exists(path))
         {
-            Console.WriteLine("输入dll文件不存在");
+            Console.WriteLine("输入dll文件不存在！按回车键退出");
+            Console.ReadLine();
             return;
         }
 
         Patch(path);
 
-        Console.WriteLine("程序执行完毕！");
+        Console.WriteLine("\n============================");
+        Console.WriteLine("检查修改结果");
+        Patch(path, false);
+
+        Console.WriteLine("程序执行完毕！按回车键退出");
+        Console.ReadLine();
     }
 
-    static void Patch(string path)
+    static void Patch(string path, bool isSave = true)
     {
+        Console.WriteLine("开始查找类...");
+
         var moduleDef = ModuleDefMD.Load(path);
         var typeDefs = moduleDef.GetTypes().ToList();
 
@@ -75,7 +83,9 @@ internal class Program
             }
             Console.WriteLine();
 
-            Save(moduleDef, path);
+            if (isSave)
+                Save(moduleDef, path);
+
             return;
         }
     }
@@ -107,17 +117,17 @@ internal class Program
         return true;
     }
 
-    static bool MethodRets(MethodDef method, string retType = null)
+    static bool MethodRets(MethodDef methodDef, string retType = null)
     {
-        if (!method.HasReturnType)
+        if (!methodDef.HasReturnType)
             return string.IsNullOrEmpty(retType) || retType == "Void";
 
-        return $"System.{retType}" == method.ReturnType.FullName;
+        return $"System.{retType}" == methodDef.ReturnType.FullName;
     }
 
     static void Save(ModuleDefMD moduleDef, string path)
     {
-        Console.WriteLine("开始保存修补过的文件中...");
+        Console.WriteLine("开始保存修补过的文件...");
 
         var backupFile = path.Replace(".dll", "_backup.dll");
 
