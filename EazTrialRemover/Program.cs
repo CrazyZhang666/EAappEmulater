@@ -10,6 +10,9 @@ internal class Program
 {
     static void Main(string[] args)
     {
+#if DEBUG
+        var path = "F:\\Downloads\\EAappEmulater.dll";
+#else
         if (args.Length == 0)
         {
             Console.WriteLine("未发现运行参数");
@@ -18,6 +21,7 @@ internal class Program
 
         var path = args[0];
         Console.WriteLine($"传入文件路径 {path}");
+#endif
 
         if (!path.EndsWith("dll"))
         {
@@ -48,10 +52,16 @@ internal class Program
 
             Console.WriteLine($"发现试用检查类: 0x{typeDef.MDToken}");
 
+            Console.WriteLine();
             foreach (var method in typeDef.Methods)
             {
                 if (!method.HasBody)
                     continue;
+
+                Console.WriteLine($"{method.FullName}");
+                Console.WriteLine($"Body.Instructions {method.Body.Instructions.Count}");
+                Console.WriteLine($"Body.ExceptionHandlers {method.Body.ExceptionHandlers.Count}");
+                Console.WriteLine("-----------------");
 
                 var insts = method.Body.Instructions;
 
@@ -63,6 +73,7 @@ internal class Program
 
                 insts.Add(OpCodes.Ret.ToInstruction());
             }
+            Console.WriteLine();
 
             Save(moduleDef, path);
             return;
@@ -124,6 +135,6 @@ internal class Program
 
         File.Delete(backupFile);
 
-        Console.WriteLine("保存修补过的文件成功（覆盖保存）");
+        Console.WriteLine("保存修补过的文件成功");
     }
 }
