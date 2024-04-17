@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{748E8399-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1B9854E2-8332-4D88-81D6-AE940023557C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EazTrialRemover", "EazTrialRemover\EazTrialRemover.csproj", "{9EEB97F3-D2D0-45CC-9E80-D8DEDB69A5EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -45,6 +47,9 @@ Global
 		{C0199BB9-F58F-4C47-A474-977096DBCFEF}.Debug|x64.ActiveCfg = Debug|x64
 		{C0199BB9-F58F-4C47-A474-977096DBCFEF}.Debug|x64.Build.0 = Debug|x64
 		{C0199BB9-F58F-4C47-A474-977096DBCFEF}.Release|x64.ActiveCfg = Release|x64
+		{9EEB97F3-D2D0-45CC-9E80-D8DEDB69A5EA}.Debug|x64.ActiveCfg = Debug|x64
+		{9EEB97F3-D2D0-45CC-9E80-D8DEDB69A5EA}.Debug|x64.Build.0 = Debug|x64
+		{9EEB97F3-D2D0-45CC-9E80-D8DEDB69A5EA}.Release|x64.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +61,7 @@ Global
 		{36B7E168-C1AF-49A7-B494-7A64BB92B898} = {748E8399-7161-480B-9D96-2C2FEAE812EB}
 		{C0199BB9-F58F-4C47-A474-977096DBCFEF} = {1B9854E2-8332-4D88-81D6-AE940023557C}
 		{748E8399-7161-480B-9D96-2C2FEAE812EB} = {1B9854E2-8332-4D88-81D6-AE940023557C}
+		{9EEB97F3-D2D0-45CC-9E80-D8DEDB69A5EA} = {748E8399-7161-480B-9D96-2C2FEAE812EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ACF53880-21E7-4FA3-B3B1-4EF810F8BD9F}
