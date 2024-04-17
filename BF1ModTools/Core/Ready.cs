@@ -1,5 +1,6 @@
 ﻿using BF1ModTools.Api;
 using BF1ModTools.Helper;
+using BF1ModTools.Utils;
 
 namespace BF1ModTools.Core;
 
@@ -9,6 +10,11 @@ public static class Ready
 
     public static void Run()
     {
+        // 打开服务进程
+        LoggerHelper.Info("正在启动服务进程...");
+        ProcessHelper.OpenProcess(CoreUtil.File_Cache_EADesktop, true);
+        ProcessHelper.OpenProcess(CoreUtil.File_Cache_OriginDebug, true);
+
         LoggerHelper.Info("正在启动 LSX 监听服务...");
         LSXTcpServer.Run();
 

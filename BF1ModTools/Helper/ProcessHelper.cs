@@ -61,7 +61,7 @@ public static class ProcessHelper
     /// <summary>
     /// 打开指定进程，可以附带启动参数
     /// </summary>
-    public static void OpenProcess(string appPath, string args = "")
+    public static void OpenProcess(string appPath, bool isSilent = false)
     {
         if (!File.Exists(appPath))
         {
@@ -82,8 +82,11 @@ public static class ProcessHelper
                 WorkingDirectory = fileInfo.DirectoryName
             };
 
-            if (!string.IsNullOrWhiteSpace(args))
-                processInfo.Arguments = args;
+            if (isSilent)
+            {
+                processInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                processInfo.CreateNoWindow = true;
+            }
 
             Process.Start(processInfo);
             LoggerHelper.Info($"启动程序成功 {appPath}");

@@ -15,6 +15,9 @@ public static class CoreUtil
 
     public static string Dir_Log_Crash { get; private set; }
     public static string Dir_Log_NLog { get; private set; }
+
+    public static string File_Cache_EADesktop { get; private set; }
+    public static string File_Cache_OriginDebug { get; private set; }
     #endregion
 
     #region 数据目录
@@ -66,6 +69,9 @@ public static class CoreUtil
 
         FileHelper.CreateDirectory(Dir_Log_Crash);
         FileHelper.CreateDirectory(Dir_Log_NLog);
+
+        File_Cache_EADesktop = Path.Combine(Dir_Cache, "EADesktop.exe");
+        File_Cache_OriginDebug = Path.Combine(Dir_Cache, "OriginDebug.exe");
         #endregion
 
         #region 数据目录

@@ -40,12 +40,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="Assets\Files\LSX\BFV\25.xml" />
-      <None Remove="Assets\Images\FrostyModManager.png" />
-      <None Remove="Assets\Images\MarneLauncher.png" />
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
     </ItemGroup>
 
@@ -65,6 +59,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="Assets\Files\Exec\EADesktop.exe" />
+        <EmbeddedResource Include="Assets\Files\Exec\OriginDebug.exe" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\00.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\01.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\02.xml" />

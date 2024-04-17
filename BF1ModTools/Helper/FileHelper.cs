@@ -66,6 +66,48 @@ public static class FileHelper
     }
 
     /// <summary>
+    /// 从资源文件中抽取资源文件（默认覆盖源文件）
+    /// </summary>
+    public static void ExtractResFile(string resPath, string outputPath, bool isOverride = true)
+    {
+        // 如果输出文件存在，并且不覆盖文件，则退出
+        if (!isOverride && File.Exists(outputPath))
+            return;
+
+        var stream = GetEmbeddedResourceStream(resPath);
+        if (stream is null)
+            return;
+
+        BufferedStream inStream = null;
+        FileStream outStream = null;
+
+        try
+        {
+            inStream = new BufferedStream(stream);
+            outStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write);
+
+            var buffer = new byte[1024];
+            int length;
+
+            while ((length = inStream.Read(buffer, 0, buffer.Length)) > 0)
+                outStream.Write(buffer, 0, length);
+
+            outStream.Flush();
+
+            LoggerHelper.Info($"释放资源文件成功 {outputPath}");
+        }
+        catch (Exception ex)
+        {
+            LoggerHelper.Error($"释放资源文件异常 {outputPath}", ex);
+        }
+        finally
+        {
+            outStream?.Close();
+            inStream?.Close();
+        }
+    }
+
+    /// <summary>
     /// 获取文件MD5值
     /// </summary>
     /// <param name="filePath"></param>

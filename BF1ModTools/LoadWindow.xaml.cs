@@ -92,6 +92,11 @@ public partial class LoadWindow
         // 关闭服务进程
         await CoreUtil.CloseServerProcess();
 
+        DisplayLoadState("正在释放资源服务进程文件...");
+        LoggerHelper.Info("正在释放资源服务进程文件...");
+        FileHelper.ExtractResFile("Exec.EADesktop.exe", CoreUtil.File_Cache_EADesktop);
+        FileHelper.ExtractResFile("Exec.OriginDebug.exe", CoreUtil.File_Cache_OriginDebug);
+
         /////////////////////////////////////////////////
 
         DisplayLoadState("正在刷新 BaseToken 数据...");
