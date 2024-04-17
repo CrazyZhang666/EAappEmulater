@@ -194,12 +194,13 @@ public partial class LaunchView : UserControl
 
         if (await CoreUtil.IsBf1MainAppFile(dialog.FileName))
         {
+            Globals.BF1AppPath = dialog.FileName;
             Globals.BF1InstallDir = installDir;
-            LoggerHelper.Info($"获取战地1游戏主程序 bf1.exe 路径成功 {dialog.FileName}");
+            LoggerHelper.Info($"获取战地1游戏主程序路径成功 {Globals.BF1AppPath}");
             return true;
         }
 
-        LoggerHelper.Error($"无效的战地1游戏主程序 bf1.exe 路径，请重新选择 {dialog.FileName}");
+        LoggerHelper.Error($"无效的战地1游戏主程序路径，请重新选择 {Globals.BF1AppPath}");
         return false;
     }
 }

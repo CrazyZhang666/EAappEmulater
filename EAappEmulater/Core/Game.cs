@@ -144,7 +144,7 @@ public static class Game
         {
             LoggerHelper.Error($"启动游戏发生异常 {gameType}", ex);
             if (isNotice)
-                NotifierHelper.Error($"启动游戏发生异常 {gameType}\n{ex.Message}");
+                NotifierHelper.Error($"启动游戏发生异常 {gameType} 详情请看日志");
         }
     }
 }

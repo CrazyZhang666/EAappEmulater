@@ -49,7 +49,7 @@ public class Bf1
 public class Options
 {
     public string SelectedPack { get; set; } = "Default";
-    public string CommandLineArgs { get; set; } = "";
+    public string CommandLineArgs { get; set; } = "RunBf1Game";
 }
 
 public class Packs

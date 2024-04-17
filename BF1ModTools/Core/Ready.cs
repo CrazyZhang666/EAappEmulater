@@ -12,6 +12,9 @@ public static class Ready
         LoggerHelper.Info("正在启动 LSX 监听服务...");
         LSXTcpServer.Run();
 
+        LoggerHelper.Info("正在启动 Local UDP 监听服务...");
+        LocalUdpClient.Run();
+
         // 定时刷新 BaseToken 数据
         LoggerHelper.Info("正在启动 定时刷新 BaseToken 服务...");
         _autoUpdateTimer = new Timer(AutoUpdateBaseToken, null, TimeSpan.FromHours(2), TimeSpan.FromHours(2));
@@ -22,6 +25,9 @@ public static class Ready
     {
         // 保存配置文件
         Globals.Write();
+
+        LoggerHelper.Info("正在关闭 Local UDP 监听服务...");
+        LocalUdpClient.Stop();
 
         LoggerHelper.Info("正在关闭 LSX 监听服务...");
         LSXTcpServer.Stop();

@@ -2,6 +2,10 @@
 
 public static class EaCrypto
 {
+    private const int prime_10000th = 104729;
+    private const int prime_20000th = 224737;
+    private const int prime_30000th = 350377;
+
     public static byte[] GetArray(string strData)
     {
         strData = strData.ToLower();
@@ -47,6 +51,20 @@ public static class EaCrypto
         }
 
         return strBuilder.ToString();
+    }
+
+    public static string GetRTPHandshakeCode()
+    {
+        var dateTime = DateTime.UtcNow;
+
+        var year = (uint)dateTime.Year;
+        var month = (uint)dateTime.Month;
+        var day = (uint)dateTime.Day;
+
+        var temp_value = (prime_10000th * year) ^ (month * prime_20000th) ^ (day * prime_30000th);
+        var hashed_timestamp = temp_value ^ (temp_value << 16) ^ (temp_value >> 16);
+
+        return hashed_timestamp.ToString();
     }
 
     public static Aes GetAesDataByKey(byte[] key)

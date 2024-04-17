@@ -10,6 +10,7 @@ public static class Globals
 
     ///////////////////////////////////
 
+    public static string BF1AppPath { get; set; }
     public static string BF1InstallDir { get; set; }
 
     ///////////////////////////////////
@@ -38,6 +39,7 @@ public static class Globals
 
         Account.Read();
 
+        BF1AppPath = ReadString("BF1", "AppPath");
         BF1InstallDir = ReadString("BF1", "InstallDir");
 
         LoggerHelper.Info("读取配置文件成功");
@@ -49,6 +51,7 @@ public static class Globals
 
         Account.Write();
 
+        WriteString("BF1", "AppPath", BF1AppPath);
         WriteString("BF1", "InstallDir", BF1InstallDir);
 
         LoggerHelper.Info("保存配置文件成功");

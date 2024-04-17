@@ -1,4 +1,5 @@
 ﻿using BF1ModTools.Extend;
+using BF1ModTools.Models;
 using NLog;
 using NLog.Common;
 
@@ -9,7 +10,9 @@ namespace BF1ModTools.Views;
 /// </summary>
 public partial class LogView : UserControl
 {
-    private const int _maxRowCount = 250;
+    public ObservableCollection<LogInfo> ObsCol_LogInfos { get; set; } = new();
+
+    private const int _maxRowCount = 100;
 
     public LogView()
     {
@@ -38,14 +41,32 @@ public partial class LogView : UserControl
 
         this.Dispatcher.BeginInvoke(() =>
         {
-            if (_maxRowCount > 0 && TextBox_Logger.LineCount > _maxRowCount)
-                TextBox_Logger.Clear();
+            if (_maxRowCount > 0 && ObsCol_LogInfos.Count > _maxRowCount)
+                ObsCol_LogInfos.RemoveAt(0);
 
-            // 追加日志
-            TextBox_Logger.AppendText($"{logEvent.TimeStamp:HH:mm:ss} [{logEvent.Level.Name}] {logEvent.Message} {logEvent.Exception?.Message}{Environment.NewLine}");
+            var item = new LogInfo()
+            {
+                Time = logEvent.TimeStamp.ToString("HH:mm:ss"),
+                Level = logEvent.Level.Name,
+                Message = $"{logEvent.Message} {logEvent.Exception?.Message}"
+            };
+
+            ObsCol_LogInfos.Add(item);
 
             // 滚动最后一行
-            TextBox_Logger.ScrollToEnd();
+            ScrollToLast();
         });
+    }
+
+    /// <summary>
+    /// 日志滚动到最后一行
+    /// </summary>
+    private void ScrollToLast()
+    {
+        if (ListView_Logger.Items.Count <= 0)
+            return;
+
+        ListView_Logger.SelectedIndex = ListView_Logger.Items.Count - 1;
+        ListView_Logger.ScrollIntoView(ListView_Logger.SelectedItem);
     }
 }

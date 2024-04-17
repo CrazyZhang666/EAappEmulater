@@ -10,12 +10,26 @@
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
     mc:Ignorable="d">
 
-    <ui:TextBoxHint
-        x:Name="TextBox_Logger"
+    <ListView
+        x:Name="ListView_Logger"
         Margin="5,0,5,5"
-        d:Text="日志加载中..."
-        CornerRadius="5"
-        IsReadOnly="True"
-        Style="{StaticResource TextBoxHintStyle_Logger}" />
+        ItemsSource="{Binding ObsCol_LogInfos}">
+        <ListView.View>
+            <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
+                <GridViewColumn
+                    Width="70"
+                    DisplayMemberBinding="{Binding Time}"
+                    Header="时间" />
+                <GridViewColumn
+                    Width="50"
+                    DisplayMemberBinding="{Binding Level}"
+                    Header="等级" />
+                <GridViewColumn
+                    Width="650"
+                    DisplayMemberBinding="{Binding Message}"
+                    Header="日志" />
+            </GridView>
+        </ListView.View>
+    </ListView>
 
 </UserControl>
