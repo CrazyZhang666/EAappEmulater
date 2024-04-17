@@ -12,7 +12,7 @@
 
     <Border
         Height="130"
-        Margin="5,5,5,0"
+        Margin="0,5,0,0"
         Padding="7"
         Background="White"
         BorderBrush="#BBBBBB"
@@ -22,10 +22,11 @@
             <DockPanel DockPanel.Dock="Bottom">
                 <ui:IconButton
                     Margin="5,0,0,0"
+                    VerticalAlignment="Center"
                     Command="{Binding ChangePlayerNameCommand}"
                     Content="修改"
                     DockPanel.Dock="Right"
-                    Icon="&#xE713;"
+                    Icon="&#xE70F;"
                     IsEnabled="{Binding ElementName=TextBox_CustomName, Path=Text, Converter={StaticResource IsNullOrWhiteSpace2Converter}}" />
                 <ui:TextBoxHint
                     x:Name="TextBox_CustomName"

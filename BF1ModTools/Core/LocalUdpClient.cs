@@ -77,7 +77,11 @@ public static class LocalUdpClient
 
                 if (content.Trim() == "RunBf1Game")
                 {
-                    Game.RunBf1Game();
+                    // 不加这个 Notification.Wpf 会导致崩溃
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Game.RunBf1Game();
+                    });
                 }
             }
         }

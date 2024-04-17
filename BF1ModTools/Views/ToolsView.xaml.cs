@@ -1,5 +1,4 @@
-﻿using BF1ModTools.Core;
-using BF1ModTools.Utils;
+﻿using BF1ModTools.Utils;
 using BF1ModTools.Helper;
 using BF1ModTools.Models;
 using CommunityToolkit.Mvvm.Input;
@@ -96,7 +95,13 @@ public partial class ToolsView : UserControl
     }
 
     [RelayCommand]
-    private void OpenBF1Floder()
+    private void OpenConfigFolder()
+    {
+        ProcessHelper.OpenDirectory(CoreUtil.Dir_Default);
+    }
+
+    [RelayCommand]
+    private void OpenBF1Folder()
     {
         ProcessHelper.OpenDirectory(Globals.BF1InstallDir);
     }
@@ -105,28 +110,5 @@ public partial class ToolsView : UserControl
     private void RunBattlefieldChat()
     {
         ProcessHelper.OpenProcess(CoreUtil.File_BattlefieldChat);
-    }
-
-    [RelayCommand]
-    private void ChangeLoginAccount()
-    {
-        if (MessageBox.Show("你确定要更换当前登录账号吗？",
-            "警告", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
-        {
-            Account.Reset();
-
-            var loadWindow = new LoadWindow
-            {
-                IsLogout = true
-            };
-
-            // 转移主程序控制权
-            Application.Current.MainWindow = loadWindow;
-            // 关闭主窗窗口
-            MainWindow.MainWindowInstance.Close();
-
-            // 显示初始化窗口
-            loadWindow.Show();
-        }
     }
 }

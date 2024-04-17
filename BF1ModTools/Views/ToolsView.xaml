@@ -31,7 +31,12 @@
             <Label />
             <ui:IconButton
                 Margin="2.5"
-                Command="{Binding OpenBF1FloderCommand}"
+                Command="{Binding OpenConfigFolderCommand}"
+                Content="打开配置目录"
+                Icon="&#xED43;" />
+            <ui:IconButton
+                Margin="2.5"
+                Command="{Binding OpenBF1FolderCommand}"
                 Content="打开战地1目录"
                 Icon="&#xED43;" />
             <ui:IconButton
@@ -39,13 +44,6 @@
                 Command="{Binding RunBattlefieldChatCommand}"
                 Content="启用中文聊天"
                 Icon="&#xE8F2;" />
-
-            <Label />
-            <ui:IconButton
-                Margin="2.5"
-                Command="{Binding ChangeLoginAccountCommand}"
-                Content="更换登录账号"
-                Icon="&#xF3B1;" />
         </WrapPanel>
     </Border>
 

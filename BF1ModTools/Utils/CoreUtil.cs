@@ -201,11 +201,10 @@ public static class CoreUtil
     /// <summary>
     /// 获取战地1安装路径
     /// </summary>
-    /// <returns></returns>
-    public static async Task<bool> GetBf1InstallPath()
+    public static async Task<bool> GetBf1InstallPath(bool isReSelect = false)
     {
         // 检查战地1路径是否为空
-        if (!string.IsNullOrWhiteSpace(Globals.BF1AppPath))
+        if (!isReSelect && !string.IsNullOrWhiteSpace(Globals.BF1AppPath))
             return true;
 
         // 战地1路径无效，重新选择
@@ -244,12 +243,12 @@ public static class CoreUtil
             }
 
             Globals.SetBF1AppPath(dialog.FileName);
-            LoggerHelper.Info($"获取战地1游戏主程序路径成功 {Globals.BF1AppPath}");
+            LoggerHelper.Info($"获取战地1游戏主程序路径成功 {dialog.FileName}");
             NotifierHelper.Success("获取战地1游戏主程序路径成功");
             return true;
         }
 
-        LoggerHelper.Warn($"战地1游戏主程序路径无效，请重新选择 {Globals.BF1AppPath}");
+        LoggerHelper.Warn($"战地1游戏主程序路径无效，请重新选择 {dialog.FileName}");
         NotifierHelper.Warning($"战地1游戏主程序路径无效，请重新选择");
         return false;
     }

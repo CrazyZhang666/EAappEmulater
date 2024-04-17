@@ -27,19 +27,19 @@ public static class Game
             if (string.IsNullOrWhiteSpace(Globals.BF1AppPath))
             {
                 LoggerHelper.Warn("战地1游戏路径为空，启动游戏终止");
-                //NotifierHelper.Warning("战地1游戏路径为空，启动游戏终止");
+                NotifierHelper.Warning("战地1游戏路径为空，启动游戏终止");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(Account.OriginPCToken))
             {
                 LoggerHelper.Warn($"战地1 OriginPCToken 为空，启动游戏终止");
-                //NotifierHelper.Warning($"战地1 OriginPCToken 为空，启动游戏终止");
+                NotifierHelper.Warning($"战地1 OriginPCToken 为空，启动游戏终止");
                 return;
             }
 
             LoggerHelper.Info("正在启动战地1游戏中...");
-            //NotifierHelper.Notice("正在启动战地1游戏中...");
+            NotifierHelper.Notice("正在启动战地1游戏中...");
 
             // 获取当前进程所有环境变量名及其值
             var environmentVariables = GetEnvironmentVariables();
@@ -84,12 +84,12 @@ public static class Game
             Process.Start(startInfo);
 
             LoggerHelper.Info("启动战地1游戏成功");
-            //NotifierHelper.Success("启动战地1游戏成功");
+            NotifierHelper.Success("启动战地1游戏成功");
         }
         catch (Exception ex)
         {
             LoggerHelper.Error("启动战地1游戏发生异常", ex);
-            //NotifierHelper.Error("启动战地1游戏发生异常，详情请看日志");
+            NotifierHelper.Error("启动战地1游戏发生异常，详情请看日志");
         }
     }
 }

@@ -38,9 +38,12 @@
         </ui:CardMenu>
 
         <!--  分区二  -->
+        <views:NameView />
+
+        <!--  分区三  -->
         <ui:CardMenu
             Title="BF1 Marne Launcher"
-            Margin="0,5,0,0"
+            Margin="5,5,5,0"
             Source="pack://application:,,,/BF1ModTools;component/Assets/Images/MarneLauncher.png">
             <ui:CardMenu.Description>
                 用于游玩战地1Marne专用私人服务器，与EA官方服务器无关，数据不互通，支持自定义中文ID
@@ -60,9 +63,6 @@
                 </WrapPanel>
             </ui:CardMenu.CardContent>
         </ui:CardMenu>
-
-        <!--  分区三  -->
-        <views:NameView />
 
     </UniformGrid>
 
