@@ -17,6 +17,7 @@ internal class Program
         }
 
         var path = args[0];
+        Console.WriteLine($"传入文件路径 {path}");
 
         if (!path.EndsWith("dll"))
         {
@@ -33,9 +34,6 @@ internal class Program
         Patch(path);
 
         Console.WriteLine("程序执行完毕！");
-#if DEBUG
-        Console.ReadLine();
-#endif
     }
 
     static void Patch(string path)

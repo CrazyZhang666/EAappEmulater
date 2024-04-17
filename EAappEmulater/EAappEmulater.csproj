@@ -38,6 +38,10 @@
         <EazfuscatorCompatibilityVersion>2024.1</EazfuscatorCompatibilityVersion>
     </PropertyGroup>
 
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="echo $(ConfigurationName)&#xD;&#xA;if /i $(ConfigurationName) == Release start $(SolutionDir)EazTrialRemover\EazTrialRemover.exe $(TargetPath)&#xD;&#xA;echo patch end" />
+    </Target>
+
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
         <DebugType>full</DebugType>
     </PropertyGroup>
