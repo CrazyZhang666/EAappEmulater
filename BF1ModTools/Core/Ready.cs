@@ -1,6 +1,6 @@
 ﻿using BF1ModTools.Api;
-using BF1ModTools.Helper;
 using BF1ModTools.Utils;
+using BF1ModTools.Helper;
 
 namespace BF1ModTools.Core;
 
@@ -27,7 +27,7 @@ public static class Ready
         LoggerHelper.Info("启动 定时刷新 BaseToken 服务成功");
     }
 
-    public static void Stop()
+    public static async void Stop()
     {
         // 保存配置文件
         Globals.Write();
@@ -42,6 +42,9 @@ public static class Ready
         _autoUpdateTimer?.Dispose();
         _autoUpdateTimer = null;
         LoggerHelper.Info("关闭 定时刷新 BaseToken 服务成功");
+
+        // 关闭服务进程
+        await CoreUtil.CloseServerProcess();
     }
 
     /// <summary>

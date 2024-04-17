@@ -218,6 +218,7 @@ public partial class LoadWindow
         if (IsLogout)
         {
             WinButton_Clear_Click(null, null);
+            LoggerHelper.Info("注销登录，清空 WebView2 缓存成功");
             return;
         }
 

@@ -9,6 +9,11 @@ namespace BF1ModTools;
 /// </summary>
 public partial class MainWindow
 {
+    /// <summary>
+    /// 用于向外暴露主窗口实例
+    /// </summary>
+    public static Window MainWindowInstance { get; private set; }
+
     public MainWindow()
     {
         InitializeComponent();
@@ -19,6 +24,9 @@ public partial class MainWindow
         LoggerHelper.Info("启动主程序成功");
 
         Title = $"战地1模组工具箱 v{CoreUtil.VersionInfo}";
+
+        // 向外暴露主窗口实例
+        MainWindowInstance = this;
 
         // 初始化工作
         Ready.Run();

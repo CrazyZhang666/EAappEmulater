@@ -43,6 +43,7 @@
             <Label />
             <ui:IconButton
                 Margin="2.5"
+                Command="{Binding ChangeLoginAccountCommand}"
                 Content="更换登录账号"
                 Icon="&#xF3B1;" />
         </WrapPanel>
