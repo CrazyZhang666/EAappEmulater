@@ -35,6 +35,16 @@ public partial class App : Application
 
         //////////////////////////////////////////////////////////////////////////////////
 
+        LoggerHelper.Info("正在进行工具箱压缩包内运行检测中...");
+        if (CoreUtil.IsRunInTempPath())
+        {
+            MsgBoxHelper.Warning("检测到工具箱在压缩包内运行，请解压文件");
+            LoggerHelper.Warn("检测到工具箱在压缩包内运行，请解压文件");
+            Current.Shutdown();
+            return;
+        }
+        LoggerHelper.Info("工具箱不在压缩包内运行");
+
         LoggerHelper.Info("正在进行 .NET 6.0 版本检测中...");
         if (Environment.Version < new Version("6.0.29"))
         {

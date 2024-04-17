@@ -56,7 +56,7 @@ public partial class NameView : UserControl
             return;
         }
 
-        if (!await CoreUtil.IsValidBf1Path())
+        if (!await CoreUtil.GetBf1InstallPath())
             return;
 
         var nameHexBytes = Encoding.UTF8.GetBytes(playerName);

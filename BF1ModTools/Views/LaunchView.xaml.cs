@@ -43,7 +43,7 @@ public partial class LaunchView : UserControl
             return;
         }
 
-        if (!await CoreUtil.IsValidBf1Path())
+        if (!await CoreUtil.GetBf1InstallPath())
             return;
 
         // 选择要安装的Mod文件（支持多选）

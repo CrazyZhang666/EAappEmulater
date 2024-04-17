@@ -128,6 +128,21 @@ public static class CoreUtil
     }
 
     /// <summary>
+    /// 是否运行在临时文件夹（压缩包内）
+    /// </summary>
+    /// <returns></returns>
+    public static bool IsRunInTempPath()
+    {
+        var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        var tempDir = Path.GetTempPath();
+
+        LoggerHelper.Debug($"程序当前目录 {baseDir}");
+        LoggerHelper.Debug($"相同临时目录 {tempDir}");
+
+        return baseDir.StartsWith(tempDir, StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
     /// 判断是否管理员权限运行
     /// </summary>
     public static bool IsRunAsAdmin()
@@ -183,7 +198,11 @@ public static class CoreUtil
         return await FileHelper.GetFileMD5(bf1Path) == "190075FC83A4782EDDAFAADAE414391F";
     }
 
-    public static async Task<bool> IsValidBf1Path()
+    /// <summary>
+    /// 获取战地1安装路径
+    /// </summary>
+    /// <returns></returns>
+    public static async Task<bool> GetBf1InstallPath()
     {
         // 检查战地1路径是否为空
         if (!string.IsNullOrWhiteSpace(Globals.BF1AppPath))
@@ -208,12 +227,22 @@ public static class CoreUtil
         if (dialog.ShowDialog() == false)
             return false;
 
+        var dirPath = Path.GetDirectoryName(dialog.FileName);
         // 记住本次选择的文件路径
-        Globals.DialogDir = Path.GetDirectoryName(dialog.FileName);
+        Globals.DialogDir = dirPath;
 
         // 开始校验文件有效性
         if (await IsBf1MainAppFile(dialog.FileName))
         {
+            var diskFlag = Path.GetPathRoot(dirPath);
+            var driveInfo = new DriveInfo(diskFlag);
+            if (!driveInfo.DriveFormat.Equals("NTFS", StringComparison.OrdinalIgnoreCase))
+            {
+                LoggerHelper.Info($"检测到战地1所在磁盘格式不是NTFS，请转换磁盘格式 {Globals.BF1AppPath}");
+                NotifierHelper.Warning("检测到战地1所在磁盘格式不是NTFS，请转换磁盘格式");
+                return false;
+            }
+
             Globals.SetBF1AppPath(dialog.FileName);
             LoggerHelper.Info($"获取战地1游戏主程序路径成功 {Globals.BF1AppPath}");
             NotifierHelper.Success("获取战地1游戏主程序路径成功");
