@@ -11,11 +11,6 @@ namespace BF1ModTools.Views;
 public partial class NameView : UserControl
 {
     /// <summary>
-    /// playername.txt 文件路径
-    /// </summary>
-    private string File_PlayerName;
-
-    /// <summary>
     /// UTF8编码无BOM
     /// </summary>
     private readonly UTF8Encoding UTF8EncodingNoBom = new(false);
@@ -37,16 +32,16 @@ public partial class NameView : UserControl
         if (string.IsNullOrWhiteSpace(Globals.BF1InstallDir))
             return;
 
-        File_PlayerName = Path.Combine(Globals.BF1InstallDir, "playername.txt");
-        if (!File.Exists(File_PlayerName))
+        var namePath = Path.Combine(Globals.BF1InstallDir, "playername.txt");
+        if (!File.Exists(namePath))
             return;
 
-        TextBox_CustomName.Text = File.ReadAllText(File_PlayerName, UTF8EncodingNoBom);
+        TextBox_CustomName.Text = File.ReadAllText(namePath, UTF8EncodingNoBom);
     }
 
     #region 自定义区域
     [RelayCommand]
-    private void ChangePlayerName()
+    private async Task ChangePlayerName()
     {
         if (ProcessHelper.IsAppRun(CoreUtil.Name_BF1))
         {
@@ -61,6 +56,9 @@ public partial class NameView : UserControl
             return;
         }
 
+        if (!await CoreUtil.IsValidBf1Path())
+            return;
+
         var nameHexBytes = Encoding.UTF8.GetBytes(playerName);
         if (nameHexBytes.Length > 15)
         {
@@ -70,7 +68,8 @@ public partial class NameView : UserControl
 
         try
         {
-            File.WriteAllText(File_PlayerName, playerName, UTF8EncodingNoBom);
+            var namePath = Path.Combine(Globals.BF1InstallDir, "playername.txt");
+            File.WriteAllText(namePath, playerName, UTF8EncodingNoBom);
             NotifierHelper.Success("修改中文游戏ID成功，请启动战地1在线模式生效");
         }
         catch (Exception ex)

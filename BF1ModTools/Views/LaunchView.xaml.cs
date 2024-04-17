@@ -22,46 +22,6 @@ public partial class LaunchView : UserControl
 
     }
 
-    private async Task<bool> IsValidBf1Path()
-    {
-        // 检查战地1路径有效性
-        if (!string.IsNullOrWhiteSpace(Globals.BF1AppPath))
-            return true;
-
-        // 战地1路径无效，重新选择
-        var dialog = new OpenFileDialog
-        {
-            Title = "请选择战地1游戏主程序 bf1.exe 文件路径",
-            FileName = "bf1.exe",
-            DefaultExt = ".exe",
-            Filter = "可执行文件 (.exe)|*.exe",
-            Multiselect = false,
-            InitialDirectory = Globals.DialogDir,
-            RestoreDirectory = true,
-            AddExtension = true,
-            CheckFileExists = true,
-            CheckPathExists = true
-        };
-
-        // 如果未选择，则退出程序
-        if (dialog.ShowDialog() == false)
-            return false;
-
-        // 记住本次选择的文件路径
-        Globals.DialogDir = Path.GetDirectoryName(dialog.FileName);
-
-        // 开始校验文件有效性
-        if (await CoreUtil.IsBf1MainAppFile(dialog.FileName))
-        {
-            Globals.SetBF1AppPath(dialog.FileName);
-            LoggerHelper.Info($"获取战地1游戏主程序路径成功 {Globals.BF1AppPath}");
-            return true;
-        }
-
-        LoggerHelper.Error($"战地1游戏主程序路径无效，请重新选择 {Globals.BF1AppPath}");
-        return false;
-    }
-
     #region Frosty Mod Manager
     /// <summary>
     /// 运行寒霜Mod管理器
@@ -83,7 +43,7 @@ public partial class LaunchView : UserControl
             return;
         }
 
-        if (!await IsValidBf1Path())
+        if (!await CoreUtil.IsValidBf1Path())
             return;
 
         // 选择要安装的Mod文件（支持多选）
@@ -112,6 +72,9 @@ public partial class LaunchView : UserControl
 
         try
         {
+            // 文件夹如果不存在则创建
+            FileHelper.CreateDirectory(CoreUtil.Dir_FrostyMod_Mods_Bf1);
+
             // 清空旧版Mod文件夹
             FileHelper.ClearDirectory(CoreUtil.Dir_FrostyMod_Mods_Bf1);
             LoggerHelper.Info("清空旧版 Mod 文件夹 成功");

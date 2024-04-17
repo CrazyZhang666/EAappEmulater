@@ -146,20 +146,6 @@ public static class CoreUtil
     }
 
     /// <summary>
-    /// 检测是否为战地1主程序文件
-    /// </summary>
-    public static async Task<bool> IsBf1MainAppFile(string bf1Path)
-    {
-        if (string.IsNullOrWhiteSpace(bf1Path))
-            return false;
-
-        if (!File.Exists(bf1Path))
-            return false;
-
-        return await FileHelper.GetFileMD5(bf1Path) == "190075FC83A4782EDDAFAADAE414391F";
-    }
-
-    /// <summary>
     /// 检测AppData数据是否完整
     /// </summary>
     /// <returns></returns>
@@ -181,6 +167,62 @@ public static class CoreUtil
             return false;
 
         return true;
+    }
+
+    /// <summary>
+    /// 检测是否为战地1主程序文件
+    /// </summary>
+    public static async Task<bool> IsBf1MainAppFile(string bf1Path)
+    {
+        if (string.IsNullOrWhiteSpace(bf1Path))
+            return false;
+
+        if (!File.Exists(bf1Path))
+            return false;
+
+        return await FileHelper.GetFileMD5(bf1Path) == "190075FC83A4782EDDAFAADAE414391F";
+    }
+
+    public static async Task<bool> IsValidBf1Path()
+    {
+        // 检查战地1路径是否为空
+        if (!string.IsNullOrWhiteSpace(Globals.BF1AppPath))
+            return true;
+
+        // 战地1路径无效，重新选择
+        var dialog = new OpenFileDialog
+        {
+            Title = "请选择战地1游戏主程序 bf1.exe 文件路径",
+            FileName = "bf1.exe",
+            DefaultExt = ".exe",
+            Filter = "可执行文件 (.exe)|*.exe",
+            Multiselect = false,
+            InitialDirectory = Globals.DialogDir,
+            RestoreDirectory = true,
+            AddExtension = true,
+            CheckFileExists = true,
+            CheckPathExists = true
+        };
+
+        // 如果未选择，则退出程序
+        if (dialog.ShowDialog() == false)
+            return false;
+
+        // 记住本次选择的文件路径
+        Globals.DialogDir = Path.GetDirectoryName(dialog.FileName);
+
+        // 开始校验文件有效性
+        if (await IsBf1MainAppFile(dialog.FileName))
+        {
+            Globals.SetBF1AppPath(dialog.FileName);
+            LoggerHelper.Info($"获取战地1游戏主程序路径成功 {Globals.BF1AppPath}");
+            NotifierHelper.Success("获取战地1游戏主程序路径成功");
+            return true;
+        }
+
+        LoggerHelper.Warn($"战地1游戏主程序路径无效，请重新选择 {Globals.BF1AppPath}");
+        NotifierHelper.Warning($"战地1游戏主程序路径无效，请重新选择");
+        return false;
     }
 
     /// <summary>
