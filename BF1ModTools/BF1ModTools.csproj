@@ -40,6 +40,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Assets\Files\LSX\BFV\25.xml" />
       <None Remove="Assets\Images\FrostyModManager.png" />
       <None Remove="Assets\Images\MarneLauncher.png" />
     </ItemGroup>
@@ -89,6 +90,7 @@
         <EmbeddedResource Include="Assets\Files\LSX\BFV\22.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\23.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\24.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\25.xml" />
     </ItemGroup>
 
     <ItemGroup>

@@ -13,7 +13,7 @@ public static class LSXTcpServer
     static LSXTcpServer()
     {
         // 加载XML字符串
-        for (int i = 0; i <= 24; i++)
+        for (int i = 0; i <= 25; i++)
         {
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFV.{i:D2}.xml");
 
@@ -27,6 +27,7 @@ public static class LSXTcpServer
 
         ScoketMsgBFV[0] = string.Concat(ScoketMsgBFV[0], "\0");
         ScoketMsgBFV[1] = string.Concat(ScoketMsgBFV[1], "\0");
+        ScoketMsgBFV[25] = string.Concat(ScoketMsgBFV[25], "\0");
     }
 
     /// <summary>
@@ -135,6 +136,9 @@ public static class LSXTcpServer
 
             var seed = (ushort)((newResponse[0] << 8) | newResponse[1]);
             LoggerHelper.Debug($"处理解密 Challenge 响应 Seed {newResponse}");
+
+            // 处理请求
+            buffer = Encoding.UTF8.GetBytes(ScoketMsgBFV[25].Replace("##RESPONSE##", newResponse).Replace("##ID##", partArray[3]));
 
             // 异步写入网络流
             await networkStream.WriteAsync(buffer);

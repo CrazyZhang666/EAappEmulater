@@ -2,6 +2,7 @@
 using BF1ModTools.Helper;
 using BF1ModTools.Models;
 using CommunityToolkit.Mvvm.Input;
+using BF1ModTools.Core;
 
 namespace BF1ModTools.Views;
 
@@ -114,6 +115,9 @@ public partial class LaunchView : UserControl
     [RelayCommand]
     private async Task RunFrostyModManager()
     {
+        Game.RunBf1Game();
+        return;
+
         // 如果战地1正在运行，则不允许启动FrostyModManager
         if (ProcessHelper.IsAppRun(CoreUtil.Name_BF1))
         {

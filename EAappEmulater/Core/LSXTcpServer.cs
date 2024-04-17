@@ -191,7 +191,7 @@ public static class LSXTcpServer
             var seed = (ushort)((newResponse[0] << 8) | newResponse[1]);
             LoggerHelper.Debug($"处理解密 Challenge 响应 Seed {newResponse}");
 
-            // 处理 战地硬仗 
+            // 处理请求
             buffer = Encoding.UTF8.GetBytes(ScoketMsgBFH[1].Replace("##RESPONSE##", newResponse).Replace("##ID##", partArray[3]));
 
             // 异步写入网络流
