@@ -39,7 +39,7 @@
     </PropertyGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Exec Command="echo $(ConfigurationName)&#xD;&#xA;if /i $(ConfigurationName) == Release start $(SolutionDir)EazTrialRemover\EazTrialRemover.exe $(TargetPath)&#xD;&#xA;echo patch end" />
+        <Exec Command="if /i $(ConfigurationName) == Release start $(SolutionDir)EazTrialRemover\EazTrialRemover.exe $(TargetPath)" />
     </Target>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
