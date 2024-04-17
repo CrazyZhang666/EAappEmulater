@@ -24,6 +24,14 @@
     </PropertyGroup>
 
     <PropertyGroup>
+        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <WebView2LoaderPreference>Static</WebView2LoaderPreference>
+    </PropertyGroup>
+
+    <PropertyGroup>
         <!-- Eazfuscator.NET is integrated with this project at MSBuild level: https://help.gapotchenko.com/eazfuscator.net/kb/100036 -->
         <EazfuscatorIntegration>MSBuild</EazfuscatorIntegration>
         <EazfuscatorActiveConfiguration>Release</EazfuscatorActiveConfiguration>
