@@ -5,12 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
+    xmlns:views="clr-namespace:BF1ModTools.Views"
     d:DesignHeight="160"
-    d:DesignWidth="533"
+    d:DesignWidth="800"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
     mc:Ignorable="d">
 
-    <UniformGrid Columns="2">
+    <UniformGrid Columns="3">
 
         <!--  分区一  -->
         <ui:CardMenu
@@ -22,11 +23,6 @@
             </ui:CardMenu.Description>
             <ui:CardMenu.CardContent>
                 <WrapPanel HorizontalAlignment="Right">
-                    <ui:IconButton
-                        Margin="5,5,0,0"
-                        Command="{Binding SelectFbmodFilesCommand}"
-                        Content="选择Mod"
-                        Icon="&#xE721;" />
                     <ui:IconButton
                         Margin="5,5,0,0"
                         Command="{Binding RunFrostyModManagerCommand}"
@@ -64,6 +60,9 @@
                 </WrapPanel>
             </ui:CardMenu.CardContent>
         </ui:CardMenu>
+
+        <!--  分区三  -->
+        <views:NameView />
 
     </UniformGrid>
 

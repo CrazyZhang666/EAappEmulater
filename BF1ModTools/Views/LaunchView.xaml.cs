@@ -24,13 +24,14 @@ public partial class LaunchView : UserControl
 
     private async Task<bool> IsValidBf1Path()
     {
-        // 检查战地1路径真实性
-        if (await CoreUtil.IsBf1MainAppFile(Globals.BF1InstallDir, true))
+        // 检查战地1路径有效性
+        if (!string.IsNullOrWhiteSpace(Globals.BF1AppPath))
             return true;
 
+        // 战地1路径无效，重新选择
         var dialog = new OpenFileDialog
         {
-            Title = "请选择战地1游戏主程序 bf1.exe 路径",
+            Title = "请选择战地1游戏主程序 bf1.exe 文件路径",
             FileName = "bf1.exe",
             DefaultExt = ".exe",
             Filter = "可执行文件 (.exe)|*.exe",
@@ -46,28 +47,27 @@ public partial class LaunchView : UserControl
         if (dialog.ShowDialog() == false)
             return false;
 
-        var installDir = Path.GetDirectoryName(dialog.FileName);
         // 记住本次选择的文件路径
-        Globals.DialogDir = installDir;
+        Globals.DialogDir = Path.GetDirectoryName(dialog.FileName);
 
+        // 开始校验文件有效性
         if (await CoreUtil.IsBf1MainAppFile(dialog.FileName))
         {
-            Globals.BF1AppPath = dialog.FileName;
-            Globals.BF1InstallDir = installDir;
+            Globals.SetBF1AppPath(dialog.FileName);
             LoggerHelper.Info($"获取战地1游戏主程序路径成功 {Globals.BF1AppPath}");
             return true;
         }
 
-        LoggerHelper.Error($"无效的战地1游戏主程序路径，请重新选择 {Globals.BF1AppPath}");
+        LoggerHelper.Error($"战地1游戏主程序路径无效，请重新选择 {Globals.BF1AppPath}");
         return false;
     }
 
     #region Frosty Mod Manager
     /// <summary>
-    /// 选择战地1Mod文件
+    /// 运行寒霜Mod管理器
     /// </summary>
     [RelayCommand]
-    private async Task SelectFbmodFiles()
+    private async Task RunFrostyModManager()
     {
         // 如果战地1正在运行，则不允许启动FrostyModManager
         if (ProcessHelper.IsAppRun(CoreUtil.Name_BF1))
@@ -153,32 +153,6 @@ public partial class LaunchView : UserControl
             NotifierHelper.Error("安装 Mod 过程中发生异常");
             LoggerHelper.Error($"安装 Mod 过程中发生异常 {ex.Message}");
         }
-    }
-
-    /// <summary>
-    /// 运行寒霜Mod管理器
-    /// </summary>
-    [RelayCommand]
-    private async Task RunFrostyModManager()
-    {
-        // 如果战地1正在运行，则不允许启动FrostyModManager
-        if (ProcessHelper.IsAppRun(CoreUtil.Name_BF1))
-        {
-            NotifierHelper.Warning("战地1正在运行，请关闭后再启动本程序");
-            return;
-        }
-
-        // 如果程序已经在运行，则结束操作
-        if (ProcessHelper.IsAppRun("FrostyModManager"))
-        {
-            NotifierHelper.Warning("程序已经运行了，请不要重复运行");
-            return;
-        }
-
-        if (!await IsValidBf1Path())
-            return;
-
-        ProcessHelper.OpenProcess(CoreUtil.File_FrostyMod_FrostyModManager);
     }
 
     /// <summary>

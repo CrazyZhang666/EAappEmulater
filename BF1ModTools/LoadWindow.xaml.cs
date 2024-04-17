@@ -61,7 +61,7 @@ public partial class LoadWindow
         LoggerHelper.Info("开始初始化游戏信息...");
 
         // 先读取配置文件
-        Globals.Read();
+        await Globals.Read();
 
         Grid_Part1.Visibility = Visibility.Visible;
         Grid_Part2.Visibility = Visibility.Hidden;

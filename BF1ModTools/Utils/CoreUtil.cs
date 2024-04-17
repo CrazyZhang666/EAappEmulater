@@ -140,8 +140,6 @@ public static class CoreUtil
     /// <summary>
     /// 检测字符串路径中是否含有中文
     /// </summary>
-    /// <param name="path"></param>
-    /// <returns></returns>
     public static bool HasChinesePath(string path)
     {
         return Regex.IsMatch(path, @"[\u4e00-\u9fa5]");
@@ -150,17 +148,10 @@ public static class CoreUtil
     /// <summary>
     /// 检测是否为战地1主程序文件
     /// </summary>
-    /// <param name="bf1Path"></param>
-    /// <returns></returns>
-    public static async Task<bool> IsBf1MainAppFile(string bf1Path, bool isDir = false)
+    public static async Task<bool> IsBf1MainAppFile(string bf1Path)
     {
         if (string.IsNullOrWhiteSpace(bf1Path))
             return false;
-
-        if (isDir)
-        {
-            bf1Path = Path.Combine(bf1Path, "bf1.exe");
-        }
 
         if (!File.Exists(bf1Path))
             return false;

@@ -8,10 +8,12 @@ public static class Globals
 {
     private static readonly string _iniPath;
 
+    // 这个不保存配置文件
+    public static string BF1InstallDir { get; private set; }
+
     ///////////////////////////////////
 
-    public static string BF1AppPath { get; set; }
-    public static string BF1InstallDir { get; set; }
+    public static string BF1AppPath { get; private set; }
 
     ///////////////////////////////////
 
@@ -33,14 +35,23 @@ public static class Globals
         LoggerHelper.Info($"当前重置配置文件路径 {_iniPath}");
     }
 
-    public static void Read()
+    public static async Task Read()
     {
         LoggerHelper.Info("开始读取配置文件...");
 
         Account.Read();
 
-        BF1AppPath = ReadString("BF1", "AppPath");
-        BF1InstallDir = ReadString("BF1", "InstallDir");
+        var appPath = ReadString("BF1", "AppPath");
+        if (await CoreUtil.IsBf1MainAppFile(appPath))
+        {
+            SetBF1AppPath(appPath);
+            LoggerHelper.Info($"已发现战地1安装路径 {BF1AppPath}");
+        }
+        else
+        {
+            SetBF1AppPath(string.Empty);
+            LoggerHelper.Warn($"未发现战地1安装路径，请手动选择");
+        }
 
         LoggerHelper.Info("读取配置文件成功");
     }
@@ -52,9 +63,21 @@ public static class Globals
         Account.Write();
 
         WriteString("BF1", "AppPath", BF1AppPath);
-        WriteString("BF1", "InstallDir", BF1InstallDir);
 
         LoggerHelper.Info("保存配置文件成功");
+    }
+
+    public static void SetBF1AppPath(string appPath)
+    {
+        if (string.IsNullOrWhiteSpace(appPath))
+        {
+            BF1AppPath = string.Empty;
+            BF1InstallDir = string.Empty;
+            return;
+        }
+
+        BF1AppPath = appPath;
+        BF1InstallDir = Path.GetDirectoryName(appPath);
     }
 
     private static string ReadString(string section, string key)

@@ -50,14 +50,7 @@
             </Grid.RowDefinitions>
 
             <!--  主要功能区  -->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <views:LaunchView />
-                <views:NameView Grid.Column="1" />
-            </Grid>
+            <views:LaunchView />
 
             <!--  工具区域  -->
             <views:ToolsView Grid.Row="1" />
