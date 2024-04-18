@@ -36,8 +36,6 @@ public partial class MainWindow
     /// <summary>
     /// 窗口加载完成事件
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private async void Window_Main_Loaded(object sender, RoutedEventArgs e)
     {
         LoggerHelper.Info("启动主程序成功");
@@ -75,8 +73,6 @@ public partial class MainWindow
     /// <summary>
     /// 窗口关闭事件
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void Window_Main_Closing(object sender, CancelEventArgs e)
     {
         // 清理工作

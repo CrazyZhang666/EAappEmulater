@@ -26,7 +26,7 @@ public static class LSXTcpServer
             ScoketMsgBFV.Add(text);
         }
 
-        // 这俩结束符必须要加
+        // 这里结束符必须要加
         ScoketMsgBFV[0] = string.Concat(ScoketMsgBFV[0], "\0");
         ScoketMsgBFV[1] = string.Concat(ScoketMsgBFV[1], "\0");
 
@@ -38,7 +38,7 @@ public static class LSXTcpServer
             ScoketMsgBFH.Add(text);
         }
 
-        // 这俩结束符必须要加
+        // 这里结束符必须要加
         ScoketMsgBFH[0] = string.Concat(ScoketMsgBFH[0], "\0");
         ScoketMsgBFH[1] = string.Concat(ScoketMsgBFH[1], "\0");
 

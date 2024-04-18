@@ -2,20 +2,40 @@
 
 public static class EaCrypto
 {
-    private const int prime_10000th = 104729;
-    private const int prime_20000th = 224737;
-    private const int prime_30000th = 350377;
+    private const int _prime_10000th = 104729;
+    private const int _prime_20000th = 224737;
+    private const int _prime_30000th = 350377;
 
-    public static byte[] GetArray(string strData)
+    /// <summary>
+    /// 获取 RTP 握手码
+    /// </summary>
+    public static string GetRTPHandshakeCode()
     {
-        strData = strData.ToLower();
+        var dateTime = DateTime.UtcNow;
+
+        var year = (uint)dateTime.Year;
+        var month = (uint)dateTime.Month;
+        var day = (uint)dateTime.Day;
+
+        var temp_value = (_prime_10000th * year) ^ (month * _prime_20000th) ^ (day * _prime_30000th);
+        var hashed_timestamp = temp_value ^ (temp_value << 16) ^ (temp_value >> 16);
+
+        return hashed_timestamp.ToString();
+    }
+
+    /// <summary>
+    /// 通过字符串获取特殊字节数组
+    /// </summary>
+    public static byte[] GetByteArray(string data)
+    {
+        data = data.ToLower();
 
         var memoryStream = new MemoryStream();
         var stringBuilder = new StringBuilder();
 
         var source = "0123456789abcdef";
 
-        foreach (char c in strData)
+        foreach (char c in data)
         {
             if (!source.Contains(c))
                 continue;
@@ -30,10 +50,10 @@ public static class EaCrypto
         }
         else
         {
-            strData = stringBuilder.ToString();
+            data = stringBuilder.ToString();
             for (int i = 0; i < stringBuilder.Length / 2; i++)
             {
-                memoryStream.WriteByte(Convert.ToByte(strData.Substring(i * 2, 2), 16));
+                memoryStream.WriteByte(Convert.ToByte(data.Substring(i * 2, 2), 16));
             }
             result = memoryStream.ToArray();
         }
@@ -41,11 +61,14 @@ public static class EaCrypto
         return result;
     }
 
-    public static string ToHex(byte[] data)
+    /// <summary>
+    /// 字节数组转十六进制字符串
+    /// </summary>
+    public static string ByteArrayToHex(byte[] bytes)
     {
         var strBuilder = new StringBuilder();
 
-        foreach (byte b in data)
+        foreach (byte b in bytes)
         {
             strBuilder.Append(b.ToString("x2"));
         }
@@ -53,22 +76,12 @@ public static class EaCrypto
         return strBuilder.ToString();
     }
 
-    public static string GetRTPHandshakeCode()
+    /// <summary>
+    /// 通过秘钥获取 ASE 加密对象
+    /// </summary>
+    public static Aes GetAesByKey(byte[] key)
     {
-        var dateTime = DateTime.UtcNow;
-
-        var year = (uint)dateTime.Year;
-        var month = (uint)dateTime.Month;
-        var day = (uint)dateTime.Day;
-
-        var temp_value = (prime_10000th * year) ^ (month * prime_20000th) ^ (day * prime_30000th);
-        var hashed_timestamp = temp_value ^ (temp_value << 16) ^ (temp_value >> 16);
-
-        return hashed_timestamp.ToString();
-    }
-
-    public static Aes GetAesDataByKey(byte[] key)
-    {
+        // 这里不能使用 using，否则对象会提前释放
         var aes = Aes.Create();
         aes.Key = key;
         aes.Mode = CipherMode.ECB;
@@ -77,7 +90,10 @@ public static class EaCrypto
         return aes;
     }
 
-    public static string Decrypt(byte[] decrypt)
+    /// <summary>
+    /// 解密
+    /// </summary>
+    public static string Decrypt(byte[] bytes)
     {
         using var rDel = Aes.Create("AesManaged");
         rDel.IV = new byte[16];
@@ -86,12 +102,15 @@ public static class EaCrypto
         rDel.Padding = PaddingMode.None;
 
         var cryptoTransform = rDel.CreateDecryptor();
-        var decrypted = cryptoTransform.TransformFinalBlock(decrypt, 0, decrypt.Length);
+        var decrypted = cryptoTransform.TransformFinalBlock(bytes, 0, bytes.Length);
 
         return Encoding.UTF8.GetString(decrypted);
     }
 
-    public static string Decrypt(Aes aes, byte[] data)
+    /// <summary>
+    /// 解密
+    /// </summary>
+    public static string Decrypt(Aes aes, byte[] bytes)
     {
         try
         {
@@ -99,7 +118,7 @@ public static class EaCrypto
             var memoryStream = new MemoryStream();
 
             using var cryptoStream = new CryptoStream(memoryStream, iCryptoTransform, CryptoStreamMode.Write);
-            cryptoStream.Write(data, 0, data.Length);
+            cryptoStream.Write(bytes, 0, bytes.Length);
             cryptoStream.FlushFinalBlock();
 
             return Encoding.ASCII.GetString(memoryStream.ToArray());
@@ -110,7 +129,10 @@ public static class EaCrypto
         }
     }
 
-    public static string Encrypt(Aes aes, byte[] data)
+    /// <summary>
+    /// 加密
+    /// </summary>
+    public static string Encrypt(Aes aes, byte[] bytes)
     {
         try
         {
@@ -118,10 +140,10 @@ public static class EaCrypto
             var memoryStream = new MemoryStream();
 
             using var cryptoStream = new CryptoStream(memoryStream, iCryptoTransform, CryptoStreamMode.Write);
-            cryptoStream.Write(data, 0, data.Length);
+            cryptoStream.Write(bytes, 0, bytes.Length);
             cryptoStream.FlushFinalBlock();
 
-            return ToHex(memoryStream.ToArray());
+            return ByteArrayToHex(memoryStream.ToArray());
         }
         catch
         {
@@ -129,14 +151,17 @@ public static class EaCrypto
         }
     }
 
+    /// <summary>
+    /// 检查 Challenge 响应
+    /// </summary>
     public static bool CheckChallengeResponse(string response, string key)
     {
         try
         {
-            var array = GetArray(response);
-            var aes = GetAesDataByKey(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
+            var aes = GetAesByKey(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
+            var bytes = GetByteArray(response);
 
-            return Decrypt(aes, array) == key;
+            return Decrypt(aes, bytes) == key;
         }
         catch
         {
@@ -144,44 +169,56 @@ public static class EaCrypto
         }
     }
 
+    /// <summary>
+    /// 处理 Challenge 响应
+    /// </summary>
     public static string MakeChallengeResponse(string key)
     {
-        var aes = GetAesDataByKey(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
+        var aes = GetAesByKey(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
         var bytes = Encoding.ASCII.GetBytes(key);
 
         return Encrypt(aes, bytes);
     }
 
+    /// <summary>
+    /// 获取 LSX 秘钥
+    /// </summary>
     public static byte[] GetLSXKey(ushort seed)
     {
         var crandom = new CRandom();
         crandom.Seed(7u);
         crandom.Seed((uint)(crandom.Rand() + seed));
 
-        var array = new byte[16];
+        var bytes = new byte[16];
         for (int i = 0; i < 16; i++)
         {
-            array[i] = (byte)crandom.Rand();
+            bytes[i] = (byte)crandom.Rand();
         }
 
-        return array;
+        return bytes;
     }
 
+    /// <summary>
+    /// BF4 LSX 解密
+    /// </summary>
     public static string LSXDecryptBF4(string data, ushort seed)
     {
         var key = GetLSXKey(seed);
+        var aes = GetAesByKey(key);
 
-        var aes = GetAesDataByKey(key);
-        var array = GetArray(data);
+        var bytes = GetByteArray(data);
 
-        return Decrypt(aes, array);
+        return Decrypt(aes, bytes);
     }
 
+    /// <summary>
+    /// BF4 LSX 加密
+    /// </summary>
     public static string LSXEncryptBF4(string data, ushort seed)
     {
         var key = GetLSXKey(seed);
+        var aes = GetAesByKey(key);
 
-        var aes = GetAesDataByKey(key);
         var bytes = Encoding.UTF8.GetBytes(data);
 
         return Encrypt(aes, bytes);

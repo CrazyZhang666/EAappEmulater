@@ -1,4 +1,5 @@
-﻿using BF1ModTools.Core;
+﻿using BF1ModTools.Api;
+using BF1ModTools.Core;
 using BF1ModTools.Utils;
 using BF1ModTools.Helper;
 using CommunityToolkit.Mvvm.Input;
@@ -10,29 +11,30 @@ namespace BF1ModTools;
 /// </summary>
 public partial class MainWindow
 {
-    /// <summary>
-    /// 用于向外暴露主窗口实例
-    /// </summary>
-    public static Window MainWindowInstance { get; private set; }
-
     public MainWindow()
     {
         InitializeComponent();
     }
 
-    private void Window_Main_Loaded(object sender, RoutedEventArgs e)
+    /// <summary>
+    /// 窗口加载完成事件
+    /// </summary>
+    private async void Window_Main_Loaded(object sender, RoutedEventArgs e)
     {
         LoggerHelper.Info("启动主程序成功");
 
         Title = $"战地1模组工具箱 v{CoreUtil.VersionInfo}";
 
-        // 向外暴露主窗口实例
-        MainWindowInstance = this;
-
         // 初始化工作
         Ready.Run();
+
+        // 检查更新（放到最后执行）
+        await CheckUpdate();
     }
 
+    /// <summary>
+    /// 窗口关闭事件
+    /// </summary>
     private void Window_Main_Closing(object sender, CancelEventArgs e)
     {
         // 清理工作
@@ -41,6 +43,36 @@ public partial class MainWindow
         LoggerHelper.Info("关闭主程序成功");
     }
 
+    /// <summary>
+    /// 检查更新
+    /// </summary>
+    private async Task CheckUpdate()
+    {
+        LoggerHelper.Info("正在检测新版本中...");
+        NotifierHelper.Notice("正在检测新版本中...");
+
+        var webVersion = await CoreApi.GetWebUpdateVersion();
+        if (webVersion is null)
+        {
+            LoggerHelper.Warn("检测新版本失败");
+            NotifierHelper.Warning("检测新版本失败");
+            return;
+        }
+
+        if (CoreUtil.VersionInfo >= webVersion)
+        {
+            LoggerHelper.Info($"恭喜，当前是最新版本 {CoreUtil.VersionInfo}");
+            NotifierHelper.Info($"恭喜，当前是最新版本 {CoreUtil.VersionInfo}");
+            return;
+        }
+
+        if (MessageBox.Show("发现最新版本，请前往官网下载最新版本\nhttps://battlefield.vip",
+            "版本更新", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+        {
+            ProcessHelper.OpenLink("https://battlefield.vip");
+            return;
+        }
+    }
 
     [RelayCommand]
     private async Task SelectBf1Dir()
@@ -64,7 +96,7 @@ public partial class MainWindow
             // 转移主程序控制权
             Application.Current.MainWindow = loadWindow;
             // 关闭主窗窗口
-            MainWindow.MainWindowInstance.Close();
+            this.Close();
 
             // 显示初始化窗口
             loadWindow.Show();

@@ -11,12 +11,12 @@
 [assembly: Guid("cf77b65f-a76c-4268-a3ce-957816ae0ad0")]
 
 // PropertyGroup Generate????Attribute
-[assembly: AssemblyTitle("马恩工具箱")]
+[assembly: AssemblyTitle("战地1模组工具箱")]
 [assembly: AssemblyCompany("https://battlefield.vip")]
-[assembly: AssemblyProduct("马恩工具箱")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyInformationalVersion("1.0.0.0")]
+[assembly: AssemblyProduct("战地1模组工具箱")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyInformationalVersion("1.1.0.0")]
 
 // 不重复
 [assembly: AssemblyDescription("https://battlefield.vip")]
