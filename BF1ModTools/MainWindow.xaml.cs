@@ -3,6 +3,7 @@ using BF1ModTools.Core;
 using BF1ModTools.Utils;
 using BF1ModTools.Helper;
 using CommunityToolkit.Mvvm.Input;
+using System.Windows.Navigation;
 
 namespace BF1ModTools;
 
@@ -44,6 +45,15 @@ public partial class MainWindow
     }
 
     /// <summary>
+    /// 超链接请求导航事件
+    /// </summary>
+    private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+    {
+        ProcessHelper.OpenLink(e.Uri.OriginalString);
+        e.Handled = true;
+    }
+
+    /// <summary>
     /// 检查更新
     /// </summary>
     private async Task CheckUpdate()
@@ -51,26 +61,42 @@ public partial class MainWindow
         LoggerHelper.Info("正在检测新版本中...");
         NotifierHelper.Notice("正在检测新版本中...");
 
-        var webVersion = await CoreApi.GetWebUpdateVersion();
-        if (webVersion is null)
+        // 最多执行4次
+        for (int i = 0; i <= 4; i++)
         {
-            LoggerHelper.Warn("检测新版本失败");
-            NotifierHelper.Warning("检测新版本失败");
-            return;
-        }
+            // 当第4次还是失败，终止程序
+            if (i > 3)
+            {
+                LoggerHelper.Error("检测新版本失败，请检查网络连接");
+                NotifierHelper.Error("检测新版本失败，请检查网络连接");
+                return;
+            }
 
-        if (CoreUtil.VersionInfo >= webVersion)
-        {
-            LoggerHelper.Info($"恭喜，当前是最新版本 {CoreUtil.VersionInfo}");
-            NotifierHelper.Info($"恭喜，当前是最新版本 {CoreUtil.VersionInfo}");
-            return;
-        }
+            // 第1次不提示重试
+            if (i > 0)
+            {
+                LoggerHelper.Warn($"检测新版本失败，开始第 {i} 次重试中...");
+            }
 
-        if (MessageBox.Show("发现最新版本，请前往官网下载最新版本\nhttps://battlefield.vip",
-            "版本更新", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
-        {
-            ProcessHelper.OpenLink("https://battlefield.vip");
-            return;
+            var webVersion = await CoreApi.GetWebUpdateVersion();
+            if (webVersion is not null)
+            {
+                if (CoreUtil.VersionInfo >= webVersion)
+                {
+                    LoggerHelper.Info($"恭喜，当前是最新版本 {CoreUtil.VersionInfo}");
+                    NotifierHelper.Info($"恭喜，当前是最新版本 {CoreUtil.VersionInfo}");
+                    return;
+                }
+
+                LoggerHelper.Info($"发现最新版本，请前往官网下载最新版本 {webVersion}");
+
+                if (MessageBox.Show("发现最新版本，请前往官网下载最新版本\nhttps://battlefield.vip",
+                    "版本更新", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+                {
+                    ProcessHelper.OpenLink("https://battlefield.vip");
+                    return;
+                }
+            }
         }
     }
 

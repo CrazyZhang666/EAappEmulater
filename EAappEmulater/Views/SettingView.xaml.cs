@@ -30,6 +30,9 @@ public partial class SettingView : UserControl
         FormLabel_RuntimeIdentifier.Content = CoreUtil.RuntimeIdentifier;
     }
 
+    /// <summary>
+    /// 打开配置文件
+    /// </summary>
     [RelayCommand]
     private void OpenConfigFolder()
     {
