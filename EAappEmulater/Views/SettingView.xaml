@@ -12,7 +12,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="360" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -23,18 +23,31 @@
             BorderThickness="1"
             SnapsToDevicePixels="True">
             <StackPanel>
-                <ui:FormLabel x:Name="FormLabel_VersionInfo" Title="程序版本" />
+                <ui:IconHeader Title="系统信息" />
+                <StackPanel>
+                    <ui:FormLabel x:Name="FormLabel_VersionInfo" Title="程序版本" />
 
-                <Label />
-                <ui:FormLabel x:Name="FormLabel_UserName" Title="用户名称" />
-                <ui:FormLabel x:Name="FormLabel_MachineName" Title="电脑名称" />
-                <ui:FormLabel x:Name="FormLabel_OSVersion" Title="系统版本" />
-                <ui:FormLabel x:Name="FormLabel_SystemDirectory" Title="系统目录" />
+                    <Label />
+                    <ui:FormLabel x:Name="FormLabel_UserName" Title="用户名称" />
+                    <ui:FormLabel x:Name="FormLabel_MachineName" Title="电脑名称" />
+                    <ui:FormLabel x:Name="FormLabel_OSVersion" Title="系统版本" />
+                    <ui:FormLabel x:Name="FormLabel_SystemDirectory" Title="系统目录" />
 
-                <Label />
-                <ui:FormLabel x:Name="FormLabel_RuntimeVersion" Title="运行库平台" />
-                <ui:FormLabel x:Name="FormLabel_OSArchitecture" Title="运行库版本" />
-                <ui:FormLabel x:Name="FormLabel_RuntimeIdentifier" Title="运行库环境" />
+                    <Label />
+                    <ui:FormLabel x:Name="FormLabel_RuntimeVersion" Title="运行库平台" />
+                    <ui:FormLabel x:Name="FormLabel_OSArchitecture" Title="运行库版本" />
+                    <ui:FormLabel x:Name="FormLabel_RuntimeIdentifier" Title="运行库环境" />
+
+                    <Label />
+                </StackPanel>
+
+                <ui:IconHeader Title="常用工具" />
+                <WrapPanel>
+                    <ui:IconButton
+                        Command="{Binding OpenConfigFolderCommand}"
+                        Content="打开配置目录"
+                        Icon="&#xED43;" />
+                </WrapPanel>
             </StackPanel>
         </Border>
 

@@ -1,4 +1,6 @@
 ﻿using EAappEmulater.Utils;
+using EAappEmulater.Helper;
+using CommunityToolkit.Mvvm.Input;
 
 namespace EAappEmulater.Views;
 
@@ -26,5 +28,11 @@ public partial class SettingView : UserControl
         FormLabel_RuntimeVersion.Content = CoreUtil.RuntimeVersion;
         FormLabel_OSArchitecture.Content = CoreUtil.OSArchitecture;
         FormLabel_RuntimeIdentifier.Content = CoreUtil.RuntimeIdentifier;
+    }
+
+    [RelayCommand]
+    private void OpenConfigFolder()
+    {
+        ProcessHelper.OpenDirectory(CoreUtil.Dir_Default);
     }
 }

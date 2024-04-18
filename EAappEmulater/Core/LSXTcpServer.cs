@@ -7,7 +7,7 @@ namespace EAappEmulater.Core;
 public static class LSXTcpServer
 {
     private static TcpListener _tcpServer = null;
-    private static bool _isRunning = true;
+    private static bool _isRunning = false;
 
     private static readonly List<string> ScoketMsgBFV = new();
     private static readonly List<string> ScoketMsgBFH = new();
@@ -22,14 +22,15 @@ public static class LSXTcpServer
 
             // 头像 \AppData\Local\Origin\AvatarsCache（不清楚为啥不显示）
             text = text.Replace("##AvatarId##", "Avatars40.jpg");
-            // 当前时间
-            text = text.Replace("##SystemTime##", $"{DateTime.Now:s}");
 
             ScoketMsgBFV.Add(text);
         }
 
+        // 这俩结束符必须要加
         ScoketMsgBFV[0] = string.Concat(ScoketMsgBFV[0], "\0");
         ScoketMsgBFV[1] = string.Concat(ScoketMsgBFV[1], "\0");
+
+        //////////////////////////////////////////
 
         for (int i = 0; i <= 16; i++)
         {
@@ -37,16 +38,15 @@ public static class LSXTcpServer
             ScoketMsgBFH.Add(text);
         }
 
+        // 这俩结束符必须要加
         ScoketMsgBFH[0] = string.Concat(ScoketMsgBFH[0], "\0");
         ScoketMsgBFH[1] = string.Concat(ScoketMsgBFH[1], "\0");
+
+        //////////////////////////////////////////
 
         for (int i = 0; i <= 0; i++)
         {
             var text = FileHelper.GetEmbeddedResourceText($"LSX.TTF2.{i:D2}.xml");
-
-            // 当前时间
-            text = text.Replace("##SystemTime##", $"{DateTime.Now:s}");
-
             ScoketMsgTTF2.Add(text);
         }
     }
@@ -115,6 +115,7 @@ public static class LSXTcpServer
                     return;
 
                 var client = await _tcpServer.AcceptTcpClientAsync();
+                LoggerHelper.Debug($"发现 TCP 客户端连接 {client.Client.RemoteEndPoint}");
                 TcpClient3216Handler(client);
             }
         }
@@ -129,6 +130,7 @@ public static class LSXTcpServer
     /// </summary>
     private static async void TcpClient3216Handler(TcpClient client)
     {
+        // 建立和连接的客户端的数据流（传输数据）
         var networkStream = client.GetStream();
 
         try
@@ -140,7 +142,6 @@ public static class LSXTcpServer
             await networkStream.WriteAsync(buffer);
 
             var tcpString = await ReadTcpString(networkStream);
-            LoggerHelper.Debug($"读取 TCP 字符串 {tcpString}");
             var partArray = tcpString.Split('\"');
 
             // 适配FC24
@@ -151,7 +152,7 @@ public static class LSXTcpServer
             var response = string.Empty;
             var key = string.Empty;
 
-            // 处理 Battlelog 游戏
+            // 处理 Battlelog 游戏（default代表是其他游戏）
             // 硬仗和 bf4debug 模式的 lsx 请求不一样
             switch (BattlelogHttpServer.BattlelogType)
             {
@@ -264,21 +265,26 @@ public static class LSXTcpServer
     {
         var strBuilder = new StringBuilder();
 
+        // 缓冲区
         var buffer = new byte[81920];
-        int bytesRead;
+        // 实际读取的长度
+        int readCount;
 
         try
         {
-            while ((bytesRead = await stream.ReadAsync(buffer)) != 0)
+            while ((readCount = await stream.ReadAsync(buffer)) != 0)
             {
-                var part = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                var nullIndex = part.IndexOf('\0');
-                if (nullIndex != -1)
+                // 将读取的字节流转化为字符串
+                var partStr = Encoding.UTF8.GetString(buffer, 0, readCount);
+                // 检查读取的字符串是否有结束符，并得到其位置
+                var endIndex = partStr.IndexOf('\0');
+                if (endIndex != -1)
                 {
-                    strBuilder.Append(part, 0, nullIndex);
+                    // 如果找到结束符，追加结束符前面的字符串，然后跳出循环
+                    strBuilder.Append(partStr, 0, endIndex);
                     break;
                 }
-                strBuilder.Append(part);
+                strBuilder.Append(partStr);
             }
         }
         catch (Exception ex)
@@ -286,7 +292,10 @@ public static class LSXTcpServer
             LoggerHelper.Error("异步读取网络流 TCP 字符串发生异常", ex);
         }
 
-        return strBuilder.ToString();
+        var data = strBuilder.ToString();
+        LoggerHelper.Debug($"异步读取 TCP 网络流字符串 {data}");
+
+        return data;
     }
 
     /// <summary>
@@ -316,6 +325,7 @@ public static class LSXTcpServer
         var requestType = partArray[4];
         var settingId = partArray[5];
 
+        LoggerHelper.Debug($"BFV LSX 请求 Id {id}");
         LoggerHelper.Debug($"BFV LSX 请求 RequestType {requestType}");
         LoggerHelper.Debug($"BFV LSX 请求 SettingId {settingId}");
 
@@ -348,8 +358,8 @@ public static class LSXTcpServer
             "><SetPresence UserId=" => ScoketMsgBFV[14].Replace("##ID##", id),
             "><GetAllGameInfo version=" => contentid switch
             {
-                "1039093" => ScoketMsgTTF2[0].Replace("##ID##", id),
-                _ => ScoketMsgBFV[16].Replace("##ID##", id),
+                "1039093" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}"),
+                _ => ScoketMsgBFV[16].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}"),
             },
             "><IsProgressiveInstallationAvailable ItemId=" => ScoketMsgBFV[17].Replace("##ID##", id).Replace("Origin.OFR.50.0004342", "Origin.OFR.50.0001455"),
             "><QueryContent UserId=" => ScoketMsgBFV[18].Replace("##ID##", id),
@@ -381,6 +391,7 @@ public static class LSXTcpServer
         var requestType = partArray[4];
         var settingId = partArray[6];
 
+        LoggerHelper.Debug($"BFH LSX 请求 Id {id}");
         LoggerHelper.Debug($"BFH LSX 请求 RequestType {requestType}");
         LoggerHelper.Debug($"BFH LSX 请求 SettingId {settingId}");
 
