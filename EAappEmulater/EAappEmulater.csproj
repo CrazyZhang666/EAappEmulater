@@ -42,6 +42,10 @@
         <Exec Command="if /i $(ConfigurationName) == Release start $(SolutionDir)EazTrialRemover\EazTrialRemover.exe $(TargetPath)" />
     </Target>
 
+    <Target Name="Patch" BeforeTargets="GenerateSingleFileBundle">
+        <Exec Command="start $(SolutionDir)EazTrialRemover\EazTrialRemover.exe $(ProjectDir)obj\x64\Release\net6.0-windows\win-x64\$(TargetFileName)" />
+    </Target>
+
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
         <DebugType>full</DebugType>
     </PropertyGroup>
