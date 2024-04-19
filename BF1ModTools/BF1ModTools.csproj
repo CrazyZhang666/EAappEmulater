@@ -38,9 +38,9 @@
         <EazfuscatorCompatibilityVersion>2024.1</EazfuscatorCompatibilityVersion>
     </PropertyGroup>
 
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <Exec Command="if /i $(ConfigurationName) == Release start $(SolutionDir)EazTrialRemover\EazTrialRemover.exe $(TargetPath)" />
-    </Target>
+    </Target>-->
 
     <Target Name="Patch" BeforeTargets="GenerateSingleFileBundle">
         <Exec Command="start $(SolutionDir)EazTrialRemover\EazTrialRemover.exe $(ProjectDir)obj\x64\Release\net6.0-windows\win-x64\$(TargetFileName)" />

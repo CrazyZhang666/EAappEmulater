@@ -19,6 +19,7 @@
 
     <ItemGroup>
       <PackageReference Include="dnlib" Version="4.4.0" />
+      <PackageReference Include="NLog" Version="5.2.8" />
     </ItemGroup>
 
 </Project>
