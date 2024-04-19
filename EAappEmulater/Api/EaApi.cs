@@ -82,6 +82,12 @@ public static class EaApi
             respResult.StatusCode = response.StatusCode;
             respResult.Content = response.Content;
 
+            if (response.Content.Contains("error_code", StringComparison.OrdinalIgnoreCase))
+            {
+                LoggerHelper.Warn($"{respResult.ApiName} 请求失败，Cookie 已失效，返回结果 {response.Content}");
+                return respResult;
+            }
+
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 // 错误返回 {"error_code":"login_required","error":"login_required","error_number":"102100"}

@@ -52,13 +52,9 @@ public partial class MainWindow
         Ready.Run();
 
         // 显示当前玩家登录账号
-        MainModel.Avatar = Account.Avatar;
+        MainModel.Avatar = "Default";
         MainModel.PlayerName = Account.PlayerName;
         MainModel.PersonaId = Account.PersonaId;
-
-        // 玩家头像为空处理
-        if (string.IsNullOrWhiteSpace(Account.Avatar))
-            MainModel.Avatar = "Default";
 
         // 获取更新头像通知
         WeakReferenceMessenger.Default.Register<string, string>(this, "LoadAvatar", (s, e) =>

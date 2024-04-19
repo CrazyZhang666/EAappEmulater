@@ -2,6 +2,7 @@
 using EAappEmulater.Utils;
 using EAappEmulater.Helper;
 using CommunityToolkit.Mvvm.Messaging;
+using ModernWpf.Controls;
 
 namespace EAappEmulater.Core;
 
@@ -72,7 +73,7 @@ public static class Ready
                 LoggerHelper.Warn($"定时刷新 BaseToken 数据失败，开始第 {i} 次重试中...");
             }
 
-            if (await RefreshBaseTokens())
+            if (await RefreshBaseTokens(false))
             {
                 LoggerHelper.Info("定时刷新 BaseToken 数据成功");
                 break;
@@ -84,31 +85,38 @@ public static class Ready
     /// 非常重要，Api请求前置条件
     /// 刷新基础请求必备Token (多个)
     /// </summary>
-    public static async Task<bool> RefreshBaseTokens()
+    public static async Task<bool> RefreshBaseTokens(bool isInit = true)
     {
-        var result = await EaApi.GetToken();
-        if (!result.IsSuccess)
+        if (!isInit)
         {
-            LoggerHelper.Warn("刷新 Token 失败");
-            return false;
+            // 如果是初始化，则这一步可以省略（因为重复了）
+            // 但是定时刷新还是需要（因为有效期只有4小时）
+            var result = await EaApi.GetToken();
+            if (!result.IsSuccess)
+            {
+                LoggerHelper.Warn("刷新 Token 失败");
+                return false;
+            }
+            LoggerHelper.Info("刷新 Token 成功");
         }
-        LoggerHelper.Info("刷新 Token 成功");
+        else
+        {
+            var result = await EaApi.GetOriginPCAuth();
+            if (!result.IsSuccess)
+            {
+                LoggerHelper.Warn("刷新 OriginPCAuth 失败");
+                return false;
+            }
+            LoggerHelper.Info("刷新 OriginPCAuth 成功");
 
-        result = await EaApi.GetOriginPCAuth();
-        if (!result.IsSuccess)
-        {
-            LoggerHelper.Warn("刷新 OriginPCAuth 失败");
-            return false;
+            result = await EaApi.GetOriginPCToken();
+            if (!result.IsSuccess)
+            {
+                LoggerHelper.Warn("刷新 OriginPCToken 失败");
+                return false;
+            }
+            LoggerHelper.Info("刷新 OriginPCToken 成功");
         }
-        LoggerHelper.Info("刷新 OriginPCAuth 成功");
-
-        result = await EaApi.GetOriginPCToken();
-        if (!result.IsSuccess)
-        {
-            LoggerHelper.Warn("刷新 OriginPCToken 失败");
-            return false;
-        }
-        LoggerHelper.Info("刷新 OriginPCToken 成功");
 
         return true;
     }
@@ -141,15 +149,11 @@ public static class Ready
         return true;
     }
 
+    /// <summary>
+    /// 加载登录玩家头像
+    /// </summary>
     private static async Task LoadAvatar()
     {
-        // 玩家头像存在的时候不获取
-        if (!string.IsNullOrWhiteSpace(Account.Avatar))
-        {
-            LoggerHelper.Info("玩家头像文件已存在，跳过重新获取操作");
-            return;
-        }
-
         LoggerHelper.Info("正在获取当前登录玩家头像中...");
 
         // 最多执行4次
@@ -168,12 +172,19 @@ public static class Ready
                 LoggerHelper.Info($"获取当前登录玩家头像，开始第 {i} 次重试中...");
             }
 
-            // 判断玩家头像Id是否为空
+            // 判断玩家头像是否为空
             if (string.IsNullOrWhiteSpace(Account.AvatarId))
             {
-                // 如果头像Id为空，先获取
+                // 获取头像玩家Id
                 if (await GetAvatarByUserIds())
                 {
+                    // 比对本地玩家头像图片名称
+                    if (Path.GetFileNameWithoutExtension(Account.Avatar) == Account.AvatarId)
+                    {
+                        LoggerHelper.Info("发现本地玩家头像图片，跳过网络下载操作");
+                        return;
+                    }
+
                     // 获取头像Id成功，然后下载头像
                     if (await DownloadAvatar())
                     {
@@ -183,9 +194,10 @@ public static class Ready
             }
             else
             {
-                // 如果头像Id不为空，直接下载头像
-                if (await DownloadAvatar())
+                // 比对本地玩家头像图片名称
+                if (Path.GetFileNameWithoutExtension(Account.Avatar) == Account.AvatarId)
                 {
+                    LoggerHelper.Info("发现本地玩家头像图片，跳过网络下载操作");
                     return;
                 }
             }

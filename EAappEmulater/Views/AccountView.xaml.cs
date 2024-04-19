@@ -3,6 +3,7 @@ using EAappEmulater.Helper;
 using EAappEmulater.Models;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using System.Linq;
 
 namespace EAappEmulater.Views;
 
@@ -33,6 +34,7 @@ public partial class AccountView : UserControl
                 PlayerName = IniHelper.ReadString("Account", "PlayerName", item.Value),
                 PersonaId = IniHelper.ReadString("Account", "PersonaId", item.Value),
                 UserId = IniHelper.ReadString("Account", "UserId", item.Value),
+                AvatarId = IniHelper.ReadString("Account", "AvatarId", item.Value),
                 Avatar = IniHelper.ReadString("Account", "Avatar", item.Value),
 
                 Remid = IniHelper.ReadString("Cookie", "Remid", item.Value),
@@ -42,6 +44,10 @@ public partial class AccountView : UserControl
 
             // 玩家头像为空处理（仅有数据账号）
             if (!string.IsNullOrWhiteSpace(account.Remid) && string.IsNullOrWhiteSpace(account.Avatar))
+                account.Avatar = "Default";
+
+            // 验证玩家头像与玩家头像Id是否一致
+            if (!account.Avatar.Contains(account.AvatarId))
                 account.Avatar = "Default";
 
             ObsCol_AccountInfos.Add(account);
@@ -57,12 +63,21 @@ public partial class AccountView : UserControl
         });
     }
 
-    private void RunLoadWindow(bool isLogout = false)
+    /// <summary>
+    /// 切换账号
+    /// </summary>
+    [RelayCommand]
+    private void SwitchAccount()
     {
-        var loadWindow = new LoadWindow
-        {
-            IsLogout = isLogout
-        };
+        if (ListBox_AccountInfo.SelectedItem is not AccountInfo item)
+            return;
+
+        Globals.AccountSlot = item.AccountSlot;
+        LoggerHelper.Info($"切换账号槽位成功 Globals AccountSlot {Globals.AccountSlot}");
+
+        ////////////////////////////////
+
+        var loadWindow = new LoadWindow();
 
         // 转移主程序控制权
         Application.Current.MainWindow = loadWindow;
@@ -73,18 +88,9 @@ public partial class AccountView : UserControl
         loadWindow.Show();
     }
 
-    [RelayCommand]
-    private void SwitchAccount()
-    {
-        if (ListBox_AccountInfo.SelectedItem is not AccountInfo item)
-            return;
-
-        Globals.AccountSlot = item.AccountSlot;
-        LoggerHelper.Info($"切换账号槽位成功 Globals AccountSlot {Globals.AccountSlot}");
-
-        RunLoadWindow();
-    }
-
+    /// <summary>
+    /// 注销登录
+    /// </summary>
     [RelayCommand]
     private void LogoutAccount()
     {
@@ -95,6 +101,19 @@ public partial class AccountView : UserControl
         LoggerHelper.Info($"注销账号槽位成功 Globals AccountSlot {Globals.AccountSlot}");
         Account.Reset();
 
-        RunLoadWindow(true);
+        ////////////////////////////////
+
+        var loginWindow = new LoginWindow
+        {
+            IsLogout = true
+        };
+
+        // 转移主程序控制权
+        Application.Current.MainWindow = loginWindow;
+        // 关闭主窗窗口
+        MainWindow.MainWindowInstance.Close();
+
+        // 显示初始化窗口
+        loginWindow.Show();
     }
 }

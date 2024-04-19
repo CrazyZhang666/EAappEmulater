@@ -5,115 +5,60 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
-    xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     x:Name="Window_Load"
     Title="EA app 模拟器"
-    Width="380"
-    Height="660"
+    Width="480"
+    Height="270"
+    CaptionBackground="#FDFDFD"
     Closing="Window_Load_Closing"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
     Icon="Assets/Icons/Favicon.ico"
     Loaded="Window_Load_Loaded"
     ResizeMode="NoResize"
-    Style="{StaticResource CustomSystemWindowStyle}"
+    Style="{StaticResource SystemWindowStyle}"
     mc:Ignorable="d">
 
     <ui:Window.TitleContent>
-        <DockPanel>
-            <StackPanel
-                x:Name="Part2_BtnTools"
+        <StackPanel Orientation="Horizontal">
+            <ui:Image
+                Width="18"
+                Height="18"
+                Margin="7,0,0,0"
+                Source="pack://application:,,,/EAappEmulater;component/Assets/Icons/Favicon.ico" />
+            <TextBlock
+                Margin="7,0,0,0"
                 VerticalAlignment="Center"
-                DockPanel.Dock="Right"
-                Orientation="Horizontal"
-                Visibility="Hidden"
-                WindowChrome.IsHitTestVisibleInChrome="True">
-                <ui:WinButton
-                    x:Name="WinButton_Clear"
-                    Click="WinButton_Clear_Click"
-                    FontSize="14"
-                    Icon="&#xE74D;"
-                    ToolTip="清理缓存" />
-                <ui:WinButton
-                    x:Name="WinButton_Refush"
-                    Click="WinButton_Refush_Click"
-                    FontSize="12"
-                    Icon="&#xE72C;"
-                    ToolTip="刷新" />
-                <Border
-                    Width="1"
-                    Height="14"
-                    Margin="7,0,7,0"
-                    Background="Gray" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <ui:Image
-                    Width="18"
-                    Height="18"
-                    Margin="7,0,0,0"
-                    Source="pack://application:,,,/EAappEmulater;component/Assets/Icons/Favicon.ico" />
-                <TextBlock
-                    Margin="7,0,0,0"
-                    VerticalAlignment="Center"
-                    Text="{Binding Title}" />
-            </StackPanel>
-        </DockPanel>
+                Text="{Binding Title}" />
+        </StackPanel>
     </ui:Window.TitleContent>
 
-    <Grid>
-        <Grid
-            x:Name="Grid_Part1"
-            Margin="0,-32,0,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            d:Visibility="Visible"
-            Visibility="Visible">
-            <StackPanel>
-                <Grid>
-                    <ui:Loading x:Name="Loading_Normal" d:Visibility="Hidden" />
-                    <ui:IconFont
-                        x:Name="IconFont_NetworkError"
-                        d:Visibility="Visible"
-                        FontSize="60"
-                        FontWeight="Bold"
-                        Icon="&#xF384;"
-                        Visibility="Hidden" />
-                </Grid>
-                <TextBlock
-                    x:Name="TextBlock_CheckState"
-                    Width="280"
-                    Margin="0,20,0,0"
-                    d:Text="刷新基础 Token 信息失败，程序终止，请检查网络连接"
-                    FontSize="14"
-                    Text="正在验证玩家账号有效性..."
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-        </Grid>
-
-        <Grid
-            x:Name="Grid_Part2"
-            d:Visibility="Visible"
-            Visibility="Hidden">
-            <wv2:WebView2
-                x:Name="WebView2_Main"
-                d:Visibility="Hidden"
-                DefaultBackgroundColor="#FAFAFA"
-                Visibility="Hidden" />
-
-            <StackPanel
-                x:Name="WebView2_Loading"
-                Margin="0,-32,0,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                d:Visibility="Hidden"
-                Visibility="Hidden">
-                <ui:Loading Background="#235FE3" />
-                <TextBlock
-                    Margin="0,20,0,0"
-                    FontSize="14"
-                    Text="正在加载登录页面..." />
-            </StackPanel>
-        </Grid>
+    <Grid
+        Margin="0,-32,0,0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+        <StackPanel>
+            <Grid>
+                <ui:Loading
+                    x:Name="Loading_Normal"
+                    d:Visibility="Visible"
+                    Visibility="Visible" />
+                <ui:IconFont
+                    x:Name="IconFont_NetworkError"
+                    d:Visibility="Hidden"
+                    FontSize="60"
+                    FontWeight="Bold"
+                    Icon="&#xF384;"
+                    Visibility="Hidden" />
+            </Grid>
+            <TextBlock
+                x:Name="TextBlock_CheckState"
+                Width="280"
+                Margin="0,20,0,0"
+                FontSize="14"
+                Text="正在验证玩家账号有效性..."
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+        </StackPanel>
     </Grid>
 
 </ui:Window>

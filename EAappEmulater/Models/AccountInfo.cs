@@ -14,6 +14,9 @@ public partial class AccountInfo : ObservableObject
     public string UserId { get; set; }
 
     [ObservableProperty]
+    private string avatarId;
+
+    [ObservableProperty]
     private string avatar;
 
     public string Remid { get; set; }

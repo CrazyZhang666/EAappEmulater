@@ -84,11 +84,13 @@ public static class Account
         PlayerName = ReadString("Account", "PlayerName");
         PersonaId = ReadString("Account", "PersonaId");
         UserId = ReadString("Account", "UserId");
-        AvatarId = ReadString("Account", "AvatarId");
+
+        // 头像Id需要经过验证才能确定是当前账号头像
+        AvatarId = string.Empty;
 
         var avatar = ReadString("Account", "Avatar");
-        // 玩家头像存在，并在玩家头像名称和头像Id一致
-        if (File.Exists(avatar) && Path.GetFileNameWithoutExtension(avatar) == AvatarId)
+        // 检查玩家头像文件是否存在
+        if (File.Exists(avatar))
             Avatar = avatar;
         else
             Avatar = string.Empty;
