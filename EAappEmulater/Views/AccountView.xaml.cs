@@ -59,6 +59,7 @@ public partial class AccountView : UserControl
 
         WeakReferenceMessenger.Default.Register<string, string>(this, "LoadAvatar", (s, e) =>
         {
+            ObsCol_AccountInfos[(int)Globals.AccountSlot].AvatarId = Account.AvatarId;
             ObsCol_AccountInfos[(int)Globals.AccountSlot].Avatar = Account.Avatar;
         });
     }

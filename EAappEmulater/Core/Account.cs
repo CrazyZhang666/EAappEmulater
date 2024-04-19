@@ -85,15 +85,9 @@ public static class Account
         PersonaId = ReadString("Account", "PersonaId");
         UserId = ReadString("Account", "UserId");
 
-        // 头像Id需要经过验证才能确定是当前账号头像
+        // 头像需要验证
         AvatarId = string.Empty;
-
-        var avatar = ReadString("Account", "Avatar");
-        // 检查玩家头像文件是否存在
-        if (File.Exists(avatar))
-            Avatar = avatar;
-        else
-            Avatar = string.Empty;
+        Avatar = string.Empty;
 
         Remid = ReadString("Cookie", "Remid");
         Sid = ReadString("Cookie", "Sid");

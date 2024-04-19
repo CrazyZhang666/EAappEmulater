@@ -172,20 +172,13 @@ public static class Ready
                 LoggerHelper.Info($"获取当前登录玩家头像，开始第 {i} 次重试中...");
             }
 
-            // 判断玩家头像是否为空
+            // 只有头像Id为空才网络获取
             if (string.IsNullOrWhiteSpace(Account.AvatarId))
             {
-                // 获取头像玩家Id
+                // 开始获取头像玩家Id
                 if (await GetAvatarByUserIds())
                 {
-                    // 比对本地玩家头像图片名称
-                    if (Path.GetFileNameWithoutExtension(Account.Avatar) == Account.AvatarId)
-                    {
-                        LoggerHelper.Info("发现本地玩家头像图片，跳过网络下载操作");
-                        return;
-                    }
-
-                    // 获取头像Id成功，然后下载头像
+                    // 获取头像Id成功后下载头像
                     if (await DownloadAvatar())
                     {
                         return;
@@ -194,10 +187,9 @@ public static class Ready
             }
             else
             {
-                // 比对本地玩家头像图片名称
-                if (Path.GetFileNameWithoutExtension(Account.Avatar) == Account.AvatarId)
+                // 获取头像Id成功后下载头像
+                if (await DownloadAvatar())
                 {
-                    LoggerHelper.Info("发现本地玩家头像图片，跳过网络下载操作");
                     return;
                 }
             }
@@ -236,12 +228,22 @@ public static class Ready
     /// <summary>
     /// 下载玩家头像
     /// </summary>
-    private static async Task<bool> DownloadAvatar()
+    private static async Task<bool> DownloadAvatar(bool isOverride = true)
     {
+        var savePath = Path.Combine(CoreUtil.Dir_Avatar, $"{Account.AvatarId}.png");
+        if (File.Exists(savePath) && isOverride)
+        {
+            Account.Avatar = savePath;
+
+            LoggerHelper.Info($"发现本地玩家头像图片缓存，跳过网络下载操作 {Account.Avatar}");
+            WeakReferenceMessenger.Default.Send("", "LoadAvatar");
+
+            return true;
+        }
+
         var avatarLink = $"https://secure.download.dm.origin.com/production/avatar/prod/userAvatar/{Account.AvatarId}/208x208.JPEG ";
 
         // 开始缓存玩家头像到本地
-        var savePath = Path.Combine(CoreUtil.Dir_Avatar, $"{Account.AvatarId}.png");
         if (!await CoreApi.DownloadWebImage(avatarLink, savePath))
         {
             LoggerHelper.Warn($"下载当前登录玩家头像失败 {Account.AvatarId}");

@@ -77,7 +77,14 @@ public static class EaApi
             request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求完成，状态码 {response.StatusCode}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+
+            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            {
+                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                return respResult;
+            }
 
             respResult.StatusCode = response.StatusCode;
             respResult.Content = response.Content;
@@ -138,7 +145,14 @@ public static class EaApi
             request.AddHeader("Authorization", $"Bearer {Account.AccessToken}");
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求完成，状态码 {response.StatusCode}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+
+            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            {
+                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                return respResult;
+            }
 
             respResult.StatusCode = response.StatusCode;
             respResult.Content = response.Content;
@@ -194,7 +208,14 @@ public static class EaApi
             request.AddHeader("AuthToken", Account.AccessToken);
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求完成，状态码 {response.StatusCode}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+
+            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            {
+                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                return respResult;
+            }
 
             respResult.StatusCode = response.StatusCode;
             respResult.Content = response.Content;
@@ -251,7 +272,14 @@ public static class EaApi
             request.AddHeader("X-AuthToken", Account.AccessToken);
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求完成，状态码 {response.StatusCode}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+
+            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            {
+                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                return respResult;
+            }
 
             respResult.StatusCode = response.StatusCode;
             respResult.Content = response.Content;
@@ -312,7 +340,14 @@ public static class EaApi
             request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求完成，状态码 {response.StatusCode}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+
+            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            {
+                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                return respResult;
+            }
 
             respResult.StatusCode = response.StatusCode;
             respResult.Content = response.Content;
@@ -387,7 +422,14 @@ public static class EaApi
                 ParameterType.RequestBody);
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求完成，状态码 {response.StatusCode}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+
+            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            {
+                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                return respResult;
+            }
 
             respResult.StatusCode = response.StatusCode;
             respResult.Content = response.Content;
@@ -457,7 +499,14 @@ public static class EaApi
             request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求完成，状态码 {response.StatusCode}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+
+            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            {
+                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                return respResult;
+            }
 
             respResult.StatusCode = response.StatusCode;
             respResult.Content = response.Content;
@@ -537,7 +586,14 @@ public static class EaApi
             request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求完成，状态码 {response.StatusCode}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+
+            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            {
+                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                return respResult;
+            }
 
             respResult.StatusCode = response.StatusCode;
             respResult.Content = response.Content;
