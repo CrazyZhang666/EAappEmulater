@@ -48,11 +48,8 @@ public partial class MainWindow
         // 首页导航
         Navigate(NavDictionary.First().Key);
 
-        // 初始化工作
-        Ready.Run();
-
         // 显示当前玩家登录账号
-        MainModel.Avatar = "Default";
+        MainModel.Avatar = Account.Avatar;
         MainModel.PlayerName = Account.PlayerName;
         MainModel.PersonaId = Account.PersonaId;
 
@@ -61,6 +58,9 @@ public partial class MainWindow
         {
             MainModel.Avatar = Account.Avatar;
         });
+
+        // 初始化工作
+        Ready.Run();
 
         // 检查更新（放到最后执行）
         await CheckUpdate();

@@ -23,16 +23,17 @@ public partial class LoadWindow
         // 开始验证Cookie有效性
         if (await CheckCookie())
         {
-            // 如果Cookie游戏，则开始初始化
+            // 如果Cookie有效，则开始初始化
             await InitGameInfo();
             return;
         }
         else
         {
-            // 否则开始转入登录界面
+            // 否则开始跳转登录窗口
+            // 由于只是更新Cookie，所以不需要清理缓存
             var loginWindow = new LoginWindow
             {
-                IsLogout = true
+                IsLogout = false
             };
 
             // 转移主程序控制权
@@ -191,6 +192,9 @@ public partial class LoadWindow
         }
 
         /////////////////////////////////////////////////
+
+        // 保存新数据，防止丢失
+        Globals.Write(true);
 
         DisplayLoadState("初始化完成，开始启动主程序...");
         LoggerHelper.Info("初始化完成，开始启动主程序...");

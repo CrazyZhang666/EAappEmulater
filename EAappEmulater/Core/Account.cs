@@ -84,10 +84,14 @@ public static class Account
         PlayerName = ReadString("Account", "PlayerName");
         PersonaId = ReadString("Account", "PersonaId");
         UserId = ReadString("Account", "UserId");
+        AvatarId = ReadString("Account", "AvatarId");
 
-        // 头像需要验证
-        AvatarId = string.Empty;
-        Avatar = string.Empty;
+        var avatar = ReadString("Account", "Avatar");
+        // 玩家头像存在，并在玩家头像名称和头像Id一致
+        if (File.Exists(avatar) && Path.GetFileNameWithoutExtension(avatar) == AvatarId)
+            Avatar = avatar;
+        else
+            Avatar = string.Empty;
 
         Remid = ReadString("Cookie", "Remid");
         Sid = ReadString("Cookie", "Sid");

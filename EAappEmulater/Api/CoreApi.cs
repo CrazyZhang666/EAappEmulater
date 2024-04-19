@@ -11,7 +11,7 @@ public static class CoreApi
     {
         var options = new RestClientOptions()
         {
-            MaxTimeout = 9000,
+            MaxTimeout = 20000,
             FollowRedirects = false,
             ThrowOnAnyError = false,
             ThrowOnDeserializationError = false
@@ -27,7 +27,14 @@ public static class CoreApi
             var request = new RestRequest("https://api.battlefield.vip/eaapp/update.txt", Method.Get);
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"GetWebUpdateVersion 请求完成，状态码 {response.StatusCode}");
+            LoggerHelper.Info($"GetWebUpdateVersion 请求结束，状态 {response.ResponseStatus}");
+            LoggerHelper.Info($"GetWebUpdateVersion 请求结束，状态码 {response.StatusCode}");
+
+            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            {
+                LoggerHelper.Info($"GetWebUpdateVersion 请求超时");
+                return null;
+            }
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
