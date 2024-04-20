@@ -14,6 +14,7 @@ global using System.Windows;
 global using System.Windows.Media;
 global using System.Windows.Controls;
 global using System.Windows.Threading;
+global using System.Windows.Navigation;
 global using System.Runtime.InteropServices;
 global using System.Collections.Generic;
 global using System.Security.Principal;

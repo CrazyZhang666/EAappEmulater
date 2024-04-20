@@ -3,7 +3,6 @@ using BF1ModTools.Core;
 using BF1ModTools.Utils;
 using BF1ModTools.Helper;
 using CommunityToolkit.Mvvm.Input;
-using System.Windows.Navigation;
 
 namespace BF1ModTools;
 

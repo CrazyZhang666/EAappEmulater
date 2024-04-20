@@ -33,10 +33,11 @@ public static class CoreUtil
     public static string File_BattlefieldChat { get; private set; }
     #endregion
 
+    public const string Name_BF1 = "bf1";
+
     public const string Name_FrostyModManager = "FrostyModManager";
     public const string Name_MarneLauncher = "MarneLauncher";
-
-    public const string Name_BF1 = "bf1";
+    public const string Name_BattlefieldChat = "BattlefieldChat";
 
     //////////////////////////////////
 

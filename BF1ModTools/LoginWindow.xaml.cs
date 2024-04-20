@@ -27,7 +27,6 @@ public partial class LoginWindow
     /// </summary>
     private void Window_Login_Loaded(object sender, RoutedEventArgs e)
     {
-
     }
 
     /// <summary>

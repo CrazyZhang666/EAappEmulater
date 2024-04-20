@@ -37,7 +37,7 @@ public partial class LaunchView : UserControl
         }
 
         // 如果程序已经在运行，则结束操作
-        if (ProcessHelper.IsAppRun("FrostyModManager"))
+        if (ProcessHelper.IsAppRun(CoreUtil.Name_FrostyModManager))
         {
             NotifierHelper.Warning("程序已经运行了，请不要重复运行");
             return;
@@ -135,6 +135,13 @@ public partial class LaunchView : UserControl
     [RelayCommand]
     private void RunMarneLauncher()
     {
+        // 如果程序已经在运行，则结束操作
+        if (ProcessHelper.IsAppRun(CoreUtil.Name_MarneLauncher))
+        {
+            NotifierHelper.Warning("程序已经运行了，请不要重复运行");
+            return;
+        }
+
         ProcessHelper.OpenProcess(CoreUtil.File_Marne_MarneLauncher);
     }
 

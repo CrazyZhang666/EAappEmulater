@@ -109,6 +109,13 @@ public partial class ToolsView : UserControl
     [RelayCommand]
     private void RunBattlefieldChat()
     {
+        // 如果程序已经在运行，则结束操作
+        if (ProcessHelper.IsAppRun(CoreUtil.Name_BattlefieldChat))
+        {
+            NotifierHelper.Warning("程序已经运行了，请不要重复运行");
+            return;
+        }
+
         ProcessHelper.OpenProcess(CoreUtil.File_BattlefieldChat);
     }
 }
