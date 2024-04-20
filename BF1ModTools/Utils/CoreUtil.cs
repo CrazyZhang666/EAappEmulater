@@ -68,6 +68,7 @@ public static class CoreUtil
 
         FileHelper.CreateDirectory(Dir_Cache);
         FileHelper.CreateDirectory(Dir_Config);
+        FileHelper.CreateDirectory(Dir_Service);
         FileHelper.CreateDirectory(Dir_Log);
 
         FileHelper.CreateDirectory(Dir_Log_Crash);
