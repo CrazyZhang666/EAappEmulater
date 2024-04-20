@@ -97,12 +97,12 @@ public partial class LoadWindow
     private async Task InitGameInfo()
     {
         // 关闭服务进程
-        await CoreUtil.CloseServerProcess();
+        await CoreUtil.CloseServiceProcess();
 
         DisplayLoadState("正在释放资源服务进程文件...");
         LoggerHelper.Info("正在释放资源服务进程文件...");
-        FileHelper.ExtractResFile("Exec.EADesktop.exe", CoreUtil.File_Cache_EADesktop);
-        FileHelper.ExtractResFile("Exec.OriginDebug.exe", CoreUtil.File_Cache_OriginDebug);
+        FileHelper.ExtractResFile("Exec.EADesktop.exe", CoreUtil.File_Service_EADesktop);
+        FileHelper.ExtractResFile("Exec.OriginDebug.exe", CoreUtil.File_Service_OriginDebug);
 
         /////////////////////////////////////////////////
 

@@ -51,7 +51,7 @@ public partial class FriendView : UserControl
                     _friendInfoList.Add(new()
                     {
                         Avatar = "Default",
-                        DiffDays = CoreUtil.DiffDays(entry.timestamp),
+                        DiffDays = CoreUtil.GetDiffDays(entry.timestamp),
 
                         DisplayName = entry.displayName,
                         NickName = entry.nickName,

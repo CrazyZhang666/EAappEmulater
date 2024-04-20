@@ -14,14 +14,14 @@ public static class CoreUtil
     public static string Dir_Config { get; private set; }
     public static string Dir_Account { get; private set; }
     public static string Dir_Avatar { get; private set; }
-    public static string Dir_Server { get; private set; }
+    public static string Dir_Service { get; private set; }
     public static string Dir_Log { get; private set; }
 
     public static string Dir_Log_Crash { get; private set; }
     public static string Dir_Log_NLog { get; private set; }
 
-    public static string File_Cache_EADesktop { get; private set; }
-    public static string File_Cache_OriginDebug { get; private set; }
+    public static string File_Service_EADesktop { get; private set; }
+    public static string File_Service_OriginDebug { get; private set; }
     #endregion
 
     public static Dictionary<AccountSlot, string> AccountCacheDb { get; private set; } = new();
@@ -47,7 +47,7 @@ public static class CoreUtil
         Dir_Config = Path.Combine(Dir_Default, "Config");
         Dir_Account = Path.Combine(Dir_Default, "Account");
         Dir_Avatar = Path.Combine(Dir_Default, "Avatar");
-        Dir_Server = Path.Combine(Dir_Default, "Server");
+        Dir_Service = Path.Combine(Dir_Default, "Service");
         Dir_Log = Path.Combine(Dir_Default, "Log");
 
         Dir_Log_Crash = Path.Combine(Dir_Log, "Crash");
@@ -59,14 +59,14 @@ public static class CoreUtil
         FileHelper.CreateDirectory(Dir_Config);
         FileHelper.CreateDirectory(Dir_Account);
         FileHelper.CreateDirectory(Dir_Avatar);
-        FileHelper.CreateDirectory(Dir_Server);
+        FileHelper.CreateDirectory(Dir_Service);
         FileHelper.CreateDirectory(Dir_Log);
 
         FileHelper.CreateDirectory(Dir_Log_Crash);
         FileHelper.CreateDirectory(Dir_Log_NLog);
 
-        File_Cache_EADesktop = Path.Combine(Dir_Server, "EADesktop.exe");
-        File_Cache_OriginDebug = Path.Combine(Dir_Server, "OriginDebug.exe");
+        File_Service_EADesktop = Path.Combine(Dir_Service, "EADesktop.exe");
+        File_Service_OriginDebug = Path.Combine(Dir_Service, "OriginDebug.exe");
         #endregion
 
         // 批量创建账号槽缓存目录
@@ -93,7 +93,7 @@ public static class CoreUtil
     /// <summary>
     /// 关闭服务进程
     /// </summary>
-    public static async Task CloseServerProcess()
+    public static async Task CloseServiceProcess()
     {
         LoggerHelper.Info("准备关闭服务进程");
         await ProcessHelper.CloseProcess("EADesktop");
@@ -151,23 +151,10 @@ public static class CoreUtil
     /// </summary>
     /// <param name="timeStamp"></param>
     /// <returns></returns>
-    public static int DiffDays(long timeStamp)
+    public static int GetDiffDays(long timeStamp)
     {
         var dateTime = TimestampToDataTime(timeStamp);
         var daysSpan = new TimeSpan(DateTime.Now.Ticks - dateTime.Ticks);
         return daysSpan.Days;
-    }
-
-    /// <summary>
-    /// 保存崩溃日志
-    /// </summary>
-    public static void SaveCrashLog(string log)
-    {
-        try
-        {
-            var path = Path.Combine(Dir_Log_Crash, $"CrashReport-{DateTime.Now:yyyyMMdd_HHmmss_ffff}.log");
-            File.WriteAllText(path, log);
-        }
-        catch { }
     }
 }

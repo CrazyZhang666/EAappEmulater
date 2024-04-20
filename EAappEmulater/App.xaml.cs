@@ -33,7 +33,7 @@ public partial class App : Application
             return;
         }
 
-        //////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////
 
         LoggerHelper.Info("正在进行 .NET 6.0 版本检测中...");
         if (Environment.Version < new Version("6.0.29"))
@@ -61,7 +61,7 @@ public partial class App : Application
         }
         LoggerHelper.Info($"当前系统 WebVieww2 环境正常");
 
-        //////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////
 
         // 注册异常捕获
         RegisterEvents();
@@ -87,7 +87,7 @@ public partial class App : Application
     private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
         var msg = GetExceptionInfo(e.Exception, e.ToString());
-        CoreUtil.SaveCrashLog(msg);
+        SaveCrashLog(msg);
     }
 
     /// <summary>
@@ -96,7 +96,7 @@ public partial class App : Application
     private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
         var msg = GetExceptionInfo(e.ExceptionObject as Exception, e.ToString());
-        CoreUtil.SaveCrashLog(msg);
+        SaveCrashLog(msg);
     }
 
     /// <summary>
@@ -105,7 +105,7 @@ public partial class App : Application
     private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
     {
         var msg = GetExceptionInfo(e.Exception, e.ToString());
-        CoreUtil.SaveCrashLog(msg);
+        SaveCrashLog(msg);
     }
 
     /// <summary>
@@ -138,5 +138,18 @@ public partial class App : Application
         }
 
         return builder.ToString();
+    }
+
+    /// <summary>
+    /// 保存崩溃日志
+    /// </summary>
+    private void SaveCrashLog(string log)
+    {
+        try
+        {
+            var path = Path.Combine(CoreUtil.Dir_Log_Crash, $"CrashReport-{DateTime.Now:yyyyMMdd_HHmmss_ffff}.log");
+            File.WriteAllText(path, log);
+        }
+        catch { }
     }
 }
