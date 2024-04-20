@@ -24,7 +24,14 @@ public partial class LoginWindow
     /// <summary>
     /// 窗口加载完成事件
     /// </summary>
-    private async void Window_Login_Loaded(object sender, RoutedEventArgs e)
+    private void Window_Login_Loaded(object sender, RoutedEventArgs e)
+    {
+    }
+
+    /// <summary>
+    /// 窗口内容呈现完毕后事件
+    /// </summary>
+    private async void Window_Login_ContentRendered(object sender, EventArgs e)
     {
         await InitWebView2();
     }
@@ -42,43 +49,50 @@ public partial class LoginWindow
     /// </summary>
     private async Task InitWebView2()
     {
-        LoggerHelper.Info("开始加载 WebView2 登录界面...");
-
-        var options = new CoreWebView2EnvironmentOptions();
-
-        // 初始化WebView2环境
-        var env = await CoreWebView2Environment.CreateAsync(null, Globals.GetAccountCacheDir(), options);
-        await WebView2_Main.EnsureCoreWebView2Async(env);
-
-        // 禁止Dev开发工具
-        WebView2_Main.CoreWebView2.Settings.AreDevToolsEnabled = false;
-        // 禁止右键菜单
-        WebView2_Main.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-        // 禁止浏览器缩放
-        WebView2_Main.CoreWebView2.Settings.IsZoomControlEnabled = false;
-        // 禁止显示状态栏（鼠标悬浮在链接上时右下角没有url地址显示）
-        WebView2_Main.CoreWebView2.Settings.IsStatusBarEnabled = false;
-
-        // 新窗口打开页面的处理
-        WebView2_Main.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
-        // Url变化的处理
-        WebView2_Main.CoreWebView2.SourceChanged += CoreWebView2_SourceChanged;
-
-        // 导航开始事件
-        WebView2_Main.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
-        // 导航完成事件
-        WebView2_Main.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
-
-        // 用于注销账号
-        if (IsLogout)
+        try
         {
-            LoggerHelper.Info("开始注销当前登录账号...");
-            WinButton_Clear_Click(null, null);
+            LoggerHelper.Info("开始加载 WebView2 登录界面...");
+
+            var options = new CoreWebView2EnvironmentOptions();
+
+            // 初始化WebView2环境
+            var env = await CoreWebView2Environment.CreateAsync(null, Globals.GetAccountCacheDir(), options);
+            await WebView2_Main.EnsureCoreWebView2Async(env);
+
+            // 禁止Dev开发工具
+            WebView2_Main.CoreWebView2.Settings.AreDevToolsEnabled = false;
+            // 禁止右键菜单
+            WebView2_Main.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+            // 禁止浏览器缩放
+            WebView2_Main.CoreWebView2.Settings.IsZoomControlEnabled = false;
+            // 禁止显示状态栏（鼠标悬浮在链接上时右下角没有url地址显示）
+            WebView2_Main.CoreWebView2.Settings.IsStatusBarEnabled = false;
+
+            // 新窗口打开页面的处理
+            WebView2_Main.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
+            // Url变化的处理
+            WebView2_Main.CoreWebView2.SourceChanged += CoreWebView2_SourceChanged;
+
+            // 导航开始事件
+            WebView2_Main.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
+            // 导航完成事件
+            WebView2_Main.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
+
+            // 用于注销账号
+            if (IsLogout)
+            {
+                LoggerHelper.Info("开始注销当前登录账号...");
+                WinButton_Clear_Click(null, null);
+            }
+            else
+            {
+                // 导航到指定Url
+                WebView2_Main.CoreWebView2.Navigate(_host);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            // 导航到指定Url
-            WebView2_Main.CoreWebView2.Navigate(_host);
+            LoggerHelper.Error($"WebView2 初始化异常", ex);
         }
     }
 

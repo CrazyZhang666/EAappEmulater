@@ -3,7 +3,6 @@ using EAappEmulater.Helper;
 using EAappEmulater.Models;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Linq;
 
 namespace EAappEmulater.Views;
 

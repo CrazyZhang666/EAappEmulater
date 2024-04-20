@@ -11,6 +11,7 @@
     Height="270"
     CaptionBackground="#FDFDFD"
     Closing="Window_Load_Closing"
+    ContentRendered="Window_Load_ContentRendered"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
     Icon="Assets/Icons/Favicon.ico"
     Loaded="Window_Load_Loaded"

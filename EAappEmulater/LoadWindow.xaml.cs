@@ -18,7 +18,14 @@ public partial class LoadWindow
     /// <summary>
     /// 窗口加载完成事件
     /// </summary>
-    private async void Window_Load_Loaded(object sender, RoutedEventArgs e)
+    private void Window_Load_Loaded(object sender, RoutedEventArgs e)
+    {
+    }
+
+    /// <summary>
+    /// 窗口内容呈现完毕后事件
+    /// </summary>
+    private async void Window_Load_ContentRendered(object sender, EventArgs e)
     {
         // 开始验证Cookie有效性
         if (await CheckCookie())
@@ -51,7 +58,6 @@ public partial class LoadWindow
     /// </summary>
     private void Window_Load_Closing(object sender, CancelEventArgs e)
     {
-
     }
 
     /// <summary>
