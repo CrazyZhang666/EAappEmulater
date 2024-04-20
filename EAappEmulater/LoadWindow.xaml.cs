@@ -209,7 +209,7 @@ public partial class LoadWindow
 
         // 转移主程序控制权
         Application.Current.MainWindow = mainWindow;
-        // 关闭初始化窗口
+        // 关闭当前窗口
         this.Close();
 
         // 显示主窗口

@@ -2,7 +2,6 @@
 using BF1ModTools.Core;
 using BF1ModTools.Utils;
 using BF1ModTools.Helper;
-using Microsoft.Web.WebView2.Core;
 
 namespace BF1ModTools;
 
@@ -11,13 +10,6 @@ namespace BF1ModTools;
 /// </summary>
 public partial class LoadWindow
 {
-    private const string _host = "https://accounts.ea.com/connect/auth?client_id=sparta-backend-as-user-pc&response_type=code&release_type=none";
-
-    /// <summary>
-    /// 是否登出当前账号（用于切换新账号使用）
-    /// </summary>
-    public bool IsLogout { get; set; } = false;
-
     public LoadWindow()
     {
         InitializeComponent();
@@ -26,15 +18,39 @@ public partial class LoadWindow
     /// <summary>
     /// 窗口加载完成事件
     /// </summary>
-    private async void Window_Load_Loaded(object sender, RoutedEventArgs e)
+    private void Window_Load_Loaded(object sender, RoutedEventArgs e)
     {
+    }
+
+    /// <summary>
+    /// 窗口内容呈现完毕后事件
+    /// </summary>
+    private async void Window_Load_ContentRendered(object sender, EventArgs e)
+    {
+        // 开始验证Cookie有效性
         if (await CheckCookie())
         {
+            // 如果Cookie有效，则开始初始化
             await InitGameInfo();
             return;
         }
+        else
+        {
+            // 否则开始跳转登录窗口
+            // 由于只是更新Cookie，所以不需要清理缓存
+            var loginWindow = new LoginWindow
+            {
+                IsLogout = false
+            };
 
-        await InitWebView2();
+            // 转移主程序控制权
+            Application.Current.MainWindow = loginWindow;
+            // 关闭初始化窗口
+            this.Close();
+
+            // 显示初始化窗口
+            loginWindow.Show();
+        }
     }
 
     /// <summary>
@@ -42,7 +58,6 @@ public partial class LoadWindow
     /// </summary>
     private void Window_Load_Closing(object sender, CancelEventArgs e)
     {
-        WebView2_Main?.Dispose();
     }
 
     /// <summary>
@@ -63,10 +78,6 @@ public partial class LoadWindow
         // 先读取配置文件
         await Globals.Read();
 
-        Grid_Part1.Visibility = Visibility.Visible;
-        Grid_Part2.Visibility = Visibility.Hidden;
-        Part2_BtnTools.Visibility = Visibility.Hidden;
-
         DisplayLoadState("正在检测玩家 Cookie 有效性...");
         LoggerHelper.Info("正在检测玩家 Cookie 有效性...");
         if (!await EasyEaApi.IsValidCookie())
@@ -85,17 +96,13 @@ public partial class LoadWindow
     /// </summary>
     private async Task InitGameInfo()
     {
-        Grid_Part1.Visibility = Visibility.Visible;
-        Grid_Part2.Visibility = Visibility.Hidden;
-        Part2_BtnTools.Visibility = Visibility.Hidden;
-
         // 关闭服务进程
-        await CoreUtil.CloseServerProcess();
+        await CoreUtil.CloseServiceProcess();
 
         DisplayLoadState("正在释放资源服务进程文件...");
         LoggerHelper.Info("正在释放资源服务进程文件...");
-        FileHelper.ExtractResFile("Exec.EADesktop.exe", CoreUtil.File_Cache_EADesktop);
-        FileHelper.ExtractResFile("Exec.OriginDebug.exe", CoreUtil.File_Cache_OriginDebug);
+        FileHelper.ExtractResFile("Exec.EADesktop.exe", CoreUtil.File_Service_EADesktop);
+        FileHelper.ExtractResFile("Exec.OriginDebug.exe", CoreUtil.File_Service_OriginDebug);
 
         /////////////////////////////////////////////////
 
@@ -171,136 +178,10 @@ public partial class LoadWindow
 
         // 转移主程序控制权
         Application.Current.MainWindow = mainWindow;
-        // 关闭初始化窗口
+        // 关闭当前窗口
         this.Close();
 
         // 显示主窗口
         mainWindow.Show();
-    }
-
-    /// <summary>
-    /// 初始化WebView2登录信息
-    /// </summary>
-    private async Task InitWebView2()
-    {
-        LoggerHelper.Info("开始加载 WebView2 登录界面...");
-
-        Grid_Part1.Visibility = Visibility.Hidden;
-        Grid_Part2.Visibility = Visibility.Visible;
-        Part2_BtnTools.Visibility = Visibility.Visible;
-
-        var options = new CoreWebView2EnvironmentOptions();
-
-        // 初始化WebView2环境
-        var env = await CoreWebView2Environment.CreateAsync(null, CoreUtil.Dir_Cache, options);
-        await WebView2_Main.EnsureCoreWebView2Async(env);
-
-        // 禁止Dev开发工具
-        WebView2_Main.CoreWebView2.Settings.AreDevToolsEnabled = false;
-        // 禁止右键菜单
-        WebView2_Main.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-        // 禁止浏览器缩放
-        WebView2_Main.CoreWebView2.Settings.IsZoomControlEnabled = false;
-        // 禁止显示状态栏（鼠标悬浮在链接上时右下角没有url地址显示）
-        WebView2_Main.CoreWebView2.Settings.IsStatusBarEnabled = false;
-
-        // 新窗口打开页面的处理
-        WebView2_Main.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
-        // Url变化的处理
-        WebView2_Main.CoreWebView2.SourceChanged += CoreWebView2_SourceChanged;
-
-        // 导航开始事件
-        WebView2_Main.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
-        // 导航完成事件
-        WebView2_Main.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
-
-        // 用于注销账号
-        if (IsLogout)
-        {
-            WinButton_Clear_Click(null, null);
-            LoggerHelper.Info("注销登录，清空 WebView2 缓存成功");
-            return;
-        }
-
-        // 导航到指定Url
-        WebView2_Main.CoreWebView2.Navigate(_host);
-    }
-
-    private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
-    {
-        var deferral = e.GetDeferral();
-        e.NewWindow = WebView2_Main.CoreWebView2;
-        deferral.Complete();
-    }
-
-    private async void CoreWebView2_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
-    {
-        var source = WebView2_Main.Source.ToString();
-        LoggerHelper.Info($"当前 WebView2 地址: {source}");
-        if (!source.Contains("127.0.0.1/success?code="))
-            return;
-
-        LoggerHelper.Info("玩家登录成功，开始获取 cookies...");
-        var cookies = await WebView2_Main.CoreWebView2.CookieManager.GetCookiesAsync(null);
-        if (cookies == null)
-        {
-            LoggerHelper.Warn("登录账号成功，获取Cookie失败，请尝试清除WebView2缓存");
-            return;
-        }
-
-        LoggerHelper.Info("发现 cookies 文件，开始遍历中...");
-        foreach (var item in cookies)
-        {
-            if (item.Name.Equals("remid", StringComparison.OrdinalIgnoreCase))
-            {
-                if (!string.IsNullOrWhiteSpace(item.Value))
-                {
-                    Account.Remid = item.Value;
-                    LoggerHelper.Info($"获取 Remid 成功: {Account.Remid}");
-                }
-            }
-            else if (item.Name.Equals("sid", StringComparison.OrdinalIgnoreCase))
-            {
-                if (!string.IsNullOrWhiteSpace(item.Value))
-                {
-                    Account.Sid = item.Value;
-                    LoggerHelper.Info($"获取 Sid 成功: {Account.Sid}");
-                }
-            }
-        }
-
-        await InitGameInfo();
-    }
-
-    private void CoreWebView2_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
-    {
-        WebView2_Main.Visibility = Visibility.Hidden;
-        WebView2_Loading.Visibility = Visibility.Visible;
-    }
-
-    private void CoreWebView2_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
-    {
-        WebView2_Main.Visibility = Visibility.Visible;
-        WebView2_Loading.Visibility = Visibility.Hidden;
-    }
-
-    /// <summary>
-    /// 清空WebView2缓存
-    /// </summary>
-    private async void WinButton_Clear_Click(object sender, RoutedEventArgs e)
-    {
-        await WebView2_Main.CoreWebView2.ExecuteScriptAsync("localStorage.clear()");
-        WebView2_Main.CoreWebView2.CookieManager.DeleteAllCookies();
-        WebView2_Main.CoreWebView2.Navigate(_host);
-        LoggerHelper.Info("清空 WebView2 缓存成功");
-    }
-
-    /// <summary>
-    /// 重新加载登录页面
-    /// </summary>
-    private void WinButton_Refush_Click(object sender, RoutedEventArgs e)
-    {
-        WebView2_Main.CoreWebView2.Navigate(_host);
-        LoggerHelper.Info("重新加载登录页面成功");
     }
 }

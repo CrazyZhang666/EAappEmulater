@@ -1,8 +1,9 @@
-﻿using EAappEmulater.Core;
-using EAappEmulater.Helper;
+﻿using BF1ModTools.Core;
+using BF1ModTools.Utils;
+using BF1ModTools.Helper;
 using Microsoft.Web.WebView2.Core;
 
-namespace EAappEmulater;
+namespace BF1ModTools;
 
 /// <summary>
 /// LoginWindow.xaml 的交互逻辑
@@ -26,6 +27,7 @@ public partial class LoginWindow
     /// </summary>
     private void Window_Login_Loaded(object sender, RoutedEventArgs e)
     {
+
     }
 
     /// <summary>
@@ -56,7 +58,7 @@ public partial class LoginWindow
             var options = new CoreWebView2EnvironmentOptions();
 
             // 初始化WebView2环境
-            var env = await CoreWebView2Environment.CreateAsync(null, Globals.GetAccountCacheDir(), options);
+            var env = await CoreWebView2Environment.CreateAsync(null, CoreUtil.Dir_Cache, options);
             await WebView2_Main.EnsureCoreWebView2Async(env);
 
             // 禁止Dev开发工具
@@ -147,7 +149,7 @@ public partial class LoginWindow
         ////////////////////////////////
 
         // 保存新数据，防止丢失
-        Globals.Write(true);
+        Globals.Write();
 
         var loadWindow = new LoadWindow();
 

@@ -12,8 +12,8 @@ public static class Ready
     {
         // 打开服务进程
         LoggerHelper.Info("正在启动服务进程...");
-        ProcessHelper.OpenProcess(CoreUtil.File_Cache_EADesktop, true);
-        ProcessHelper.OpenProcess(CoreUtil.File_Cache_OriginDebug, true);
+        ProcessHelper.OpenProcess(CoreUtil.File_Service_EADesktop, true);
+        ProcessHelper.OpenProcess(CoreUtil.File_Service_OriginDebug, true);
 
         LoggerHelper.Info("正在启动 LSX 监听服务...");
         LSXTcpServer.Run();
@@ -44,7 +44,7 @@ public static class Ready
         LoggerHelper.Info("关闭 定时刷新 BaseToken 服务成功");
 
         // 关闭服务进程
-        await CoreUtil.CloseServerProcess();
+        await CoreUtil.CloseServiceProcess();
     }
 
     /// <summary>

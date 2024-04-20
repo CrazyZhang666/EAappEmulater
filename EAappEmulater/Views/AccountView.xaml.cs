@@ -110,10 +110,10 @@ public partial class AccountView : UserControl
 
         // 转移主程序控制权
         Application.Current.MainWindow = loginWindow;
-        // 关闭主窗窗口
+        // 关闭主窗口
         MainWindow.MainWindowInstance.Close();
 
-        // 显示初始化窗口
+        // 显示登录窗口
         loginWindow.Show();
     }
 }

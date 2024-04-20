@@ -11,13 +11,14 @@ public static class CoreUtil
 
     public static string Dir_Cache { get; private set; }
     public static string Dir_Config { get; private set; }
+    public static string Dir_Service { get; private set; }
     public static string Dir_Log { get; private set; }
 
     public static string Dir_Log_Crash { get; private set; }
     public static string Dir_Log_NLog { get; private set; }
 
-    public static string File_Cache_EADesktop { get; private set; }
-    public static string File_Cache_OriginDebug { get; private set; }
+    public static string File_Service_EADesktop { get; private set; }
+    public static string File_Service_OriginDebug { get; private set; }
     #endregion
 
     #region 数据目录
@@ -58,6 +59,7 @@ public static class CoreUtil
 
         Dir_Cache = Path.Combine(Dir_Default, "Cache");
         Dir_Config = Path.Combine(Dir_Default, "Config");
+        Dir_Service = Path.Combine(Dir_Default, "Service");
         Dir_Log = Path.Combine(Dir_Default, "Log");
 
         Dir_Log_Crash = Path.Combine(Dir_Log, "Crash");
@@ -70,8 +72,8 @@ public static class CoreUtil
         FileHelper.CreateDirectory(Dir_Log_Crash);
         FileHelper.CreateDirectory(Dir_Log_NLog);
 
-        File_Cache_EADesktop = Path.Combine(Dir_Cache, "EADesktop.exe");
-        File_Cache_OriginDebug = Path.Combine(Dir_Cache, "OriginDebug.exe");
+        File_Service_EADesktop = Path.Combine(Dir_Service, "EADesktop.exe");
+        File_Service_OriginDebug = Path.Combine(Dir_Service, "OriginDebug.exe");
         #endregion
 
         #region 数据目录
@@ -101,7 +103,7 @@ public static class CoreUtil
     /// <summary>
     /// 关闭服务进程
     /// </summary>
-    public static async Task CloseServerProcess()
+    public static async Task CloseServiceProcess()
     {
         LoggerHelper.Info("准备关闭服务进程");
         await ProcessHelper.CloseProcess("EADesktop");

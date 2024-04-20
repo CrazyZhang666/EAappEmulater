@@ -3,7 +3,7 @@
 
 DWORD WINAPI LoaderThread(LPVOID lpParam)
 {
-	LoadLibraryA(std::string(".\\Marne.dll").c_str());
+	LoadLibraryA(".\\Marne.dll");
 
 	return S_OK;
 }
