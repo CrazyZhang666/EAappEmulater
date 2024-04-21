@@ -23,6 +23,9 @@ public partial class FriendView : UserControl
 
     private async void ToDoList()
     {
+        Globals.IsGetFriendsSuccess = false;
+        Globals.FriendsXmlString = string.Empty;
+
         LoggerHelper.Info("正在获取当前登录账号玩家列表中...");
 
         // 最多执行4次
