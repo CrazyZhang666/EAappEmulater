@@ -2,7 +2,6 @@
 using EAappEmulater.Utils;
 using EAappEmulater.Helper;
 using CommunityToolkit.Mvvm.Messaging;
-using ModernWpf.Controls;
 
 namespace EAappEmulater.Core;
 

@@ -28,6 +28,9 @@ public partial class LoadWindow
     /// </summary>
     private async void Window_Load_ContentRendered(object sender, EventArgs e)
     {
+        // 先读取配置文件
+        Globals.Read();
+
         // 开始验证Cookie有效性
         await CheckCookie();
     }
@@ -48,17 +51,43 @@ public partial class LoadWindow
     }
 
     /// <summary>
+    /// 运行登录窗口
+    /// </summary>
+    private void RunLoginWindow()
+    {
+        // 否则开始跳转登录窗口
+        // 由于只是更新Cookie，所以不需要清理缓存
+        var loginWindow = new LoginWindow
+        {
+            IsLogout = false
+        };
+
+        // 转移主程序控制权
+        Application.Current.MainWindow = loginWindow;
+        // 关闭初始化窗口
+        this.Close();
+
+        // 显示初始化窗口
+        loginWindow.Show();
+    }
+
+    /// <summary>
     /// 检查Cookie信息
     /// </summary>
     private async Task CheckCookie()
     {
-        LoggerHelper.Info("开始初始化游戏信息...");
-
-        // 先读取配置文件
-        Globals.Read();
-
         DisplayLoadState("正在检测玩家 Cookie 有效性...");
         LoggerHelper.Info("正在检测玩家 Cookie 有效性...");
+
+        if (string.IsNullOrWhiteSpace(Account.Remid) || string.IsNullOrWhiteSpace(Account.Sid))
+        {
+            LoggerHelper.Warn("玩家 Cookie 为空，准备跳转登录界面");
+
+            // 代表玩家第一次使用
+            RunLoginWindow();
+
+            return;
+        }
 
         // 最多执行4次
         for (int i = 0; i <= 4; i++)
@@ -81,6 +110,7 @@ public partial class LoadWindow
             }
 
             var result = await EaApi.GetToken();
+            // 代表请求完成，排除超时情况
             if (result.StatusText == ResponseStatus.Completed)
             {
                 if (result.IsSuccess)
@@ -99,18 +129,7 @@ public partial class LoadWindow
 
                     // 否则开始跳转登录窗口
                     // 由于只是更新Cookie，所以不需要清理缓存
-                    var loginWindow = new LoginWindow
-                    {
-                        IsLogout = false
-                    };
-
-                    // 转移主程序控制权
-                    Application.Current.MainWindow = loginWindow;
-                    // 关闭初始化窗口
-                    this.Close();
-
-                    // 显示初始化窗口
-                    loginWindow.Show();
+                    RunLoginWindow();
 
                     return;
                 }
@@ -123,6 +142,8 @@ public partial class LoadWindow
     /// </summary>
     private async Task InitGameInfo()
     {
+        LoggerHelper.Info("开始初始化游戏信息...");
+
         // 关闭服务进程
         await CoreUtil.CloseServiceProcess();
 

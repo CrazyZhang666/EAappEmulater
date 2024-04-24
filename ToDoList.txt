@@ -27,3 +27,9 @@
 
 1. bfhdebug.exe 作用，还有3、4debug
 2. Battlelog 处理 GET 请求 Url http://127.0.0.1:4219/killgame 功能无效（期望返回击杀游戏成功）
+
+
+
+2024/04/24
+1. 启动时选择账号登录
+2. 支持手动填写Cookie
