@@ -2,6 +2,7 @@
 using EAappEmulater.Core;
 using EAappEmulater.Utils;
 using EAappEmulater.Helper;
+using RestSharp;
 
 namespace EAappEmulater;
 
@@ -28,29 +29,7 @@ public partial class LoadWindow
     private async void Window_Load_ContentRendered(object sender, EventArgs e)
     {
         // 开始验证Cookie有效性
-        if (await CheckCookie())
-        {
-            // 如果Cookie有效，则开始初始化
-            await InitGameInfo();
-            return;
-        }
-        else
-        {
-            // 否则开始跳转登录窗口
-            // 由于只是更新Cookie，所以不需要清理缓存
-            var loginWindow = new LoginWindow
-            {
-                IsLogout = false
-            };
-
-            // 转移主程序控制权
-            Application.Current.MainWindow = loginWindow;
-            // 关闭初始化窗口
-            this.Close();
-
-            // 显示初始化窗口
-            loginWindow.Show();
-        }
+        await CheckCookie();
     }
 
     /// <summary>
@@ -71,7 +50,7 @@ public partial class LoadWindow
     /// <summary>
     /// 检查Cookie信息
     /// </summary>
-    private async Task<bool> CheckCookie()
+    private async Task CheckCookie()
     {
         LoggerHelper.Info("开始初始化游戏信息...");
 
@@ -80,15 +59,63 @@ public partial class LoadWindow
 
         DisplayLoadState("正在检测玩家 Cookie 有效性...");
         LoggerHelper.Info("正在检测玩家 Cookie 有效性...");
-        if (!await EasyEaApi.IsValidCookie())
+
+        // 最多执行4次
+        for (int i = 0; i <= 4; i++)
         {
-            LoggerHelper.Warn("玩家 Cookie 无效，准备跳转登录界面");
-            return false;
+            // 当第4次还是失败，终止程序
+            if (i > 3)
+            {
+                Loading_Normal.Visibility = Visibility.Hidden;
+                IconFont_NetworkError.Visibility = Visibility.Visible;
+                DisplayLoadState("检测玩家 Cookie 有效性失败，程序终止，请检查网络连接");
+                LoggerHelper.Error("检测玩家 Cookie 有效性失败，程序终止，请检查网络连接");
+                return;
+            }
+
+            // 第1次不提示重试
+            if (i > 0)
+            {
+                DisplayLoadState($"检测玩家 Cookie 有效性失败，开始第 {i} 次重试中...");
+                LoggerHelper.Warn($"检测玩家 Cookie 有效性失败，开始第 {i} 次重试中...");
+            }
+
+            var result = await EaApi.GetToken();
+            if (result.StatusText == ResponseStatus.Completed)
+            {
+                if (result.IsSuccess)
+                {
+                    LoggerHelper.Info("检测玩家 Cookie 有效性成功");
+                    LoggerHelper.Info("玩家 Cookie 有效");
+
+                    // 如果Cookie有效，则开始初始化
+                    await InitGameInfo();
+
+                    return;
+                }
+                else
+                {
+                    LoggerHelper.Warn("玩家 Cookie 无效，准备跳转登录界面");
+
+                    // 否则开始跳转登录窗口
+                    // 由于只是更新Cookie，所以不需要清理缓存
+                    var loginWindow = new LoginWindow
+                    {
+                        IsLogout = false
+                    };
+
+                    // 转移主程序控制权
+                    Application.Current.MainWindow = loginWindow;
+                    // 关闭初始化窗口
+                    this.Close();
+
+                    // 显示初始化窗口
+                    loginWindow.Show();
+
+                    return;
+                }
+            }
         }
-
-        LoggerHelper.Info("玩家 Cookie 有效");
-
-        return true;
     }
 
     /// <summary>

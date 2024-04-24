@@ -16,7 +16,6 @@ public partial class AboutView : UserControl
 
     private void ToDoList()
     {
-
     }
 
     /// <summary>
