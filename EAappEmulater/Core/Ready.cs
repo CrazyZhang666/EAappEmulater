@@ -33,8 +33,11 @@ public static class Ready
 
     public static async void Stop()
     {
-        // 保存配置文件
+        // 保存全局配置文件
         Globals.Write();
+
+        // 保存账号配置文件
+        Account.Write();
 
         LoggerHelper.Info("正在关闭 LSX 监听服务...");
         LSXTcpServer.Stop();

@@ -51,8 +51,6 @@ public partial class LoginWindow
 
         // 转移主程序控制权
         Application.Current.MainWindow = accountWindow;
-        // 关闭当前窗口
-        this.Close();
 
         // 显示切换账号窗口
         accountWindow.Show();
