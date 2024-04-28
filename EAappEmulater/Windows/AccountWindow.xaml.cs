@@ -100,6 +100,15 @@ public partial class AccountWindow
     }
 
     /// <summary>
+    /// 打开配置文件
+    /// </summary>
+    [RelayCommand]
+    private void OpenConfigFolder()
+    {
+        ProcessHelper.OpenDirectory(CoreUtil.Dir_Default);
+    }
+
+    /// <summary>
     /// 登录选中账号
     /// </summary>
     [RelayCommand]
@@ -155,6 +164,10 @@ public partial class AccountWindow
         if (!SaveAccountCookie())
             return;
 
+        // 清空当前账号信息
+        Account.Reset();
+        Account.Write();
+
         ////////////////////////////////
 
         var loginWindow = new LoginWindow(true);
@@ -166,14 +179,5 @@ public partial class AccountWindow
 
         // 显示登录窗口
         loginWindow.Show();
-    }
-
-    /// <summary>
-    /// 打开配置文件
-    /// </summary>
-    [RelayCommand]
-    private void OpenConfigFolder()
-    {
-        ProcessHelper.OpenDirectory(CoreUtil.Dir_Default);
     }
 }
