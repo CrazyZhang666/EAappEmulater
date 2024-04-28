@@ -1,5 +1,5 @@
 ﻿<ui:Window
-    x:Class="EAappEmulater.MainWindow"
+    x:Class="EAappEmulater.Windows.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,17 +15,14 @@
     CaptionHeight="40"
     Closing="Window_Main_Closing"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-    Icon="Assets/Icons/Favicon.ico"
+    Icon="/Assets/Icons/Favicon.ico"
     Loaded="Window_Main_Loaded"
     Style="{StaticResource CustomSystemWindowStyle}"
     mc:Ignorable="d">
 
     <ui:Window.TitleContent>
         <DockPanel>
-            <StackPanel
-                VerticalAlignment="Center"
-                DockPanel.Dock="Right"
-                Orientation="Horizontal">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Right" Text="{Binding MainModel.PlayerName}" />
                     <TextBlock
@@ -52,7 +49,7 @@
                     Width="22"
                     Height="22"
                     Margin="7,0,0,0"
-                    Source="pack://application:,,,/EAappEmulater;component/Assets/Icons/Favicon.ico" />
+                    Source="{Binding Icon}" />
                 <TextBlock
                     Margin="7,0,0,0"
                     VerticalAlignment="Center"
@@ -77,7 +74,7 @@
                             Command="{Binding NavigateCommand}"
                             CommandParameter="AccountView"
                             GroupName="NavMenu"
-                            Icon="&#xE748;"
+                            Icon="&#xE77B;"
                             ToolTip="账户" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"

@@ -1,6 +1,7 @@
 ﻿using EAappEmulater.Core;
 using EAappEmulater.Helper;
 using EAappEmulater.Models;
+using EAappEmulater.Windows;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
@@ -11,7 +12,7 @@ namespace EAappEmulater.Views;
 /// </summary>
 public partial class AccountView : UserControl
 {
-    public ObservableCollection<AccountInfo> ObsCol_AccountInfos { get; set; } = new();
+    public AccountModel AccountModel { get; set; } = new();
 
     public AccountView()
     {
@@ -22,44 +23,30 @@ public partial class AccountView : UserControl
 
     private void ToDoList()
     {
-        foreach (var item in Account.AccountPathDb)
-        {
-            var account = new AccountInfo()
-            {
-                Index = (int)item.Key,
-                IsUse = item.Key == Globals.AccountSlot,
-                AccountSlot = item.Key,
+        AccountModel.AvatarId = Account.AvatarId;
 
-                PlayerName = IniHelper.ReadString("Account", "PlayerName", item.Value),
-                PersonaId = IniHelper.ReadString("Account", "PersonaId", item.Value),
-                UserId = IniHelper.ReadString("Account", "UserId", item.Value),
-                AvatarId = IniHelper.ReadString("Account", "AvatarId", item.Value),
-                Avatar = IniHelper.ReadString("Account", "Avatar", item.Value),
+        // 玩家头像为空处理（仅有数据账号）
+        if (!string.IsNullOrWhiteSpace(Account.Remid) && string.IsNullOrWhiteSpace(Account.Avatar))
+            AccountModel.Avatar = "Default";
 
-                Remid = IniHelper.ReadString("Cookie", "Remid", item.Value),
-                Sid = IniHelper.ReadString("Cookie", "Sid", item.Value),
-                Token = IniHelper.ReadString("Cookie", "AccessToken", item.Value)
-            };
+        // 验证玩家头像与玩家头像Id是否一致
+        if (!Account.Avatar.Contains(Account.AvatarId))
+            AccountModel.Avatar = "Default";
 
-            // 玩家头像为空处理（仅有数据账号）
-            if (!string.IsNullOrWhiteSpace(account.Remid) && string.IsNullOrWhiteSpace(account.Avatar))
-                account.Avatar = "Default";
+        AccountModel.PlayerName = Account.PlayerName;
+        AccountModel.PersonaId = Account.PersonaId;
+        AccountModel.UserId = Account.UserId;
 
-            // 验证玩家头像与玩家头像Id是否一致
-            if (!account.Avatar.Contains(account.AvatarId))
-                account.Avatar = "Default";
-
-            ObsCol_AccountInfos.Add(account);
-        }
-
-        ListBox_AccountInfo.SelectedIndex = (int)Globals.AccountSlot;
+        AccountModel.Remid = Account.Remid;
+        AccountModel.Sid = Account.Sid;
+        AccountModel.Token = Account.AccessToken;
 
         //////////////////////////////////////////
 
         WeakReferenceMessenger.Default.Register<string, string>(this, "LoadAvatar", (s, e) =>
         {
-            ObsCol_AccountInfos[(int)Globals.AccountSlot].AvatarId = Account.AvatarId;
-            ObsCol_AccountInfos[(int)Globals.AccountSlot].Avatar = Account.Avatar;
+            AccountModel.AvatarId = Account.AvatarId;
+            AccountModel.Avatar = Account.Avatar;
         });
     }
 
@@ -69,51 +56,14 @@ public partial class AccountView : UserControl
     [RelayCommand]
     private void SwitchAccount()
     {
-        if (ListBox_AccountInfo.SelectedItem is not AccountInfo item)
-            return;
-
-        Globals.AccountSlot = item.AccountSlot;
-        LoggerHelper.Info($"切换账号槽位成功 Globals AccountSlot {Globals.AccountSlot}");
-
-        ////////////////////////////////
-
-        var loadWindow = new LoadWindow();
+        var accountWindow = new AccountWindow();
 
         // 转移主程序控制权
-        Application.Current.MainWindow = loadWindow;
-        // 关闭主窗窗口
-        MainWindow.MainWindowInstance.Close();
-
-        // 显示初始化窗口
-        loadWindow.Show();
-    }
-
-    /// <summary>
-    /// 注销登录
-    /// </summary>
-    [RelayCommand]
-    private void LogoutAccount()
-    {
-        if (ListBox_AccountInfo.SelectedItem is not AccountInfo item)
-            return;
-
-        Globals.AccountSlot = item.AccountSlot;
-        LoggerHelper.Info($"注销账号槽位成功 Globals AccountSlot {Globals.AccountSlot}");
-        Account.Reset();
-
-        ////////////////////////////////
-
-        var loginWindow = new LoginWindow
-        {
-            IsLogout = true
-        };
-
-        // 转移主程序控制权
-        Application.Current.MainWindow = loginWindow;
+        Application.Current.MainWindow = accountWindow;
         // 关闭主窗口
         MainWindow.MainWindowInstance.Close();
 
-        // 显示登录窗口
-        loginWindow.Show();
+        // 显示切换账号窗口
+        accountWindow.Show();
     }
 }

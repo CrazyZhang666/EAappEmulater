@@ -7,7 +7,7 @@ using EAappEmulater.Models;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
-namespace EAappEmulater;
+namespace EAappEmulater.Windows;
 
 /// <summary>
 /// MainWindow.xaml 的交互逻辑

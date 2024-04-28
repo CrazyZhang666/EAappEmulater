@@ -4,7 +4,7 @@ using EAappEmulater.Utils;
 using EAappEmulater.Helper;
 using RestSharp;
 
-namespace EAappEmulater;
+namespace EAappEmulater.Windows;
 
 /// <summary>
 /// LoadWindow.xaml 的交互逻辑
@@ -28,9 +28,8 @@ public partial class LoadWindow
     /// </summary>
     private async void Window_Load_ContentRendered(object sender, EventArgs e)
     {
-        // 先读取配置文件
+        // 读取配置文件
         Globals.Read();
-
         // 开始验证Cookie有效性
         await CheckCookie();
     }
@@ -57,17 +56,14 @@ public partial class LoadWindow
     {
         // 否则开始跳转登录窗口
         // 由于只是更新Cookie，所以不需要清理缓存
-        var loginWindow = new LoginWindow
-        {
-            IsLogout = false
-        };
+        var loginWindow = new LoginWindow(false);
 
         // 转移主程序控制权
         Application.Current.MainWindow = loginWindow;
-        // 关闭初始化窗口
+        // 关闭当前窗口
         this.Close();
 
-        // 显示初始化窗口
+        // 显示登录窗口
         loginWindow.Show();
     }
 
@@ -79,23 +75,13 @@ public partial class LoadWindow
         DisplayLoadState("正在检测玩家 Cookie 有效性...");
         LoggerHelper.Info("正在检测玩家 Cookie 有效性...");
 
-        if (string.IsNullOrWhiteSpace(Account.Remid) || string.IsNullOrWhiteSpace(Account.Sid))
-        {
-            LoggerHelper.Warn("玩家 Cookie 为空，准备跳转登录界面");
-
-            // 代表玩家第一次使用
-            RunLoginWindow();
-
-            return;
-        }
-
         // 最多执行4次
         for (int i = 0; i <= 4; i++)
         {
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
-                Loading_Normal.Visibility = Visibility.Hidden;
+                Loading_Normal.Visibility = Visibility.Collapsed;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
                 DisplayLoadState("检测玩家 Cookie 有效性失败，程序终止，请检查网络连接");
                 LoggerHelper.Error("检测玩家 Cookie 有效性失败，程序终止，请检查网络连接");
@@ -194,7 +180,7 @@ public partial class LoadWindow
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
-                Loading_Normal.Visibility = Visibility.Hidden;
+                Loading_Normal.Visibility = Visibility.Collapsed;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
                 DisplayLoadState("刷新 BaseToken 数据失败，程序终止，请检查网络连接");
                 LoggerHelper.Error("刷新 BaseToken 数据失败，程序终止，请检查网络连接");
@@ -224,7 +210,7 @@ public partial class LoadWindow
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
-                Loading_Normal.Visibility = Visibility.Hidden;
+                Loading_Normal.Visibility = Visibility.Collapsed;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
                 DisplayLoadState("获取玩家账号信息失败，程序终止，请检查网络连接");
                 LoggerHelper.Error("获取玩家账号信息失败，程序终止，请检查网络连接");

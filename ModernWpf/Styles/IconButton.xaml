@@ -7,7 +7,7 @@
         <ResourceDictionary Source="/ModernWpf;component/Styles/Base.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type controls:IconButton}">
+    <Style x:Key="IconButtonStyle_Base" TargetType="{x:Type controls:IconButton}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -66,5 +66,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style BasedOn="{StaticResource IconButtonStyle_Base}" TargetType="{x:Type controls:IconButton}" />
 
 </ResourceDictionary>

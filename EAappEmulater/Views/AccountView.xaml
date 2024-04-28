@@ -10,126 +10,75 @@
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
     mc:Ignorable="d">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
-            <ColumnDefinition Width="600" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-        <ListBox
-            x:Name="ListBox_AccountInfo"
-            Margin="5"
-            ItemsSource="{Binding ObsCol_AccountInfos}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel>
-                        <TextBlock
-                            Margin="5,0,10,0"
-                            VerticalAlignment="Center"
-                            DockPanel.Dock="Right"
-                            Text="{Binding Index}" />
-                        <ui:IconFont
-                            Margin="5,0,10,0"
-                            DockPanel.Dock="Right"
-                            FontSize="18"
-                            Icon="&#xE77B;"
-                            Visibility="{Binding IsUse, Converter={StaticResource BoolToVisibilityConverter}}" />
-
-                        <ui:Avatar
-                            Width="40"
-                            Height="40"
-                            Margin="0,5,0,5"
-                            VerticalAlignment="Center"
-                            DockPanel.Dock="Left"
-                            Source="{Binding Avatar}" />
-                        <StackPanel Margin="10,0,5,0" VerticalAlignment="Center">
-                            <TextBlock FontSize="14" Text="{Binding PlayerName}" />
-                            <TextBlock Margin="0,3,0,0" Text="{Binding PersonaId}" />
-                        </StackPanel>
-                    </DockPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <StackPanel Grid.Column="1">
-            <StackPanel Orientation="Horizontal">
-                <ui:Avatar
-                    Width="70"
-                    Height="70"
-                    Margin="5"
-                    BorderThickness="1"
-                    DockPanel.Dock="Left"
-                    Source="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Avatar}" />
-                <DockPanel Margin="5,0,0,0">
-                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                        <ui:IconButton
-                            Margin="0,0,5,5"
-                            Command="{Binding SwitchAccountCommand}"
-                            Content="切换账号"
-                            Icon="&#xE895;"
-                            IsEnabled="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem, Converter={StaticResource IsNullObject2Converter}}" />
-                        <ui:IconButton
-                            Margin="0,0,5,5"
-                            Command="{Binding LogoutAccountCommand}"
-                            Content="注销登录"
-                            Icon="&#xF3B1;"
-                            Visibility="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.IsUse, Converter={StaticResource BoolToVisibilityConverter}}" />
-                    </StackPanel>
-                    <TextBlock
-                        Margin="0,5,0,0"
-                        VerticalAlignment="Center"
-                        d:Text="PlayerName"
-                        FontSize="22"
-                        FontWeight="Bold"
-                        Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.PlayerName}" />
-                </DockPanel>
-            </StackPanel>
-
-            <ui:IconHeader Title="PlayerName" DockPanel.Dock="Top" />
-            <ui:TextBoxHint
-                Hint="显示选中账号PlayerName信息"
-                IsReadOnly="True"
-                Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.PlayerName}" />
-
-            <ui:IconHeader Title="PersonaId" DockPanel.Dock="Top" />
-            <ui:TextBoxHint
-                Hint="显示选中账号PersonaId信息"
-                IsReadOnly="True"
-                Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.PersonaId}" />
-
-            <ui:IconHeader Title="UserId" DockPanel.Dock="Top" />
-            <ui:TextBoxHint
-                Hint="显示选中账号UserId信息"
-                IsReadOnly="True"
-                Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.UserId}" />
-
-            <ui:IconHeader Title="Remid" DockPanel.Dock="Top" />
-            <ui:TextBoxHint
-                Height="60"
-                Hint="显示选中账号Remid信息"
-                IsReadOnly="True"
-                Style="{StaticResource TextBoxHintStyle_MultiLine}"
-                Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Remid}" />
-
-            <ui:IconHeader Title="Sid" DockPanel.Dock="Top" />
-            <ui:TextBoxHint
-                Height="60"
-                Hint="显示选中账号Sid信息"
-                IsReadOnly="True"
-                Style="{StaticResource TextBoxHintStyle_MultiLine}"
-                Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Sid}" />
-
-            <ui:IconHeader Title="Token" DockPanel.Dock="Top" />
-            <ui:TextBoxHint
-                Height="60"
-                Hint="显示选中账号Token信息"
-                IsReadOnly="True"
-                Style="{StaticResource TextBoxHintStyle_MultiLine}"
-                Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Token}" />
-
+    <StackPanel Width="600" HorizontalAlignment="Left">
+        <StackPanel Orientation="Horizontal">
+            <ui:Avatar
+                Width="70"
+                Height="70"
+                Margin="5"
+                BorderThickness="1"
+                DockPanel.Dock="Left"
+                Source="{Binding AccountModel.Avatar}" />
+            <DockPanel Margin="5,0,0,0">
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                    <ui:IconButton
+                        Margin="0,0,5,5"
+                        Command="{Binding SwitchAccountCommand}"
+                        Content="切换登录账号"
+                        Icon="&#xE748;" />
+                </StackPanel>
+                <TextBlock
+                    Margin="0,5,0,0"
+                    VerticalAlignment="Center"
+                    d:Text="PlayerName"
+                    FontSize="22"
+                    FontWeight="Bold"
+                    Text="{Binding AccountModel.PlayerName}" />
+            </DockPanel>
         </StackPanel>
 
-    </Grid>
+        <ui:IconHeader Title="PlayerName" />
+        <ui:TextBoxHint
+            Hint="显示选中账号PlayerName信息"
+            IsReadOnly="True"
+            Text="{Binding AccountModel.PlayerName}" />
+
+        <ui:IconHeader Title="PersonaId" />
+        <ui:TextBoxHint
+            Hint="显示选中账号PersonaId信息"
+            IsReadOnly="True"
+            Text="{Binding AccountModel.PersonaId}" />
+
+        <ui:IconHeader Title="UserId" />
+        <ui:TextBoxHint
+            Hint="显示选中账号UserId信息"
+            IsReadOnly="True"
+            Text="{Binding AccountModel.UserId}" />
+
+        <ui:IconHeader Title="Remid" />
+        <ui:TextBoxHint
+            Height="60"
+            Hint="显示选中账号Remid信息"
+            IsReadOnly="True"
+            Style="{StaticResource TextBoxHintStyle_MultiLine}"
+            Text="{Binding AccountModel.Remid}" />
+
+        <ui:IconHeader Title="Sid" />
+        <ui:TextBoxHint
+            Height="60"
+            Hint="显示选中账号Sid信息"
+            IsReadOnly="True"
+            Style="{StaticResource TextBoxHintStyle_MultiLine}"
+            Text="{Binding AccountModel.Sid}" />
+
+        <ui:IconHeader Title="Token" />
+        <ui:TextBoxHint
+            Height="60"
+            Hint="显示选中账号Token信息"
+            IsReadOnly="True"
+            Style="{StaticResource TextBoxHintStyle_MultiLine}"
+            Text="{Binding AccountModel.Token}" />
+
+    </StackPanel>
 
 </UserControl>

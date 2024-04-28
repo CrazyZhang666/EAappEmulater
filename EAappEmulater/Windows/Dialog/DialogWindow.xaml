@@ -10,6 +10,7 @@
     Width="560"
     Height="350"
     Closing="Window_Dialog_Closing"
+    Icon="/Assets/Icons/Favicon.ico"
     Loaded="Window_Dialog_Loaded"
     ResizeMode="NoResize"
     Style="{StaticResource SystemWindowStyle}"

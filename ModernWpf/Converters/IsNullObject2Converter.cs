@@ -1,6 +1,6 @@
 ﻿namespace ModernWpf.Converters;
 
-internal class IsNullObject2Converter : IValueConverter
+public class IsNullObject2Converter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

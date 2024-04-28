@@ -2,7 +2,7 @@
 using EAappEmulater.Helper;
 using Microsoft.Web.WebView2.Core;
 
-namespace EAappEmulater;
+namespace EAappEmulater.Windows;
 
 /// <summary>
 /// LoginWindow.xaml 的交互逻辑
@@ -14,11 +14,12 @@ public partial class LoginWindow
     /// <summary>
     /// 是否登出当前账号（用于切换新账号使用）
     /// </summary>
-    public bool IsLogout { get; set; } = false;
+    private readonly bool _isLogout;
 
-    public LoginWindow()
+    public LoginWindow(bool isLogout)
     {
         InitializeComponent();
+        this._isLogout = isLogout;
     }
 
     /// <summary>
@@ -33,6 +34,9 @@ public partial class LoginWindow
     /// </summary>
     private async void Window_Login_ContentRendered(object sender, EventArgs e)
     {
+        // 读取配置文件
+        Globals.Read();
+        // 初始化WebView2
         await InitWebView2();
     }
 
@@ -79,7 +83,7 @@ public partial class LoginWindow
             WebView2_Main.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
 
             // 用于注销账号
-            if (IsLogout)
+            if (_isLogout)
             {
                 LoggerHelper.Info("开始注销当前登录账号...");
                 WinButton_Clear_Click(null, null);
@@ -149,15 +153,15 @@ public partial class LoginWindow
         // 保存新数据，防止丢失
         Globals.Write(true);
 
-        var loadWindow = new LoadWindow();
+        var accountWindow = new AccountWindow();
 
         // 转移主程序控制权
-        Application.Current.MainWindow = loadWindow;
+        Application.Current.MainWindow = accountWindow;
         // 关闭当前窗口
         this.Close();
 
-        // 显示加载窗口
-        loadWindow.Show();
+        // 显示账号窗口
+        accountWindow.Show();
     }
 
     private void CoreWebView2_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
