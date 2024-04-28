@@ -16,21 +16,39 @@
     Icon="/Assets/Icons/Favicon.ico"
     Loaded="Window_Account_Loaded"
     ResizeMode="NoResize"
-    Style="{StaticResource SystemWindowStyle}"
+    Style="{StaticResource CustomSystemWindowStyle}"
     mc:Ignorable="d">
 
     <ui:Window.TitleContent>
-        <StackPanel Orientation="Horizontal">
-            <ui:Image
-                Width="18"
-                Height="18"
-                Margin="7,0,0,0"
-                Source="{Binding Icon}" />
-            <TextBlock
-                Margin="7,0,0,0"
+        <DockPanel>
+            <StackPanel
                 VerticalAlignment="Center"
-                Text="{Binding Title}" />
-        </StackPanel>
+                DockPanel.Dock="Right"
+                Orientation="Horizontal"
+                WindowChrome.IsHitTestVisibleInChrome="True">
+                <ui:WinButton
+                    Command="{Binding OpenConfigFolderCommand}"
+                    FontSize="14"
+                    Icon="&#xE713;"
+                    ToolTip="打开配置文件" />
+                <Border
+                    Width="1"
+                    Height="14"
+                    Margin="7,0,7,0"
+                    Background="Gray" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <ui:Image
+                    Width="18"
+                    Height="18"
+                    Margin="7,0,0,0"
+                    Source="{Binding Icon}" />
+                <TextBlock
+                    Margin="7,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="{Binding Title}" />
+            </StackPanel>
+        </DockPanel>
     </ui:Window.TitleContent>
 
     <Grid Margin="5">
@@ -42,12 +60,18 @@
         <ListBox x:Name="ListBox_AccountInfo" ItemsSource="{Binding ObsCol_AccountInfos}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <ui:Avatar
-                        Width="46"
-                        Height="46"
-                        Margin="0,5,5,5"
-                        VerticalAlignment="Center"
-                        Source="{Binding Avatar}" />
+                    <Grid>
+                        <ui:IconFont
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Icon="&#xE948;" />
+                        <ui:Avatar
+                            Width="46"
+                            Height="46"
+                            Margin="0,5,5,5"
+                            VerticalAlignment="Center"
+                            Source="{Binding Avatar}" />
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -77,34 +101,42 @@
 
             <StackPanel DockPanel.Dock="Top">
                 <DockPanel>
-                    <ui:Avatar
+                    <Grid
                         Width="70"
                         Height="70"
                         Margin="5,5,10,5"
-                        BorderThickness="1"
-                        DockPanel.Dock="Left"
-                        Source="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Avatar}"
-                        ToolTip="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.AvatarId}" />
-                    <StackPanel VerticalAlignment="Center">
+                        DockPanel.Dock="Left">
+                        <ui:Avatar
+                            BorderThickness="1"
+                            Source="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Avatar}"
+                            ToolTip="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.AvatarId}" />
+                        <TextBlock
+                            Margin="5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Foreground="Gray"
+                            Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.AccountSlot}" />
+                    </Grid>
+                    <DockPanel>
+                        <WrapPanel DockPanel.Dock="Bottom">
+                            <ui:IconButton
+                                Margin="0,0,5,5"
+                                Command="{Binding GetCookieCommand}"
+                                Content="获取Cookie"
+                                Icon="&#xE72C;" />
+                            <ui:IconButton
+                                Margin="0,0,5,5"
+                                Command="{Binding ChangeAccountCommand}"
+                                Content="更换新账号"
+                                Icon="&#xE8FA;" />
+                        </WrapPanel>
                         <TextBlock
                             VerticalAlignment="Center"
                             d:Text="PlayerName"
                             FontSize="22"
                             FontWeight="Bold"
                             Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.PlayerName}" />
-                        <WrapPanel>
-                            <ui:IconButton
-                                Margin="0,5,5,0"
-                                Command="{Binding GetCookieCommand}"
-                                Content="获取Cookie"
-                                Icon="&#xE72C;" />
-                            <ui:IconButton
-                                Margin="0,5,5,0"
-                                Command="{Binding ChangeAccountCommand}"
-                                Content="更换新账号"
-                                Icon="&#xE8FA;" />
-                        </WrapPanel>
-                    </StackPanel>
+                    </DockPanel>
                 </DockPanel>
 
                 <ui:IconHeader Title="Remid" />

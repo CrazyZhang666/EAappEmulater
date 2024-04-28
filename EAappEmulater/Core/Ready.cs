@@ -89,6 +89,7 @@ public static class Ready
     /// </summary>
     public static async Task<bool> RefreshBaseTokens(bool isInit = true)
     {
+        // 根据情况刷新 Access Token
         if (!isInit)
         {
             // 如果是初始化，则这一步可以省略（因为重复了）
@@ -101,7 +102,10 @@ public static class Ready
             }
             LoggerHelper.Info("刷新 Token 成功");
         }
-        else
+
+        //////////////////////////////////////
+
+        // 刷新 OriginPCAuth
         {
             var result = await EaApi.GetOriginPCAuth();
             if (!result.IsSuccess)
@@ -110,8 +114,11 @@ public static class Ready
                 return false;
             }
             LoggerHelper.Info("刷新 OriginPCAuth 成功");
+        }
 
-            result = await EaApi.GetOriginPCToken();
+        // OriginPCToken
+        {
+            var result = await EaApi.GetOriginPCToken();
             if (!result.IsSuccess)
             {
                 LoggerHelper.Warn("刷新 OriginPCToken 失败");

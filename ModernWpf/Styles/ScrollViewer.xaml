@@ -27,7 +27,7 @@
                             x:Name="rect"
                             Width="0"
                             HorizontalAlignment="Right"
-                            Fill="#686868"
+                            Fill="#8C8C8C"
                             SnapsToDevicePixels="True" />
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -94,7 +94,7 @@
                             x:Name="rect"
                             Height="0"
                             VerticalAlignment="Bottom"
-                            Fill="#686868"
+                            Fill="#8C8C8C"
                             SnapsToDevicePixels="True" />
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">

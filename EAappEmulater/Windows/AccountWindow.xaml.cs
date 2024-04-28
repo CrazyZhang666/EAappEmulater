@@ -1,4 +1,5 @@
 ﻿using EAappEmulater.Core;
+using EAappEmulater.Utils;
 using EAappEmulater.Helper;
 using EAappEmulater.Models;
 using CommunityToolkit.Mvvm.Input;
@@ -165,5 +166,14 @@ public partial class AccountWindow
 
         // 显示登录窗口
         loginWindow.Show();
+    }
+
+    /// <summary>
+    /// 打开配置文件
+    /// </summary>
+    [RelayCommand]
+    private void OpenConfigFolder()
+    {
+        ProcessHelper.OpenDirectory(CoreUtil.Dir_Default);
     }
 }

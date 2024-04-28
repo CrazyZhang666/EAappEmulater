@@ -46,7 +46,7 @@
                     <ui:IconButton
                         Command="{Binding OpenConfigFolderCommand}"
                         Content="打开配置目录"
-                        Icon="&#xED43;" />
+                        Icon="&#xEC25;" />
                 </WrapPanel>
             </StackPanel>
         </Border>
