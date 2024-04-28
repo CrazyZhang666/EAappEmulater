@@ -22,26 +22,23 @@ public partial class AccountWindow
     /// </summary>
     private void Window_Account_Loaded(object sender, RoutedEventArgs e)
     {
+        // 遍历读取10个配置文件槽
         foreach (var item in Account.AccountPathDb)
         {
             var account = new AccountInfo()
             {
-                Index = (int)item.Key,
-                IsUse = item.Key == Globals.AccountSlot,
+                // 账号槽
                 AccountSlot = item.Key,
-
+                // 仅展示用
                 PlayerName = IniHelper.ReadString("Account", "PlayerName", item.Value),
-                PersonaId = IniHelper.ReadString("Account", "PersonaId", item.Value),
-                UserId = IniHelper.ReadString("Account", "UserId", item.Value),
                 AvatarId = IniHelper.ReadString("Account", "AvatarId", item.Value),
                 Avatar = IniHelper.ReadString("Account", "Avatar", item.Value),
-
+                // 可被修改
                 Remid = IniHelper.ReadString("Cookie", "Remid", item.Value),
-                Sid = IniHelper.ReadString("Cookie", "Sid", item.Value),
-                Token = IniHelper.ReadString("Cookie", "AccessToken", item.Value)
+                Sid = IniHelper.ReadString("Cookie", "Sid", item.Value)
             };
 
-            // 玩家头像为空处理（仅有数据账号）
+            // 玩家头像为空处理（仅有Cookie数据）
             if (!string.IsNullOrWhiteSpace(account.Remid) && string.IsNullOrWhiteSpace(account.Avatar))
                 account.Avatar = "Default";
 
@@ -49,12 +46,13 @@ public partial class AccountWindow
             if (!account.Avatar.Contains(account.AvatarId))
                 account.Avatar = "Default";
 
+            // 添加到动态集合中
             ObsCol_AccountInfos.Add(account);
         }
 
         ////////////////////////////////
 
-        // 取配置文件
+        // 读取全局配置文件
         Globals.Read();
         // 设置上次选中配置槽
         ListBox_AccountInfo.SelectedIndex = (int)Globals.AccountSlot;
@@ -72,21 +70,43 @@ public partial class AccountWindow
     /// </summary>
     private void Window_Account_Closing(object sender, CancelEventArgs e)
     {
+        SaveAccountCookie();
     }
 
     /// <summary>
-    /// 登录此账号
+    /// 保存账号Cookie
+    /// </summary>
+    private bool SaveAccountCookie()
+    {
+        if (ListBox_AccountInfo.SelectedItem is not AccountInfo account)
+            return false;
+
+        // 设置当前选择配置槽
+        Globals.AccountSlot = account.AccountSlot;
+
+        foreach (var item in ObsCol_AccountInfos)
+        {
+            var path = Account.AccountPathDb[item.AccountSlot];
+
+            IniHelper.WriteString("Cookie", "Remid", item.Remid, path);
+            IniHelper.WriteString("Cookie", "Sid", item.Sid, path);
+        }
+
+        // 保存全局配置文件
+        Globals.Write();
+
+        return true;
+    }
+
+    /// <summary>
+    /// 登录选中账号
     /// </summary>
     [RelayCommand]
     private void LoginAccount()
     {
-        if (ListBox_AccountInfo.SelectedItem is not AccountInfo item)
+        // 保存数据
+        if (!SaveAccountCookie())
             return;
-
-        // 设置当前选择配置槽
-        Globals.AccountSlot = item.AccountSlot;
-        // 保存新数据，防止丢失
-        Globals.Write(true);
 
         ////////////////////////////////
 
@@ -107,13 +127,32 @@ public partial class AccountWindow
     [RelayCommand]
     private void GetCookie()
     {
-        if (ListBox_AccountInfo.SelectedItem is not AccountInfo item)
+        // 保存数据
+        if (!SaveAccountCookie())
             return;
 
-        // 设置当前选择配置槽
-        Globals.AccountSlot = item.AccountSlot;
-        // 保存新数据，防止丢失
-        Globals.Write(true);
+        ////////////////////////////////
+
+        var loginWindow = new LoginWindow(false);
+
+        // 转移主程序控制权
+        Application.Current.MainWindow = loginWindow;
+        // 关闭当前窗口
+        this.Close();
+
+        // 显示登录窗口
+        loginWindow.Show();
+    }
+
+    /// <summary>
+    /// 更换账号
+    /// </summary>
+    [RelayCommand]
+    private void ChangeAccount()
+    {
+        // 保存数据
+        if (!SaveAccountCookie())
+            return;
 
         ////////////////////////////////
 

@@ -77,23 +77,14 @@
 
             <StackPanel DockPanel.Dock="Top">
                 <DockPanel>
-                    <StackPanel
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        DockPanel.Dock="Right">
-                        <ui:IconButton
-                            Command="{Binding GetCookieCommand}"
-                            Content="获取账号Cookie"
-                            Icon="&#xE774;" />
-                    </StackPanel>
-
                     <ui:Avatar
-                        Width="50"
-                        Height="50"
+                        Width="70"
+                        Height="70"
                         Margin="5,5,10,5"
                         BorderThickness="1"
                         DockPanel.Dock="Left"
-                        Source="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Avatar}" />
+                        Source="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Avatar}"
+                        ToolTip="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.AvatarId}" />
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock
                             VerticalAlignment="Center"
@@ -101,10 +92,18 @@
                             FontSize="22"
                             FontWeight="Bold"
                             Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.PlayerName}" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            d:Text="PersonaId"
-                            Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.PersonaId}" />
+                        <WrapPanel>
+                            <ui:IconButton
+                                Margin="0,5,5,0"
+                                Command="{Binding GetCookieCommand}"
+                                Content="获取Cookie"
+                                Icon="&#xE72C;" />
+                            <ui:IconButton
+                                Margin="0,5,5,0"
+                                Command="{Binding ChangeAccountCommand}"
+                                Content="更换新账号"
+                                Icon="&#xE8FA;" />
+                        </WrapPanel>
                     </StackPanel>
                 </DockPanel>
 
@@ -123,6 +122,7 @@
                     Hint="显示选中账号Sid信息"
                     Style="{StaticResource TextBoxHintStyle_MultiLine}"
                     Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Sid}" />
+
             </StackPanel>
         </DockPanel>
 

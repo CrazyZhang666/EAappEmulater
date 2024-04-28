@@ -48,8 +48,17 @@ public partial class MainWindow
         // 首页导航
         Navigate(NavDictionary.First().Key);
 
+        //////////////////////////////////////////
+
+        // 玩家头像为空处理（仅有数据账号）
+        if (!string.IsNullOrWhiteSpace(Account.Remid) && string.IsNullOrWhiteSpace(Account.Avatar))
+            MainModel.Avatar = "Default";
+
+        // 验证玩家头像与玩家头像Id是否一致
+        if (!Account.Avatar.Contains(Account.AvatarId))
+            MainModel.Avatar = "Default";
+
         // 显示当前玩家登录账号
-        MainModel.Avatar = Account.Avatar;
         MainModel.PlayerName = Account.PlayerName;
         MainModel.PersonaId = Account.PersonaId;
 

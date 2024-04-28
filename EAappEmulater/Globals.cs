@@ -25,9 +25,12 @@ public static class Globals
         _configPath = Path.Combine(CoreUtil.Dir_Config, "Config.ini");
     }
 
+    /// <summary>
+    /// 读取全局配置文件
+    /// </summary>
     public static void Read()
     {
-        LoggerHelper.Info("开始读取配置文件...");
+        LoggerHelper.Info("开始读取全局配置文件...");
 
         var slot = IniHelper.ReadString("Globals", "AccountSlot", _configPath);
         LoggerHelper.Info($"当前读取配置文件路径 {_configPath}");
@@ -43,27 +46,34 @@ public static class Globals
             LoggerHelper.Warn($"枚举转换失败 AccountSlot {slot}");
         }
 
-        Account.Read();
-
-        LoggerHelper.Info("读取配置文件成功");
+        LoggerHelper.Info("读取全局配置文件成功");
     }
 
-    public static void Write(bool isReload = false)
+    /// <summary>
+    /// 写入全局配置文件
+    /// </summary>
+    public static void Write()
     {
-        LoggerHelper.Info("开始保存配置文件...");
+        LoggerHelper.Info("开始保存全局配置文件...");
 
         IniHelper.WriteString("Globals", "AccountSlot", $"{AccountSlot}", _configPath);
         LoggerHelper.Info($"当前保存配置文件路径 {_configPath}");
         LoggerHelper.Info($"保存配置文件成功 Globals AccountSlot {AccountSlot}");
 
-        if (isReload)
-            Account.Reload();
-
-        Account.Write();
-
-        LoggerHelper.Info("保存配置文件成功");
+        LoggerHelper.Info("保存全局配置文件成功");
     }
 
+    /// <summary>
+    /// 获取当前账号槽全局配置文件路径
+    /// </summary>
+    public static string GetAccountIniPath()
+    {
+        return Account.AccountPathDb[AccountSlot];
+    }
+
+    /// <summary>
+    /// 获取当前账号槽WebView2缓存路径
+    /// </summary>
     public static string GetAccountCacheDir()
     {
         return CoreUtil.AccountCacheDb[AccountSlot];

@@ -66,10 +66,12 @@
                 Visibility="{Binding ElementName=IconFont_NetworkError, Path=Visibility}">
                 <ui:IconButton
                     Margin="0,0,5,5"
+                    Command="{Binding RunAccountWindowCommand}"
                     Content="返回账号选择"
                     Icon="&#xE748;" />
                 <ui:IconButton
                     Margin="0,0,5,5"
+                    Command="{Binding ExitApplicationCommand}"
                     Content="退出程序"
                     Icon="&#xE8BB;" />
             </WrapPanel>

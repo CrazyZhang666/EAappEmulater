@@ -1,25 +1,15 @@
 ﻿using EAappEmulater.Enums;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace EAappEmulater.Models;
 
-public partial class AccountInfo : ObservableObject
+public class AccountInfo
 {
-    public int Index { get; set; }
-    public bool IsUse { get; set; }
     public AccountSlot AccountSlot { get; set; }
 
     public string PlayerName { get; set; }
-    public string PersonaId { get; set; }
-    public string UserId { get; set; }
-
-    [ObservableProperty]
-    private string avatarId;
-
-    [ObservableProperty]
-    private string avatar;
+    public string AvatarId { get; set; }
+    public string Avatar { get; set; }
 
     public string Remid { get; set; }
     public string Sid { get; set; }
-    public string Token { get; set; }
 }

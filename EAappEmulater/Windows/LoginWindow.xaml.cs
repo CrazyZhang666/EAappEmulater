@@ -1,6 +1,6 @@
-﻿using EAappEmulater.Core;
-using EAappEmulater.Helper;
+﻿using EAappEmulater.Helper;
 using Microsoft.Web.WebView2.Core;
+using CommunityToolkit.Mvvm.Input;
 
 namespace EAappEmulater.Windows;
 
@@ -34,8 +34,6 @@ public partial class LoginWindow
     /// </summary>
     private async void Window_Login_ContentRendered(object sender, EventArgs e)
     {
-        // 读取配置文件
-        Globals.Read();
         // 初始化WebView2
         await InitWebView2();
     }
@@ -46,6 +44,18 @@ public partial class LoginWindow
     private void Window_Login_Closing(object sender, CancelEventArgs e)
     {
         WebView2_Main?.Dispose();
+
+        ////////////////////////////////
+
+        var accountWindow = new AccountWindow();
+
+        // 转移主程序控制权
+        Application.Current.MainWindow = accountWindow;
+        // 关闭当前窗口
+        this.Close();
+
+        // 显示切换账号窗口
+        accountWindow.Show();
     }
 
     /// <summary>
@@ -86,7 +96,7 @@ public partial class LoginWindow
             if (_isLogout)
             {
                 LoggerHelper.Info("开始注销当前登录账号...");
-                WinButton_Clear_Click(null, null);
+                await ClearWebView2Cache();
             }
             else
             {
@@ -131,8 +141,8 @@ public partial class LoginWindow
             {
                 if (!string.IsNullOrWhiteSpace(item.Value))
                 {
-                    Account.Remid = item.Value;
-                    LoggerHelper.Info($"获取 Remid 成功: {Account.Remid}");
+                    IniHelper.WriteString("Cookie", "Remid", item.Value, Globals.GetAccountIniPath());
+                    LoggerHelper.Info($"获取 Remid 成功: {item.Value}");
                     continue;
                 }
             }
@@ -141,8 +151,8 @@ public partial class LoginWindow
             {
                 if (!string.IsNullOrWhiteSpace(item.Value))
                 {
-                    Account.Sid = item.Value;
-                    LoggerHelper.Info($"获取 Sid 成功: {Account.Sid}");
+                    IniHelper.WriteString("Cookie", "Sid", item.Value, Globals.GetAccountIniPath());
+                    LoggerHelper.Info($"获取 Sid 成功: {item.Value}");
                     continue;
                 }
             }
@@ -150,18 +160,7 @@ public partial class LoginWindow
 
         ////////////////////////////////
 
-        // 保存新数据，防止丢失
-        Globals.Write(true);
-
-        var accountWindow = new AccountWindow();
-
-        // 转移主程序控制权
-        Application.Current.MainWindow = accountWindow;
-        // 关闭当前窗口
         this.Close();
-
-        // 显示账号窗口
-        accountWindow.Show();
     }
 
     private void CoreWebView2_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
@@ -179,20 +178,24 @@ public partial class LoginWindow
     /// <summary>
     /// 清空WebView2缓存
     /// </summary>
-    private async void WinButton_Clear_Click(object sender, RoutedEventArgs e)
+    /// <returns></returns>
+    private async Task ClearWebView2Cache()
     {
         await WebView2_Main.CoreWebView2.ExecuteScriptAsync("localStorage.clear()");
         WebView2_Main.CoreWebView2.CookieManager.DeleteAllCookies();
         WebView2_Main.CoreWebView2.Navigate(_host);
+
         LoggerHelper.Info("清空 WebView2 缓存成功");
     }
 
     /// <summary>
     /// 重新加载登录页面
     /// </summary>
-    private void WinButton_Refush_Click(object sender, RoutedEventArgs e)
+    [RelayCommand]
+    private void ReloadLoginPage()
     {
         WebView2_Main.CoreWebView2.Navigate(_host);
+
         LoggerHelper.Info("重新加载登录页面成功");
     }
 }

@@ -40,7 +40,15 @@ public static class Account
             AccountPathDb[(AccountSlot)value] = path;
         }
 
-        Reload();
+        GetIniPath();
+    }
+
+    /// <summary>
+    /// 获取当前配置文件路径
+    /// </summary>
+    public static void GetIniPath()
+    {
+        _iniPath = AccountPathDb[Globals.AccountSlot];
     }
 
     /// <summary>
@@ -48,7 +56,7 @@ public static class Account
     /// </summary>
     public static void Reset()
     {
-        Reload();
+        GetIniPath();
         LoggerHelper.Info($"当前重置配置文件路径 {_iniPath}");
 
         PlayerName = string.Empty;
@@ -66,19 +74,11 @@ public static class Account
     }
 
     /// <summary>
-    /// 重新加载配置文件路径
-    /// </summary>
-    public static void Reload()
-    {
-        _iniPath = AccountPathDb[Globals.AccountSlot];
-    }
-
-    /// <summary>
     /// 读取配置文件
     /// </summary>
     public static void Read()
     {
-        Reload();
+        GetIniPath();
         LoggerHelper.Info($"当前读取配置文件路径 {_iniPath}");
 
         PlayerName = ReadString("Account", "PlayerName");
@@ -118,6 +118,7 @@ public static class Account
     /// </summary>
     public static void Write()
     {
+        GetIniPath();
         LoggerHelper.Info($"当前保存配置文件路径 {_iniPath}");
 
         WriteString("Account", "PlayerName", PlayerName);

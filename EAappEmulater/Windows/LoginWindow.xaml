@@ -28,17 +28,10 @@
                 Orientation="Horizontal"
                 WindowChrome.IsHitTestVisibleInChrome="True">
                 <ui:WinButton
-                    x:Name="WinButton_Clear"
-                    Click="WinButton_Clear_Click"
-                    FontSize="14"
-                    Icon="&#xE74D;"
-                    ToolTip="清理缓存" />
-                <ui:WinButton
-                    x:Name="WinButton_Refush"
-                    Click="WinButton_Refush_Click"
+                    Command="{Binding ReloadLoginPageCommand}"
                     FontSize="12"
                     Icon="&#xE72C;"
-                    ToolTip="刷新" />
+                    ToolTip="重新加载登录页面" />
                 <Border
                     Width="1"
                     Height="14"

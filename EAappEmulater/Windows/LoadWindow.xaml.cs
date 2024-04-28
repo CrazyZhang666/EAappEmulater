@@ -3,6 +3,7 @@ using EAappEmulater.Core;
 using EAappEmulater.Utils;
 using EAappEmulater.Helper;
 using RestSharp;
+using CommunityToolkit.Mvvm.Input;
 
 namespace EAappEmulater.Windows;
 
@@ -28,8 +29,8 @@ public partial class LoadWindow
     /// </summary>
     private async void Window_Load_ContentRendered(object sender, EventArgs e)
     {
-        // 读取配置文件
-        Globals.Read();
+        // 读取账号配置文件
+        Account.Read();
         // 开始验证Cookie有效性
         await CheckCookie();
     }
@@ -47,24 +48,6 @@ public partial class LoadWindow
     private void DisplayLoadState(string log)
     {
         TextBlock_CheckState.Text = log;
-    }
-
-    /// <summary>
-    /// 运行登录窗口
-    /// </summary>
-    private void RunLoginWindow()
-    {
-        // 否则开始跳转登录窗口
-        // 由于只是更新Cookie，所以不需要清理缓存
-        var loginWindow = new LoginWindow(false);
-
-        // 转移主程序控制权
-        Application.Current.MainWindow = loginWindow;
-        // 关闭当前窗口
-        this.Close();
-
-        // 显示登录窗口
-        loginWindow.Show();
     }
 
     /// <summary>
@@ -111,12 +94,10 @@ public partial class LoadWindow
                 }
                 else
                 {
-                    LoggerHelper.Warn("玩家 Cookie 无效，准备跳转登录界面");
-
-                    // 否则开始跳转登录窗口
-                    // 由于只是更新Cookie，所以不需要清理缓存
-                    RunLoginWindow();
-
+                    Loading_Normal.Visibility = Visibility.Collapsed;
+                    IconFont_NetworkError.Visibility = Visibility.Visible;
+                    DisplayLoadState("玩家 Cookie 无效，程序终止，请手动更新 Cookie");
+                    LoggerHelper.Error("玩家 Cookie 无效，程序终止，请手动更新 Cookie");
                     return;
                 }
             }
@@ -233,8 +214,8 @@ public partial class LoadWindow
 
         /////////////////////////////////////////////////
 
-        // 保存新数据，防止丢失
-        Globals.Write(true);
+        // 保存账号配置文件
+        Account.Write();
 
         DisplayLoadState("初始化完成，开始启动主程序...");
         LoggerHelper.Info("初始化完成，开始启动主程序...");
@@ -248,5 +229,31 @@ public partial class LoadWindow
 
         // 显示主窗口
         mainWindow.Show();
+    }
+
+    /// <summary>
+    /// 打开账号切换窗口
+    /// </summary>
+    [RelayCommand]
+    private void RunAccountWindow()
+    {
+        var accountWindow = new AccountWindow();
+
+        // 转移主程序控制权
+        Application.Current.MainWindow = accountWindow;
+        // 关闭当前窗口
+        this.Close();
+
+        // 显示切换账号窗口
+        accountWindow.Show();
+    }
+
+    /// <summary>
+    /// 退出程序
+    /// </summary>
+    [RelayCommand]
+    private void ExitApplication()
+    {
+        Application.Current.Shutdown();
     }
 }
