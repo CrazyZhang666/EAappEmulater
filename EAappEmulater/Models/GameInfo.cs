@@ -28,4 +28,6 @@ public class GameInfo
     public string Regedit2 { get; set; }
 
     public List<string> Locales { get; set; }
+
+    public bool IsOLDLSX { get; set; }
 }

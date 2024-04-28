@@ -9,7 +9,7 @@ public static class BattlelogHttpServer
 
     private static readonly Dictionary<string, string> _gameStatus = new();
 
-    public static BattlelogType BattlelogType { get; private set; }
+    public static BattlelogType BattlelogType { get; set; }
 
     private static PipeServer _bf3PipeServer = null;
     private static PipeServer _bf4PipeServer = null;
@@ -287,7 +287,6 @@ public static class BattlelogHttpServer
                 else if (nameValCol["offerIds"] == "OFB-EAST:109552316@subscription")
                 {
                     LoggerHelper.Info("Battlelog 准备启动 战地4");
-                    BattlelogType = BattlelogType.BF4;
 
                     Game.RunGame(GameType.BF4, cmdParams, false);
                     WriteOutputStream(context, 202, true, _gameStatus["status"]);
@@ -295,7 +294,6 @@ public static class BattlelogHttpServer
                 else if (nameValCol["offerIds"] == "Origin.OFR.50.0000846@subscription")
                 {
                     LoggerHelper.Info("Battlelog 准备启动 战地硬仗");
-                    BattlelogType = BattlelogType.BFH;
 
                     Game.RunGame(GameType.BFH, cmdParams, false);
                     WriteOutputStream(context, 202, true, _gameStatus["status"]);

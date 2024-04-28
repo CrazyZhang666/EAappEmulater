@@ -29,7 +29,8 @@ public static class Base
             ContentId = "71067",
             Regedit = "SOFTWARE\\EA Games\\Battlefield 3",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield 3",
-            Locales = new() { "zh_TW", "fr_FR", "ko_KR", "it_IT", "cs_CZ", "ja_JP", "de_DE", "es_ES", "pl_PL", "en_US" }
+            Locales = new() { "zh_TW", "fr_FR", "ko_KR", "it_IT", "cs_CZ", "ja_JP", "de_DE", "es_ES", "pl_PL", "en_US" },
+            IsOLDLSX = false
         };
 
         GameInfoDb[GameType.BF4] = new()
@@ -50,7 +51,8 @@ public static class Base
             ContentId = "1015362",
             Regedit = "SOFTWARE\\EA Games\\Battlefield 4",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield 4",
-            Locales = new() { "en_US", "fr_FR", "it_IT", "de_DE", "es_ES", "pl_PL", "ru_RU", "pt_BR", "ja_JP", "cs_CZ", "ko_KR", "zh_TW" }
+            Locales = new() { "en_US", "fr_FR", "it_IT", "de_DE", "es_ES", "pl_PL", "ru_RU", "pt_BR", "ja_JP", "cs_CZ", "ko_KR", "zh_TW" },
+            IsOLDLSX = false
         };
 
         GameInfoDb[GameType.BFH] = new()
@@ -71,7 +73,8 @@ public static class Base
             ContentId = "1013920",
             Regedit = "SOFTWARE\\EA Games\\BFH",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\BFH",
-            Locales = new() { "en_US", "fr_FR", "it_IT", "de_DE", "es_ES", "pl_PL", "ru_RU", "pt_BR", "ja_JP", "cs_CZ", "ko_KR", "zh_TW" }
+            Locales = new() { "en_US", "fr_FR", "it_IT", "de_DE", "es_ES", "pl_PL", "ru_RU", "pt_BR", "ja_JP", "cs_CZ", "ko_KR", "zh_TW" },
+            IsOLDLSX = true
         };
 
         GameInfoDb[GameType.BF1] = new()
@@ -92,7 +95,8 @@ public static class Base
             ContentId = "1026023",
             Regedit = "SOFTWARE\\EA Games\\Battlefield 1",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield 1",
-            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "pt_BR", "es_MX", "ar_SA", "tr_TR" }
+            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "pt_BR", "es_MX", "ar_SA", "tr_TR" },
+            IsOLDLSX = false
         };
 
         GameInfoDb[GameType.BFV] = new()
@@ -113,7 +117,8 @@ public static class Base
             ContentId = "196216",
             Regedit = "SOFTWARE\\EA Games\\Battlefield V",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield V",
-            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "zh_CN", "pt_BR", "es_MX", "ar_SA", "ko_KR" }
+            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "zh_CN", "pt_BR", "es_MX", "ar_SA", "ko_KR" },
+            IsOLDLSX = false
         };
 
         GameInfoDb[GameType.BF2042] = new()
@@ -134,7 +139,8 @@ public static class Base
             ContentId = "193874",
             Regedit = "SOFTWARE\\EA Games\\Battlefield 2042",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield 2042",
-            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "es_MX", "it_IT", "ja_JP", "ru_RU", "pl_PL", "zh_TW", "zh_CN", "ko_KR", "pt_BR", "ar_SA" }
+            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "es_MX", "it_IT", "ja_JP", "ru_RU", "pl_PL", "zh_TW", "zh_CN", "ko_KR", "pt_BR", "ar_SA" },
+            IsOLDLSX = false
         };
 
         GameInfoDb[GameType.FIFA23] = new()
@@ -155,7 +161,8 @@ public static class Base
             ContentId = "16115019",
             Regedit = "SOFTWARE\\EA Sports\\FIFA 23",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Sports\\FIFA 23",
-            Locales = new() { "pt_PT", "tr_TR", "ko_KR", "cs_CZ", "zh_CN", "zh_HK", "da_DK", "no_NO", "sv_SE", "en_US", "pt_BR", "de_DE", "es_ES", "fr_FR", "it_IT", "ja_JP", "es_MX", "nl_NL", "pl_PL", "ru_RU", "ar_SA" }
+            Locales = new() { "pt_PT", "tr_TR", "ko_KR", "cs_CZ", "zh_CN", "zh_HK", "da_DK", "no_NO", "sv_SE", "en_US", "pt_BR", "de_DE", "es_ES", "fr_FR", "it_IT", "ja_JP", "es_MX", "nl_NL", "pl_PL", "ru_RU", "ar_SA" },
+            IsOLDLSX = false
         };
 
         GameInfoDb[GameType.PVZGW2] = new()
@@ -176,14 +183,15 @@ public static class Base
             ContentId = "1026482",
             Regedit = "SOFTWARE\\PopCap\\Plants vs Zombies GW2",
             Regedit2 = "SOFTWARE\\WOW6432Node\\PopCap\\Plants vs Zombies GW2",
-            Locales = new() { "en_US", "fr_FR", "it_IT", "de_DE", "es_ES", "pt_BR", "pl_PL", "zh_TW" }
+            Locales = new() { "en_US", "fr_FR", "it_IT", "de_DE", "es_ES", "pt_BR", "pl_PL", "zh_TW" },
+            IsOLDLSX = false
         };
 
         GameInfoDb[GameType.SWBF2] = new()
         {
             GameType = GameType.SWBF2,
-            Name = "星球大战 : 前线2",
-            Name2 = "Star Wars : Battle Front II",
+            Name = "星球大战 : 战场前线2",
+            Name2 = "Star Wars : BattleFront II",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWBF2.jpg",
             Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWBF2_Logo.jpg",
             IsUseCustom = false,
@@ -197,7 +205,8 @@ public static class Base
             ContentId = "1035052",
             Regedit = "SOFTWARE\\EA Games\\STAR WARS Battlefront II",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\STAR WARS Battlefront II",
-            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "pt_BR", "es_MX" }
+            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "pt_BR", "es_MX" },
+            IsOLDLSX = false
         };
 
         GameInfoDb[GameType.FC24] = new()
@@ -218,7 +227,8 @@ public static class Base
             ContentId = "198235",
             Regedit = "SOFTWARE\\EA Sports\\EA SPORTS FC 24",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Sports\\EA SPORTS FC 24",
-            Locales = new() { "pt_PT", "tr_TR", "ko_KR", "cs_CZ", "zh_CN", "zh_HK", "da_DK", "no_NO", "sv_SE", "en_US", "pt_BR", "de_DE", "es_ES", "fr_FR", "it_IT", "ja_JP", "es_MX", "nl_NL", "pl_PL", "ru_RU", "ar_SA" }
+            Locales = new() { "pt_PT", "tr_TR", "ko_KR", "cs_CZ", "zh_CN", "zh_HK", "da_DK", "no_NO", "sv_SE", "en_US", "pt_BR", "de_DE", "es_ES", "fr_FR", "it_IT", "ja_JP", "es_MX", "nl_NL", "pl_PL", "ru_RU", "ar_SA" },
+            IsOLDLSX = false
         };
 
         GameInfoDb[GameType.TTF2] = new()
@@ -239,7 +249,8 @@ public static class Base
             ContentId = "1039093",
             Regedit = "SOFTWARE\\Respawn\\Titanfall2",
             Regedit2 = "SOFTWARE\\WOW6432Node\\Respawn\\Titanfall2",
-            Locales = new() { "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "pl_PL", "ru_RU", "es_MX", "ja_JP", "pt_BR", "zh_TW" }
+            Locales = new() { "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "pl_PL", "ru_RU", "es_MX", "ja_JP", "pt_BR", "zh_TW" },
+            IsOLDLSX = false
         };
 
         GameInfoDb[GameType.F123] = new()
@@ -260,7 +271,8 @@ public static class Base
             ContentId = "16425635",
             Regedit = "SOFTWARE\\Codemasters\\F1_23",
             Regedit2 = "SOFTWARE\\WOW6432Node\\Codemasters\\F1_23",
-            Locales = new() { "en_GB", "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "ja_JP", "nl_NL", "pl_PL", "pt_BR", "zh_CN", "ar_SA", "es_MX" }
+            Locales = new() { "en_GB", "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "ja_JP", "nl_NL", "pl_PL", "pt_BR", "zh_CN", "ar_SA", "es_MX" },
+            IsOLDLSX = false
         };
 
         GameInfoDb[GameType.NFS22] = new()
@@ -281,7 +293,162 @@ public static class Base
             ContentId = "196787",
             Regedit = "SOFTWARE\\EA Games\\Need for Speed Unbound",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Need for Speed Unbound",
-            Locales = new() { "en_US", "fr_FR", "es_ES", "de_DE", "it_IT", "pl_PL", "pt_BR", "ja_JP", "zh_TW", "zh_CN", "ar_SA", "ko_KR" }
+            Locales = new() { "en_US", "fr_FR", "es_ES", "de_DE", "it_IT", "pl_PL", "pt_BR", "ja_JP", "zh_TW", "zh_CN", "ar_SA", "ko_KR" },
+            IsOLDLSX = false
+        };
+
+        GameInfoDb[GameType.PVZGW] = new()
+        {
+            GameType = GameType.PVZGW,
+            Name = "植物大战僵尸 : 花园战争",
+            Name2 = "PVZ Garden Warfare",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/PVZGW.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/PVZGW_Logo.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "PVZ.Main_Win64_Retail.exe",
+            ContentId = "1014748",
+            Regedit = "SOFTWARE\\PopCap\\Plants vs Zombies Garden Warfare",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\PopCap\\Plants vs Zombies Garden Warfare",
+            Locales = new() { "en_US", "fr_FR", "es_ES", "de_DE", "it_IT","pt_BR"},
+            IsOLDLSX = true
+        };
+
+        GameInfoDb[GameType.SWBF1] = new()
+        {
+            GameType = GameType.SWBF1,
+            Name = "星球大战 : 战场前线",
+            Name2 = "STAR WARS Battlefront",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWBF1.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWBF1_Logo.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "starwarsbattlefront.exe",
+            ContentId = "1024390",
+            Regedit = "SOFTWARE\\EA Games\\STAR WARS Battlefront",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\STAR WARS Battlefront",
+            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "pt_BR", "es_MX", "ar_SA" },
+            IsOLDLSX = false
+        };
+
+        GameInfoDb[GameType.NFS21] = new()
+        {
+            GameType = GameType.NFS21,
+            Name = "极品飞车：热度",
+            Name2 = "Need for Speed™ Heat",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS21.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS21_Logo.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "NeedForSpeedHeat.exe",
+            ContentId = "195133",
+            Regedit = "SOFTWARE\\EA Games\\Need for Speed Heat",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Need for Speed Heat",
+            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "pt_BR", "es_MX", "ar_SA", "zh_CN" },
+            IsOLDLSX = false
+        };
+
+        GameInfoDb[GameType.PVZGN] = new()
+        {
+            GameType = GameType.PVZGN,
+            Name = "植物大战僵尸：和睦小镇保卫战",
+            Name2 = "Plants vs Zombies Battle for Neighborville",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/PVZBN.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/PVZBN_Logo.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = true,
+            AppName = "EAAntiCheat.GameServiceLauncher.exe",
+            ContentId = "194814",
+            Regedit = "SOFTWARE\\PopCap\\PVZ Battle for Neighborville",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\PopCap\\PVZ Battle for Neighborville",
+            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "pt_BR", "es_MX", "ar_SA", "zh_CN" },
+            IsOLDLSX = false
+        };
+
+        GameInfoDb[GameType.ITT] = new()
+        {
+            GameType = GameType.ITT,
+            Name = "双人成行",
+            Name2 = "It Takes Two",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/ITT.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/ITT_Logo.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "ItTakesTwo.exe",
+            ContentId = "16050355",
+            Regedit = "SOFTWARE\\Hazelight\\ItTakesTwo",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\Hazelight\\ItTakesTwo",
+            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "pt_BR", "es_MX", "ar_SA", "zh_CN" },
+            IsOLDLSX = false
+        };
+
+        GameInfoDb[GameType.FIFA22] = new()
+        {
+            GameType = GameType.FIFA22,
+            Name = "FIFA 22",
+            Name2 = "EA SPORTS™ FIFA 22",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/FIFA22.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/FIFA22_Logo.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "FIFA22.exe",
+            ContentId = "196837",
+            Regedit = "SOFTWARE\\EA Sports\\FIFA 22",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Sports\\FIFA 22",
+            Locales = new() { "pt_PT", "tr_TR", "ko_KR", "cs_CZ", "zh_CN", "zh_HK", "da_DK", "no_NO", "sv_SE", "en_US", "pt_BR", "de_DE", "es_ES", "fr_FR", "it_IT", "ja_JP", "es_MX", "nl_NL", "pl_PL", "ru_RU", "ar_SA" },
+            IsOLDLSX = false
+        };
+
+        GameInfoDb[GameType.NFS19] = new()
+        {
+            GameType = GameType.NFS19,
+            Name = "极品飞车19",
+            Name2 = "Need for Speed™",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS19.jpg",
+            Image2 = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS19_Logo.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "NFS16.exe",
+            ContentId = "1024486",
+            Regedit = "SOFTWARE\\EA Games\\Need for Speed",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Need for Speed",
+            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "pt_BR", "es_MX", "ar_SA", "zh_CN" },
+            IsOLDLSX = false
         };
 
         ////////////////////////////////////////////////////

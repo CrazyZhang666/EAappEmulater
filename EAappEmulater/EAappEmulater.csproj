@@ -120,6 +120,7 @@
         <EmbeddedResource Include="Assets\Files\LSX\BFV\22.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\23.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\24.xml" />
+		<EmbeddedResource Include="Assets\Files\LSX\BFV\25.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\TTF2\00.xml" />
     </ItemGroup>
 
@@ -132,7 +133,6 @@
         <Resource Include="Assets\Images\Games\BF3.jpg" />
         <Resource Include="Assets\Images\Games\BF3_Logo.jpg" />
         <Resource Include="Assets\Images\Games\BF4.jpg" />
-        <Resource Include="Assets\Images\Games\BF4_Logo.jpg" />
         <Resource Include="Assets\Images\Games\BFH.jpg" />
         <Resource Include="Assets\Images\Games\BFH_Logo.jpg" />
         <Resource Include="Assets\Images\Games\BFV.jpg" />
@@ -151,6 +151,20 @@
         <Resource Include="Assets\Images\Games\SWBF2_Logo.jpg" />
         <Resource Include="Assets\Images\Games\TTF2.jpg" />
         <Resource Include="Assets\Images\Games\TTF2_Logo.jpg" />
+		<Resource Include="Assets\Images\Games\PVZGW.jpg" />
+		<Resource Include="Assets\Images\Games\PVZGW_Logo.jpg" />
+		<Resource Include="Assets\Images\Games\SWBF1.jpg" />
+		<Resource Include="Assets\Images\Games\SWBF1_Logo.jpg" />
+		<Resource Include="Assets\Images\Games\NFS21.jpg" />
+		<Resource Include="Assets\Images\Games\NFS21_Logo.jpg" />
+		<Resource Include="Assets\Images\Games\PVZBN.jpg" />
+		<Resource Include="Assets\Images\Games\PVZBN_Logo.jpg" />
+		<Resource Include="Assets\Images\Games\ITT.jpg" />
+		<Resource Include="Assets\Images\Games\ITT_Logo.jpg" />
+		<Resource Include="Assets\Images\Games\FIFA22.jpg" />
+		<Resource Include="Assets\Images\Games\FIFA22_Logo.jpg" />
+		<Resource Include="Assets\Images\Games\NFS19.jpg" />
+		<Resource Include="Assets\Images\Games\NFS19_Logo.jpg" />
         <Resource Include="Assets\Images\Regions\ar_SA.png" />
         <Resource Include="Assets\Images\Regions\cs_CZ.png" />
         <Resource Include="Assets\Images\Regions\da_DK.png" />

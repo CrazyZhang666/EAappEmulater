@@ -14,5 +14,12 @@ public enum GameType
     FC24,
     TTF2,
     F123,
-    NFS22
+    NFS22,
+    PVZGW,
+    SWBF1,
+    NFS21,
+    PVZGN,
+    ITT,
+    FIFA22,
+    NFS19
 }

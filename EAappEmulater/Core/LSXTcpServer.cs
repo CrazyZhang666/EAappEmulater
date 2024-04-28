@@ -16,7 +16,7 @@ public static class LSXTcpServer
     static LSXTcpServer()
     {
         // 加载XML字符串
-        for (int i = 0; i <= 24; i++)
+        for (int i = 0; i <= 25; i++)
         {
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFV.{i:D2}.xml");
 
@@ -204,29 +204,12 @@ public static class LSXTcpServer
                 {
                     switch (BattlelogHttpServer.BattlelogType)
                     {
-                        case BattlelogType.BF4:
-                            {
-                                var data = await ReadTcpString(networkStream);
-                                data = EaCrypto.LSXDecryptBF4(data, seed);
-                                data = await LSXRequestHandleForBFV(data, contentId);
-                                data = EaCrypto.LSXEncryptBF4(data, seed);
-                                await WriteTcpString(networkStream, $"{data}\0");
-                            }
-                            break;
                         case BattlelogType.BFH:
                             {
                                 var data = await ReadTcpString(networkStream);
                                 data = EaCrypto.LSXDecryptBFH(data, seed);
                                 data = await LSXRequestHandleForBFH(data);
-                                data = EaCrypto.LSXEncryptBFH(data, seed);
-                                await WriteTcpString(networkStream, $"{data}\0");
-                            }
-                            break;
-                        case BattlelogType.BF4Debug:
-                            {
-                                var data = await ReadTcpString(networkStream);
-                                data = EaCrypto.LSXDecryptBFH(data, seed);
-                                data = await LSXRequestHandleForBFH(data);
+                                LoggerHelper.Debug($"当前LSX回复: {data}");
                                 data = EaCrypto.LSXEncryptBFH(data, seed);
                                 await WriteTcpString(networkStream, $"{data}\0");
                             }
@@ -236,6 +219,7 @@ public static class LSXTcpServer
                                 var data = await ReadTcpString(networkStream);
                                 data = EaCrypto.LSXDecryptBF4(data, seed);
                                 data = await LSXRequestHandleForBFV(data, contentId);
+                                LoggerHelper.Debug($"当前LSX回复: {data}");
                                 data = EaCrypto.LSXEncryptBF4(data, seed);
                                 await WriteTcpString(networkStream, $"{data}\0");
                             }
@@ -263,39 +247,28 @@ public static class LSXTcpServer
     /// </summary>
     private static async Task<string> ReadTcpString(NetworkStream stream)
     {
-        var strBuilder = new StringBuilder();
-
-        // 缓冲区
-        var buffer = new byte[81920];
-        // 实际读取的长度
-        int readCount;
+        //以异步的方式模拟NetworkStream.ReadByte(),为了修复傻逼重生家游戏只能这样干，重生你妈死了
+        StringBuilder sb = new StringBuilder();
+        byte[] buffer = new byte[1]; // 单字节缓冲区
+        int bytesRead;
 
         try
         {
-            while ((readCount = await stream.ReadAsync(buffer)) != 0)
+            while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
             {
-                // 将读取的字节流转化为字符串
-                var partStr = Encoding.UTF8.GetString(buffer, 0, readCount);
-                // 检查读取的字符串是否有结束符，并得到其位置
-                var endIndex = partStr.IndexOf('\0');
-                if (endIndex != -1)
-                {
-                    // 如果找到结束符，追加结束符前面的字符串，然后跳出循环
-                    strBuilder.Append(partStr, 0, endIndex);
+                byte b = buffer[0];
+                if (b == 0) // 结束符
                     break;
-                }
-                strBuilder.Append(partStr);
+                sb.Append((char)b);
             }
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error("异步读取网络流 TCP 字符串发生异常", ex);
+            // 异常处理
+            LoggerHelper.Error("异步读取TCP字符串时发生异常", ex);
         }
 
-        var data = strBuilder.ToString();
-        LoggerHelper.Debug($"异步读取 TCP 网络流字符串 {data}");
-
-        return data;
+        return sb.ToString();
     }
 
     /// <summary>
@@ -339,6 +312,7 @@ public static class LSXTcpServer
             {
                 "FREETRIAL" => ScoketMsgBFV[19].Replace("##ID##", id),
                 "UPTODATE" => ScoketMsgBFV[20].Replace("##ID##", id),
+                "INSTALLED_LANGUAGE" => ScoketMsgBFV[20].Replace("##ID##", id).Replace("true", RegistryHelper.GetLocaleByContentId(contentid)),
                 _ => ScoketMsgBFV[5].Replace("##ID##", id),
             },
             "><GetInternetConnectedState version=" => ScoketMsgBFV[6].Replace("##ID##", id),
@@ -356,17 +330,14 @@ public static class LSXTcpServer
             "><QueryImage ImageId=" => ScoketMsgBFV[12].Replace("##ID##", id).Replace("##ImageId##", settingId).Replace("##Width##", partArray[7]),
             "><QueryPresence UserId=" => ScoketMsgBFV[13].Replace("##ID##", id),
             "><SetPresence UserId=" => ScoketMsgBFV[14].Replace("##ID##", id),
-            "><GetAllGameInfo version=" => contentid switch
-            {
-                "1039093" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}"),
-                _ => ScoketMsgBFV[16].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}"),
-            },
+            "><GetAllGameInfo version=" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentid)),
             "><IsProgressiveInstallationAvailable ItemId=" => ScoketMsgBFV[17].Replace("##ID##", id).Replace("Origin.OFR.50.0004342", "Origin.OFR.50.0001455"),
             "><QueryContent UserId=" => ScoketMsgBFV[18].Replace("##ID##", id),
             "><QueryEntitlements UserId=" => ScoketMsgBFV[21].Replace("##ID##", id),
             "><QueryOffers UserId=" => ScoketMsgBFV[22].Replace("##ID##", id),
             "><SetDownloaderUtilization Utilization=" => ScoketMsgBFV[23].Replace("##ID##", id),
             "><QueryChunkStatus ItemId=" => ScoketMsgBFV[24].Replace("##ID##", id),
+            "><GetPresenceVisibility UserId=" => ScoketMsgBFV[25].Replace("##ID##", id),
             _ => string.Empty,
         };
     }
@@ -389,23 +360,24 @@ public static class LSXTcpServer
 
         var id = partArray[3];
         var requestType = partArray[4];
-        var settingId = partArray[6];
+        //var settingId = partArray[7];
 
         LoggerHelper.Debug($"BFH LSX 请求 Id {id}");
         LoggerHelper.Debug($"BFH LSX 请求 RequestType {requestType}");
-        LoggerHelper.Debug($"BFH LSX 请求 SettingId {settingId}");
-
+        LoggerHelper.Debug($"BFH LSX 请求 partArray长度 {partArray.Length}");
+        //LoggerHelper.Debug($"BFH LSX 请求 SettingId {settingId}");
         return requestType switch
         {
             "><GetConfig version=" => ScoketMsgBFH[2].Replace("##ID##", id),
             "><GetAuthCode version=" => ScoketMsgBFH[3].Replace("##ID##", id).Replace("##AUTHCODE##", await EasyEaApi.GetLSXAutuCode(partArray[7])),
+            "><GetAuthCode UserId=" => ScoketMsgBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(partArray[7])),
             "><GetBlockList version=" => ScoketMsgBFH[4].Replace("##ID##", id),
             "><GetGameInfo version=" => ScoketMsgBFH[5].Replace("##ID##", id),
             "><GetInternetConnectedState version=" => ScoketMsgBFH[6].Replace("##ID##", id),
             "><GetPresence version=" => ScoketMsgBFH[7].Replace("##ID##", id),
             "><GetProfile version=" => ScoketMsgBFH[8].Replace("##ID##", id),
             "><RequestLicense UserId=" => ScoketMsgBFH[15].Replace("##ID##", id),
-            "><GetSetting version=" => settingId switch
+            "><GetSetting version=" => partArray[7] switch
             {
                 "ENVIRONMENT" => ScoketMsgBFH[9].Replace("##ID##", id),
                 "IS_IGO_AVAILABLE" => ScoketMsgBFH[10].Replace("##ID##", id),
@@ -417,6 +389,7 @@ public static class LSXTcpServer
             "><QueryPresence UserId=" => ScoketMsgBFH[13].Replace("##ID##", id),
             "><SetPresence version=" => ScoketMsgBFH[14].Replace("##ID##", id),
             "><GetAuthToken version=" => ScoketMsgBFH[16].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode("GOS-BlazeServer-HAVANA-PC")),
+            //"><QueryFriends version=" => GetFriendsXmlString().Replace("##ID##", id),
             _ => string.Empty,
         };
     }

@@ -1,6 +1,5 @@
 ﻿using EAappEmulater.Enums;
 using EAappEmulater.Helper;
-
 namespace EAappEmulater.Core;
 
 public static class Game
@@ -26,10 +25,18 @@ public static class Game
         try
         {
             var gameInfo = Base.GameInfoDb[gameType];
-
-            var execPath = Path.Combine(gameInfo.Dir, gameInfo.AppName);
-            var execPath2 = Path.Combine(gameInfo.Dir2, gameInfo.AppName);
-
+            var execPath = "";
+            var execPath2 = "";
+            if (gameInfo.ContentId != "16050355") 
+            {
+                execPath = Path.Combine(gameInfo.Dir, gameInfo.AppName);
+                execPath2 = Path.Combine(gameInfo.Dir2, gameInfo.AppName);
+            }
+            else
+            {
+                execPath = Path.Combine(gameInfo.Dir + "Nuts\\Binaries\\Win64", gameInfo.AppName);
+                execPath2 = Path.Combine(gameInfo.Dir2 + "Nuts\\Binaries\\Win64", gameInfo.AppName);
+            }
             if (!gameInfo.IsUseCustom)
             {
                 if (string.IsNullOrWhiteSpace(gameInfo.Dir))
@@ -80,9 +87,18 @@ public static class Game
                 return;
             }
 
-            LoggerHelper.Info($"{gameType} 正在启动游戏中...");
+            if (gameInfo.IsOLDLSX)
+            {
+                BattlelogHttpServer.BattlelogType = BattlelogType.BFH;
+            }
+            else
+            {
+                BattlelogHttpServer.BattlelogType = BattlelogType.None;
+            }
+
+            LoggerHelper.Info($"{gameInfo.Name} 正在启动游戏中...");
             if (isNotice)
-                NotifierHelper.Notice($"{gameType} 正在启动游戏中...");
+                NotifierHelper.Notice($"{gameInfo.Name} 正在启动游戏中...");
 
             // 获取当前进程所有环境变量名及其值
             var environmentVariables = GetEnvironmentVariables();
@@ -94,7 +110,7 @@ public static class Game
             environmentVariables["OriginSessionKey"] = "7102090b-ea9a-4531-9598-b2a7e943b544";
             environmentVariables["EAGameLocale"] = "zh_TW";
             environmentVariables["EALaunchEnv"] = "production";
-            environmentVariables["EALaunchEAID"] = "Misaka_Mikoto_01";
+            environmentVariables["EALaunchEAID"] = Account.PlayerName;
             environmentVariables["EALicenseToken"] = "114514";
             environmentVariables["EAEntitlementSource"] = "EA";
             environmentVariables["EAUseIGOAPI"] = "1";
@@ -110,6 +126,11 @@ public static class Game
             environmentVariables["SteamAppId"] = "";
             environmentVariables["ContentId"] = gameInfo.ContentId;
             environmentVariables["EAConnectionId"] = gameInfo.ContentId;
+            //修复泰坦陨落2无法连接数据中心，傻逼重生
+            if (gameInfo.ContentId == "1039093")
+            {
+                environmentVariables["OPENSSL_ia32cap"] = "~0x200000200000000";
+            }
 
             var startInfo = new ProcessStartInfo
             {
@@ -118,14 +139,30 @@ public static class Game
 
             if (!gameInfo.IsUseCustom)
             {
-                startInfo.FileName = Path.Combine(gameInfo.Dir, gameInfo.AppName);
-                startInfo.WorkingDirectory = gameInfo.Dir;
+                if (gameInfo.ContentId != "16050355")
+                {
+                    startInfo.FileName = Path.Combine(gameInfo.Dir, gameInfo.AppName);
+                    startInfo.WorkingDirectory = gameInfo.Dir;
+                }
+                else
+                {
+                    startInfo.FileName = Path.Combine(gameInfo.Dir + "Nuts\\Binaries\\Win64", gameInfo.AppName);
+                    startInfo.WorkingDirectory = gameInfo.Dir + "Nuts\\Binaries\\Win64";
+                }
                 startInfo.Arguments = string.Concat(webArgs, " ", gameInfo.Args).Trim();
             }
             else
             {
-                startInfo.FileName = Path.Combine(gameInfo.Dir2, gameInfo.AppName);
-                startInfo.WorkingDirectory = gameInfo.Dir2;
+                if (gameInfo.ContentId != "16050355")
+                {
+                    startInfo.FileName = Path.Combine(gameInfo.Dir2, gameInfo.AppName);
+                    startInfo.WorkingDirectory = gameInfo.Dir2;
+                }
+                else
+                {
+                    startInfo.FileName = Path.Combine(gameInfo.Dir2 + "Nuts\\Binaries\\Win64", gameInfo.AppName);
+                    startInfo.WorkingDirectory = gameInfo.Dir2 + "Nuts\\Binaries\\Win64";
+                }
                 startInfo.Arguments = string.Concat(webArgs, " ", gameInfo.Args2).Trim();
             }
 
@@ -136,9 +173,9 @@ public static class Game
 
             Process.Start(startInfo);
 
-            LoggerHelper.Info($"启动游戏 {gameType} 成功");
+            LoggerHelper.Info($"启动游戏 {gameInfo.Name} 成功");
             if (isNotice)
-                NotifierHelper.Success($"启动游戏 {gameType} 成功");
+                NotifierHelper.Success($"启动游戏 {gameInfo.Name} 成功");
         }
         catch (Exception ex)
         {
