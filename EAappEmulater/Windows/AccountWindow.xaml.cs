@@ -77,13 +77,24 @@ public partial class AccountWindow
     /// <summary>
     /// 保存账号Cookie
     /// </summary>
-    private bool SaveAccountCookie()
+    private bool SaveAccountCookie(bool isReset = false)
     {
         if (ListBox_AccountInfo.SelectedItem is not AccountInfo account)
             return false;
 
         // 设置当前选择配置槽
         Globals.AccountSlot = account.AccountSlot;
+
+        // 仅更换新账号使用
+        if (isReset)
+        {
+            account.PlayerName = string.Empty;
+            account.AvatarId = string.Empty;
+            account.Avatar = string.Empty;
+
+            account.Remid = string.Empty;
+            account.Sid = string.Empty;
+        }
 
         foreach (var item in ObsCol_AccountInfos)
         {
@@ -161,7 +172,7 @@ public partial class AccountWindow
     private void ChangeAccount()
     {
         // 保存数据
-        if (!SaveAccountCookie())
+        if (!SaveAccountCookie(true))
             return;
 
         // 清空当前账号信息

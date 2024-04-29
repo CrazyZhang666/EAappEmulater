@@ -24,6 +24,13 @@ public partial class App : Application
     {
         LoggerHelper.Info($"欢迎使用 {AppName} 程序");
 
+        // 注册异常捕获
+        RegisterEvents();
+        // 注册编码
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        //////////////////////////////////////////////////////
+
         AppMainMutex = new Mutex(true, AppName, out var createdNew);
         if (!createdNew)
         {
@@ -62,11 +69,6 @@ public partial class App : Application
         LoggerHelper.Info($"当前系统 WebVieww2 环境正常");
 
         //////////////////////////////////////////////////////
-
-        // 注册异常捕获
-        RegisterEvents();
-        // 注册编码
-        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
         base.OnStartup(e);
     }

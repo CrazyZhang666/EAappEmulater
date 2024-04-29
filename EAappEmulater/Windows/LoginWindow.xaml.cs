@@ -18,14 +18,14 @@ public partial class LoginWindow
      */
 
     /// <summary>
-    /// 是否登出当前账号（用于切换新账号使用）
+    /// 是否清理缓存（用于切换新账号使用）
     /// </summary>
-    private readonly bool _isLogout;
+    private readonly bool _isClear;
 
-    public LoginWindow(bool isLogout)
+    public LoginWindow(bool isClear)
     {
         InitializeComponent();
-        this._isLogout = isLogout;
+        this._isClear = isClear;
     }
 
     /// <summary>
@@ -105,10 +105,10 @@ public partial class LoginWindow
             //WebView2_Main.CoreWebView2.HistoryChanged += (s, e) => { LoggerHelper.Trace("HistoryChanged"); };
             //WebView2_Main.CoreWebView2.DOMContentLoaded += (s, e) => { LoggerHelper.Trace("DOMContentLoaded"); };
 
-            // 用于注销账号
-            if (_isLogout)
+            // 用于更换新账号
+            if (_isClear)
             {
-                LoggerHelper.Info("开始注销当前登录账号...");
+                LoggerHelper.Info("开始清理当前登录账号缓存...");
                 await ClearWebView2Cache();
             }
             else
