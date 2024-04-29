@@ -11,6 +11,12 @@ public partial class LoginWindow
 {
     private const string _host = "https://accounts.ea.com/connect/auth?client_id=sparta-backend-as-user-pc&response_type=code&release_type=none";
 
+    /**
+     * 2024/04/29
+     * 关于 WebView2 第一次加载设置 Visibility 不可见会导致短暂白屏
+     * https://github.com/MicrosoftEdge/WebView2Feedback/issues/3707#issuecomment-1679440957
+     */
+
     /// <summary>
     /// 是否登出当前账号（用于切换新账号使用）
     /// </summary>
@@ -63,13 +69,18 @@ public partial class LoginWindow
     {
         try
         {
-            LoggerHelper.Info("开始加载 WebView2 登录界面...");
+            LoggerHelper.Info("开始初始化 WebView2 ...");
 
-            var options = new CoreWebView2EnvironmentOptions();
+            var options = new CoreWebView2EnvironmentOptions
+            {
+                AdditionalBrowserArguments = ""
+            };
 
             // 初始化WebView2环境
             var env = await CoreWebView2Environment.CreateAsync(null, Globals.GetAccountCacheDir(), options);
             await WebView2_Main.EnsureCoreWebView2Async(env);
+
+            LoggerHelper.Info("初始化 WebView2 完成...");
 
             // 禁止Dev开发工具
             WebView2_Main.CoreWebView2.Settings.AreDevToolsEnabled = false;
@@ -90,6 +101,10 @@ public partial class LoginWindow
             // 导航完成事件
             WebView2_Main.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
 
+            //WebView2_Main.CoreWebView2.ContentLoading += (s, e) => { LoggerHelper.Trace("ContentLoading"); };
+            //WebView2_Main.CoreWebView2.HistoryChanged += (s, e) => { LoggerHelper.Trace("HistoryChanged"); };
+            //WebView2_Main.CoreWebView2.DOMContentLoaded += (s, e) => { LoggerHelper.Trace("DOMContentLoaded"); };
+
             // 用于注销账号
             if (_isLogout)
             {
@@ -98,6 +113,8 @@ public partial class LoginWindow
             }
             else
             {
+                LoggerHelper.Info("开始加载 WebView2 登录界面...");
+
                 // 导航到指定Url
                 WebView2_Main.CoreWebView2.Navigate(_host);
             }
@@ -117,6 +134,8 @@ public partial class LoginWindow
 
     private async void CoreWebView2_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
     {
+        LoggerHelper.Trace("SourceChanged");
+
         var source = WebView2_Main.Source.ToString();
         LoggerHelper.Info($"当前 WebView2 地址: {source}");
         if (!source.Contains("127.0.0.1/success?code="))
@@ -165,12 +184,16 @@ public partial class LoginWindow
     {
         WebView2_Main.Visibility = Visibility.Hidden;
         WebView2_Loading.Visibility = Visibility.Visible;
+
+        LoggerHelper.Trace("NavigationStarting");
     }
 
     private void CoreWebView2_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
     {
         WebView2_Main.Visibility = Visibility.Visible;
         WebView2_Loading.Visibility = Visibility.Hidden;
+
+        LoggerHelper.Trace("NavigationCompleted");
     }
 
     /// <summary>

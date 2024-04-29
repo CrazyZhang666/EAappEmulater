@@ -158,8 +158,8 @@ public partial class MainWindow
                     "版本更新", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
                 {
                     ProcessHelper.OpenLink("https://battlefield.vip");
-                    return;
                 }
+                return;
             }
         }
     }

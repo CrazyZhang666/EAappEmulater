@@ -56,7 +56,7 @@
         <wv2:WebView2
             x:Name="WebView2_Main"
             DefaultBackgroundColor="#FDFDFD"
-            Visibility="Hidden" />
+            Visibility="Visible" />
 
         <StackPanel
             x:Name="WebView2_Loading"
