@@ -131,6 +131,9 @@ public partial class MainWindow
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
+                IconHyperlink_Update.Text = $"发现新版本，点击下载更新";
+                IconHyperlink_Update.Visibility = Visibility.Visible;
+
                 LoggerHelper.Error("检测新版本失败，请检查网络连接");
                 NotifierHelper.Error("检测新版本失败，请检查网络连接");
                 return;
@@ -152,13 +155,11 @@ public partial class MainWindow
                     return;
                 }
 
-                LoggerHelper.Info($"发现最新版本，请前往官网下载最新版本 {webVersion}");
+                IconHyperlink_Update.Text = $"发现新版本 v{webVersion}，点击下载更新";
+                IconHyperlink_Update.Visibility = Visibility.Visible;
 
-                if (MessageBox.Show("发现最新版本，请前往官网下载最新版本\nhttps://battlefield.vip",
-                    "版本更新", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
-                {
-                    ProcessHelper.OpenLink("https://battlefield.vip");
-                }
+                LoggerHelper.Info($"发现最新版本，请前往官网下载最新版本 {webVersion}");
+                NotifierHelper.Info($"发现最新版本，请前往官网下载最新版本 {webVersion}");
                 return;
             }
         }

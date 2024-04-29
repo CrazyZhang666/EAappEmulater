@@ -23,6 +23,16 @@
     <ui:Window.TitleContent>
         <DockPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <ui:IconHyperlink
+                    x:Name="IconHyperlink_Update"
+                    Margin="0,0,7,0"
+                    VerticalAlignment="Center"
+                    Text="发现新版本，点击下载"
+                    ToolTip="https://battlefield.vip"
+                    Uri="https://battlefield.vip"
+                    Visibility="Hidden"
+                    WindowChrome.IsHitTestVisibleInChrome="True" />
+                <!--  //////////////  -->
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock HorizontalAlignment="Right" Text="{Binding MainModel.PlayerName}" />
                     <TextBlock
