@@ -23,6 +23,8 @@ public partial class AccountWindow
     /// </summary>
     private void Window_Account_Loaded(object sender, RoutedEventArgs e)
     {
+        Title = $"EA app 模拟器 v{CoreUtil.VersionInfo}";
+
         // 遍历读取10个配置文件槽
         foreach (var item in Account.AccountPathDb)
         {
