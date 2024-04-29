@@ -24,22 +24,29 @@
             <ColumnDefinition />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
+
         <!--  右侧游戏海报  -->
-        <ui:Image
-            x:Name="Image_Game"
-            d:Source="pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWBF2.jpg"
-            PreviewMouseLeftButtonDown="Image_Game_PreviewMouseLeftButtonDown"
-            Source="{Binding AdvancedModel.Image}">
-            <ui:Image.ToolTip>
-                <StackPanel>
-                    <TextBlock d:Text="星球大战 : 前线2" Text="{Binding AdvancedModel.Name}" />
-                    <TextBlock
-                        Margin="0,3,0,0"
-                        d:Text="Star Wars : Battle Front II"
-                        Text="{Binding AdvancedModel.Name2}" />
-                </StackPanel>
-            </ui:Image.ToolTip>
-        </ui:Image>
+        <Border
+            BorderBrush="#BEBEBE"
+            BorderThickness="0,0,1,0"
+            SnapsToDevicePixels="True">
+            <ui:Image
+                x:Name="Image_Game"
+                d:Source="pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWBF2.jpg"
+                PreviewMouseLeftButtonDown="Image_Game_PreviewMouseLeftButtonDown"
+                Source="{Binding AdvancedModel.Image}">
+                <ui:Image.ToolTip>
+                    <StackPanel>
+                        <TextBlock d:Text="星球大战 : 前线2" Text="{Binding AdvancedModel.Name}" />
+                        <TextBlock
+                            Margin="0,3,0,0"
+                            d:Text="Star Wars : Battle Front II"
+                            Text="{Binding AdvancedModel.Name2}" />
+                    </StackPanel>
+                </ui:Image.ToolTip>
+            </ui:Image>
+        </Border>
+
         <!--  右侧功能区  -->
         <Grid Grid.Column="1" Margin="5">
             <Grid.RowDefinitions>

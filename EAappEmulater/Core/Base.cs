@@ -267,7 +267,7 @@ public static class Base
         GameInfoDb[GameType.NFS21] = new()
         {
             GameType = GameType.NFS21,
-            Name = "极品飞车：热度",
+            Name = "极品飞车 : 热度",
             Name2 = "Need for Speed™ Heat",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS21.jpg",
             IsUseCustom = false,
