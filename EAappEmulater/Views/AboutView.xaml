@@ -45,16 +45,16 @@
             Text="© 2024 Electronic Arts Inc. All rights reserved." />
 
         <WrapPanel Margin="5" HorizontalAlignment="Center">
-            <TextBlock Margin="5" ToolTip="https://battlefield.vip">
-                <Hyperlink NavigateUri="https://battlefield.vip" RequestNavigate="Hyperlink_RequestNavigate">
-                    官方网站
-                </Hyperlink>
-            </TextBlock>
-            <TextBlock Margin="5" ToolTip="https://kook.top/WVuDlM">
-                <Hyperlink NavigateUri="https://kook.top/WVuDlM" RequestNavigate="Hyperlink_RequestNavigate">
-                    加入KOOK
-                </Hyperlink>
-            </TextBlock>
+            <ui:IconHyperlink
+                Margin="5"
+                Text="官方网站"
+                ToolTip="https://battlefield.vip"
+                Uri="https://battlefield.vip" />
+            <ui:IconHyperlink
+                Margin="5"
+                Text="加入KOOK"
+                ToolTip="https://kook.top/WVuDlM"
+                Uri="https://kook.top/WVuDlM" />
         </WrapPanel>
     </StackPanel>
 

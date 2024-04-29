@@ -11,7 +11,7 @@ public partial class AdvancedModel : ObservableObject
     private string name2;
 
     [ObservableProperty]
-    private string image2;
+    private string image;
 
     [ObservableProperty]
     private bool isUseCustom;

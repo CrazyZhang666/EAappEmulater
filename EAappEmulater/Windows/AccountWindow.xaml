@@ -26,6 +26,11 @@
                 DockPanel.Dock="Right"
                 Orientation="Horizontal"
                 WindowChrome.IsHitTestVisibleInChrome="True">
+                <ui:IconHyperlink
+                    Margin="0,0,7,0"
+                    Text="官方网站"
+                    ToolTip="https://battlefield.vip"
+                    Uri="https://battlefield.vip" />
                 <ui:WinButton
                     Command="{Binding OpenConfigFolderCommand}"
                     FontSize="14"

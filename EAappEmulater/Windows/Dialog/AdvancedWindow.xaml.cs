@@ -26,7 +26,7 @@ public partial class AdvancedWindow
 
         AdvancedModel.Name = _gameInfo.Name;
         AdvancedModel.Name2 = _gameInfo.Name2;
-        AdvancedModel.Image2 = _gameInfo.Image2;
+        AdvancedModel.Image = _gameInfo.Image;
 
         AdvancedModel.IsUseCustom = _gameInfo.IsUseCustom;
 
@@ -170,5 +170,13 @@ public partial class AdvancedWindow
 
         RegistryHelper.SetRegistryTargetVaule(_gameInfo.Regedit, "Locale", item.Code);
         RegistryHelper.SetRegistryTargetVaule(_gameInfo.Regedit2, "Locale", item.Code);
+    }
+
+    /// <summary>
+    /// 按住鼠标左键移动窗口
+    /// </summary>
+    private void Image_Game_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        DragMove();
     }
 }

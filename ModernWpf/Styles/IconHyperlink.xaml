@@ -12,11 +12,10 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Icon" Value="&#xE896;" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:IconHyperlink}">
-                    <TextBlock Margin="{TemplateBinding Margin}" ToolTip="{TemplateBinding ToolTip}">
+                    <TextBlock ToolTip="{TemplateBinding ToolTip}">
                         <Hyperlink x:Name="PART_Hyperlink" NavigateUri="{TemplateBinding Uri}">
                             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                 <controls:IconFont
