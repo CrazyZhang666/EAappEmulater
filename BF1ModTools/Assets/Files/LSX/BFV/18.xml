@@ -1,0 +1,11 @@
+﻿<LSX>
+    <Response id="##ID##" sender="EbisuSDK">
+        <QueryContentResponse>
+            <Content Gamestate="PLAYING" progressValue="0" contentID="Origin.OFR.50.0004657"
+                installedVersion="0" availableVersion="1.0.57.44284" displayName="Battlefield 1" />
+            <Content Gamestate="READY_TO_PLAY" progressValue="0" contentID="Origin.OFR.50.0000557"
+                installedVersion="1.0.57.44284" availableVersion="1.0.57.44284"
+                displayName="Battlefield 1" />
+        </QueryContentResponse>
+    </Response>
+</LSX>

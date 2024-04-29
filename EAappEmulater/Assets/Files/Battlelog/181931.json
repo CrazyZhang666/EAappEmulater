@@ -1,0 +1,40 @@
+{
+  "offers": [
+    {
+      "offerId": "OFB-EAST:57077",
+      "contentId": "",
+      "softwareId": "",
+      "displayName": "U.S. Seal Team Sniper/TAC 300",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "OFB-EAST:56986",
+      "contentId": "",
+      "softwareId": "9a1da347-a6ee-4f12-8e4d-03bdad660e10",
+      "displayName": "Medal of Honor™ Warfighter Zero Dark Thirty Map Pack",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "true",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "OFB-EAST:56122",
+      "contentId": "71519",
+      "softwareId": "e95f1971-9ad6-4d01-b29a-49a63d89ad82",
+      "displayName": "Medal of Honor™ Warfighter Limited Edition",
+      "contentType": "BASE_GAME",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    }
+  ]
+}

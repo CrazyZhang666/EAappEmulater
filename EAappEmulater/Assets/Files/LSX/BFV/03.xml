@@ -1,0 +1,5 @@
+﻿<LSX>
+    <Response id="##ID##" sender="Utility">
+        <AuthCode value="##AuthCode##" />
+    </Response>
+</LSX>

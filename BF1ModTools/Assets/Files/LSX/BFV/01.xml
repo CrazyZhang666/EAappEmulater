@@ -1,0 +1,5 @@
+﻿<LSX>
+    <Response id="##ID##" sender="EALS">
+        <ChallengeAccepted response="##RESPONSE##" />
+    </Response>
+</LSX>

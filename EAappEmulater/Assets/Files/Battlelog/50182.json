@@ -1,0 +1,136 @@
+{
+  "offers": [
+    {
+      "offerId": "DR:224766400",
+      "contentId": "71067",
+      "softwareId": "c9617fe2-f4dc-4a8f-b661-295f3924245f",
+      "displayName": "Battlefield 3™ Limited Edition",
+      "contentType": "BASE_GAME",
+      "progress": 0.8817,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "1.6.0.0"
+    },
+    {
+      "offerId": "OFB-EAST:48644",
+      "contentId": "",
+      "softwareId": "",
+      "displayName": "Battlefield 3 Welcome Pack",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "OFB-EAST:60868",
+      "contentId": "",
+      "softwareId": "",
+      "displayName": "Battlefield 3™ SPECACT Kit & Dog Tag Bundle",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "OFB-EAST:41331",
+      "contentId": "",
+      "softwareId": "",
+      "displayName": "Battlefield 3™ Back to Karkand Expansion Pack",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "OFB-EAST:55172",
+      "contentId": "71554",
+      "softwareId": "802feb3f-bcb8-49cd-be47-319a368950da",
+      "displayName": "Battlefield 3™ Aftermath",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "DR:234138200",
+      "contentId": "",
+      "softwareId": "",
+      "displayName": "Battlefield 3 Dog Tag Pack",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "OFB-EAST:109546437",
+      "contentId": "",
+      "softwareId": "acb6f466-a535-4e83-ac04-9757ea81b234",
+      "displayName": "Battlefield 3™: End Game",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "OFB-EAST:50401",
+      "contentId": "",
+      "softwareId": "",
+      "displayName": "Battlefield 3™ Premium",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "OFB-EAST:50631",
+      "contentId": "71564",
+      "softwareId": "ed139e64-4f5a-4edb-902c-15b81081bfa4",
+      "displayName": "Battlefield 3™: Close Quarters",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "DR:234138500",
+      "contentId": "",
+      "softwareId": "",
+      "displayName": "Battlefield 3 Specact Skin Pack",
+      "contentType": "UNLOCKABLE",
+      "progress": 0,
+      "state": "BUSY",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "0"
+    },
+    {
+      "offerId": "OFB-EAST:51080",
+      "contentId": "71195",
+      "softwareId": "d792cc14-4f20-4d39-a796-572d0ad3f8fc",
+      "displayName": "Battlefield 3™ Armored Kill",
+      "contentType": "PDLC",
+      "progress": 0,
+      "state": "INSTALLED",
+      "playState": "READY_TO_PLAY",
+      "updateAvailable": "false",
+      "localVersion": "4"
+    }
+  ]
+}

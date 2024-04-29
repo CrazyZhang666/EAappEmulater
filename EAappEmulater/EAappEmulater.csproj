@@ -1,0 +1,195 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Condition=" '$(EAZFUSCATOR_NET_HOME)' != '' and Exists('$(EAZFUSCATOR_NET_HOME)\Integration\MSBuild\Eazfuscator.NET.targets') " Project="$(EAZFUSCATOR_NET_HOME)\Integration\MSBuild\Eazfuscator.NET.targets" />
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <Platforms>x64</Platforms>
+        <Nullable>disable</Nullable>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <StartupObject>EAappEmulater.App</StartupObject>
+        <ApplicationIcon>Assets\Icons\Favicon.ico</ApplicationIcon>
+        <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+        <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+        <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+        <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <WebView2LoaderPreference>Static</WebView2LoaderPreference>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <!-- Eazfuscator.NET is integrated with this project at MSBuild level: https://help.gapotchenko.com/eazfuscator.net/kb/100036 -->
+        <EazfuscatorIntegration>MSBuild</EazfuscatorIntegration>
+        <EazfuscatorActiveConfiguration>Release</EazfuscatorActiveConfiguration>
+        <EazfuscatorCompatibilityVersion>2024.1</EazfuscatorCompatibilityVersion>
+    </PropertyGroup>
+
+    <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="if /i $(ConfigurationName) == Release start $(SolutionDir)EazTrialRemover\EazTrialRemover.exe $(TargetPath)" />
+    </Target>-->
+
+    <Target Name="Patch" BeforeTargets="GenerateSingleFileBundle">
+        <Exec Command="start $(SolutionDir)EazTrialRemover\EazTrialRemover.exe $(ProjectDir)obj\x64\Release\net6.0-windows\win-x64\$(TargetFileName)" />
+    </Target>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+        <DebugType>full</DebugType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+        <DebugType>none</DebugType>
+        <DebugSymbols>false</DebugSymbols>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+        <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2420.47" />
+        <PackageReference Include="NLog" Version="5.2.8" />
+        <PackageReference Include="Notification.Wpf" Version="8.0.0" />
+        <PackageReference Include="RestSharp" Version="110.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Assets\Files\Battlelog\000000.json" />
+        <EmbeddedResource Include="Assets\Files\Battlelog\181931.json" />
+        <EmbeddedResource Include="Assets\Files\Battlelog\182288.json" />
+        <EmbeddedResource Include="Assets\Files\Battlelog\2f4c24.json" />
+        <EmbeddedResource Include="Assets\Files\Battlelog\50182.json" />
+        <EmbeddedResource Include="Assets\Files\Battlelog\76889.json" />
+        <EmbeddedResource Include="Assets\Files\Battlelog\ping.json" />
+        <EmbeddedResource Include="Assets\Files\Battlelog\status.json" />
+        <EmbeddedResource Include="Assets\Files\Exec\EADesktop.exe" />
+        <EmbeddedResource Include="Assets\Files\Exec\OriginDebug.exe" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\00.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\01.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\02.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\03.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\04.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\05.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\06.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\07.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\08.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\09.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\10.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\11.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\12.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\13.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\14.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\15.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFH\16.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\00.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\01.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\02.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\03.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\04.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\05.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\06.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\07.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\08.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\09.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\10.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\11.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\12.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\13.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\14.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\15.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\16.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\17.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\18.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\19.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\20.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\21.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\22.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\23.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\24.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\25.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\TTF2\00.xml" />
+        <EmbeddedResource Include="Assets\Files\Misc\UpdateNotes.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include="Assets\Icons\Favicon.ico" />
+        <Resource Include="Assets\Images\Games\BF1.jpg" />
+        <Resource Include="Assets\Images\Games\BF1_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\BF2042.jpg" />
+        <Resource Include="Assets\Images\Games\BF2042_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\BF3.jpg" />
+        <Resource Include="Assets\Images\Games\BF3_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\BF4.jpg" />
+        <Resource Include="Assets\Images\Games\BFH.jpg" />
+        <Resource Include="Assets\Images\Games\BFH_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\BFV.jpg" />
+        <Resource Include="Assets\Images\Games\BFV_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\F123.jpg" />
+        <Resource Include="Assets\Images\Games\F123_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\FC24.jpg" />
+        <Resource Include="Assets\Images\Games\FC24_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\FIFA23.jpg" />
+        <Resource Include="Assets\Images\Games\FIFA23_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\NFS22.jpg" />
+        <Resource Include="Assets\Images\Games\NFS22_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\PVZGW2.jpg" />
+        <Resource Include="Assets\Images\Games\PVZGW2_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\SWBF2.jpg" />
+        <Resource Include="Assets\Images\Games\SWBF2_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\TTF2.jpg" />
+        <Resource Include="Assets\Images\Games\TTF2_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\PVZGW.jpg" />
+        <Resource Include="Assets\Images\Games\PVZGW_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\SWBF1.jpg" />
+        <Resource Include="Assets\Images\Games\SWBF1_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\NFS21.jpg" />
+        <Resource Include="Assets\Images\Games\NFS21_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\PVZBN.jpg" />
+        <Resource Include="Assets\Images\Games\PVZBN_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\ITT.jpg" />
+        <Resource Include="Assets\Images\Games\ITT_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\FIFA22.jpg" />
+        <Resource Include="Assets\Images\Games\FIFA22_Logo.jpg" />
+        <Resource Include="Assets\Images\Games\NFS19.jpg" />
+        <Resource Include="Assets\Images\Games\NFS19_Logo.jpg" />
+        <Resource Include="Assets\Images\Regions\ar_SA.png" />
+        <Resource Include="Assets\Images\Regions\cs_CZ.png" />
+        <Resource Include="Assets\Images\Regions\da_DK.png" />
+        <Resource Include="Assets\Images\Regions\de_DE.png" />
+        <Resource Include="Assets\Images\Regions\en_GB.png" />
+        <Resource Include="Assets\Images\Regions\en_US.png" />
+        <Resource Include="Assets\Images\Regions\es_ES.png" />
+        <Resource Include="Assets\Images\Regions\es_MX.png" />
+        <Resource Include="Assets\Images\Regions\fr_FR.png" />
+        <Resource Include="Assets\Images\Regions\it_IT.png" />
+        <Resource Include="Assets\Images\Regions\ja_JP.png" />
+        <Resource Include="Assets\Images\Regions\ko_KR.png" />
+        <Resource Include="Assets\Images\Regions\nl_NL.png" />
+        <Resource Include="Assets\Images\Regions\no_NO.png" />
+        <Resource Include="Assets\Images\Regions\NULL.png" />
+        <Resource Include="Assets\Images\Regions\pl_PL.png" />
+        <Resource Include="Assets\Images\Regions\pt_BR.png" />
+        <Resource Include="Assets\Images\Regions\pt_PT.png" />
+        <Resource Include="Assets\Images\Regions\ru_RU.png" />
+        <Resource Include="Assets\Images\Regions\sv_SE.png" />
+        <Resource Include="Assets\Images\Regions\tr_TR.png" />
+        <Resource Include="Assets\Images\Regions\zh_CN.png" />
+        <Resource Include="Assets\Images\Regions\zh_HK.png" />
+        <Resource Include="Assets\Images\Regions\zh_TW.png" />
+    </ItemGroup>
+
+</Project>

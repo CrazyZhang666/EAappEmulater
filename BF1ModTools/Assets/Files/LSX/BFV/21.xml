@@ -1,0 +1,33 @@
+﻿<LSX>
+    <Response id="##ID##" sender="Commerce">
+        <QueryEntitlementsResponse>
+            <Entitlements EntitlementGrantDate="2019-02-13T15:30:00" ResourceId="" UseCount="0"
+                EntitlementId="1012783049032" Expiration="0000-00-00T00:00:00" Type="DEFAULT"
+                Source="ORIGIN" LastModifiedDate="2019-02-13T15:30:00" Group="Titanfall2PC"
+                ItemId="Origin.OFR.50.0002300" EntitlementTag="TITANFALL2_JUMPSTARTERKIT"
+                Version="0" />
+            <Entitlements EntitlementGrantDate="2019-02-13T15:30:00" ResourceId="" UseCount="0"
+                EntitlementId="1012782849032" Expiration="0000-00-00T00:00:00" Type="DEFAULT"
+                Source="ORIGIN" LastModifiedDate="2019-02-13T15:30:00" Group="Titanfall2PC"
+                ItemId="Origin.OFR.50.0002268"
+                EntitlementTag="TITANFALL2_DLC7_UNDERGROUNDR201CARBINE" Version="0" />
+            <Entitlements EntitlementGrantDate="2019-02-13T15:30:00" ResourceId="" UseCount="0"
+                EntitlementId="1012782649032" Expiration="0000-00-00T00:00:00" Type="DEFAULT"
+                Source="ORIGIN" LastModifiedDate="2019-02-13T15:30:00" Group="Titanfall2PC"
+                ItemId="Origin.OFR.50.0001466" EntitlementTag="TITANFALL2_DELUXE_CONTENT"
+                Version="0" />
+            <Entitlements EntitlementGrantDate="2019-02-13T15:30:00" ResourceId="" UseCount="0"
+                EntitlementId="1012782449032" Expiration="0000-00-00T00:00:00" Type="DEFAULT"
+                Source="ORIGIN" LastModifiedDate="2019-02-13T15:30:00" Group="Titanfall2PC"
+                ItemId="Origin.OFR.50.0001455" EntitlementTag="ONLINE_ACCESS" Version="0" />
+            <Entitlements EntitlementGrantDate="2016-12-05T04:18:00" ResourceId="" UseCount="0"
+                EntitlementId="1010989849032" Expiration="0000-00-00T00:00:00" Type="DEFAULT"
+                Source="ORIGIN" LastModifiedDate="2016-12-05T04:18:00" Group="Titanfall2PC"
+                ItemId="Origin.OFR.50.0001475" EntitlementTag="TRIAL_ONLINE_ACCESS" Version="0" />
+            <Entitlements EntitlementGrantDate="2016-12-05T04:18:00" ResourceId="" UseCount="0"
+                EntitlementId="1010989649032" Expiration="0000-00-00T00:00:00" Type="DEFAULT"
+                Source="ORIGIN" LastModifiedDate="2016-12-05T04:18:00" Group="Titanfall2PC"
+                ItemId="Origin.OFR.50.0001475" EntitlementTag="TITANFALL2_PUBLIC_TRIAL" Version="0" />
+        </QueryEntitlementsResponse>
+    </Response>
+</LSX>

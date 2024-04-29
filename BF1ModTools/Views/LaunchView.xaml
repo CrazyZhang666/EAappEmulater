@@ -1,0 +1,69 @@
+﻿<UserControl
+    x:Class="BF1ModTools.Views.LaunchView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
+    xmlns:views="clr-namespace:BF1ModTools.Views"
+    d:DesignHeight="160"
+    d:DesignWidth="800"
+    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+    mc:Ignorable="d">
+
+    <UniformGrid Columns="3">
+
+        <!--  分区一  -->
+        <ui:CardMenu
+            Title="Frosty Mod Manager"
+            Margin="5,5,5,0"
+            Source="pack://application:,,,/BF1ModTools;component/Assets/Images/FrostyModManager.png">
+            <ui:CardMenu.Description>
+                用于安装和启动战地1Mod工具，若要使用Mod服则需要用此工具启动，否则Mod不会生效
+            </ui:CardMenu.Description>
+            <ui:CardMenu.CardContent>
+                <WrapPanel HorizontalAlignment="Right">
+                    <ui:IconButton
+                        Margin="5,5,0,0"
+                        Command="{Binding RunFrostyModManagerCommand}"
+                        Content="启动"
+                        Icon="&#xE768;" />
+                    <ui:IconButton
+                        Margin="5,5,0,0"
+                        Command="{Binding CloseFrostyModManagerCommand}"
+                        Content="关闭"
+                        Icon="&#xF78A;" />
+                </WrapPanel>
+            </ui:CardMenu.CardContent>
+        </ui:CardMenu>
+
+        <!--  分区二  -->
+        <views:NameView />
+
+        <!--  分区三  -->
+        <ui:CardMenu
+            Title="BF1 Marne Launcher"
+            Margin="5,5,5,0"
+            Source="pack://application:,,,/BF1ModTools;component/Assets/Images/MarneLauncher.png">
+            <ui:CardMenu.Description>
+                用于游玩战地1Marne专用私人服务器，与EA官方服务器无关，数据不互通，支持自定义中文ID
+            </ui:CardMenu.Description>
+            <ui:CardMenu.CardContent>
+                <WrapPanel HorizontalAlignment="Right">
+                    <ui:IconButton
+                        Margin="5,5,0,0"
+                        Command="{Binding RunMarneLauncherCommand}"
+                        Content="启动"
+                        Icon="&#xE768;" />
+                    <ui:IconButton
+                        Margin="5,5,0,0"
+                        Command="{Binding CloseMarneLauncherCommand}"
+                        Content="关闭"
+                        Icon="&#xF78A;" />
+                </WrapPanel>
+            </ui:CardMenu.CardContent>
+        </ui:CardMenu>
+
+    </UniformGrid>
+
+</UserControl>

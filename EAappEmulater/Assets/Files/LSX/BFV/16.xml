@@ -1,0 +1,11 @@
+﻿<LSX>
+    <Response id="##ID##" sender="EbisuSDK">
+        <GetAllGameInfoResponse UpToDate="true" FreeTrial="false" HasExpiration="false"
+            AvailableVersion="1.0.83.40087" FullGameReleaseDate="2020-10-22T09:00:00"
+            MaxGroupSize="16" SystemTime="##SystemTime##" FullGameReleased="true"
+            InstalledLanguage="" EntitlementSource="ORIGIN" Expiration="0000-00-00T00:00:00"
+            InstalledVersion="1.0.83.40087"
+            Languages="ar_SA,en_US,ko_KR,zh_CN,zh_TW,de_DE,es_ES,es_MX,fr_FR,it_IT,ja_JP,pl_PL,pt_BR,ru_RU"
+            FullGamePurchased="true" DisplayName="Battlefield V Definitive Edition" />
+    </Response>
+</LSX>

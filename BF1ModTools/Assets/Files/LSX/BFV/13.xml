@@ -1,0 +1,5 @@
+﻿<LSX>
+    <Response id="##ID##" sender="XMPP">
+        <QueryPresenceResponse> </QueryPresenceResponse>
+    </Response>
+</LSX>

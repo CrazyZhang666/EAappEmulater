@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EAappEmulater", "EAappEmulater\EAappEmulater.csproj", "{32B06A09-9C1B-4DA1-B88D-41747ECE8166}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModernWpf", "ModernWpf\ModernWpf.csproj", "{3EEC12DE-500B-4697-88C7-5ACA6AEBD4D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EADesktop", "EADesktop\EADesktop.csproj", "{727E5CAF-4772-419A-8717-E0B7661AF50F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OriginDebug", "OriginDebug\OriginDebug.csproj", "{36B7E168-C1AF-49A7-B494-7A64BB92B898}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BF1ModTools", "BF1ModTools\BF1ModTools.csproj", "{C0199BB9-F58F-4C47-A474-977096DBCFEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C4484AC9-2262-4360-93F6-B8B528537012}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		README.md = README.md
+		ToDoList.txt = ToDoList.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{748E8399-7161-480B-9D96-2C2FEAE812EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1B9854E2-8332-4D88-81D6-AE940023557C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EazTrialRemover", "EazTrialRemover\EazTrialRemover.csproj", "{9EEB97F3-D2D0-45CC-9E80-D8DEDB69A5EA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LoadMarne", "LoadMarne\LoadMarne.vcxproj", "{36056DA7-A982-4FB7-88E3-9DA2B60DC5F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32B06A09-9C1B-4DA1-B88D-41747ECE8166}.Debug|x64.ActiveCfg = Debug|x64
+		{32B06A09-9C1B-4DA1-B88D-41747ECE8166}.Debug|x64.Build.0 = Debug|x64
+		{32B06A09-9C1B-4DA1-B88D-41747ECE8166}.Release|x64.ActiveCfg = Release|x64
+		{32B06A09-9C1B-4DA1-B88D-41747ECE8166}.Release|x64.Build.0 = Release|x64
+		{3EEC12DE-500B-4697-88C7-5ACA6AEBD4D8}.Debug|x64.ActiveCfg = Debug|x64
+		{3EEC12DE-500B-4697-88C7-5ACA6AEBD4D8}.Debug|x64.Build.0 = Debug|x64
+		{3EEC12DE-500B-4697-88C7-5ACA6AEBD4D8}.Release|x64.ActiveCfg = Release|x64
+		{3EEC12DE-500B-4697-88C7-5ACA6AEBD4D8}.Release|x64.Build.0 = Release|x64
+		{727E5CAF-4772-419A-8717-E0B7661AF50F}.Debug|x64.ActiveCfg = Debug|x64
+		{727E5CAF-4772-419A-8717-E0B7661AF50F}.Release|x64.ActiveCfg = Release|x64
+		{36B7E168-C1AF-49A7-B494-7A64BB92B898}.Debug|x64.ActiveCfg = Debug|x64
+		{36B7E168-C1AF-49A7-B494-7A64BB92B898}.Release|x64.ActiveCfg = Release|x64
+		{C0199BB9-F58F-4C47-A474-977096DBCFEF}.Debug|x64.ActiveCfg = Debug|x64
+		{C0199BB9-F58F-4C47-A474-977096DBCFEF}.Debug|x64.Build.0 = Debug|x64
+		{C0199BB9-F58F-4C47-A474-977096DBCFEF}.Release|x64.ActiveCfg = Release|x64
+		{9EEB97F3-D2D0-45CC-9E80-D8DEDB69A5EA}.Debug|x64.ActiveCfg = Debug|x64
+		{9EEB97F3-D2D0-45CC-9E80-D8DEDB69A5EA}.Debug|x64.Build.0 = Debug|x64
+		{9EEB97F3-D2D0-45CC-9E80-D8DEDB69A5EA}.Release|x64.ActiveCfg = Release|x64
+		{36056DA7-A982-4FB7-88E3-9DA2B60DC5F1}.Debug|x64.ActiveCfg = Debug|x64
+		{36056DA7-A982-4FB7-88E3-9DA2B60DC5F1}.Debug|x64.Build.0 = Debug|x64
+		{36056DA7-A982-4FB7-88E3-9DA2B60DC5F1}.Release|x64.ActiveCfg = Release|x64
+		{36056DA7-A982-4FB7-88E3-9DA2B60DC5F1}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{32B06A09-9C1B-4DA1-B88D-41747ECE8166} = {1B9854E2-8332-4D88-81D6-AE940023557C}
+		{3EEC12DE-500B-4697-88C7-5ACA6AEBD4D8} = {1B9854E2-8332-4D88-81D6-AE940023557C}
+		{727E5CAF-4772-419A-8717-E0B7661AF50F} = {748E8399-7161-480B-9D96-2C2FEAE812EB}
+		{36B7E168-C1AF-49A7-B494-7A64BB92B898} = {748E8399-7161-480B-9D96-2C2FEAE812EB}
+		{C0199BB9-F58F-4C47-A474-977096DBCFEF} = {1B9854E2-8332-4D88-81D6-AE940023557C}
+		{748E8399-7161-480B-9D96-2C2FEAE812EB} = {1B9854E2-8332-4D88-81D6-AE940023557C}
+		{9EEB97F3-D2D0-45CC-9E80-D8DEDB69A5EA} = {748E8399-7161-480B-9D96-2C2FEAE812EB}
+		{36056DA7-A982-4FB7-88E3-9DA2B60DC5F1} = {1B9854E2-8332-4D88-81D6-AE940023557C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACF53880-21E7-4FA3-B3B1-4EF810F8BD9F}
+	EndGlobalSection
+EndGlobal
