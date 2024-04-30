@@ -303,25 +303,19 @@ public static class LSXTcpServer
         var partArray = request.Split('\"');
         LoggerHelper.Debug($"BFV LSX 请求 partArray 长度 {partArray.Length}");
 
-        // 避免数组溢出
-        if (partArray.Length < 5)
-            return string.Empty;
-
         var id = partArray[3];
         var requestType = partArray[4];
-        var settingId = partArray[5];
 
         LoggerHelper.Debug($"BFV LSX 请求 Id {id}");
         LoggerHelper.Debug($"BFV LSX 请求 RequestType {requestType}");
-        LoggerHelper.Debug($"BFV LSX 请求 SettingId {settingId}");
 
         return requestType switch
         {
             "><GetConfig version=" => ScoketMsgBFV[2].Replace("##ID##", id),
-            "><GetAuthCode ClientId=" => ScoketMsgBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(settingId)),
+            "><GetAuthCode ClientId=" => ScoketMsgBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(partArray[5])),
             "><GetAuthCode UserId=" => ScoketMsgBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(partArray[7])),
             "><GetBlockList version=" => ScoketMsgBFV[4].Replace("##ID##", id),
-            "><GetGameInfo GameInfoId=" => settingId switch
+            "><GetGameInfo GameInfoId=" => partArray[5] switch
             {
                 "FREETRIAL" => ScoketMsgBFV[19].Replace("##ID##", id),
                 "UPTODATE" => ScoketMsgBFV[20].Replace("##ID##", id).Replace("##Locale##", "true"),
@@ -332,7 +326,7 @@ public static class LSXTcpServer
             "><GetPresence UserId=" => ScoketMsgBFV[7].Replace("##ID##", id),
             "><GetProfile index=" => ScoketMsgBFV[8].Replace("##ID##", id).Replace("##PID##", Account.PersonaId).Replace("##DSNM##", Account.PlayerName).Replace("##UID##", Account.UserId),
             "><RequestLicense UserId=" => ScoketMsgBFV[15].Replace("##ID##", id).Replace("##License##", await EasyEaApi.GetLSXLicense(partArray[7], contentId)),
-            "><GetSetting SettingId=" => settingId switch
+            "><GetSetting SettingId=" => partArray[5] switch
             {
                 "ENVIRONMENT" => ScoketMsgBFV[9].Replace("##ID##", id),
                 "IS_IGO_AVAILABLE" => ScoketMsgBFV[10].Replace("##ID##", id),
@@ -340,7 +334,7 @@ public static class LSXTcpServer
                 _ => string.Empty,
             },
             "><QueryFriends UserId=" => GetFriendsXmlString().Replace("##ID##", id),
-            "><QueryImage ImageId=" => ScoketMsgBFV[12].Replace("##ID##", id).Replace("##ImageId##", settingId).Replace("##Width##", partArray[7]),
+            "><QueryImage ImageId=" => ScoketMsgBFV[12].Replace("##ID##", id).Replace("##ImageId##", partArray[5]).Replace("##Width##", partArray[7]),
             "><QueryPresence UserId=" => ScoketMsgBFV[13].Replace("##ID##", id),
             "><SetPresence UserId=" => ScoketMsgBFV[14].Replace("##ID##", id),
             "><GetAllGameInfo version=" => contentId switch
@@ -377,30 +371,24 @@ public static class LSXTcpServer
         var partArray = request.Split('\"');
         LoggerHelper.Debug($"BFH LSX 请求 partArray 长度 {partArray.Length}");
 
-        // 避免数组溢出
-        if (partArray.Length < 7)
-            return string.Empty;
-
         var id = partArray[3];
         var requestType = partArray[4];
-        var settingId = partArray[7];
 
         LoggerHelper.Debug($"BFH LSX 请求 Id {id}");
         LoggerHelper.Debug($"BFH LSX 请求 RequestType {requestType}");
-        LoggerHelper.Debug($"BFH LSX 请求 SettingId {settingId}");
 
         return requestType switch
         {
             "><GetConfig version=" => ScoketMsgBFH[2].Replace("##ID##", id),
-            "><GetAuthCode version=" => ScoketMsgBFH[3].Replace("##ID##", id).Replace("##AUTHCODE##", await EasyEaApi.GetLSXAutuCode(settingId)),
-            "><GetAuthCode UserId=" => ScoketMsgBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(settingId)),
+            "><GetAuthCode version=" => ScoketMsgBFH[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(partArray[7])),
+            "><GetAuthCode UserId=" => ScoketMsgBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(partArray[7])),
             "><GetBlockList version=" => ScoketMsgBFH[4].Replace("##ID##", id),
             "><GetGameInfo version=" => ScoketMsgBFH[5].Replace("##ID##", id),
             "><GetInternetConnectedState version=" => ScoketMsgBFH[6].Replace("##ID##", id),
             "><GetPresence version=" => ScoketMsgBFH[7].Replace("##ID##", id),
             "><GetProfile version=" => ScoketMsgBFH[8].Replace("##ID##", id),
             "><RequestLicense UserId=" => ScoketMsgBFH[15].Replace("##ID##", id),
-            "><GetSetting version=" => settingId switch
+            "><GetSetting version=" => partArray[7] switch
             {
                 "ENVIRONMENT" => ScoketMsgBFH[9].Replace("##ID##", id),
                 "IS_IGO_AVAILABLE" => ScoketMsgBFH[10].Replace("##ID##", id),

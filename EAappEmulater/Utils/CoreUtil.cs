@@ -163,11 +163,11 @@ public static class CoreUtil
     /// </summary>
     public static void GetSelfProcessThread()
     {
-        var currentThreads = Process.GetCurrentProcess().Threads;
-        LoggerHelper.Trace($"当前线程数量 {currentThreads.Count}");
-        foreach (ProcessThread thread in currentThreads)
-        {
-            LoggerHelper.Trace($"线程Id {thread.Id} 状态 {thread.ThreadState} 优先级 {thread.PriorityLevel}");
-        }
+        //var currentThreads = Process.GetCurrentProcess().Threads;
+        //LoggerHelper.Trace($"当前线程数量 {currentThreads.Count}");
+        //foreach (ProcessThread thread in currentThreads)
+        //{
+        //    LoggerHelper.Trace($"线程Id {thread.Id} 状态 {thread.ThreadState} 优先级 {thread.PriorityLevel}");
+        //}
     }
 }
