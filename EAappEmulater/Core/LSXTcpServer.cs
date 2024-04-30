@@ -324,13 +324,13 @@ public static class LSXTcpServer
             "><GetGameInfo GameInfoId=" => settingId switch
             {
                 "FREETRIAL" => ScoketMsgBFV[19].Replace("##ID##", id),
-                "UPTODATE" => ScoketMsgBFV[20].Replace("##ID##", id),
+                "UPTODATE" => ScoketMsgBFV[20].Replace("##ID##", id).Replace("##Locale##", "true"),
                 "INSTALLED_LANGUAGE" => ScoketMsgBFV[20].Replace("##ID##", id).Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)),
                 _ => ScoketMsgBFV[5].Replace("##ID##", id),
             },
             "><GetInternetConnectedState version=" => ScoketMsgBFV[6].Replace("##ID##", id),
             "><GetPresence UserId=" => ScoketMsgBFV[7].Replace("##ID##", id),
-            "><GetProfile index=" => ScoketMsgBFV[8].Replace("##ID##", id).Replace("##PID##", "1515810").Replace("##DSNM##", Account.PlayerName),
+            "><GetProfile index=" => ScoketMsgBFV[8].Replace("##ID##", id).Replace("##PID##", Account.PersonaId).Replace("##DSNM##", Account.PlayerName).Replace("##UID##", Account.UserId),
             "><RequestLicense UserId=" => ScoketMsgBFV[15].Replace("##ID##", id).Replace("##License##", await EasyEaApi.GetLSXLicense(partArray[7], contentId)),
             "><GetSetting SettingId=" => settingId switch
             {
@@ -343,7 +343,14 @@ public static class LSXTcpServer
             "><QueryImage ImageId=" => ScoketMsgBFV[12].Replace("##ID##", id).Replace("##ImageId##", settingId).Replace("##Width##", partArray[7]),
             "><QueryPresence UserId=" => ScoketMsgBFV[13].Replace("##ID##", id),
             "><SetPresence UserId=" => ScoketMsgBFV[14].Replace("##ID##", id),
-            "><GetAllGameInfo version=" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)),
+            "><GetAllGameInfo version=" => contentId switch
+            {
+                "1039093" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", "1.0.1.3"),
+                "16115019" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", "1.0.83.40087"),
+                "198235" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", "1.0.87.30122"),
+                "16425635" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", "1.0.87.30122"),
+                _ => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", "1.0.108.2038")
+            },
             "><IsProgressiveInstallationAvailable ItemId=" => ScoketMsgBFV[17].Replace("##ID##", id).Replace("Origin.OFR.50.0004342", "Origin.OFR.50.0001455"),
             "><QueryContent UserId=" => ScoketMsgBFV[18].Replace("##ID##", id),
             "><QueryEntitlements UserId=" => ScoketMsgBFV[21].Replace("##ID##", id),
