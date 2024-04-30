@@ -71,6 +71,9 @@ public partial class MainWindow
         // 初始化工作
         Ready.Run();
 
+        // 获取自身线程信息
+        CoreUtil.GetSelfProcessThread();
+
         // 检查更新（放到最后执行）
         await CheckUpdate();
     }
@@ -82,6 +85,9 @@ public partial class MainWindow
     {
         // 清理工作
         Ready.Stop();
+
+        // 获取自身线程信息
+        CoreUtil.GetSelfProcessThread();
 
         LoggerHelper.Info("关闭主程序成功");
     }

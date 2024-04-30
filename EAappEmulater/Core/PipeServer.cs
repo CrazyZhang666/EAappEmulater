@@ -9,6 +9,7 @@ public class PipeServer
     private readonly BattlelogType _battleType;
 
     private bool _isRunning = true;
+    private readonly Thread _thread;
 
     public string GameState { get; set; } = null;
 
@@ -27,12 +28,14 @@ public class PipeServer
             _ => new NamedPipeClientStream(".", "venice_snowroller", PipeDirection.InOut, PipeOptions.None),
         };
 
-        new Thread(PipeHandlerThread)
+        _thread = new Thread(PipeHandlerThread)
         {
             Name = "PipeHandlerThread",
             IsBackground = true
-        }.Start();
+        };
+        _thread.Start();
 
+        LoggerHelper.Info($"{_battleType} 线程状态 {_thread.ThreadState}");
         LoggerHelper.Info($"{_battleType} 启动 Pipe 监听服务成功");
     }
 
@@ -42,11 +45,16 @@ public class PipeServer
     public void Dispose()
     {
         _isRunning = false;
+        _pipeClient.Close();
 
+        LoggerHelper.Info($"{_battleType} 线程状态 {_thread.ThreadState}");
         LoggerHelper.Info($"{_battleType} 停止 Pipe 监听服务成功");
     }
 
-    private void PipeHandlerThread()
+    /// <summary>
+    /// Pipe管道处理线程
+    /// </summary>
+    private async void PipeHandlerThread()
     {
         try
         {
@@ -61,13 +69,13 @@ public class PipeServer
                     if (!_pipeClient.IsConnected)
                     {
                         // 超时时长 3600 秒
-                        _pipeClient.Connect(3600000);
+                        await _pipeClient.ConnectAsync(3600000);
                     }
                 }
                 catch (TimeoutException ex)
                 {
-                    LoggerHelper.Error($"{_battleType} 处理 Pipe 客户端连接发生异常", ex);
-                    return;
+                    LoggerHelper.Error($"{_battleType} 处理 Pipe 客户端连接发生超时异常", ex);
+                    continue;
                 }
 
                 // 处理已连接 PipeStream 对象

@@ -1,13 +1,16 @@
 ﻿using EAappEmulater.Api;
 using EAappEmulater.Enums;
 using EAappEmulater.Helper;
+using System.Threading;
 
 namespace EAappEmulater.Core;
 
 public static class LSXTcpServer
 {
     private static TcpListener _tcpServer = null;
-    private static bool _isRunning = false;
+
+    private static bool _isRunning = true;
+    private static Thread _thread;
 
     private static readonly List<string> ScoketMsgBFV = new();
     private static readonly List<string> ScoketMsgBFH = new();
@@ -70,11 +73,14 @@ public static class LSXTcpServer
 
         // 注意线程释放问题，避免重复创建
         _isRunning = true;
-        new Thread(ListenerLocal3216Thread)
+        _thread = new Thread(ListenerLocal3216Thread)
         {
             Name = "ListenerLocal3216Thread",
             IsBackground = true
-        }.Start();
+        };
+        _thread.Start();
+
+        LoggerHelper.Info($"LSX 监听服务线程状态 {_thread.ThreadState}");
         LoggerHelper.Info("启动 LSX 监听服务线程成功");
     }
 
@@ -84,6 +90,8 @@ public static class LSXTcpServer
     public static void Stop()
     {
         _isRunning = false;
+        _thread = null;
+        LoggerHelper.Info($"LSX 监听服务线程状态 {_thread.ThreadState}");
         LoggerHelper.Info("停止 LSX 监听服务线程成功");
 
         _tcpServer?.Stop();
@@ -228,7 +236,7 @@ public static class LSXTcpServer
                 }
                 catch (TimeoutException ex)
                 {
-                    LoggerHelper.Error("处理 TCP Battlelog 客户端连接发生异常", ex);
+                    LoggerHelper.Error("处理 TCP Battlelog 客户端连接发生超时异常", ex);
                 }
             }
         }

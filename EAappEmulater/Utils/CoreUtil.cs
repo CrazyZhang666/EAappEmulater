@@ -157,4 +157,17 @@ public static class CoreUtil
         var daysSpan = new TimeSpan(DateTime.Now.Ticks - dateTime.Ticks);
         return daysSpan.Days;
     }
+
+    /// <summary>
+    /// 获取自身线程信息
+    /// </summary>
+    public static void GetSelfProcessThread()
+    {
+        var currentThreads = Process.GetCurrentProcess().Threads;
+        LoggerHelper.Trace($"当前线程数量 {currentThreads.Count}");
+        foreach (ProcessThread thread in currentThreads)
+        {
+            LoggerHelper.Trace($"线程Id {thread.Id} 状态 {thread.ThreadState} 优先级 {thread.PriorityLevel}");
+        }
+    }
 }
