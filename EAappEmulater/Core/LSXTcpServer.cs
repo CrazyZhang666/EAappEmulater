@@ -1,16 +1,15 @@
 ﻿using EAappEmulater.Api;
 using EAappEmulater.Enums;
 using EAappEmulater.Helper;
-using System.Threading;
+using System.Net.Sockets;
+using System.Windows.Markup;
 
 namespace EAappEmulater.Core;
 
 public static class LSXTcpServer
 {
-    private static TcpListener _tcpServer = null;
-
     private static bool _isRunning = true;
-    private static Thread _thread;
+    private static TcpListener _tcpServer = null;
 
     private static readonly List<string> ScoketMsgBFV = new();
     private static readonly List<string> ScoketMsgBFH = new();
@@ -67,21 +66,12 @@ public static class LSXTcpServer
 
         _tcpServer = new TcpListener(IPAddress.Parse("127.0.0.1"), 3216);
         _tcpServer.Start();
+        _isRunning = true;
 
         LoggerHelper.Info("启动 LSX 监听服务成功");
         LoggerHelper.Debug("LSX 服务监听端口为 3216");
 
-        // 注意线程释放问题，避免重复创建
-        _isRunning = true;
-        _thread = new Thread(ListenerLocal3216Thread)
-        {
-            Name = "ListenerLocal3216Thread",
-            IsBackground = true
-        };
-        _thread.Start();
-
-        LoggerHelper.Info($"LSX 监听服务线程状态 {_thread.ThreadState}");
-        LoggerHelper.Info("启动 LSX 监听服务线程成功");
+        _tcpServer.BeginAcceptTcpClient(Result, null);
     }
 
     /// <summary>
@@ -90,10 +80,6 @@ public static class LSXTcpServer
     public static void Stop()
     {
         _isRunning = false;
-        _thread = null;
-        LoggerHelper.Info($"LSX 监听服务线程状态 {_thread.ThreadState}");
-        LoggerHelper.Info("停止 LSX 监听服务线程成功");
-
         _tcpServer?.Stop();
         _tcpServer = null;
         LoggerHelper.Info("停止 LSX 监听服务成功");
@@ -111,45 +97,42 @@ public static class LSXTcpServer
     }
 
     /// <summary>
-    /// 监听本地端口3216线程
+    /// 处理TCP客户端连接
     /// </summary>
-    private static async void ListenerLocal3216Thread()
+    private static async void Result(IAsyncResult asyncResult)
     {
-        try
-        {
-            while (_isRunning)
-            {
-                if (_tcpServer is null)
-                    return;
+        // 避免关闭时抛出异常
+        if (_tcpServer is null)
+            return;
 
-                var client = await _tcpServer.AcceptTcpClientAsync();
-                LoggerHelper.Debug($"发现 TCP 客户端连接 {client.Client.RemoteEndPoint}");
-                TcpClient3216Handler(client);
-            }
-        }
-        catch (Exception ex)
-        {
-            LoggerHelper.Error("监听 TCP 客户端连接发生异常", ex);
-        }
-    }
-
-    /// <summary>
-    /// 处理本地端口3216客户端连接
-    /// </summary>
-    private static async void TcpClient3216Handler(TcpClient client)
-    {
-        // 建立和连接的客户端的数据流（传输数据）
-        var networkStream = client.GetStream();
+        // 完成检索传入的客户端请求的异步操作
+        var client = _tcpServer.EndAcceptTcpClient(asyncResult);
+        // 开始异步检索传入的请求（下一个请求）
+        _tcpServer.BeginAcceptTcpClient(Result, null);
 
         try
         {
+            // 如果连接断开，则结束
+            if (!client.Connected)
+                return;
+
+            LoggerHelper.Debug($"发现 TCP 客户端连接 {client.Client.RemoteEndPoint}");
+
+            /////////////////////////////////////////////////
+
+            // 建立和连接的客户端的数据流（传输数据）
+            var networkStream = client.GetStream();
+            // 设置读写超时时间为 3600 秒
+            networkStream.ReadTimeout = 3600000;
+            networkStream.WriteTimeout = 3600000;
+
             var startKey = "cacf897a20b6d612ad0c05e011df52bb";
             var buffer = Encoding.UTF8.GetBytes(ScoketMsgBFV[0].Replace("##KEY##", startKey));
 
             // 异步写入网络流
             await networkStream.WriteAsync(buffer);
 
-            var tcpString = await ReadTcpString(networkStream);
+            var tcpString = await ReadTcpString(client, networkStream);
             var partArray = tcpString.Split('\"');
 
             // 适配FC24
@@ -160,22 +143,18 @@ public static class LSXTcpServer
             var response = string.Empty;
             var key = string.Empty;
 
+            LoggerHelper.Debug($"当前 BattlelogType {BattlelogHttpServer.BattlelogType}");
+
             // 处理 Battlelog 游戏（default代表是其他游戏）
             // 硬仗和 bf4debug 模式的 lsx 请求不一样
             switch (BattlelogHttpServer.BattlelogType)
             {
-                case BattlelogType.BF4:
-                    response = partArray[5];
-                    key = partArray[7];
-                    break;
                 case BattlelogType.BFH:
-                    response = partArray[7];
-                    key = partArray[9];
-                    break;
                 case BattlelogType.BF4Debug:
                     response = partArray[7];
                     key = partArray[9];
                     break;
+                case BattlelogType.BF4:
                 default:
                     response = partArray[5];
                     key = partArray[7];
@@ -206,7 +185,9 @@ public static class LSXTcpServer
             // 异步写入网络流
             await networkStream.WriteAsync(buffer);
 
-            while (_isRunning)
+            // 这里死循环要注意
+            // 仅客户端链接时运行
+            while (client.Connected)
             {
                 try
                 {
@@ -214,22 +195,22 @@ public static class LSXTcpServer
                     {
                         case BattlelogType.BFH:
                             {
-                                var data = await ReadTcpString(networkStream);
-                                data = EaCrypto.LSXDecryptBFH(data, seed);
+                                var data = await ReadTcpString(client, networkStream);
+                                data = EaCrypto.LSXDecryptBFH(data);
                                 data = await LSXRequestHandleForBFH(data);
                                 LoggerHelper.Debug($"当前 LSX 回复 {data}");
-                                data = EaCrypto.LSXEncryptBFH(data, seed);
-                                await WriteTcpString(networkStream, $"{data}\0");
+                                data = EaCrypto.LSXEncryptBFH(data);
+                                await WriteTcpString(client, networkStream, $"{data}\0");
                             }
                             break;
                         default:
                             {
-                                var data = await ReadTcpString(networkStream);
+                                var data = await ReadTcpString(client, networkStream);
                                 data = EaCrypto.LSXDecryptBF4(data, seed);
                                 data = await LSXRequestHandleForBFV(data, contentId);
                                 LoggerHelper.Debug($"当前 LSX 回复 {data}");
                                 data = EaCrypto.LSXEncryptBF4(data, seed);
-                                await WriteTcpString(networkStream, $"{data}\0");
+                                await WriteTcpString(client, networkStream, $"{data}\0");
                             }
                             break;
                     }
@@ -253,10 +234,16 @@ public static class LSXTcpServer
     /// <summary>
     /// 异步读取 TCP 网络流字符串
     /// </summary>
-    private static async Task<string> ReadTcpString(NetworkStream stream)
+    private static async Task<string> ReadTcpString(TcpClient client, NetworkStream stream)
     {
-        // 以异步的方式模拟 NetworkStream.ReadByte()
-        // 为了修复傻逼重生家游戏只能这样干，重生你妈死了
+        // 如果连接断开，则返回空字符串
+        if (!client.Connected)
+            return string.Empty;
+
+        /**
+         * 以异步的方式模拟 NetworkStream.ReadByte()
+         * 为了修复傻逼重生家游戏只能这样干，重生你妈死了
+         */
 
         var strBuilder = new StringBuilder();
         var buffer = new byte[1];       // 单字节缓冲区
@@ -264,6 +251,7 @@ public static class LSXTcpServer
 
         try
         {
+            // 读取长度大于0时才执行
             while ((readLength = await stream.ReadAsync(buffer)) > 0)
             {
                 var b = buffer[0];
@@ -276,7 +264,7 @@ public static class LSXTcpServer
         catch (Exception ex)
         {
             // 异常处理
-            LoggerHelper.Error("异步读取TCP字符串时发生异常", ex);
+            LoggerHelper.Error("异步读取 TCP 字符串时发生异常", ex);
         }
 
         return strBuilder.ToString();
@@ -285,8 +273,14 @@ public static class LSXTcpServer
     /// <summary>
     /// 异步写入 TCP 网络流字符串
     /// </summary>
-    private static async Task WriteTcpString(NetworkStream stream, string tcpStr)
+    private static async Task WriteTcpString(TcpClient client, NetworkStream stream, string tcpStr)
     {
+        // 如果连接断开，则结束
+        if (!client.Connected)
+            return;
+
+        // 这个不要用 try catch 捕获异常
+        // 主要是为了避免死循环无限执行（使用异常来中断死循环）
         var buffer = Encoding.UTF8.GetBytes(tcpStr);
         await stream.WriteAsync(buffer);
     }
@@ -296,10 +290,10 @@ public static class LSXTcpServer
     /// </summary>
     private static async Task<string> LSXRequestHandleForBFV(string request, string contentId)
     {
-        LoggerHelper.Debug($"BFV LSX 请求 Request {request}");
-
         if (string.IsNullOrWhiteSpace(request))
             return string.Empty;
+
+        LoggerHelper.Debug($"BFV LSX 请求 Request {request}");
 
         var partArray = request.Split('\"');
         LoggerHelper.Debug($"BFV LSX 请求 partArray 长度 {partArray.Length}");
@@ -363,10 +357,10 @@ public static class LSXTcpServer
     /// <returns></returns>
     private static async Task<string> LSXRequestHandleForBFH(string request)
     {
-        LoggerHelper.Debug($"BFH LSX 请求 Request {request}");
-
         if (string.IsNullOrWhiteSpace(request))
             return string.Empty;
+
+        LoggerHelper.Debug($"BFH LSX 请求 Request {request}");
 
         var partArray = request.Split('\"');
         LoggerHelper.Debug($"BFH LSX 请求 partArray 长度 {partArray.Length}");

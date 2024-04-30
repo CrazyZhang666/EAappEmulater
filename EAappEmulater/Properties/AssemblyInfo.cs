@@ -14,9 +14,9 @@
 [assembly: AssemblyTitle("EA app 模拟器")]
 [assembly: AssemblyCompany("https://battlefield.vip")]
 [assembly: AssemblyProduct("EA app 模拟器")]
-[assembly: AssemblyVersion("1.5.2.0")]
-[assembly: AssemblyFileVersion("1.5.2.0")]
-[assembly: AssemblyInformationalVersion("1.5.2.0")]
+[assembly: AssemblyVersion("1.5.3.0")]
+[assembly: AssemblyFileVersion("1.5.3.0")]
+[assembly: AssemblyInformationalVersion("1.5.3.0")]
 
 // 不重复
 [assembly: AssemblyDescription("https://battlefield.vip")]

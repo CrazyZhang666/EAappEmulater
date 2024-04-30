@@ -227,8 +227,11 @@ public static class EaCrypto
     /// <summary>
     /// BFH LSX 解密
     /// </summary>
-    public static string LSXDecryptBFH(string data, ushort seed)
+    public static string LSXDecryptBFH(string data)
     {
+        if (string.IsNullOrWhiteSpace(data))
+            return string.Empty;
+
         var aes = GetAesByKey(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
         var bytes = GetByteArray(data);
 
@@ -238,8 +241,11 @@ public static class EaCrypto
     /// <summary>
     /// BFH LSX 加密
     /// </summary>
-    public static string LSXEncryptBFH(string data, ushort seed)
+    public static string LSXEncryptBFH(string data)
     {
+        if (string.IsNullOrWhiteSpace(data))
+            return string.Empty;
+
         var aes = GetAesByKey(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
         var bytes = Encoding.ASCII.GetBytes(data);
 
