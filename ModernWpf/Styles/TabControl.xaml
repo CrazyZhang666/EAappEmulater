@@ -54,8 +54,8 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type controls:IconTabItem}">
                                 <Border
-                                    Margin="0,0,5,0"
-                                    Padding="5,7,5,7"
+                                    Margin="0,0,7,0"
+                                    Padding="3,7,3,7"
                                     VerticalAlignment="Center"
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"

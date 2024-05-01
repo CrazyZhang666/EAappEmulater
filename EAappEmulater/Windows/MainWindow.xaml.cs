@@ -20,6 +20,10 @@ public partial class MainWindow
     /// 导航字典
     /// </summary>
     private readonly Dictionary<string, UserControl> NavDictionary = new();
+    /// <summary>
+    /// 数据模型
+    /// </summary>
+    public MainModel MainModel { get; set; } = new();
 
     /// <summary>
     /// 用于向外暴露主窗口实例
@@ -30,8 +34,9 @@ public partial class MainWindow
     /// </summary>
     public static bool IsCodeClose { get; set; } = false;
 
-    public MainModel MainModel { get; set; } = new();
-
+    /// <summary>
+    /// 第一次通知标志
+    /// </summary>
     private bool _isFirstNotice = false;
 
     public MainWindow()
@@ -90,9 +95,10 @@ public partial class MainWindow
     /// </summary>
     private void Window_Main_Closing(object sender, CancelEventArgs e)
     {
-        // 当用户从UI关闭时才执行
+        // 当用户从UI点击关闭时才执行
         if (!IsCodeClose)
         {
+            // 取消关闭事件，隐藏主窗口
             e.Cancel = true;
             this.Hide();
 
