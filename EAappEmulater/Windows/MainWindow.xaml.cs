@@ -6,6 +6,7 @@ using EAappEmulater.Helper;
 using EAappEmulater.Models;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Hardcodet.Wpf.TaskbarNotification;
 using Window = ModernWpf.Controls.Window;
 
 namespace EAappEmulater.Windows;
@@ -24,8 +25,14 @@ public partial class MainWindow
     /// 用于向外暴露主窗口实例
     /// </summary>
     public static Window MainWinInstance { get; private set; }
+    /// <summary>
+    /// 窗口关闭识别标志
+    /// </summary>
+    public static bool IsCodeClose { get; set; } = false;
 
     public MainModel MainModel { get; set; } = new();
+
+    private bool _isFirstNotice = false;
 
     public MainWindow()
     {
@@ -45,6 +52,8 @@ public partial class MainWindow
 
         // 向外暴露主窗口实例
         MainWinInstance = this;
+        // 重置窗口关闭标志
+        IsCodeClose = false;
 
         // 首页导航
         Navigate(NavDictionary.First().Key);
@@ -72,9 +81,6 @@ public partial class MainWindow
         // 初始化工作
         Ready.Run();
 
-        // 获取自身线程信息
-        CoreUtil.GetSelfProcessThread();
-
         // 检查更新（放到最后执行）
         await CheckUpdate();
     }
@@ -84,11 +90,28 @@ public partial class MainWindow
     /// </summary>
     private void Window_Main_Closing(object sender, CancelEventArgs e)
     {
+        // 当用户从UI关闭时才执行
+        if (!IsCodeClose)
+        {
+            e.Cancel = true;
+            this.Hide();
+
+            // 仅第一次通知
+            if (!_isFirstNotice)
+            {
+                NotifyIcon_Main.ShowBalloonTip("EA app 模拟器 已最小化到托盘", "可通过托盘右键菜单完全退出程序", BalloonIcon.Info);
+                _isFirstNotice = true;
+            }
+
+            return;
+        }
+
         // 清理工作
         Ready.Stop();
 
-        // 获取自身线程信息
-        CoreUtil.GetSelfProcessThread();
+        // 释放托盘图标
+        NotifyIcon_Main?.Dispose();
+        NotifyIcon_Main = null;
 
         LoggerHelper.Info("关闭主程序成功");
     }
@@ -170,5 +193,41 @@ public partial class MainWindow
                 return;
             }
         }
+    }
+
+    [RelayCommand]
+    private void ShowWindow()
+    {
+        this.Show();
+
+        if (this.WindowState == WindowState.Minimized)
+            this.WindowState = WindowState.Normal;
+
+        this.Activate();
+        this.Focus();
+    }
+
+    [RelayCommand]
+    private void SwitchAccount()
+    {
+        var accountWindow = new AccountWindow();
+
+        // 转移主程序控制权
+        Application.Current.MainWindow = accountWindow;
+        // 设置关闭标志
+        IsCodeClose = true;
+        // 关闭主窗口
+        this.Close();
+
+        // 显示更换账号窗口
+        accountWindow.Show();
+    }
+
+    [RelayCommand]
+    private void ExitApp()
+    {
+        // 设置关闭标志
+        IsCodeClose = true;
+        this.Close();
     }
 }

@@ -30,6 +30,7 @@
         <ResourceDictionary Source="/ModernWpf;component/Styles/CardMenu.xaml" />
         <ResourceDictionary Source="/ModernWpf;component/Styles/IconHyperlink.xaml" />
 
+        <ResourceDictionary Source="/ModernWpf;component/Styles/ContextMenu.xaml" />
         <ResourceDictionary Source="/ModernWpf;component/Styles/UserControl.xaml" />
         <ResourceDictionary Source="/ModernWpf;component/Styles/WinButton.xaml" />
         <ResourceDictionary Source="/ModernWpf;component/Styles/Window.xaml" />

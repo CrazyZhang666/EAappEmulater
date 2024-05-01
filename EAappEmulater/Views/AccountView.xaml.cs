@@ -50,7 +50,7 @@ public partial class AccountView : UserControl
     }
 
     /// <summary>
-    /// 切换账号
+    /// 更换账号
     /// </summary>
     [RelayCommand]
     private void SwitchAccount()
@@ -59,10 +59,12 @@ public partial class AccountView : UserControl
 
         // 转移主程序控制权
         Application.Current.MainWindow = accountWindow;
+        // 设置关闭标志
+        MainWindow.IsCodeClose = true;
         // 关闭主窗口
         MainWindow.MainWinInstance.Close();
 
-        // 显示切换账号窗口
+        // 显示更换账号窗口
         accountWindow.Show();
     }
 }

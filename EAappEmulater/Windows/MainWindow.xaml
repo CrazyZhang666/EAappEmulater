@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ntf="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"
+    xmlns:tb="http://www.hardcodet.net/taskbar"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
     x:Name="Window_Main"
     Title="EA app 模拟器"
@@ -69,7 +70,36 @@
         </DockPanel>
     </ui:Window.TitleContent>
 
+    <ui:Window.Resources>
+        <ContextMenu x:Key="ContextMenu_Notify">
+            <MenuItem
+                Command="{Binding ShowWindowCommand}"
+                Header="显示主窗口"
+                Icon="&#xE737;" />
+            <MenuItem
+                Command="{Binding SwitchAccountCommand}"
+                Header="更换账号"
+                Icon="&#xE748;" />
+            <Separator />
+            <MenuItem
+                Command="{Binding ExitAppCommand}"
+                Header="退出程序"
+                Icon="&#xE711;" />
+        </ContextMenu>
+    </ui:Window.Resources>
+
     <Grid>
+        <!--  托盘菜单  -->
+        <tb:TaskbarIcon
+            x:Name="NotifyIcon_Main"
+            ContextMenu="{StaticResource ContextMenu_Notify}"
+            IconSource="/Assets/Icons/Favicon.ico"
+            LeftClickCommand="{Binding ShowWindowCommand}"
+            MenuActivation="RightClick"
+            NoLeftClickDelay="True"
+            PopupActivation="DoubleClick"
+            ToolTipText="EA app 模拟器" />
+
         <!--  主区域  -->
         <Grid>
             <Grid.ColumnDefinitions>
