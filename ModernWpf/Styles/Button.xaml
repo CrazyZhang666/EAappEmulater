@@ -3,6 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:ModernWpf.Controls">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Base.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <Style TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -10,7 +14,7 @@
         <Setter Property="Margin" Value="5" />
         <Setter Property="Padding" Value="9" />
         <Setter Property="Foreground" Value="#FFFFFF" />
-        <Setter Property="Background" Value="#76B900" />
+        <Setter Property="Background" Value="{StaticResource Win11Blue}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
@@ -28,10 +32,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#6BA800" />
+                            <Setter Property="Background" Value="#3393DD" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#76B900" />
+                            <Setter Property="Background" Value="#1985D8" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -65,10 +69,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="#6BA800" />
+                            <Setter Property="Foreground" Value="#3393DD" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Foreground" Value="#76B900" />
+                            <Setter Property="Foreground" Value="#1985D8" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

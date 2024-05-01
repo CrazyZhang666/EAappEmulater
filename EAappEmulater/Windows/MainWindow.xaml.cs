@@ -6,6 +6,7 @@ using EAappEmulater.Helper;
 using EAappEmulater.Models;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Window = ModernWpf.Controls.Window;
 
 namespace EAappEmulater.Windows;
 
@@ -22,7 +23,7 @@ public partial class MainWindow
     /// <summary>
     /// 用于向外暴露主窗口实例
     /// </summary>
-    public static Window MainWindowInstance { get; private set; }
+    public static Window MainWinInstance { get; private set; }
 
     public MainModel MainModel { get; set; } = new();
 
@@ -43,7 +44,7 @@ public partial class MainWindow
         Title = $"EA app 模拟器 v{CoreUtil.VersionInfo}";
 
         // 向外暴露主窗口实例
-        MainWindowInstance = this;
+        MainWinInstance = this;
 
         // 首页导航
         Navigate(NavDictionary.First().Key);
@@ -165,7 +166,7 @@ public partial class MainWindow
                 IconHyperlink_Update.Visibility = Visibility.Visible;
 
                 LoggerHelper.Info($"发现最新版本，请前往官网下载最新版本 {webVersion}");
-                NotifierHelper.Info($"发现最新版本，请前往官网下载最新版本 {webVersion}");
+                NotifierHelper.Warning($"发现最新版本，请前往官网下载最新版本 {webVersion}");
                 return;
             }
         }

@@ -33,7 +33,7 @@ public class StringToImageSourceConverter : IValueConverter
     IMAGE:
         var bitmapImage = new BitmapImage();
         bitmapImage.BeginInit();
-        bitmapImage.DecodePixelWidth = 200;
+        //bitmapImage.DecodePixelWidth = 200;
         bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
         //bitmapImage.CreateOptions = BitmapCreateOptions.DelayCreation;
         bitmapImage.UriSource = new Uri(imgPath, UriKind.RelativeOrAbsolute);

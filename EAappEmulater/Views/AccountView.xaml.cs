@@ -60,7 +60,7 @@ public partial class AccountView : UserControl
         // 转移主程序控制权
         Application.Current.MainWindow = accountWindow;
         // 关闭主窗口
-        MainWindow.MainWindowInstance.Close();
+        MainWindow.MainWinInstance.Close();
 
         // 显示切换账号窗口
         accountWindow.Show();

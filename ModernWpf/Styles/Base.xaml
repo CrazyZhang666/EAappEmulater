@@ -12,27 +12,12 @@
     <cvt:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     <cvt:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
 
-    <Style TargetType="{x:Type ToolTip}">
-        <Setter Property="Foreground" Value="Black" />
-        <Setter Property="Background" Value="White" />
-    </Style>
+    <SolidColorBrush x:Key="Win11Blue" Color="#0078D4" />
+    <SolidColorBrush x:Key="Win11Green" Color="#107C10" />
+    <SolidColorBrush x:Key="Win11Yellow" Color="#FF8C00" />
+    <SolidColorBrush x:Key="Win11Red" Color="#DA3B01" />
+    <SolidColorBrush x:Key="Win11Gray" Color="#4C4A48" />
 
-    <Style TargetType="{x:Type Hyperlink}">
-        <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
-        <Setter Property="Foreground" Value="#1772F6" />
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="#E91E63" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style TargetType="{x:Type Image}">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Stretch" Value="UniformToFill" />
-        <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
-    </Style>
+    <SolidColorBrush x:Key="BorderColor" Color="#BBBBBB" />
 
 </ResourceDictionary>

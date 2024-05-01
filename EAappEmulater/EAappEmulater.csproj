@@ -61,6 +61,7 @@
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+        <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
         <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2478.35" />
         <PackageReference Include="NLog" Version="5.3.1" />
         <PackageReference Include="Notification.Wpf" Version="8.0.0" />

@@ -87,6 +87,7 @@
         <DockPanel Grid.Column="1">
             <StackPanel DockPanel.Dock="Bottom">
                 <ui:IconButton
+                    Padding="10"
                     Command="{Binding LoginAccountCommand}"
                     Content="登录选中账号"
                     Icon="&#xE77B;">

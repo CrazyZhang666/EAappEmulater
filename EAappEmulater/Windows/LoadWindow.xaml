@@ -73,7 +73,6 @@
                 x:Name="TextBlock_CheckState"
                 Width="280"
                 Margin="0,20,0,0"
-                FontSize="14"
                 Text="正在验证玩家账号有效性..."
                 TextAlignment="Center"
                 TextWrapping="Wrap" />

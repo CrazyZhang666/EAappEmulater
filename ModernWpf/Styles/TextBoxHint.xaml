@@ -7,8 +7,6 @@
         <ResourceDictionary Source="/ModernWpf;component/Styles/Base.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <SolidColorBrush x:Key="BorderColor" Color="#BBBBBB" />
-
     <Style TargetType="{x:Type controls:TextBoxHint}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -180,6 +178,8 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="IsReadOnly" Value="True" />
         <Setter Property="Cursor" Value="Arrow" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:TextBoxHint}">
@@ -212,8 +212,8 @@
                                     x:Name="PART_ContentHost"
                                     HorizontalAlignment="Stretch"
                                     Focusable="False"
-                                    HorizontalScrollBarVisibility="Disabled"
-                                    VerticalScrollBarVisibility="Auto" />
+                                    HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
+                                    VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}" />
                             </Grid>
                         </DockPanel>
                     </Border>

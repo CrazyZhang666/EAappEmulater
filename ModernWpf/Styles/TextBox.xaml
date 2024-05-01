@@ -1,11 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Base.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <!--  全局TextBox样式  -->
     <Style x:Key="TextBoxStyle_Base" TargetType="{x:Type TextBox}">
         <Setter Property="Margin" Value="5" />
         <Setter Property="Padding" Value="5,7,5,7" />
         <Setter Property="Background" Value="White" />
-        <Setter Property="BorderBrush" Value="#BBBBBB" />
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
@@ -47,7 +51,7 @@
         <Setter Property="Padding" Value="5" />
         <Setter Property="Opacity" Value="1" />
         <Setter Property="Background" Value="White" />
-        <Setter Property="BorderBrush" Value="#BBBBBB" />
+        <Setter Property="BorderBrush" Value="{StaticResource BorderColor}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="IsReadOnly" Value="True" />

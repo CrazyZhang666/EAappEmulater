@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace ModernWpf.Controls;
+﻿namespace ModernWpf.Controls;
 
 public class Loading : Control
 {

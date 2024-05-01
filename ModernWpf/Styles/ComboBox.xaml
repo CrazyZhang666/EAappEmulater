@@ -4,7 +4,9 @@
     xmlns:controls="clr-namespace:ModernWpf.Controls"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
-    <SolidColorBrush x:Key="BorderColor" Color="#BBBBBB" />
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Base.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="ComboxToggleButtonStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -35,7 +37,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="#76B900" />
+                            <Setter Property="BorderBrush" Value="{StaticResource Win11Blue}" />
                             <Setter Property="BorderThickness" Value="2" />
                         </Trigger>
                         <EventTrigger RoutedEvent="Checked">
@@ -185,7 +187,7 @@
                         </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="true">
+                        <Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
                             <Setter TargetName="ShadowChrome" Property="Margin" Value="0,0,5,5" />
                             <Setter TargetName="ShadowChrome" Property="Color" Value="#71000000" />
                         </Trigger>

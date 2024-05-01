@@ -9,7 +9,7 @@
     x:Name="Window_Main"
     Title="EA app 模拟器"
     Width="1000"
-    Height="600"
+    Height="650"
     MinWidth="1000"
     MinHeight="650"
     CaptionHeight="40"
@@ -154,6 +154,7 @@
             d:Visibility="Hidden"
             MaxItems="3"
             Position="BottomCenter" />
+
     </Grid>
 
 </ui:Window>

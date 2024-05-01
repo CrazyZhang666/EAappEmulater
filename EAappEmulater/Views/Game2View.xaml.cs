@@ -38,7 +38,7 @@ public partial class Game2View : UserControl
     [RelayCommand]
     private void RunGame(GameType gameType)
     {
-        Game.RunGame(gameType, "");
+        Game.RunGame(gameType);
     }
 
     [RelayCommand]
@@ -46,8 +46,11 @@ public partial class Game2View : UserControl
     {
         var advancedWindow = new AdvancedWindow(gameType)
         {
-            Owner = MainWindow.MainWindowInstance
+            Owner = MainWindow.MainWinInstance
         };
+
+        MainWindow.MainWinInstance.IsShowMaskLayer = true;
         advancedWindow.ShowDialog();
+        MainWindow.MainWinInstance.IsShowMaskLayer = false;
     }
 }

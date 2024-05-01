@@ -79,37 +79,37 @@
 
             <ui:IconHeader Title="DisplayName" DockPanel.Dock="Top" />
             <ui:TextBoxHint
-                Hint="显示选中账号DisplayName信息"
+                Hint="显示选中玩家DisplayName信息"
                 IsReadOnly="True"
                 Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.DisplayName}" />
 
             <ui:IconHeader Title="NickName" DockPanel.Dock="Top" />
             <ui:TextBoxHint
-                Hint="显示选中账号NickName信息"
+                Hint="显示选中玩家NickName信息"
                 IsReadOnly="True"
                 Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.NickName}" />
 
             <ui:IconHeader Title="PersonaId" DockPanel.Dock="Top" />
             <ui:TextBoxHint
-                Hint="显示选中账号PersonaId信息"
+                Hint="显示选中玩家PersonaId信息"
                 IsReadOnly="True"
                 Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.PersonaId}" />
 
             <ui:IconHeader Title="UserId" DockPanel.Dock="Top" />
             <ui:TextBoxHint
-                Hint="显示选中账号UserId信息"
+                Hint="显示选中玩家UserId信息"
                 IsReadOnly="True"
                 Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.UserId}" />
 
             <ui:IconHeader Title="FriendType" DockPanel.Dock="Top" />
             <ui:TextBoxHint
-                Hint="显示选中账号FriendType信息"
+                Hint="显示选中玩家FriendType信息"
                 IsReadOnly="True"
                 Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.FriendType}" />
 
             <ui:IconHeader Title="DateTime" DockPanel.Dock="Top" />
             <ui:TextBoxHint
-                Hint="显示选中账号DateTime信息"
+                Hint="显示选中玩家DateTime信息"
                 IsReadOnly="True"
                 Text="{Binding ElementName=ListBox_FriendInfo, Path=SelectedItem.DateTime}" />
 

@@ -13,8 +13,8 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Margin" Value="5" />
         <Setter Property="Padding" Value="8" />
-        <Setter Property="Foreground" Value="#000000" />
-        <Setter Property="Background" Value="#76B900" />
+        <Setter Property="Foreground" Value="#FFFFFF" />
+        <Setter Property="Background" Value="{StaticResource Win11Blue}" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="CornerRadius" Value="5" />

@@ -12,6 +12,7 @@
         <Setter Property="BorderBrush" Value="#4F4D4B" />
         <Setter Property="Background" Value="#FDFDFD" />
         <Setter Property="CaptionBackground" Value="#FAFAFA" />
+        <Setter Property="IsShowMaskLayer" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:Window}">
@@ -91,6 +92,13 @@
                                         ToolTip="关闭" />
                                 </StackPanel>
                             </Grid>
+                            <!--  遮罩层  -->
+                            <Border
+                                x:Name="MaskLayer"
+                                Grid.RowSpan="2"
+                                Background="Black"
+                                IsHitTestVisible="False"
+                                Opacity="0" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -113,6 +121,42 @@
                             <Setter TargetName="ButtonMax" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="ButtonRestore" Property="Visibility" Value="Collapsed" />
                         </Trigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsShowMaskLayer}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="MaskLayer"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="0"
+                                            To="0.5"
+                                            Duration="00:00:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseInOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="MaskLayer"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="0.5"
+                                            To="0"
+                                            Duration="00:00:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseInOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -128,6 +172,7 @@
         <Setter Property="BorderBrush" Value="#4F4D4B" />
         <Setter Property="Background" Value="#FDFDFD" />
         <Setter Property="CaptionBackground" Value="#FAFAFA" />
+        <Setter Property="IsShowMaskLayer" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:Window}">
@@ -197,6 +242,13 @@
                                         ToolTip="关闭" />
                                 </StackPanel>
                             </Grid>
+                            <!--  遮罩层  -->
+                            <Border
+                                x:Name="MaskLayer"
+                                Grid.RowSpan="2"
+                                Background="Black"
+                                IsHitTestVisible="False"
+                                Opacity="0" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -219,6 +271,42 @@
                             <Setter TargetName="ButtonMax" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="ButtonRestore" Property="Visibility" Value="Collapsed" />
                         </Trigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsShowMaskLayer}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="MaskLayer"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="0"
+                                            To="0.5"
+                                            Duration="00:00:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseInOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="MaskLayer"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="0.5"
+                                            To="0"
+                                            Duration="00:00:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseInOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -291,6 +379,12 @@
                                     PressedForeground="Black"
                                     ToolTip="关闭" />
                             </StackPanel>
+                            <!--  遮罩层  -->
+                            <Border
+                                x:Name="MaskLayer"
+                                Background="Black"
+                                IsHitTestVisible="False"
+                                Opacity="0" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -313,6 +407,42 @@
                             <Setter TargetName="ButtonMax" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="ButtonRestore" Property="Visibility" Value="Collapsed" />
                         </Trigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsShowMaskLayer}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="MaskLayer"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="0"
+                                            To="0.5"
+                                            Duration="00:00:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseInOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            BeginTime="00:00:00"
+                                            Storyboard.TargetName="MaskLayer"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="0.5"
+                                            To="0"
+                                            Duration="00:00:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase EasingMode="EaseInOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

@@ -49,8 +49,11 @@ public partial class GameView : UserControl
     {
         var advancedWindow = new AdvancedWindow(gameType)
         {
-            Owner = MainWindow.MainWindowInstance
+            Owner = MainWindow.MainWinInstance
         };
+
+        MainWindow.MainWinInstance.IsShowMaskLayer = true;
         advancedWindow.ShowDialog();
+        MainWindow.MainWinInstance.IsShowMaskLayer = false;
     }
 }

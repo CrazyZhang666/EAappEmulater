@@ -3,6 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:ModernWpf.Controls">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Base.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <Style TargetType="{x:Type controls:NavMenu}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -25,7 +29,7 @@
                                 Height="16"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Background="#3F3E3C"
+                                Background="{StaticResource Win11Blue}"
                                 Visibility="Collapsed" />
                             <controls:IconFont
                                 HorizontalAlignment="Center"

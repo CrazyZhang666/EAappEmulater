@@ -36,6 +36,17 @@ public class Window : System.Windows.Window
         DependencyProperty.Register("TitleContent", typeof(UIElement), typeof(Window), new PropertyMetadata(default));
 
     /// <summary>
+    /// 是否显示遮罩层
+    /// </summary>
+    public bool IsShowMaskLayer
+    {
+        get { return (bool)GetValue(IsShowMaskLayerProperty); }
+        set { SetValue(IsShowMaskLayerProperty, value); }
+    }
+    public static readonly DependencyProperty IsShowMaskLayerProperty =
+        DependencyProperty.Register("IsShowMaskLayer", typeof(bool), typeof(Window), new PropertyMetadata(false));
+
+    /// <summary>
     /// 窗口构造方法
     /// </summary>
     public Window()

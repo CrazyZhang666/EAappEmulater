@@ -45,7 +45,8 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
                                 Content="&#xE713;"
-                                Style="{DynamicResource ButtonStyle_OnlyIcon}" />
+                                Style="{DynamicResource ButtonStyle_OnlyIcon}"
+                                ToolTip="高级设置" />
                         </Grid>
                         <!--  已安装游戏角标识别  -->
                         <Border

@@ -68,7 +68,7 @@
                 <!--  主要功能区域  -->
                 <TabControl>
                     <!--  注册表  -->
-                    <ui:IconTabItem Header="注册表" Icon="&#xE80A;">
+                    <ui:IconTabItem Header="注册表" Icon="&#xF158;">
                         <DockPanel Margin="0,3,0,0">
                             <!--  标题  -->
                             <ui:IconHeader Title="游戏位置" DockPanel.Dock="Top" />
@@ -103,7 +103,7 @@
                                     Command="{Binding SelcetFilePathCommand}"
                                     Content="浏览"
                                     DockPanel.Dock="Right"
-                                    Icon="&#xE721;" />
+                                    Icon="&#xE71E;" />
                                 <ui:TextBoxHint
                                     Hint="请选择游戏安装目录主程序exe文件位置"
                                     Icon="&#xE838;"
@@ -153,7 +153,8 @@
                                         Width="28"
                                         Height="21"
                                         Margin="0,0,8,0"
-                                        Source="{Binding Image}" />
+                                        Source="{Binding Image}"
+                                        Stretch="Uniform" />
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         Text="{Binding Name}"

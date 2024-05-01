@@ -64,11 +64,8 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Visibility="Visible">
-            <ui:Loading Background="#235FE3" />
-            <TextBlock
-                Margin="0,20,0,0"
-                FontSize="14"
-                Text="正在加载登录页面..." />
+            <ui:Loading />
+            <TextBlock Margin="0,20,0,0" Text="正在加载登录页面..." />
         </StackPanel>
     </Grid>
 

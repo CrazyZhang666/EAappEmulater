@@ -19,6 +19,9 @@ public partial class LogView : UserControl
         InitializeComponent();
 
         ToDoList();
+
+        // 每次加载控件时，日志滚动最后一行
+        this.Loaded += (s, e) => { ScrollToLast(); };
     }
 
     private void ToDoList()
