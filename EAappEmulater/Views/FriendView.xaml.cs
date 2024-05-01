@@ -12,7 +12,7 @@ public partial class FriendView : UserControl
 {
     public ObservableCollection<FriendInfo> ObsCol_FriendInfos { get; set; } = new();
 
-    private readonly List<FriendInfo> _friendInfoList = new();
+    private List<FriendInfo> _friendInfoList = new();
 
     public FriendView()
     {
@@ -26,64 +26,73 @@ public partial class FriendView : UserControl
         Globals.IsGetFriendsSuccess = false;
         Globals.FriendsXmlString = string.Empty;
 
-        LoggerHelper.Info("正在获取当前登录账号玩家列表中...");
+        LoggerHelper.Info("正在获取当前账号好友列表中...");
 
-        // 最多执行4次
-        for (int i = 0; i <= 4; i++)
+        try
         {
-            // 当第4次还是失败，终止程序
-            if (i > 3)
+            // 最多执行4次
+            for (int i = 0; i <= 4; i++)
             {
-                LoggerHelper.Error("获取当前登录玩家列表失败，请检查网络连接");
-                return;
-            }
-
-            // 第1次不提示重试
-            if (i > 0)
-            {
-                LoggerHelper.Info($"获取当前登录玩家列表，开始第 {i} 次重试中...");
-            }
-
-            var friends = await EasyEaApi.GetUserFriends();
-            if (friends is not null)
-            {
-                LoggerHelper.Info("获取当前登录玩家列表成功");
-
-                foreach (var entry in friends.entries)
+                // 当第4次还是失败，终止程序
+                if (i > 3)
                 {
-                    _friendInfoList.Add(new()
+                    LoggerHelper.Error("获取当前账号好友列表失败，请检查网络连接");
+                    return;
+                }
+
+                // 第1次不提示重试
+                if (i > 0)
+                {
+                    LoggerHelper.Info($"获取当前账号好友列表，开始第 {i} 次重试中...");
+                }
+
+                var friends = await EasyEaApi.GetUserFriends();
+                if (friends is not null)
+                {
+                    LoggerHelper.Info("获取当前账号好友列表成功");
+                    LoggerHelper.Info($"当前账号好友数量为 {friends.entries.Count}");
+
+                    foreach (var entry in friends.entries)
                     {
-                        Avatar = "Default",
-                        DiffDays = CoreUtil.GetDiffDays(entry.timestamp),
+                        _friendInfoList.Add(new()
+                        {
+                            Avatar = "Default",
+                            DiffDays = CoreUtil.GetDiffDays(entry.timestamp),
 
-                        DisplayName = entry.displayName,
-                        NickName = entry.nickName,
-                        UserId = entry.userId,
-                        PersonaId = entry.personaId,
-                        FriendType = entry.friendType,
-                        DateTime = CoreUtil.TimestampToDataTimeString(entry.timestamp)
-                    });
+                            DisplayName = entry.displayName ?? string.Empty,
+                            NickName = entry.nickName,
+                            UserId = entry.userId,
+                            PersonaId = entry.personaId,
+                            FriendType = entry.friendType,
+                            DateTime = CoreUtil.TimestampToDataTimeString(entry.timestamp)
+                        });
+                    }
+
+                    // 升序排序
+                    // 如果 DisplayName 为 null 或者 其他国家字符，则可能会抛出异常
+                    _friendInfoList = _friendInfoList.OrderBy(p => p.DisplayName, StringComparer.InvariantCulture).ToList();
+
+                    var index = 0;
+                    foreach (var friendInfo in _friendInfoList)
+                    {
+                        friendInfo.Index = ++index;
+                        ObsCol_FriendInfos.Add(friendInfo);
+                    }
+
+                    // 选中第一个
+                    if (ObsCol_FriendInfos.Count != 0)
+                        ListBox_FriendInfo.SelectedIndex = 0;
+
+                    // 生成好友列表字符串
+                    GenerateXmlString();
+
+                    break;
                 }
-
-                // 升序排序
-                _friendInfoList.Sort((x, y) => x.DisplayName.CompareTo(y.DisplayName));
-
-                var index = 0;
-                foreach (var friendInfo in _friendInfoList)
-                {
-                    friendInfo.Index = ++index;
-                    ObsCol_FriendInfos.Add(friendInfo);
-                }
-
-                // 选中第一个
-                if (ObsCol_FriendInfos.Count != 0)
-                    ListBox_FriendInfo.SelectedIndex = 0;
-
-                // 生成玩家列表字符串
-                GenerateXmlString();
-
-                break;
             }
+        }
+        catch (Exception ex)
+        {
+            LoggerHelper.Error("获取当前账号好友列表发生异常", ex);
         }
     }
 
