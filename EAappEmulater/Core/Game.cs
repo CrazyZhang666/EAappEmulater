@@ -113,7 +113,21 @@ public static class Game
             if (gameInfo.IsOldLSX)
                 BattlelogHttpServer.BattlelogType = BattlelogType.BFH;
             else
-                BattlelogHttpServer.BattlelogType = BattlelogType.None;
+                switch (gameType)
+                {
+                    case GameType.BF3:
+                        BattlelogHttpServer.BattlelogType = BattlelogType.BF3;
+                        break;
+                    case GameType.BF4:
+                        BattlelogHttpServer.BattlelogType = BattlelogType.BF4;
+                        break;
+                    case GameType.BFH:
+                        BattlelogHttpServer.BattlelogType = BattlelogType.BFH;
+                        break;
+                    default:
+                        BattlelogHttpServer.BattlelogType = BattlelogType.None;
+                        break;
+                }
 
             LoggerHelper.Info($"{gameInfo.Name} 正在启动游戏中...");
             if (isNotice)
