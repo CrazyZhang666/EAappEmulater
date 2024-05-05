@@ -29,9 +29,6 @@ public static class Ready
 
     public static async void Stop()
     {
-        // 保存配置文件
-        Globals.Write();
-
         LoggerHelper.Info("正在关闭 Local UDP 监听服务...");
         LocalUdpClient.Stop();
 

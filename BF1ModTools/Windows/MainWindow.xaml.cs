@@ -25,6 +25,9 @@ public partial class MainWindow
 
         Title = $"战地1模组工具箱 v{CoreUtil.VersionInfo}";
 
+        // 读取配置文件
+        await Globals.Read();
+
         // 初始化工作
         Ready.Run();
 
@@ -39,6 +42,9 @@ public partial class MainWindow
     {
         // 清理工作
         Ready.Stop();
+
+        // 保存配置文件
+        Globals.Write();
 
         LoggerHelper.Info("关闭主程序成功");
     }
