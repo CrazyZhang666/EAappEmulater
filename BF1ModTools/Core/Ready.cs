@@ -68,7 +68,7 @@ public static class Ready
                 LoggerHelper.Warn($"定时刷新 BaseToken 数据失败，开始第 {i} 次重试中...");
             }
 
-            if (await RefreshBaseTokens())
+            if (await RefreshBaseTokens(false))
             {
                 LoggerHelper.Info("定时刷新 BaseToken 数据成功");
                 break;
@@ -80,31 +80,45 @@ public static class Ready
     /// 非常重要，Api请求前置条件
     /// 刷新基础请求必备Token (多个)
     /// </summary>
-    public static async Task<bool> RefreshBaseTokens()
+    public static async Task<bool> RefreshBaseTokens(bool isInit = true)
     {
-        var result = await EaApi.GetToken();
-        if (!result.IsSuccess)
+        // 根据情况刷新 Access Token
+        if (!isInit)
         {
-            LoggerHelper.Warn("刷新 Token 失败");
-            return false;
+            // 如果是初始化，则这一步可以省略（因为重复了）
+            // 但是定时刷新还是需要（因为有效期只有4小时）
+            var result = await EaApi.GetToken();
+            if (!result.IsSuccess)
+            {
+                LoggerHelper.Warn("刷新 Token 失败");
+                return false;
+            }
+            LoggerHelper.Info("刷新 Token 成功");
         }
-        LoggerHelper.Info("刷新 Token 成功");
 
-        result = await EaApi.GetOriginPCAuth();
-        if (!result.IsSuccess)
-        {
-            LoggerHelper.Warn("刷新 OriginPCAuth 失败");
-            return false;
-        }
-        LoggerHelper.Info("刷新 OriginPCAuth 成功");
+        //////////////////////////////////////
 
-        result = await EaApi.GetOriginPCToken();
-        if (!result.IsSuccess)
+        // 刷新 OriginPCAuth
         {
-            LoggerHelper.Warn("刷新 OriginPCToken 失败");
-            return false;
+            var result = await EaApi.GetOriginPCAuth();
+            if (!result.IsSuccess)
+            {
+                LoggerHelper.Warn("刷新 OriginPCAuth 失败");
+                return false;
+            }
+            LoggerHelper.Info("刷新 OriginPCAuth 成功");
         }
-        LoggerHelper.Info("刷新 OriginPCToken 成功");
+
+        // OriginPCToken
+        {
+            var result = await EaApi.GetOriginPCToken();
+            if (!result.IsSuccess)
+            {
+                LoggerHelper.Warn("刷新 OriginPCToken 失败");
+                return false;
+            }
+            LoggerHelper.Info("刷新 OriginPCToken 成功");
+        }
 
         return true;
     }

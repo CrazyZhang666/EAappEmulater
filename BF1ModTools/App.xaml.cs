@@ -24,6 +24,13 @@ public partial class App : Application
     {
         LoggerHelper.Info($"欢迎使用 {AppName} 程序");
 
+        // 注册异常捕获
+        RegisterEvents();
+        // 注册编码
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        //////////////////////////////////////////////////////
+
         AppMainMutex = new Mutex(true, AppName, out var createdNew);
         if (!createdNew)
         {
@@ -33,7 +40,7 @@ public partial class App : Application
             return;
         }
 
-        //////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////
 
         LoggerHelper.Info("正在进行工具箱压缩包内运行检测中...");
         if (CoreUtil.IsRunInTempPath())
@@ -100,14 +107,9 @@ public partial class App : Application
             Current.Shutdown();
             return;
         }
-        LoggerHelper.Info("工具箱管理员正常");
+        LoggerHelper.Info("工具箱管理员权限正常");
 
-        //////////////////////////////////////////////////////////////////////////////////
-
-        // 注册异常捕获
-        RegisterEvents();
-        // 注册编码
-        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        //////////////////////////////////////////////////////
 
         base.OnStartup(e);
     }
@@ -128,7 +130,7 @@ public partial class App : Application
     private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
         var msg = GetExceptionInfo(e.Exception, e.ToString());
-        CoreUtil.SaveCrashLog(msg);
+        SaveCrashLog(msg);
     }
 
     /// <summary>
@@ -137,7 +139,7 @@ public partial class App : Application
     private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
         var msg = GetExceptionInfo(e.ExceptionObject as Exception, e.ToString());
-        CoreUtil.SaveCrashLog(msg);
+        SaveCrashLog(msg);
     }
 
     /// <summary>
@@ -146,7 +148,7 @@ public partial class App : Application
     private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
     {
         var msg = GetExceptionInfo(e.Exception, e.ToString());
-        CoreUtil.SaveCrashLog(msg);
+        SaveCrashLog(msg);
     }
 
     /// <summary>
@@ -179,5 +181,18 @@ public partial class App : Application
         }
 
         return builder.ToString();
+    }
+
+    /// <summary>
+    /// 保存崩溃日志
+    /// </summary>
+    private void SaveCrashLog(string log)
+    {
+        try
+        {
+            var path = Path.Combine(CoreUtil.Dir_Log_Crash, $"CrashReport-{DateTime.Now:yyyyMMdd_HHmmss_ffff}.log");
+            File.WriteAllText(path, log);
+        }
+        catch { }
     }
 }

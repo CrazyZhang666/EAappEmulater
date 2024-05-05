@@ -16,7 +16,7 @@ public static class NotifierHelper
         NotificationConstants.NotificationsOverlayWindowMaxCount = 3;
         NotificationConstants.MessagePosition = NotificationPosition.BottomCenter;
 
-        NotificationConstants.MinWidth = 350.0;
+        NotificationConstants.MinWidth = 360.0;
         NotificationConstants.MaxWidth = NotificationConstants.MinWidth;
 
         NotificationConstants.FontName = "微软雅黑";
@@ -26,12 +26,12 @@ public static class NotifierHelper
         NotificationConstants.TitleTextAlignment = TextAlignment.Left;
 
         NotificationConstants.DefaultForegroundColor = (Brush)new BrushConverter().ConvertFrom("#FFFFFF");
-        NotificationConstants.DefaultBackgroundColor = (Brush)new BrushConverter().ConvertFrom("#444444");
+        NotificationConstants.DefaultBackgroundColor = (Brush)new BrushConverter().ConvertFrom("#4C4A48");
 
-        NotificationConstants.InformationBackgroundColor = (Brush)new BrushConverter().ConvertFrom("#409EFF");
-        NotificationConstants.SuccessBackgroundColor = (Brush)new BrushConverter().ConvertFrom("#67C23A");
-        NotificationConstants.WarningBackgroundColor = (Brush)new BrushConverter().ConvertFrom("#E6A23C");
-        NotificationConstants.ErrorBackgroundColor = (Brush)new BrushConverter().ConvertFrom("#F56C6C");
+        NotificationConstants.InformationBackgroundColor = (Brush)new BrushConverter().ConvertFrom("#0078D4");
+        NotificationConstants.SuccessBackgroundColor = (Brush)new BrushConverter().ConvertFrom("#107C10");
+        NotificationConstants.WarningBackgroundColor = (Brush)new BrushConverter().ConvertFrom("#FF8C00");
+        NotificationConstants.ErrorBackgroundColor = (Brush)new BrushConverter().ConvertFrom("#DA3B01");
     }
 
     /// <summary>

@@ -203,6 +203,9 @@ public static class EaCrypto
     /// </summary>
     public static string LSXDecryptBF4(string data, ushort seed)
     {
+        if (string.IsNullOrWhiteSpace(data))
+            return string.Empty;
+
         var key = GetLSXKey(seed);
         var aes = GetAesByKey(key);
 
@@ -216,6 +219,9 @@ public static class EaCrypto
     /// </summary>
     public static string LSXEncryptBF4(string data, ushort seed)
     {
+        if (string.IsNullOrWhiteSpace(data))
+            return string.Empty;
+
         var key = GetLSXKey(seed);
         var aes = GetAesByKey(key);
 

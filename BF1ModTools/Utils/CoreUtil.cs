@@ -256,17 +256,4 @@ public static class CoreUtil
         NotifierHelper.Warning($"战地1游戏主程序路径无效，请重新选择");
         return false;
     }
-
-    /// <summary>
-    /// 保存崩溃日志
-    /// </summary>
-    public static void SaveCrashLog(string log)
-    {
-        try
-        {
-            var path = Path.Combine(Dir_Log_Crash, $"CrashReport-{DateTime.Now:yyyyMMdd_HHmmss_ffff}.log");
-            File.WriteAllText(path, log);
-        }
-        catch { }
-    }
 }

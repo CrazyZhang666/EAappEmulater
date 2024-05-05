@@ -6,7 +6,6 @@ namespace BF1ModTools.Core;
 public static class LSXTcpServer
 {
     private static TcpListener _tcpServer = null;
-    private static bool _isRunning = true;
 
     private static readonly List<string> ScoketMsgBFV = new();
 
@@ -46,14 +45,7 @@ public static class LSXTcpServer
         LoggerHelper.Info("启动 LSX 监听服务成功");
         LoggerHelper.Debug("LSX 服务监听端口为 3216");
 
-        // 注意线程释放问题，避免重复创建
-        _isRunning = true;
-        new Thread(ListenerLocal3216Thread)
-        {
-            Name = "ListenerLocal3216Thread",
-            IsBackground = true
-        }.Start();
-        LoggerHelper.Info("启动 LSX 监听服务线程成功");
+        _tcpServer.BeginAcceptTcpClient(Result, null);
     }
 
     /// <summary>
@@ -61,9 +53,6 @@ public static class LSXTcpServer
     /// </summary>
     public static void Stop()
     {
-        _isRunning = false;
-        LoggerHelper.Info("停止 LSX 监听服务线程成功");
-
         _tcpServer?.Stop();
         _tcpServer = null;
         LoggerHelper.Info("停止 LSX 监听服务成功");
@@ -78,45 +67,46 @@ public static class LSXTcpServer
     }
 
     /// <summary>
-    /// 监听本地端口3216线程
+    /// 处理TCP客户端连接
     /// </summary>
-    private static async void ListenerLocal3216Thread()
+    private static async void Result(IAsyncResult asyncResult)
     {
-        try
-        {
-            while (_isRunning)
-            {
-                if (_tcpServer is null)
-                    return;
+        // 避免服务关闭时抛出异常
+        if (_tcpServer is null)
+            return;
 
-                var client = await _tcpServer.AcceptTcpClientAsync();
-                LoggerHelper.Debug($"发现 TCP 客户端连接 {client.Client.RemoteEndPoint}");
-                TcpClient3216Handler(client);
-            }
-        }
-        catch (Exception ex)
-        {
-            LoggerHelper.Error("监听 TCP 客户端连接发生异常", ex);
-        }
-    }
+        // 完成检索传入的客户端请求的异步操作
+        var client = _tcpServer.EndAcceptTcpClient(asyncResult);
+        // 开始异步检索传入的请求（下一个请求）
+        _tcpServer.BeginAcceptTcpClient(Result, null);
 
-    /// <summary>
-    /// 处理本地端口3216客户端连接
-    /// </summary>
-    private static async void TcpClient3216Handler(TcpClient client)
-    {
-        // 建立和连接的客户端的数据流（传输数据）
-        var networkStream = client.GetStream();
+        // 保存客户端连接Ip和地址
+        var clientIp = string.Empty;
 
         try
         {
+            // 如果连接断开，则结束
+            if (!client.Connected)
+                return;
+
+            clientIp = client.Client.RemoteEndPoint.ToString();
+            LoggerHelper.Debug($"发现 TCP 客户端连接 {clientIp}");
+
+            /////////////////////////////////////////////////
+
+            // 建立和连接的客户端的数据流（传输数据）
+            var networkStream = client.GetStream();
+            // 设置读写超时时间为 3600 秒
+            networkStream.ReadTimeout = 3600000;
+            networkStream.WriteTimeout = 3600000;
+
             var startKey = "cacf897a20b6d612ad0c05e011df52bb";
             var buffer = Encoding.UTF8.GetBytes(ScoketMsgBFV[0].Replace("##KEY##", startKey));
 
             // 异步写入网络流
             await networkStream.WriteAsync(buffer);
 
-            var tcpString = await ReadTcpString(networkStream);
+            var tcpString = await ReadTcpString(client, networkStream);
             var partArray = tcpString.Split('\"');
 
             // 适配FC24
@@ -152,19 +142,24 @@ public static class LSXTcpServer
             // 异步写入网络流
             await networkStream.WriteAsync(buffer);
 
-            while (_isRunning)
+            // 这里死循环要注意
+            // 仅客户端已连接时运行
+            while (client.Connected)
             {
                 try
                 {
-                    var data = await ReadTcpString(networkStream);
+                    var data = await ReadTcpString(client, networkStream);
                     data = EaCrypto.LSXDecryptBF4(data, seed);
+
                     data = await LSXRequestHandleForBFV(data, contentId);
+                    LoggerHelper.Debug($"当前 LSX 回复 {data}");
+
                     data = EaCrypto.LSXEncryptBF4(data, seed);
-                    await WriteTcpString(networkStream, $"{data}\0");
+                    await WriteTcpString(client, networkStream, $"{data}\0");
                 }
                 catch (TimeoutException ex)
                 {
-                    LoggerHelper.Error("处理 TCP Battlelog 客户端连接发生异常", ex);
+                    LoggerHelper.Error("处理 TCP Battlelog 客户端连接发生超时异常", ex);
                 }
             }
         }
@@ -175,54 +170,61 @@ public static class LSXTcpServer
         finally
         {
             client.Close();
+            LoggerHelper.Debug($"TCP 客户端连接处理结束 {clientIp}");
         }
     }
 
     /// <summary>
     /// 异步读取 TCP 网络流字符串
     /// </summary>
-    private static async Task<string> ReadTcpString(NetworkStream stream)
+    private static async Task<string> ReadTcpString(TcpClient client, NetworkStream stream)
     {
-        var strBuilder = new StringBuilder();
+        // 如果客户端连接断开，则返回空字符串
+        if (!client.Connected)
+            return string.Empty;
 
-        // 缓冲区
-        var buffer = new byte[81920];
-        // 实际读取的长度
-        int readCount;
+        /**
+         * 以异步的方式模拟 NetworkStream.ReadByte()
+         * 为了修复傻逼重生家游戏只能这样干，重生你妈死了
+         */
+
+        var strBuilder = new StringBuilder();
+        var buffer = new byte[1];       // 单字节缓冲区
+        int readLength;                 // 实际读取的长度
 
         try
         {
-            while ((readCount = await stream.ReadAsync(buffer)) != 0)
+            // 读取长度大于0时才执行
+            // 当游戏关闭时，这个会发生异常（远程主机强迫关闭了一个现有的连接）
+            while ((readLength = await stream.ReadAsync(buffer)) > 0)
             {
-                // 将读取的字节流转化为字符串
-                var partStr = Encoding.UTF8.GetString(buffer, 0, readCount);
-                // 检查读取的字符串是否有结束符，并得到其位置
-                var endIndex = partStr.IndexOf('\0');
-                if (endIndex != -1)
-                {
-                    // 如果找到结束符，追加结束符前面的字符串，然后跳出循环
-                    strBuilder.Append(partStr, 0, endIndex);
+                var b = buffer[0];
+                if (b == 0)             // 结束符
                     break;
-                }
-                strBuilder.Append(partStr);
+
+                strBuilder.Append((char)b);
             }
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error("异步读取网络流 TCP 字符串发生异常", ex);
+            // 异常处理
+            LoggerHelper.Error("异步读取 TCP 字符串时发生异常", ex);
         }
 
-        var data = strBuilder.ToString();
-        LoggerHelper.Debug($"异步读取 TCP 网络流字符串 {data}");
-
-        return data;
+        return strBuilder.ToString();
     }
 
     /// <summary>
     /// 异步写入 TCP 网络流字符串
     /// </summary>
-    private static async Task WriteTcpString(NetworkStream stream, string tcpStr)
+    private static async Task WriteTcpString(TcpClient client, NetworkStream stream, string tcpStr)
     {
+        // 如果客户端连接断开，则结束
+        if (!client.Connected)
+            return;
+
+        // 这个不要用 try catch 捕获异常
+        // 主要是为了避免死循环无限执行（使用异常来中断死循环）
         var buffer = Encoding.UTF8.GetBytes(tcpStr);
         await stream.WriteAsync(buffer);
     }
@@ -232,30 +234,27 @@ public static class LSXTcpServer
     /// </summary>
     private static async Task<string> LSXRequestHandleForBFV(string request, string contentid)
     {
-        LoggerHelper.Debug($"BFV LSX 请求 Request {request}");
-
         if (string.IsNullOrWhiteSpace(request))
             return string.Empty;
 
+        LoggerHelper.Debug($"BFV LSX 请求 Request {request}");
+
         var partArray = request.Split('\"');
-        if (partArray.Length < 5)
-            return string.Empty;
+        LoggerHelper.Debug($"BFV LSX 请求 partArray 长度 {partArray.Length}");
 
         var id = partArray[3];
         var requestType = partArray[4];
-        var settingId = partArray[5];
 
         LoggerHelper.Debug($"BFV LSX 请求 Id {id}");
         LoggerHelper.Debug($"BFV LSX 请求 RequestType {requestType}");
-        LoggerHelper.Debug($"BFV LSX 请求 SettingId {settingId}");
 
         return requestType switch
         {
             "><GetConfig version=" => ScoketMsgBFV[2].Replace("##ID##", id),
-            "><GetAuthCode ClientId=" => ScoketMsgBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(settingId)),
+            "><GetAuthCode ClientId=" => ScoketMsgBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(partArray[5])),
             "><GetAuthCode UserId=" => ScoketMsgBFV[3].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode(partArray[7])),
             "><GetBlockList version=" => ScoketMsgBFV[4].Replace("##ID##", id),
-            "><GetGameInfo GameInfoId=" => settingId switch
+            "><GetGameInfo GameInfoId=" => partArray[5] switch
             {
                 "FREETRIAL" => ScoketMsgBFV[19].Replace("##ID##", id),
                 "UPTODATE" => ScoketMsgBFV[20].Replace("##ID##", id),
@@ -265,7 +264,7 @@ public static class LSXTcpServer
             "><GetPresence UserId=" => ScoketMsgBFV[7].Replace("##ID##", id),
             "><GetProfile index=" => ScoketMsgBFV[8].Replace("##ID##", id).Replace("##PID##", "1515810").Replace("##DSNM##", Account.PlayerName),
             "><RequestLicense UserId=" => ScoketMsgBFV[15].Replace("##ID##", id).Replace("##License##", await EasyEaApi.GetLSXLicense(partArray[7], contentid)),
-            "><GetSetting SettingId=" => settingId switch
+            "><GetSetting SettingId=" => partArray[5] switch
             {
                 "ENVIRONMENT" => ScoketMsgBFV[9].Replace("##ID##", id),
                 "IS_IGO_AVAILABLE" => ScoketMsgBFV[10].Replace("##ID##", id),
@@ -273,7 +272,7 @@ public static class LSXTcpServer
                 _ => string.Empty,
             },
             "><QueryFriends UserId=" => GetFriendsXmlString().Replace("##ID##", id),
-            "><QueryImage ImageId=" => ScoketMsgBFV[12].Replace("##ID##", id).Replace("##ImageId##", settingId).Replace("##Width##", partArray[7]),
+            "><QueryImage ImageId=" => ScoketMsgBFV[12].Replace("##ID##", id).Replace("##ImageId##", partArray[5]).Replace("##Width##", partArray[7]),
             "><QueryPresence UserId=" => ScoketMsgBFV[13].Replace("##ID##", id),
             "><SetPresence UserId=" => ScoketMsgBFV[14].Replace("##ID##", id),
             "><GetAllGameInfo version=" => ScoketMsgBFV[16].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}"),

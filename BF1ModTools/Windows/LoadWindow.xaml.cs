@@ -2,8 +2,10 @@
 using BF1ModTools.Core;
 using BF1ModTools.Utils;
 using BF1ModTools.Helper;
+using RestSharp;
+using CommunityToolkit.Mvvm.Input;
 
-namespace BF1ModTools;
+namespace BF1ModTools.Windows;
 
 /// <summary>
 /// LoadWindow.xaml 的交互逻辑
@@ -27,30 +29,10 @@ public partial class LoadWindow
     /// </summary>
     private async void Window_Load_ContentRendered(object sender, EventArgs e)
     {
+        // 读取账号配置文件
+        Account.Read();
         // 开始验证Cookie有效性
-        if (await CheckCookie())
-        {
-            // 如果Cookie有效，则开始初始化
-            await InitGameInfo();
-            return;
-        }
-        else
-        {
-            // 否则开始跳转登录窗口
-            // 由于只是更新Cookie，所以不需要清理缓存
-            var loginWindow = new LoginWindow
-            {
-                IsLogout = false
-            };
-
-            // 转移主程序控制权
-            Application.Current.MainWindow = loginWindow;
-            // 关闭初始化窗口
-            this.Close();
-
-            // 显示初始化窗口
-            loginWindow.Show();
-        }
+        await CheckCookie();
     }
 
     /// <summary>
@@ -71,24 +53,55 @@ public partial class LoadWindow
     /// <summary>
     /// 检查Cookie信息
     /// </summary>
-    private async Task<bool> CheckCookie()
+    private async Task CheckCookie()
     {
-        LoggerHelper.Info("开始初始化游戏信息...");
-
-        // 先读取配置文件
-        await Globals.Read();
-
         DisplayLoadState("正在检测玩家 Cookie 有效性...");
         LoggerHelper.Info("正在检测玩家 Cookie 有效性...");
-        if (!await EasyEaApi.IsValidCookie())
+
+        // 最多执行4次
+        for (int i = 0; i <= 4; i++)
         {
-            LoggerHelper.Warn("玩家 Cookie 无效，准备跳转登录界面");
-            return false;
+            // 当第4次还是失败，终止程序
+            if (i > 3)
+            {
+                Loading_Normal.Visibility = Visibility.Collapsed;
+                IconFont_NetworkError.Visibility = Visibility.Visible;
+                DisplayLoadState("检测玩家 Cookie 有效性失败，程序终止，请检查网络连接");
+                LoggerHelper.Error("检测玩家 Cookie 有效性失败，程序终止，请检查网络连接");
+                return;
+            }
+
+            // 第1次不提示重试
+            if (i > 0)
+            {
+                DisplayLoadState($"检测玩家 Cookie 有效性失败，开始第 {i} 次重试中...");
+                LoggerHelper.Warn($"检测玩家 Cookie 有效性失败，开始第 {i} 次重试中...");
+            }
+
+            var result = await EaApi.GetToken();
+            // 代表请求完成，排除超时情况
+            if (result.StatusText == ResponseStatus.Completed)
+            {
+                if (result.IsSuccess)
+                {
+                    LoggerHelper.Info("检测玩家 Cookie 有效性成功");
+                    LoggerHelper.Info("玩家 Cookie 有效");
+
+                    // 如果Cookie有效，则开始初始化
+                    await InitGameInfo();
+
+                    return;
+                }
+                else
+                {
+                    Loading_Normal.Visibility = Visibility.Collapsed;
+                    IconFont_NetworkError.Visibility = Visibility.Visible;
+                    DisplayLoadState("玩家 Cookie 无效，程序终止，请手动更新 Cookie");
+                    LoggerHelper.Error("玩家 Cookie 无效，程序终止，请手动更新 Cookie");
+                    return;
+                }
+            }
         }
-
-        LoggerHelper.Info("玩家 Cookie 有效");
-
-        return true;
     }
 
     /// <summary>
@@ -96,6 +109,8 @@ public partial class LoadWindow
     /// </summary>
     private async Task InitGameInfo()
     {
+        LoggerHelper.Info("开始初始化游戏信息...");
+
         // 关闭服务进程
         await CoreUtil.CloseServiceProcess();
 
@@ -115,7 +130,7 @@ public partial class LoadWindow
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
-                Loading_Normal.Visibility = Visibility.Hidden;
+                Loading_Normal.Visibility = Visibility.Collapsed;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
                 DisplayLoadState("刷新 BaseToken 数据失败，程序终止，请检查网络连接");
                 LoggerHelper.Error("刷新 BaseToken 数据失败，程序终止，请检查网络连接");
@@ -145,7 +160,7 @@ public partial class LoadWindow
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
-                Loading_Normal.Visibility = Visibility.Hidden;
+                Loading_Normal.Visibility = Visibility.Collapsed;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
                 DisplayLoadState("获取玩家账号信息失败，程序终止，请检查网络连接");
                 LoggerHelper.Error("获取玩家账号信息失败，程序终止，请检查网络连接");
@@ -168,8 +183,8 @@ public partial class LoadWindow
 
         /////////////////////////////////////////////////
 
-        // 保存新数据，防止丢失
-        Globals.Write();
+        // 保存账号配置文件
+        Account.Write();
 
         DisplayLoadState("初始化完成，开始启动主程序...");
         LoggerHelper.Info("初始化完成，开始启动主程序...");
@@ -183,5 +198,40 @@ public partial class LoadWindow
 
         // 显示主窗口
         mainWindow.Show();
+    }
+
+    /// <summary>
+    /// 打开配置文件
+    /// </summary>
+    [RelayCommand]
+    private void OpenConfigFolder()
+    {
+        ProcessHelper.OpenDirectory(CoreUtil.Dir_Default);
+    }
+
+    /// <summary>
+    /// 打开账号切换窗口
+    /// </summary>
+    [RelayCommand]
+    private void RunAccountWindow()
+    {
+        var accountWindow = new AccountWindow();
+
+        // 转移主程序控制权
+        Application.Current.MainWindow = accountWindow;
+        // 关闭当前窗口
+        this.Close();
+
+        // 显示切换账号窗口
+        accountWindow.Show();
+    }
+
+    /// <summary>
+    /// 退出程序
+    /// </summary>
+    [RelayCommand]
+    private void ExitApplication()
+    {
+        Application.Current.Shutdown();
     }
 }

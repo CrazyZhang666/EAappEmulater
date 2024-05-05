@@ -80,14 +80,15 @@ public static class EaApi
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
 
+            respResult.StatusText = response.ResponseStatus;
+            respResult.StatusCode = response.StatusCode;
+            respResult.Content = response.Content;
+
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
                 LoggerHelper.Info($"{respResult.ApiName} 请求超时");
                 return respResult;
             }
-
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
 
             if (response.Content.Contains("error_code", StringComparison.OrdinalIgnoreCase))
             {
@@ -148,14 +149,15 @@ public static class EaApi
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
 
+            respResult.StatusText = response.ResponseStatus;
+            respResult.StatusCode = response.StatusCode;
+            respResult.Content = response.Content;
+
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
                 LoggerHelper.Info($"{respResult.ApiName} 请求超时");
                 return respResult;
             }
-
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -216,14 +218,15 @@ public static class EaApi
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
 
+            respResult.StatusText = response.ResponseStatus;
+            respResult.StatusCode = response.StatusCode;
+            respResult.Content = response.Content;
+
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
                 LoggerHelper.Info($"{respResult.ApiName} 请求超时");
                 return respResult;
             }
-
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
 
             if (response.StatusCode == HttpStatusCode.Redirect)
             {
@@ -298,14 +301,15 @@ public static class EaApi
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
 
+            respResult.StatusText = response.ResponseStatus;
+            respResult.StatusCode = response.StatusCode;
+            respResult.Content = response.Content;
+
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
                 LoggerHelper.Info($"{respResult.ApiName} 请求超时");
                 return respResult;
             }
-
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -375,14 +379,15 @@ public static class EaApi
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
 
+            respResult.StatusText = response.ResponseStatus;
+            respResult.StatusCode = response.StatusCode;
+            respResult.Content = response.Content;
+
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
                 LoggerHelper.Info($"{respResult.ApiName} 请求超时");
                 return respResult;
             }
-
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -462,14 +467,15 @@ public static class EaApi
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
             LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
 
+            respResult.StatusText = response.ResponseStatus;
+            respResult.StatusCode = response.StatusCode;
+            respResult.Content = response.Content;
+
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
                 LoggerHelper.Info($"{respResult.ApiName} 请求超时");
                 return respResult;
             }
-
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
 
             if (response.StatusCode == HttpStatusCode.Redirect)
             {

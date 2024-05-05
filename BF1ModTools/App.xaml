@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     ShutdownMode="OnMainWindowClose"
-    StartupUri="LoadWindow.xaml">
+    StartupUri="/Windows/AccountWindow.xaml">
 
     <Application.Resources>
         <ResourceDictionary>

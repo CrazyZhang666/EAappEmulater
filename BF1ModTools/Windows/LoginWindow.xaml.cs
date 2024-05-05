@@ -2,8 +2,9 @@
 using BF1ModTools.Utils;
 using BF1ModTools.Helper;
 using Microsoft.Web.WebView2.Core;
+using CommunityToolkit.Mvvm.Input;
 
-namespace BF1ModTools;
+namespace BF1ModTools.Windows;
 
 /// <summary>
 /// LoginWindow.xaml 的交互逻辑
@@ -12,14 +13,21 @@ public partial class LoginWindow
 {
     private const string _host = "https://accounts.ea.com/connect/auth?client_id=sparta-backend-as-user-pc&response_type=code&release_type=none";
 
-    /// <summary>
-    /// 是否登出当前账号（用于切换新账号使用）
-    /// </summary>
-    public bool IsLogout { get; set; } = false;
+    /**
+     * 2024/04/29
+     * 关于 WebView2 第一次加载设置 Visibility 不可见会导致短暂白屏
+     * https://github.com/MicrosoftEdge/WebView2Feedback/issues/3707#issuecomment-1679440957
+     */
 
-    public LoginWindow()
+    /// <summary>
+    /// 是否清理缓存（用于切换新账号使用）
+    /// </summary>
+    private readonly bool _isClear;
+
+    public LoginWindow(bool isClear)
     {
         InitializeComponent();
+        this._isClear = isClear;
     }
 
     /// <summary>
@@ -42,7 +50,19 @@ public partial class LoginWindow
     /// </summary>
     private void Window_Login_Closing(object sender, CancelEventArgs e)
     {
+        Account.Write();
+
         WebView2_Main?.Dispose();
+
+        ////////////////////////////////
+
+        var accountWindow = new AccountWindow();
+
+        // 转移主程序控制权
+        Application.Current.MainWindow = accountWindow;
+
+        // 显示切换账号窗口
+        accountWindow.Show();
     }
 
     /// <summary>
@@ -79,14 +99,16 @@ public partial class LoginWindow
             // 导航完成事件
             WebView2_Main.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
 
-            // 用于注销账号
-            if (IsLogout)
+            // 用于更换新账号
+            if (_isClear)
             {
-                LoggerHelper.Info("开始注销当前登录账号...");
-                WinButton_Clear_Click(null, null);
+                LoggerHelper.Info("开始清理当前登录账号缓存...");
+                await ClearWebView2Cache();
             }
             else
             {
+                LoggerHelper.Info("开始加载 WebView2 登录界面...");
+
                 // 导航到指定Url
                 WebView2_Main.CoreWebView2.Navigate(_host);
             }
@@ -147,49 +169,46 @@ public partial class LoginWindow
 
         ////////////////////////////////
 
-        // 保存新数据，防止丢失
-        Globals.Write();
-
-        var loadWindow = new LoadWindow();
-
-        // 转移主程序控制权
-        Application.Current.MainWindow = loadWindow;
-        // 关闭当前窗口
         this.Close();
-
-        // 显示加载窗口
-        loadWindow.Show();
     }
 
     private void CoreWebView2_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
     {
         WebView2_Main.Visibility = Visibility.Hidden;
         WebView2_Loading.Visibility = Visibility.Visible;
+
+        LoggerHelper.Trace("NavigationStarting");
     }
 
     private void CoreWebView2_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
     {
         WebView2_Main.Visibility = Visibility.Visible;
         WebView2_Loading.Visibility = Visibility.Hidden;
+
+        LoggerHelper.Trace("NavigationCompleted");
     }
 
     /// <summary>
     /// 清空WebView2缓存
     /// </summary>
-    private async void WinButton_Clear_Click(object sender, RoutedEventArgs e)
+    /// <returns></returns>
+    private async Task ClearWebView2Cache()
     {
         await WebView2_Main.CoreWebView2.ExecuteScriptAsync("localStorage.clear()");
         WebView2_Main.CoreWebView2.CookieManager.DeleteAllCookies();
         WebView2_Main.CoreWebView2.Navigate(_host);
+
         LoggerHelper.Info("清空 WebView2 缓存成功");
     }
 
     /// <summary>
     /// 重新加载登录页面
     /// </summary>
-    private void WinButton_Refush_Click(object sender, RoutedEventArgs e)
+    [RelayCommand]
+    private void ReloadLoginPage()
     {
         WebView2_Main.CoreWebView2.Navigate(_host);
+
         LoggerHelper.Info("重新加载登录页面成功");
     }
 }

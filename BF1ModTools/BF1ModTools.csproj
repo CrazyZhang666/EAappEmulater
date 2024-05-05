@@ -56,6 +56,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Assets\Icons\Favicon.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
     </ItemGroup>
 

@@ -71,10 +71,7 @@ public partial class LoginWindow
         {
             LoggerHelper.Info("开始初始化 WebView2 ...");
 
-            var options = new CoreWebView2EnvironmentOptions
-            {
-                AdditionalBrowserArguments = ""
-            };
+            var options = new CoreWebView2EnvironmentOptions();
 
             // 初始化WebView2环境
             var env = await CoreWebView2Environment.CreateAsync(null, Globals.GetAccountCacheDir(), options);
@@ -100,10 +97,6 @@ public partial class LoginWindow
             WebView2_Main.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
             // 导航完成事件
             WebView2_Main.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
-
-            //WebView2_Main.CoreWebView2.ContentLoading += (s, e) => { LoggerHelper.Trace("ContentLoading"); };
-            //WebView2_Main.CoreWebView2.HistoryChanged += (s, e) => { LoggerHelper.Trace("HistoryChanged"); };
-            //WebView2_Main.CoreWebView2.DOMContentLoaded += (s, e) => { LoggerHelper.Trace("DOMContentLoaded"); };
 
             // 用于更换新账号
             if (_isClear)

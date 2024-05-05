@@ -6,15 +6,6 @@ namespace BF1ModTools.Api;
 public static class EasyEaApi
 {
     /// <summary>
-    /// 验证 cookie 是否有效
-    /// </summary>
-    public static async Task<bool> IsValidCookie()
-    {
-        var result = await EaApi.GetToken();
-        return result.IsSuccess;
-    }
-
-    /// <summary>
     /// 获取 LSX 监听服务所需的 AutuCode
     /// </summary>
     public static async Task<string> GetLSXAutuCode(string settingId)

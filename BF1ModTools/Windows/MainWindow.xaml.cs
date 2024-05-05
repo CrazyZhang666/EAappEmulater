@@ -4,7 +4,7 @@ using BF1ModTools.Utils;
 using BF1ModTools.Helper;
 using CommunityToolkit.Mvvm.Input;
 
-namespace BF1ModTools;
+namespace BF1ModTools.Windows;
 
 /// <summary>
 /// MainWindow.xaml 的交互逻辑
@@ -106,25 +106,16 @@ public partial class MainWindow
     }
 
     [RelayCommand]
-    private void ChangeLoginAccount()
+    private void SwitchAccount()
     {
-        if (MessageBox.Show("你确定要更换当前登录账号吗？",
-            "警告", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
-        {
-            Account.Reset();
+        var accountWindow = new AccountWindow();
 
-            var loginWindow = new LoginWindow
-            {
-                IsLogout = true
-            };
+        // 转移主程序控制权
+        Application.Current.MainWindow = accountWindow;
+        // 关闭主窗口
+        this.Close();
 
-            // 转移主程序控制权
-            Application.Current.MainWindow = loginWindow;
-            // 关闭主窗口
-            this.Close();
-
-            // 显示登录窗口
-            loginWindow.Show();
-        }
+        // 显示更换账号窗口
+        accountWindow.Show();
     }
 }
