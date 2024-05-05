@@ -35,24 +35,38 @@
                     Hint="输入自定义中文ID"
                     Icon="&#xE13D;" />
             </DockPanel>
-            <StackPanel>
-                <DockPanel>
-                    <ui:Avatar
-                        Width="45"
-                        Height="45"
-                        Margin="0,5,7,0"
-                        DockPanel.Dock="Left"
-                        Source="Default" />
-                    <StackPanel VerticalAlignment="Center">
-                        <TextBlock
-                            x:Name="TextBlock_PlayerName"
-                            Margin="0,0,0,5"
-                            d:Text="PlayerName"
-                            FontSize="16"
-                            FontWeight="Bold" />
-                        <TextBlock x:Name="TextBlock_PersonaId" d:Text="0123456789" />
-                    </StackPanel>
-                </DockPanel>
+            <!--  /////////////  -->
+            <DockPanel DockPanel.Dock="Top">
+                <ui:Avatar
+                    Width="45"
+                    Height="45"
+                    Margin="0,5,7,0"
+                    DockPanel.Dock="Left"
+                    Source="Default" />
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock
+                        x:Name="TextBlock_PlayerName"
+                        Margin="0,0,0,5"
+                        d:Text="PlayerName"
+                        FontSize="16"
+                        FontWeight="Bold" />
+                    <TextBlock x:Name="TextBlock_PersonaId" d:Text="0123456789" />
+                </StackPanel>
+            </DockPanel>
+            <!--  /////////////  -->
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <ui:IconHyperlink
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    Text="官方网站"
+                    ToolTip="https://battlefield.vip"
+                    Uri="https://battlefield.vip" />
+                <ui:IconHyperlink
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    Text="加入KOOK"
+                    ToolTip="https://kook.top/WVuDlM"
+                    Uri="https://kook.top/WVuDlM" />
             </StackPanel>
         </DockPanel>
     </Border>

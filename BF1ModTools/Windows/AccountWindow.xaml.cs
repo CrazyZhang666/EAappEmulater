@@ -24,6 +24,8 @@ public partial class AccountWindow
     /// </summary>
     private void Window_Account_Loaded(object sender, RoutedEventArgs e)
     {
+        Title = $"战地1模组工具箱 v{CoreUtil.VersionInfo}";
+
         Account.Read();
 
         // 仅展示用

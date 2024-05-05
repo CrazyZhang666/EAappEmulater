@@ -87,14 +87,12 @@ public partial class MainWindow
                     return;
                 }
 
-                LoggerHelper.Info($"发现最新版本，请前往官网下载最新版本 {webVersion}");
+                IconHyperlink_Update.Text = $"发现新版本 v{webVersion}，点击下载更新";
+                IconHyperlink_Update.Visibility = Visibility.Visible;
 
-                if (MessageBox.Show("发现最新版本，请前往官网下载最新版本\nhttps://battlefield.vip",
-                    "版本更新", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
-                {
-                    ProcessHelper.OpenLink("https://battlefield.vip");
-                    return;
-                }
+                LoggerHelper.Info($"发现最新版本，请前往官网下载最新版本 {webVersion}");
+                NotifierHelper.Warning($"发现最新版本，请前往官网下载最新版本 {webVersion}");
+                return;
             }
         }
     }
