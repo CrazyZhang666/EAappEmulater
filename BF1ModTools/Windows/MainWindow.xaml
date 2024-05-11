@@ -9,7 +9,7 @@
     xmlns:views="clr-namespace:BF1ModTools.Views"
     x:Name="Window_Main"
     Title="战地1模组工具箱"
-    Width="800"
+    Width="850"
     Height="550"
     Background="#F3F3F3"
     CaptionBackground="#F3F3F3"
@@ -57,8 +57,8 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <ui:Image
-                    Width="22"
-                    Height="22"
+                    Width="18"
+                    Height="18"
                     Margin="7,0,0,0"
                     Source="{Binding Icon}" />
                 <TextBlock
