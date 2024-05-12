@@ -120,6 +120,8 @@ public static class CoreUtil
         await ProcessHelper.CloseProcess("Origin");
         await ProcessHelper.CloseProcess("OriginDebug");
 
+        await ProcessHelper.CloseProcess("EAappEmulater");
+
         await ProcessHelper.CloseProcess("FrostyModManager");
         await ProcessHelper.CloseProcess("MarneLauncher");
         await ProcessHelper.CloseProcess("BattlefieldChat");

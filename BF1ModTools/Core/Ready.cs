@@ -40,6 +40,9 @@ public static class Ready
         _autoUpdateTimer = null;
         LoggerHelper.Info("关闭 定时刷新 BaseToken 服务成功");
 
+        // 保存账号数据
+        Account.Write();
+
         // 关闭服务进程
         await CoreUtil.CloseServiceProcess();
     }

@@ -3,6 +3,7 @@ using BF1ModTools.Core;
 using BF1ModTools.Utils;
 using BF1ModTools.Helper;
 using CommunityToolkit.Mvvm.Input;
+using Hardcodet.Wpf.TaskbarNotification;
 
 namespace BF1ModTools.Windows;
 
@@ -11,6 +12,15 @@ namespace BF1ModTools.Windows;
 /// </summary>
 public partial class MainWindow
 {
+    /// <summary>
+    /// 窗口关闭识别标志
+    /// </summary>
+    public static bool IsCodeClose { get; set; } = false;
+    /// <summary>
+    /// 第一次通知标志
+    /// </summary>
+    private bool _isFirstNotice = false;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -25,6 +35,9 @@ public partial class MainWindow
 
         Title = $"战地1模组工具箱 v{CoreUtil.VersionInfo} - {CoreUtil.GetIsAdminStr()}";
 
+        // 重置窗口关闭标志
+        IsCodeClose = false;
+
         // 初始化工作
         Ready.Run();
 
@@ -37,11 +50,29 @@ public partial class MainWindow
     /// </summary>
     private void Window_Main_Closing(object sender, CancelEventArgs e)
     {
+        // 当用户从UI点击关闭时才执行
+        if (!IsCodeClose)
+        {
+            // 取消关闭事件，隐藏主窗口
+            e.Cancel = true;
+            this.Hide();
+
+            // 仅第一次通知
+            if (!_isFirstNotice)
+            {
+                NotifyIcon_Main.ShowBalloonTip("战地1模组工具箱 已最小化到托盘", "可通过托盘右键菜单完全退出程序", BalloonIcon.Info);
+                _isFirstNotice = true;
+            }
+
+            return;
+        }
+
         // 清理工作
         Ready.Stop();
 
-        // 保存账号数据
-        Account.Write();
+        // 释放托盘图标
+        NotifyIcon_Main?.Dispose();
+        NotifyIcon_Main = null;
 
         LoggerHelper.Info("关闭主程序成功");
     }
@@ -100,6 +131,24 @@ public partial class MainWindow
         }
     }
 
+    /// <summary>
+    /// 显示主窗口
+    /// </summary>
+    [RelayCommand]
+    private void ShowWindow()
+    {
+        this.Show();
+
+        if (this.WindowState == WindowState.Minimized)
+            this.WindowState = WindowState.Normal;
+
+        this.Activate();
+        this.Focus();
+    }
+
+    /// <summary>
+    /// 切换账号窗口
+    /// </summary>
     [RelayCommand]
     private void SwitchAccount()
     {
@@ -107,10 +156,23 @@ public partial class MainWindow
 
         // 转移主程序控制权
         Application.Current.MainWindow = accountWindow;
+        // 设置关闭标志
+        IsCodeClose = true;
         // 关闭主窗口
         this.Close();
 
         // 显示更换账号窗口
         accountWindow.Show();
+    }
+
+    /// <summary>
+    /// 退出程序
+    /// </summary>
+    [RelayCommand]
+    private void ExitApp()
+    {
+        // 设置关闭标志
+        IsCodeClose = true;
+        this.Close();
     }
 }
