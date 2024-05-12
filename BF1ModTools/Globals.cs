@@ -35,6 +35,9 @@ public static class Globals
         LoggerHelper.Info($"当前重置配置文件路径 {_iniPath}");
     }
 
+    /// <summary>
+    /// 读取全局配置文件
+    /// </summary>
     public static async Task Read()
     {
         LoggerHelper.Info("开始读取配置文件...");
@@ -56,6 +59,9 @@ public static class Globals
         LoggerHelper.Info("读取配置文件成功");
     }
 
+    /// <summary>
+    /// 写入全局配置文件
+    /// </summary>
     public static void Write()
     {
         LoggerHelper.Info("开始保存配置文件...");
@@ -67,6 +73,9 @@ public static class Globals
         LoggerHelper.Info("保存配置文件成功");
     }
 
+    /// <summary>
+    /// 设置战地1主程序路径
+    /// </summary>
     public static void SetBF1AppPath(string appPath)
     {
         if (string.IsNullOrWhiteSpace(appPath))

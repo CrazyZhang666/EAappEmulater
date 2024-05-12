@@ -27,7 +27,7 @@ public partial class LaunchView : UserControl
     /// 运行寒霜Mod管理器
     /// </summary>
     [RelayCommand]
-    private async Task RunFrostyModManager()
+    private void RunFrostyModManager()
     {
         // 如果战地1正在运行，则不允许启动FrostyModManager
         if (ProcessHelper.IsAppRun(CoreUtil.Name_BF1))
@@ -42,9 +42,6 @@ public partial class LaunchView : UserControl
             NotifierHelper.Warning("程序已经运行了，请不要重复运行");
             return;
         }
-
-        if (!await CoreUtil.GetBf1InstallPath())
-            return;
 
         // 选择要安装的Mod文件（支持多选）
         var dialog = new OpenFileDialog

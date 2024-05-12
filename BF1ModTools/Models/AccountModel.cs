@@ -12,4 +12,10 @@ public partial class AccountModel : ObservableObject
 
     [ObservableProperty]
     private string sid;
+
+    [ObservableProperty]
+    private string bf1Path;
+
+    [ObservableProperty]
+    private string checkState;
 }

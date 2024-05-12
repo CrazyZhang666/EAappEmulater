@@ -40,11 +40,6 @@
                     WindowChrome.IsHitTestVisibleInChrome="True" />
                 <!--  //////////////  -->
                 <ui:WinButton
-                    Command="{Binding SelectBf1DirCommand}"
-                    FontSize="14"
-                    Icon="&#xE713;"
-                    ToolTip="选择战地1目录" />
-                <ui:WinButton
                     Command="{Binding SwitchAccountCommand}"
                     FontSize="14"
                     Icon="&#xE748;"

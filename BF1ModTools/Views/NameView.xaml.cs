@@ -41,7 +41,7 @@ public partial class NameView : UserControl
 
     #region 自定义区域
     [RelayCommand]
-    private async Task ChangePlayerName()
+    private void ChangePlayerName()
     {
         if (ProcessHelper.IsAppRun(CoreUtil.Name_BF1))
         {
@@ -55,9 +55,6 @@ public partial class NameView : UserControl
             NotifierHelper.Warning("游戏ID不能为空，请重新修改");
             return;
         }
-
-        if (!await CoreUtil.GetBf1InstallPath())
-            return;
 
         var nameHexBytes = Encoding.UTF8.GetBytes(playerName);
         if (nameHexBytes.Length > 15)

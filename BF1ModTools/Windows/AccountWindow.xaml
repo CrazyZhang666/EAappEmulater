@@ -8,7 +8,7 @@
     x:Name="Window_Account"
     Title="战地1模组工具箱"
     Width="600"
-    Height="380"
+    Height="390"
     CaptionBackground="#FDFDFD"
     Closing="Window_Account_Closing"
     ContentRendered="Window_Account_ContentRendered"
@@ -58,6 +58,14 @@
 
     <DockPanel Margin="5">
         <StackPanel DockPanel.Dock="Bottom">
+            <TextBlock
+                Margin="5"
+                d:Text="等待玩家操作中..."
+                Text="{Binding AccountModel.CheckState}"
+                TextAlignment="Center"
+                TextTrimming="CharacterEllipsis"
+                TextWrapping="NoWrap" />
+
             <ui:IconButton
                 Padding="10"
                 Command="{Binding LoginAccountCommand}"
@@ -71,6 +79,7 @@
                                 <MultiDataTrigger.Conditions>
                                     <Condition Binding="{Binding AccountModel.Remid, Converter={StaticResource IsNullOrWhiteSpace2Converter}}" Value="True" />
                                     <Condition Binding="{Binding AccountModel.Sid, Converter={StaticResource IsNullOrWhiteSpace2Converter}}" Value="True" />
+                                    <Condition Binding="{Binding AccountModel.Bf1Path, Converter={StaticResource IsNullOrWhiteSpace2Converter}}" Value="True" />
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="IsEnabled" Value="True" />
                             </MultiDataTrigger>
@@ -83,21 +92,21 @@
         <StackPanel DockPanel.Dock="Top">
             <DockPanel>
                 <ui:Avatar
-                    Width="64"
-                    Height="64"
-                    Margin="5,5,10,5"
+                    Width="34"
+                    Height="34"
+                    Margin="5,5,7,5"
                     BorderThickness="1"
                     DockPanel.Dock="Left"
                     Source="Default" />
                 <DockPanel>
-                    <WrapPanel DockPanel.Dock="Bottom">
+                    <WrapPanel VerticalAlignment="Center" DockPanel.Dock="Right">
                         <ui:IconButton
-                            Margin="0,0,5,5"
+                            Margin="0,0,5,0"
                             Command="{Binding GetCookieCommand}"
                             Content="获取Cookie"
                             Icon="&#xE72C;" />
                         <ui:IconButton
-                            Margin="0,0,5,5"
+                            Margin="0,0,5,0"
                             Command="{Binding ChangeAccountCommand}"
                             Content="更换新账号"
                             Icon="&#xE8FA;" />
@@ -114,7 +123,7 @@
             <ui:IconHeader Title="Remid" />
             <ui:TextBoxHint
                 x:Name="TextBoxHint_Remid"
-                Height="70"
+                Height="50"
                 Hint="显示账号Remid信息"
                 Style="{StaticResource TextBoxHintStyle_MultiLine}"
                 Text="{Binding AccountModel.Remid, UpdateSourceTrigger=PropertyChanged}" />
@@ -122,10 +131,27 @@
             <ui:IconHeader Title="Sid" />
             <ui:TextBoxHint
                 x:Name="TextBoxHint_Sid"
-                Height="70"
+                Height="50"
                 Hint="显示账号Sid信息"
                 Style="{StaticResource TextBoxHintStyle_MultiLine}"
                 Text="{Binding AccountModel.Sid, UpdateSourceTrigger=PropertyChanged}" />
+
+            <ui:IconHeader Title="选择战地1安装路径" />
+            <DockPanel>
+                <ui:IconButton
+                    Margin="0,5,5,5"
+                    VerticalAlignment="Center"
+                    Command="{Binding SelcetBf1PathCommand}"
+                    Content="浏览"
+                    DockPanel.Dock="Right"
+                    Icon="&#xE71E;" />
+                <ui:TextBoxHint
+                    x:Name="TextBoxHint_Bf1Path"
+                    Hint="请选择战地1游戏安装目录 bf1.exe 文件位置"
+                    Icon="&#xE838;"
+                    IsReadOnly="True"
+                    Text="{Binding AccountModel.Bf1Path, UpdateSourceTrigger=PropertyChanged}" />
+            </DockPanel>
 
         </StackPanel>
     </DockPanel>
