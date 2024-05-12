@@ -54,11 +54,7 @@
         <DebugType>none</DebugType>
         <DebugSymbols>false</DebugSymbols>
     </PropertyGroup>
-
-    <ItemGroup>
-      <None Remove="Assets\Icons\Favicon.ico" />
-    </ItemGroup>
-
+    
     <ItemGroup>
         <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
     </ItemGroup>
@@ -80,7 +76,10 @@
 
     <ItemGroup>
         <EmbeddedResource Include="Assets\Files\Exec\EADesktop.exe" />
+        <EmbeddedResource Include="Assets\Files\Exec\FrostyMod.zip" />
+        <EmbeddedResource Include="Assets\Files\Exec\Marne.zip" />
         <EmbeddedResource Include="Assets\Files\Exec\OriginDebug.exe" />
+        <EmbeddedResource Include="Assets\Files\Exec\Tools.zip" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\00.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\01.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\02.xml" />
@@ -107,109 +106,6 @@
         <EmbeddedResource Include="Assets\Files\LSX\BFV\23.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\24.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\25.xml" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Update="AppData\FrostyMod\Caches\bf1.cache">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\FrostyControls.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\FrostyCore.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\FrostyHash.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\FrostyModManager.exe">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\FrostyModSupport.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\FrostySdk.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\Frosty\manager_config.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\Plugins\BiowareLocalizationPlugin.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\Plugins\FsLocalizationPlugin.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\Plugins\MeshSetPlugin.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\Profiles\BF1SDK.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\ThirdParty\CryptBase.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\ThirdParty\liblz4.so.1.8.0.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\ThirdParty\libzstd.0.0.6.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\ThirdParty\libzstd.1.1.5.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\ThirdParty\libzstd.1.2.0.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\ThirdParty\libzstd.1.3.4.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\ThirdParty\LZMA.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\ThirdParty\Newtonsoft.Json.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\ThirdParty\UnRAR.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\FrostyMod\ThirdParty\zlibwapi.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\Marne\Marne.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\Marne\MarneLauncher.exe">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
-        <None Update="AppData\Tools\BattlefieldChat.exe">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <ExcludeFromSingleFile>True</ExcludeFromSingleFile>
-        </None>
     </ItemGroup>
 
 </Project>

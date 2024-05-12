@@ -30,6 +30,7 @@ public class GlobalOptions
     public bool UpdateCheck { get; set; } = false;
     public bool UpdateCheckPrerelease { get; set; } = false;
     public string MaxCasFileSize { get; set; } = "1GB";
+    public string CustomModsDirectory { get; set; }     // 需要单独设置
 }
 
 public class Bf1
@@ -48,11 +49,11 @@ public class Bf1
 
 public class Options
 {
-    public string SelectedPack { get; set; } = "Default";
+    public string SelectedPack { get; set; } = "Marne";
     public string CommandLineArgs { get; set; } = "RunBf1Game";
 }
 
 public class Packs
 {
-    public string @Default { get; set; } = "mod_name.fbmod:True";
+    public string Marne { get; set; } = "mod_name.fbmod:True";
 }
