@@ -24,7 +24,7 @@ public partial class AccountWindow
     /// </summary>
     private void Window_Account_Loaded(object sender, RoutedEventArgs e)
     {
-        Title = $"战地1模组工具箱 v{CoreUtil.VersionInfo}";
+        Title = $"战地1模组工具箱 v{CoreUtil.VersionInfo} - {CoreUtil.GetIsAdminStr()}";
 
         Account.Read();
 
@@ -60,13 +60,27 @@ public partial class AccountWindow
     }
 
     /// <summary>
+    /// 保存数据
+    /// </summary>
+    private void SaveData()
+    {
+        // 仅展示用
+        Account.PlayerName = AccountModel.PlayerName;
+        // 可被修改
+        Account.Remid = AccountModel.Remid;
+        Account.Sid = AccountModel.Sid;
+
+        Account.Write();
+    }
+
+    /// <summary>
     /// 登录选中账号
     /// </summary>
     [RelayCommand]
     private void LoginAccount()
     {
         // 保存数据
-        Account.Write();
+        SaveData();
 
         ////////////////////////////////
 
@@ -88,7 +102,7 @@ public partial class AccountWindow
     private void GetCookie()
     {
         // 保存数据
-        Account.Write();
+        SaveData();
 
         ////////////////////////////////
 
@@ -109,10 +123,10 @@ public partial class AccountWindow
     [RelayCommand]
     private void ChangeAccount()
     {
-        // 保存数据
         // 清空当前账号信息
         Account.Reset();
-        Account.Write();
+        // 保存数据
+        SaveData();
 
         ////////////////////////////////
 

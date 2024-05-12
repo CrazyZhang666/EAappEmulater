@@ -117,7 +117,7 @@
                 Height="70"
                 Hint="显示账号Remid信息"
                 Style="{StaticResource TextBoxHintStyle_MultiLine}"
-                Text="{Binding AccountModel.Remid}" />
+                Text="{Binding AccountModel.Remid, UpdateSourceTrigger=PropertyChanged}" />
 
             <ui:IconHeader Title="Sid" />
             <ui:TextBoxHint
@@ -125,7 +125,7 @@
                 Height="70"
                 Hint="显示账号Sid信息"
                 Style="{StaticResource TextBoxHintStyle_MultiLine}"
-                Text="{Binding AccountModel.Sid}" />
+                Text="{Binding AccountModel.Sid, UpdateSourceTrigger=PropertyChanged}" />
 
         </StackPanel>
     </DockPanel>

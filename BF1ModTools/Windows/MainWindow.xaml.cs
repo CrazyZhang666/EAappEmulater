@@ -23,7 +23,7 @@ public partial class MainWindow
     {
         LoggerHelper.Info("启动主程序成功");
 
-        Title = $"战地1模组工具箱 v{CoreUtil.VersionInfo}";
+        Title = $"战地1模组工具箱 v{CoreUtil.VersionInfo} - {CoreUtil.GetIsAdminStr()}";
 
         // 读取配置文件
         await Globals.Read();

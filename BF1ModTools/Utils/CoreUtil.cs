@@ -164,6 +164,14 @@ public static class CoreUtil
     }
 
     /// <summary>
+    /// 获取是否管理员运行字符串
+    /// </summary>
+    public static string GetIsAdminStr()
+    {
+        return IsRunAsAdmin() ? "管理员" : "非管理员";
+    }
+
+    /// <summary>
     /// 检测字符串路径中是否含有中文
     /// </summary>
     public static bool HasChinesePath(string path)
