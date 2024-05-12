@@ -25,7 +25,7 @@
                     DisplayMemberBinding="{Binding Level}"
                     Header="等级" />
                 <GridViewColumn
-                    Width="650"
+                    Width="700"
                     DisplayMemberBinding="{Binding Message}"
                     Header="日志" />
             </GridView>

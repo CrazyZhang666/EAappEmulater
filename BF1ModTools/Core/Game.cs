@@ -73,7 +73,7 @@ public static class Game
                 UseShellExecute = false,
                 FileName = Globals.BF1AppPath,
                 WorkingDirectory = Globals.BF1InstallDir,
-                Arguments = "-dataPath ./ModData/Default"
+                Arguments = "-dataPath ./ModData/Marne"
             };
 
             foreach (var variable in environmentVariables)

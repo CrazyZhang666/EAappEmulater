@@ -119,6 +119,15 @@ public partial class LoadWindow
         FileHelper.ExtractResFile("Exec.EADesktop.exe", CoreUtil.File_Service_EADesktop);
         FileHelper.ExtractResFile("Exec.OriginDebug.exe", CoreUtil.File_Service_OriginDebug);
 
+        DisplayLoadState("正在释放资源数据文件...");
+        LoggerHelper.Info("正在释放资源数据文件...");
+
+        await Task.Run(() =>
+        {
+            FileHelper.ExtractResFile("Exec.AppData.zip", CoreUtil.File_AppData);
+            ZipFile.ExtractToDirectory(CoreUtil.File_AppData, CoreUtil.Dir_AppData, true);
+        });
+
         /////////////////////////////////////////////////
 
         DisplayLoadState("正在刷新 BaseToken 数据...");

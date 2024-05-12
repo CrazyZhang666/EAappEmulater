@@ -54,7 +54,7 @@
         <DebugType>none</DebugType>
         <DebugSymbols>false</DebugSymbols>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
     </ItemGroup>
@@ -75,11 +75,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="Assets\Files\Exec\AppData.zip" />
         <EmbeddedResource Include="Assets\Files\Exec\EADesktop.exe" />
-        <EmbeddedResource Include="Assets\Files\Exec\FrostyMod.zip" />
-        <EmbeddedResource Include="Assets\Files\Exec\Marne.zip" />
         <EmbeddedResource Include="Assets\Files\Exec\OriginDebug.exe" />
-        <EmbeddedResource Include="Assets\Files\Exec\Tools.zip" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\00.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\01.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\02.xml" />

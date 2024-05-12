@@ -1,4 +1,6 @@
-﻿namespace BF1ModTools.Models;
+﻿using BF1ModTools.Utils;
+
+namespace BF1ModTools.Models;
 
 public class ModConfig
 {
@@ -31,6 +33,11 @@ public class GlobalOptions
     public bool UpdateCheckPrerelease { get; set; } = false;
     public string MaxCasFileSize { get; set; } = "1GB";
     public string CustomModsDirectory { get; set; }     // 需要单独设置
+
+    public GlobalOptions()
+    {
+        CustomModsDirectory = CoreUtil.Dir_Mods;
+    }
 }
 
 public class Bf1

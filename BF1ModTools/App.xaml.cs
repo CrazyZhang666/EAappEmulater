@@ -89,25 +89,25 @@ public partial class App : Application
         }
         LoggerHelper.Info($"工具箱运行路径正常 {currentDir}");
 
-        LoggerHelper.Info("正在进行工具箱数据目录 AppData 完整性检测中...");
-        if (!CoreUtil.IsFullAppData())
-        {
-            MsgBoxHelper.Warning("检测到工具箱数据目录 AppData 已损坏，请重新解压文件");
-            LoggerHelper.Warn("检测到工具箱数据目录 AppData 已损坏，请重新解压文件");
-            Current.Shutdown();
-            return;
-        }
-        LoggerHelper.Info("工具箱数据目录 AppData 完整");
+        //LoggerHelper.Info("正在进行工具箱数据目录 AppData 完整性检测中...");
+        //if (!CoreUtil.IsFullAppData())
+        //{
+        //    MsgBoxHelper.Warning("检测到工具箱数据目录 AppData 已损坏，请重新解压文件");
+        //    LoggerHelper.Warn("检测到工具箱数据目录 AppData 已损坏，请重新解压文件");
+        //    Current.Shutdown();
+        //    return;
+        //}
+        //LoggerHelper.Info("工具箱数据目录 AppData 完整");
 
-        LoggerHelper.Info("正在进行工具箱管理员权限检测中...");
-        if (!CoreUtil.IsRunAsAdmin())
-        {
-            MsgBoxHelper.Warning("检测到工具箱未拥有管理员权限，请尝试右键管理员运行");
-            LoggerHelper.Warn("检测到工具箱未拥有管理员权限，请尝试右键管理员运行");
-            Current.Shutdown();
-            return;
-        }
-        LoggerHelper.Info("工具箱管理员权限正常");
+        //LoggerHelper.Info("正在进行工具箱管理员权限检测中...");
+        //if (!CoreUtil.IsRunAsAdmin())
+        //{
+        //    MsgBoxHelper.Warning("检测到工具箱未拥有管理员权限，请尝试右键管理员运行");
+        //    LoggerHelper.Warn("检测到工具箱未拥有管理员权限，请尝试右键管理员运行");
+        //    Current.Shutdown();
+        //    return;
+        //}
+        //LoggerHelper.Info("工具箱管理员权限正常");
 
         //////////////////////////////////////////////////////
 

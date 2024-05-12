@@ -73,10 +73,10 @@ public partial class LaunchView : UserControl
         try
         {
             // 文件夹如果不存在则创建
-            FileHelper.CreateDirectory(CoreUtil.Dir_FrostyMod_Mods_Bf1);
+            FileHelper.CreateDirectory(CoreUtil.Dir_Mods_Bf1);
 
             // 清空旧版Mod文件夹
-            FileHelper.ClearDirectory(CoreUtil.Dir_FrostyMod_Mods_Bf1);
+            FileHelper.ClearDirectory(CoreUtil.Dir_Mods_Bf1);
             LoggerHelper.Info("清空旧版 Mod 文件夹 成功");
 
             // 创建FrostyMod配置文件
@@ -94,7 +94,7 @@ public partial class LaunchView : UserControl
                 var fileName = Path.GetFileName(file);
 
                 // 复制mod文件到寒霜mod管理器指定文件夹
-                File.Copy(file, Path.Combine(CoreUtil.Dir_FrostyMod_Mods_Bf1, fileName), true);
+                File.Copy(file, Path.Combine(CoreUtil.Dir_Mods_Bf1, fileName), true);
                 // 添加Mod文件名全称+特定后缀到列表中
                 modFiles.Add($"{fileName}:True");
 
@@ -102,10 +102,10 @@ public partial class LaunchView : UserControl
             }
 
             // 设置Mod名称并启用
-            modConfig.Games.bf1.Packs.Default = string.Join("|", modFiles);
+            modConfig.Games.bf1.Packs.Marne = string.Join("|", modFiles);
 
             // 写入Frosty\manager_config.json配置文件
-            File.WriteAllText(CoreUtil.File_FrostyMod_Frosty_ManagerConfig, JsonHelper.JsonSerialize(modConfig));
+            File.WriteAllText(CoreUtil.File_Config_ManagerConfig, JsonHelper.JsonSerialize(modConfig));
             LoggerHelper.Info("写入 FrostyModManager 配置文件成功");
 
             LoggerHelper.Info("正在启动 FrostyModManager 中...");

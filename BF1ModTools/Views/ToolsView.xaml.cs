@@ -26,7 +26,7 @@ public partial class ToolsView : UserControl
                 return;
             }
 
-            var jsonPath = Path.Combine(Globals.BF1InstallDir, "ModData\\Default\\patch\\mods.json");
+            var jsonPath = Path.Combine(Globals.BF1InstallDir, "ModData\\Marne\\patch\\mods.json");
             if (!File.Exists(jsonPath))
             {
                 LoggerHelper.Warn("未发现战地1目录 ModData 里的 mods.json 文件，Mod未生效");

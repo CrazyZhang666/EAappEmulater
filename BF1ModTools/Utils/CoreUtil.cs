@@ -9,6 +9,9 @@ public static class CoreUtil
     public static string Dir_MyDocuments { get; private set; }
     public static string Dir_Default { get; private set; }
 
+    public static string Dir_AppData { get; private set; }
+    public static string Dir_Mods { get; private set; }
+
     public static string Dir_Cache { get; private set; }
     public static string Dir_Config { get; private set; }
     public static string Dir_Service { get; private set; }
@@ -22,12 +25,11 @@ public static class CoreUtil
     #endregion
 
     #region 数据目录
-    public static string Dir_AppData { get; private set; }
-
-    public static string Dir_FrostyMod_Mods_Bf1 { get; private set; }
+    public static string File_AppData { get; private set; }
+    public static string File_Config_ManagerConfig { get; private set; }
+    public static string Dir_Mods_Bf1 { get; private set; }
 
     public static string File_FrostyMod_FrostyModManager { get; private set; }
-    public static string File_FrostyMod_Frosty_ManagerConfig { get; private set; }
     public static string File_Marne_MarneDll { get; private set; }
     public static string File_Marne_MarneLauncher { get; private set; }
     public static string File_BattlefieldChat { get; private set; }
@@ -58,6 +60,9 @@ public static class CoreUtil
         Dir_MyDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         Dir_Default = Path.Combine(Dir_MyDocuments, "BF1ModTools");
 
+        Dir_AppData = Path.Combine(Dir_Default, "AppData");
+        Dir_Mods = Path.Combine(Dir_Default, "Mods");
+
         Dir_Cache = Path.Combine(Dir_Default, "Cache");
         Dir_Config = Path.Combine(Dir_Default, "Config");
         Dir_Service = Path.Combine(Dir_Default, "Service");
@@ -65,6 +70,9 @@ public static class CoreUtil
 
         Dir_Log_Crash = Path.Combine(Dir_Log, "Crash");
         Dir_Log_NLog = Path.Combine(Dir_Log, "NLog");
+
+        FileHelper.CreateDirectory(Dir_AppData);
+        FileHelper.CreateDirectory(Dir_Mods);
 
         FileHelper.CreateDirectory(Dir_Cache);
         FileHelper.CreateDirectory(Dir_Config);
@@ -79,12 +87,11 @@ public static class CoreUtil
         #endregion
 
         #region 数据目录
-        Dir_AppData = Path.Combine(Environment.CurrentDirectory, "AppData\\");
-
-        Dir_FrostyMod_Mods_Bf1 = Path.Combine(Dir_AppData, "FrostyMod\\Mods\\bf1\\");
+        File_AppData = Path.Combine(Dir_AppData, "AppData.zip");
+        File_Config_ManagerConfig = Path.Combine(Dir_Config, "manager_config.json");
+        Dir_Mods_Bf1 = Path.Combine(Dir_Mods, "bf1");
 
         File_FrostyMod_FrostyModManager = Path.Combine(Dir_AppData, "FrostyMod\\FrostyModManager.exe");
-        File_FrostyMod_Frosty_ManagerConfig = Path.Combine(Dir_AppData, "FrostyMod\\Frosty\\manager_config.json");
         File_Marne_MarneLauncher = Path.Combine(Dir_AppData, "Marne\\MarneLauncher.exe");
         File_Marne_MarneDll = Path.Combine(Dir_AppData, "Marne\\Marne.dll");
         File_BattlefieldChat = Path.Combine(Dir_AppData, "Tools\\BattlefieldChat.exe");
