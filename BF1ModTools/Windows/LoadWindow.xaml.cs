@@ -121,7 +121,6 @@ public partial class LoadWindow
 
         DisplayLoadState("正在释放资源数据文件...");
         LoggerHelper.Info("正在释放资源数据文件...");
-
         await Task.Run(() =>
         {
             FileHelper.ExtractResFile("Exec.AppData.zip", CoreUtil.File_AppData);

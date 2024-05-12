@@ -1,5 +1,4 @@
-﻿using BF1ModTools.Core;
-using BF1ModTools.Utils;
+﻿using BF1ModTools.Utils;
 using BF1ModTools.Helper;
 
 namespace BF1ModTools;
@@ -17,12 +16,18 @@ public static class Globals
 
     ///////////////////////////////////
 
+    /// <summary>
+    /// 战地1选择对话框路径
+    /// </summary>
     public static string DialogDir
     {
         get => ReadString("Dialog", "InitDir");
         set => WriteString("Dialog", "InitDir", value);
     }
 
+    /// <summary>
+    /// Mod选择对话框路径
+    /// </summary>
     public static string DialogDir2
     {
         get => ReadString("Dialog", "InitDir2");
@@ -32,7 +37,7 @@ public static class Globals
     static Globals()
     {
         _iniPath = Path.Combine(CoreUtil.Dir_Config, "Config.ini");
-        LoggerHelper.Info($"当前重置配置文件路径 {_iniPath}");
+        LoggerHelper.Info($"当前配置文件路径 {_iniPath}");
     }
 
     /// <summary>
@@ -42,8 +47,7 @@ public static class Globals
     {
         LoggerHelper.Info("开始读取配置文件...");
 
-        Account.Read();
-
+        // 验证战地1文件路径有效性
         var appPath = ReadString("BF1", "AppPath");
         if (await CoreUtil.IsBf1MainAppFile(appPath))
         {
@@ -65,8 +69,6 @@ public static class Globals
     public static void Write()
     {
         LoggerHelper.Info("开始保存配置文件...");
-
-        Account.Write();
 
         WriteString("BF1", "AppPath", BF1AppPath);
 

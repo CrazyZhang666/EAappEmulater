@@ -40,6 +40,9 @@ public partial class MainWindow
         // 清理工作
         Ready.Stop();
 
+        // 保存账号数据
+        Account.Write();
+
         LoggerHelper.Info("关闭主程序成功");
     }
 

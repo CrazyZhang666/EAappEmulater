@@ -45,6 +45,7 @@ public static class Account
         OriginPCToken = string.Empty;
         LSXAuthCode = string.Empty;
     }
+
     /// <summary>
     /// 读取配置文件
     /// </summary>
