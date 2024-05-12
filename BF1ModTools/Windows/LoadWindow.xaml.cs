@@ -109,26 +109,6 @@ public partial class LoadWindow
     /// </summary>
     private async Task InitGameInfo()
     {
-        LoggerHelper.Info("开始初始化游戏信息...");
-
-        // 关闭服务进程
-        await CoreUtil.CloseServiceProcess();
-
-        DisplayLoadState("正在释放资源服务进程文件...");
-        LoggerHelper.Info("正在释放资源服务进程文件...");
-        FileHelper.ExtractResFile("Exec.EADesktop.exe", CoreUtil.File_Service_EADesktop);
-        FileHelper.ExtractResFile("Exec.OriginDebug.exe", CoreUtil.File_Service_OriginDebug);
-
-        DisplayLoadState("正在释放资源数据文件...");
-        LoggerHelper.Info("正在释放资源数据文件...");
-        await Task.Run(() =>
-        {
-            FileHelper.ExtractResFile("Exec.AppData.zip", CoreUtil.File_AppData);
-            ZipFile.ExtractToDirectory(CoreUtil.File_AppData, CoreUtil.Dir_AppData, true);
-        });
-
-        /////////////////////////////////////////////////
-
         DisplayLoadState("正在刷新 BaseToken 数据...");
         LoggerHelper.Info("正在刷新 BaseToken 数据...");
 

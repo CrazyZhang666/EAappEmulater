@@ -28,18 +28,50 @@ public partial class AccountWindow
 
         DisplayLoadState("等待玩家操作中...");
 
-        // 读取账号数据
-        Account.Read();
+        // 读取全局配置文件
+        Globals.Read();
+
         // 仅展示用
         AccountModel.PlayerName = Account.PlayerName;
         // 可被修改
         AccountModel.Remid = Account.Remid;
         AccountModel.Sid = Account.Sid;
 
-        // 读取全局配置文件
-        await Globals.Read();
         // 战地1路径
         AccountModel.Bf1Path = Globals.BF1AppPath;
+
+        /////////////////////////////////////////////////
+
+        await Task.Run(async () =>
+        {
+            DisplayLoadState("开始初始化游戏信息...");
+            LoggerHelper.Info("开始初始化游戏信息...");
+
+            // 关闭服务进程
+            await CoreUtil.CloseServiceProcess();
+
+            // 清理数据文件
+            FileHelper.ClearDirectory(CoreUtil.Dir_AppData);
+
+            DisplayLoadState("正在释放资源服务进程文件...");
+            LoggerHelper.Info("正在释放资源服务进程文件...");
+            FileHelper.ExtractResFile("Exec.EADesktop.exe", CoreUtil.File_Service_EADesktop);
+            FileHelper.ExtractResFile("Exec.OriginDebug.exe", CoreUtil.File_Service_OriginDebug);
+            DisplayLoadState("释放资源服务进程文件成功");
+            LoggerHelper.Info("释放资源服务进程文件成功");
+
+            DisplayLoadState("正在释放资源数据文件...");
+            LoggerHelper.Info("正在释放资源数据文件...");
+
+            FileHelper.ExtractResFile("Exec.AppData.zip", CoreUtil.File_AppData);
+            ZipFile.ExtractToDirectory(CoreUtil.File_AppData, CoreUtil.Dir_AppData, true);
+
+            DisplayLoadState("释放资源数据文件成功");
+            LoggerHelper.Info("释放资源数据文件成功");
+
+            DisplayLoadState("初始化游戏信息成功");
+            LoggerHelper.Info("初始化游戏信息成功");
+        });
     }
 
     /// <summary>
@@ -77,7 +109,6 @@ public partial class AccountWindow
         Account.Remid = AccountModel.Remid;
         Account.Sid = AccountModel.Sid;
 
-        Account.Write();
         Globals.Write();
     }
 
@@ -161,7 +192,7 @@ public partial class AccountWindow
     /// 选择战地1文件路径
     /// </summary>
     [RelayCommand]
-    private async Task SelcetBf1Path()
+    private void SelcetBf1Path()
     {
         // 战地1路径无效，重新选择
         var dialog = new OpenFileDialog
@@ -187,7 +218,7 @@ public partial class AccountWindow
         Globals.DialogDir = dirPath;
 
         // 开始校验文件有效性
-        if (!await CoreUtil.IsBf1MainAppFile(dialog.FileName))
+        if (!CoreUtil.IsBf1MainAppFile(dialog.FileName))
         {
             LoggerHelper.Warn($"战地1游戏主程序路径无效，请重新选择 {dialog.FileName}");
             DisplayLoadState($"战地1游戏主程序路径无效，请重新选择");

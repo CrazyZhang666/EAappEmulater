@@ -166,14 +166,32 @@ public static class CoreUtil
     /// <summary>
     /// 检测是否为战地1主程序文件
     /// </summary>
-    public static async Task<bool> IsBf1MainAppFile(string bf1Path)
+    public static bool IsBf1MainAppFile(string bf1Path)
     {
+        // 判断路径是否为空
         if (string.IsNullOrWhiteSpace(bf1Path))
             return false;
 
+        // 判断文件是否存在
         if (!File.Exists(bf1Path))
             return false;
 
-        return await FileHelper.GetFileMD5(bf1Path) == "190075FC83A4782EDDAFAADAE414391F";
+        // 判断文件名称
+        if (Path.GetFileName(bf1Path) != "bf1.exe")
+            return false;
+
+        // 判断文件详细信息
+        var fileVerInfo = FileVersionInfo.GetVersionInfo(bf1Path);
+
+        if (fileVerInfo.CompanyName != "EA Digital Illusions CE AB")
+            return false;
+        if (fileVerInfo.FileDescription != "Battlefield™ 1")
+            return false;
+        if (fileVerInfo.FileVersion != "1, 0, 57, 44284")
+            return false;
+        if (fileVerInfo.LegalCopyright != "Copyright © 2016 EA Digital Illusions CE AB. All rights reserved.")
+            return false;
+
+        return true;
     }
 }

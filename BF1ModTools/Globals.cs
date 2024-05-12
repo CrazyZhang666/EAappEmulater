@@ -1,4 +1,5 @@
-﻿using BF1ModTools.Utils;
+﻿using BF1ModTools.Core;
+using BF1ModTools.Utils;
 using BF1ModTools.Helper;
 
 namespace BF1ModTools;
@@ -7,11 +8,14 @@ public static class Globals
 {
     private static readonly string _iniPath;
 
-    // 这个不保存配置文件
+    /// <summary>
+    /// 战地1安装目录
+    /// </summary>
     public static string BF1InstallDir { get; private set; }
 
-    ///////////////////////////////////
-
+    /// <summary>
+    /// 战地1主程序位置
+    /// </summary>
     public static string BF1AppPath { get; private set; }
 
     ///////////////////////////////////
@@ -43,13 +47,17 @@ public static class Globals
     /// <summary>
     /// 读取全局配置文件
     /// </summary>
-    public static async Task Read()
+    public static void Read()
     {
         LoggerHelper.Info("开始读取配置文件...");
 
-        // 验证战地1文件路径有效性
+        // 读取账号数据
+        Account.Read();
+
+        // 读取战地1安装路径
         var appPath = ReadString("BF1", "AppPath");
-        if (await CoreUtil.IsBf1MainAppFile(appPath))
+        // 验证战地1文件路径有效性
+        if (CoreUtil.IsBf1MainAppFile(appPath))
         {
             SetBF1AppPath(appPath);
             LoggerHelper.Info($"已发现战地1安装路径 {BF1AppPath}");
@@ -70,6 +78,10 @@ public static class Globals
     {
         LoggerHelper.Info("开始保存配置文件...");
 
+        // 保存账号数据
+        Account.Write();
+
+        // 保存战地1安装路径
         WriteString("BF1", "AppPath", BF1AppPath);
 
         LoggerHelper.Info("保存配置文件成功");
