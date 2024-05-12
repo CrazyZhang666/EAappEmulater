@@ -78,27 +78,6 @@ public partial class App : Application
         }
         LoggerHelper.Info($"当前系统 WebVieww2 环境正常");
 
-        LoggerHelper.Info("正在进行工具箱文件路径检测中...");
-        var currentDir = Directory.GetCurrentDirectory();
-        if (CoreUtil.HasChinesePath(currentDir))
-        {
-            MsgBoxHelper.Warning($"检测到工具箱运行路径含有中文，请在英文目录下运行\n{currentDir}");
-            LoggerHelper.Warn($"检测到工具箱运行路径含有中文，请在英文目录下运行 {currentDir}");
-            Current.Shutdown();
-            return;
-        }
-        LoggerHelper.Info($"工具箱运行路径正常 {currentDir}");
-
-        //LoggerHelper.Info("正在进行工具箱数据目录 AppData 完整性检测中...");
-        //if (!CoreUtil.IsFullAppData())
-        //{
-        //    MsgBoxHelper.Warning("检测到工具箱数据目录 AppData 已损坏，请重新解压文件");
-        //    LoggerHelper.Warn("检测到工具箱数据目录 AppData 已损坏，请重新解压文件");
-        //    Current.Shutdown();
-        //    return;
-        //}
-        //LoggerHelper.Info("工具箱数据目录 AppData 完整");
-
         //////////////////////////////////////////////////////
 
         base.OnStartup(e);

@@ -115,9 +115,14 @@ public static class CoreUtil
     public static async Task CloseServiceProcess()
     {
         LoggerHelper.Info("准备关闭服务进程");
+
         await ProcessHelper.CloseProcess("EADesktop");
-        await ProcessHelper.CloseProcess("OriginDebug");
         await ProcessHelper.CloseProcess("Origin");
+        await ProcessHelper.CloseProcess("OriginDebug");
+
+        await ProcessHelper.CloseProcess("FrostyModManager");
+        await ProcessHelper.CloseProcess("MarneLauncher");
+        await ProcessHelper.CloseProcess("BattlefieldChat");
     }
 
     /// <summary>
@@ -169,38 +174,6 @@ public static class CoreUtil
     public static string GetIsAdminStr()
     {
         return IsRunAsAdmin() ? "管理员" : "非管理员";
-    }
-
-    /// <summary>
-    /// 检测字符串路径中是否含有中文
-    /// </summary>
-    public static bool HasChinesePath(string path)
-    {
-        return Regex.IsMatch(path, @"[\u4e00-\u9fa5]");
-    }
-
-    /// <summary>
-    /// 检测AppData数据是否完整
-    /// </summary>
-    /// <returns></returns>
-    public static bool IsFullAppData()
-    {
-        if (!Directory.Exists(Dir_AppData))
-            return false;
-
-        if (!File.Exists(File_FrostyMod_FrostyModManager))
-            return false;
-
-        if (!File.Exists(File_Marne_MarneDll))
-            return false;
-
-        if (!File.Exists(File_Marne_MarneLauncher))
-            return false;
-
-        if (!File.Exists(File_BattlefieldChat))
-            return false;
-
-        return true;
     }
 
     /// <summary>
