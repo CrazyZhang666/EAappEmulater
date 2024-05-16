@@ -42,19 +42,6 @@ public partial class App : Application
 
         //////////////////////////////////////////////////////
 
-        LoggerHelper.Info("正在进行 .NET 6.0 版本检测中...");
-        if (Environment.Version < new Version("6.0.29"))
-        {
-            if (MessageBox.Show("发现 .NET 6.0 版本过低，请前往微软官网下载更新版本\nhttps://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-6.0.29-windows-x64-installer",
-                ".NET 6.0 版本检测", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
-            {
-                ProcessHelper.OpenLink("https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-6.0.29-windows-x64-installer");
-                Current.Shutdown();
-                return;
-            }
-        }
-        LoggerHelper.Info($"当前系统 .NET 6.0 版本为 {Environment.Version}");
-
         LoggerHelper.Info("正在进行 WebVieww2 环境检测中...");
         if (!CoreUtil.CheckWebView2Env())
         {

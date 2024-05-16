@@ -41,6 +41,9 @@ public partial class MainWindow
         // 初始化工作
         Ready.Run();
 
+        // 释放 dinput8.dll 文件
+        FileHelper.ExtractResFile("Exec.dinput8.dll", Path.Combine(Globals.BF1InstallDir, "dinput8.dll"));
+
         // 检查更新（放到最后执行）
         await CheckUpdate();
     }

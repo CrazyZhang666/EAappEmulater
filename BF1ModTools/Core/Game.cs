@@ -51,7 +51,7 @@ public static class Game
             environmentVariables["OriginSessionKey"] = "7102090b-ea9a-4531-9598-b2a7e943b544";
             environmentVariables["EAGameLocale"] = "zh_TW";
             environmentVariables["EALaunchEnv"] = "production";
-            environmentVariables["EALaunchEAID"] = "Misaka_Mikoto_01";
+            environmentVariables["EALaunchEAID"] = Account.PlayerName;
             environmentVariables["EALicenseToken"] = "114514";
             environmentVariables["EAEntitlementSource"] = "EA";
             environmentVariables["EAUseIGOAPI"] = "1";

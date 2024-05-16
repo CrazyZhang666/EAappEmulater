@@ -5,7 +5,6 @@ using NLog.Targets;
 
 namespace BF1ModTools.Helper;
 
-
 public static class LoggerHelper
 {
     private static readonly Logger Logger = LogManager.GetCurrentClassLogger();

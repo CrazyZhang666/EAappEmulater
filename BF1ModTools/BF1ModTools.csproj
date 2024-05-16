@@ -54,7 +54,7 @@
         <DebugType>none</DebugType>
         <DebugSymbols>false</DebugSymbols>
     </PropertyGroup>
-
+    
     <ItemGroup>
         <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
     </ItemGroup>
@@ -77,6 +77,7 @@
 
     <ItemGroup>
         <EmbeddedResource Include="Assets\Files\Exec\AppData.zip" />
+        <EmbeddedResource Include="Assets\Files\Exec\dinput8.dll" />
         <EmbeddedResource Include="Assets\Files\Exec\EADesktop.exe" />
         <EmbeddedResource Include="Assets\Files\Exec\OriginDebug.exe" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\00.xml" />
