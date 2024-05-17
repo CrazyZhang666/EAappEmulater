@@ -1,5 +1,5 @@
 ﻿<LSX>
-    <Response id="##ID##" sender="EALS">
-        <ChallengeAccepted response="##RESPONSE##" />
+    <Response sender="XMPP" id="##ID##">
+        <GetPresenceVisibilityResponse Visible="false"/>
     </Response>
 </LSX>

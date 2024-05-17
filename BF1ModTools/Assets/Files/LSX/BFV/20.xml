@@ -1,5 +1,5 @@
 ﻿<LSX>
     <Response id="##ID##" sender="EbisuSDK">
-        <GetGameInfoResponse GameInfo="true" />
+        <GetGameInfoResponse GameInfo="##Locale##" />
     </Response>
 </LSX>

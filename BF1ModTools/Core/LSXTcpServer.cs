@@ -12,7 +12,7 @@ public static class LSXTcpServer
     static LSXTcpServer()
     {
         // 加载XML字符串
-        for (int i = 0; i <= 25; i++)
+        for (int i = 0; i <= 27; i++)
         {
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFV.{i:D2}.xml");
 
@@ -25,7 +25,8 @@ public static class LSXTcpServer
         // 这里结束符必须要加
         ScoketMsgBFV[0] = string.Concat(ScoketMsgBFV[0], "\0");
         ScoketMsgBFV[1] = string.Concat(ScoketMsgBFV[1], "\0");
-        ScoketMsgBFV[25] = string.Concat(ScoketMsgBFV[25], "\0");
+
+        ScoketMsgBFV[26] = string.Concat(ScoketMsgBFV[26], "\0");
     }
 
     /// <summary>
@@ -137,7 +138,7 @@ public static class LSXTcpServer
             LoggerHelper.Debug($"处理解密 Challenge 响应 Seed {newResponse}");
 
             // 处理请求
-            buffer = Encoding.UTF8.GetBytes(ScoketMsgBFV[25].Replace("##RESPONSE##", newResponse).Replace("##ID##", partArray[3]));
+            buffer = Encoding.UTF8.GetBytes(ScoketMsgBFV[26].Replace("##RESPONSE##", newResponse).Replace("##ID##", partArray[3]));
 
             // 异步写入网络流
             await networkStream.WriteAsync(buffer);
@@ -232,7 +233,7 @@ public static class LSXTcpServer
     /// <summary>
     /// 处理 BFV LSX 请求
     /// </summary>
-    private static async Task<string> LSXRequestHandleForBFV(string request, string contentid)
+    private static async Task<string> LSXRequestHandleForBFV(string request, string contentId)
     {
         if (string.IsNullOrWhiteSpace(request))
             return string.Empty;
@@ -257,13 +258,14 @@ public static class LSXTcpServer
             "><GetGameInfo GameInfoId=" => partArray[5] switch
             {
                 "FREETRIAL" => ScoketMsgBFV[19].Replace("##ID##", id),
-                "UPTODATE" => ScoketMsgBFV[20].Replace("##ID##", id),
+                "UPTODATE" => ScoketMsgBFV[20].Replace("##ID##", id).Replace("##Locale##", "true"),
+                "INSTALLED_LANGUAGE" => ScoketMsgBFV[20].Replace("##ID##", id).Replace("##Locale##", "zh_TW"),
                 _ => ScoketMsgBFV[5].Replace("##ID##", id),
             },
             "><GetInternetConnectedState version=" => ScoketMsgBFV[6].Replace("##ID##", id),
             "><GetPresence UserId=" => ScoketMsgBFV[7].Replace("##ID##", id),
-            "><GetProfile index=" => ScoketMsgBFV[8].Replace("##ID##", id).Replace("##PID##", "1515810").Replace("##DSNM##", Account.PlayerName),
-            "><RequestLicense UserId=" => ScoketMsgBFV[15].Replace("##ID##", id).Replace("##License##", await EasyEaApi.GetLSXLicense(partArray[7], contentid)),
+            "><GetProfile index=" => ScoketMsgBFV[8].Replace("##ID##", id).Replace("##PID##", Account.PersonaId).Replace("##DSNM##", Account.PlayerName).Replace("##UID##", Account.UserId),
+            "><RequestLicense UserId=" => ScoketMsgBFV[15].Replace("##ID##", id).Replace("##License##", "zh_TW"),
             "><GetSetting SettingId=" => partArray[5] switch
             {
                 "ENVIRONMENT" => ScoketMsgBFV[9].Replace("##ID##", id),
@@ -275,13 +277,17 @@ public static class LSXTcpServer
             "><QueryImage ImageId=" => ScoketMsgBFV[12].Replace("##ID##", id).Replace("##ImageId##", partArray[5]).Replace("##Width##", partArray[7]),
             "><QueryPresence UserId=" => ScoketMsgBFV[13].Replace("##ID##", id),
             "><SetPresence UserId=" => ScoketMsgBFV[14].Replace("##ID##", id),
-            "><GetAllGameInfo version=" => ScoketMsgBFV[16].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}"),
+            "><GetAllGameInfo version=" => contentId switch
+            {
+                _ => ScoketMsgBFV[27].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", "zh_TW").Replace("##Version##", "1.0.108.2038")
+            },
             "><IsProgressiveInstallationAvailable ItemId=" => ScoketMsgBFV[17].Replace("##ID##", id).Replace("Origin.OFR.50.0004342", "Origin.OFR.50.0001455"),
             "><QueryContent UserId=" => ScoketMsgBFV[18].Replace("##ID##", id),
             "><QueryEntitlements UserId=" => ScoketMsgBFV[21].Replace("##ID##", id),
             "><QueryOffers UserId=" => ScoketMsgBFV[22].Replace("##ID##", id),
             "><SetDownloaderUtilization Utilization=" => ScoketMsgBFV[23].Replace("##ID##", id),
             "><QueryChunkStatus ItemId=" => ScoketMsgBFV[24].Replace("##ID##", id),
+            "><GetPresenceVisibility UserId=" => ScoketMsgBFV[25].Replace("##ID##", id),
             _ => string.Empty,
         };
     }

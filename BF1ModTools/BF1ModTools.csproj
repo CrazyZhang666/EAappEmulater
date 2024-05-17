@@ -54,7 +54,7 @@
         <DebugType>none</DebugType>
         <DebugSymbols>false</DebugSymbols>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
     </ItemGroup>
@@ -106,6 +106,8 @@
         <EmbeddedResource Include="Assets\Files\LSX\BFV\23.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\24.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\25.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\26.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\27.xml" />
     </ItemGroup>
 
 </Project>

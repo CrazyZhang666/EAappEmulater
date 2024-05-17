@@ -1,0 +1,11 @@
+﻿<LSX>
+    <Response id="##ID##" sender="EbisuSDK">
+        <GetAllGameInfoResponse InstalledVersion="##Version##"
+            Languages="en_US,zh_TW,de_DE,es_ES,es_MX,fr_FR,it_IT,ja_JP,pl_PL,pt_BR,ru_RU,zh_CN,zh_HK"
+            SystemTime="##SystemTime##" DisplayName="Titanfall® 2 Deluxe Edition"
+            EntitlementSource="ORIGIN" FullGameReleased="true"
+            FullGameReleaseDate="2016-10-28T04:00:00" Expiration="0000-00-00T00:00:00"
+            MaxGroupSize="16" FullGamePurchased="true" AvailableVersion="##Version##" UpToDate="true"
+            HasExpiration="false" InstalledLanguage="##Locale##" FreeTrial="false" />
+    </Response>
+</LSX>
