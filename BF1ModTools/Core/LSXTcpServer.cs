@@ -265,7 +265,7 @@ public static class LSXTcpServer
             "><GetInternetConnectedState version=" => ScoketMsgBFV[6].Replace("##ID##", id),
             "><GetPresence UserId=" => ScoketMsgBFV[7].Replace("##ID##", id),
             "><GetProfile index=" => ScoketMsgBFV[8].Replace("##ID##", id).Replace("##PID##", Account.PersonaId).Replace("##DSNM##", Account.PlayerName).Replace("##UID##", Account.UserId),
-            "><RequestLicense UserId=" => ScoketMsgBFV[15].Replace("##ID##", id).Replace("##License##", "zh_TW"),
+            "><RequestLicense UserId=" => ScoketMsgBFV[15].Replace("##ID##", id).Replace("##License##", await EasyEaApi.GetLSXLicense(partArray[7], contentId)),
             "><GetSetting SettingId=" => partArray[5] switch
             {
                 "ENVIRONMENT" => ScoketMsgBFV[9].Replace("##ID##", id),
