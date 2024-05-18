@@ -57,6 +57,7 @@ public partial class AccountWindow
             LoggerHelper.Info("正在释放资源服务进程文件...");
             FileHelper.ExtractResFile("Exec.EADesktop.exe", CoreUtil.File_Service_EADesktop);
             FileHelper.ExtractResFile("Exec.OriginDebug.exe", CoreUtil.File_Service_OriginDebug);
+            FileHelper.ExtractResFile("Exec.BF1Chat.exe", CoreUtil.File_Service_BF1Chat);
             DisplayLoadState("释放资源服务进程文件成功");
             LoggerHelper.Info("释放资源服务进程文件成功");
 

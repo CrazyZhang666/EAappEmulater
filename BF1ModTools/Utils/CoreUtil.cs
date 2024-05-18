@@ -22,6 +22,7 @@ public static class CoreUtil
 
     public static string File_Service_EADesktop { get; private set; }
     public static string File_Service_OriginDebug { get; private set; }
+    public static string File_Service_BF1Chat { get; private set; }
     #endregion
 
     #region 数据目录
@@ -82,6 +83,7 @@ public static class CoreUtil
 
         File_Service_EADesktop = Path.Combine(Dir_Service, "EADesktop.exe");
         File_Service_OriginDebug = Path.Combine(Dir_Service, "OriginDebug.exe");
+        File_Service_BF1Chat = Path.Combine(Dir_Service, "BF1Chat.exe");
         #endregion
 
         #region 数据目录
@@ -117,6 +119,7 @@ public static class CoreUtil
         await ProcessHelper.CloseProcess("Origin");
         await ProcessHelper.CloseProcess("OriginDebug");
 
+        await ProcessHelper.CloseProcess("BF1Chat");
         await ProcessHelper.CloseProcess("EAappEmulater");
 
         await ProcessHelper.CloseProcess("FrostyModManager");

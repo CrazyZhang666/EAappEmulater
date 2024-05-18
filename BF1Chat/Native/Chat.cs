@@ -1,4 +1,4 @@
-﻿namespace BF1ModTools.Native;
+﻿namespace BF1Chat.Native;
 
 public static class Chat
 {
@@ -221,6 +221,9 @@ public static class Chat
     public static void FreeMemory()
     {
         if (AllocateMemAddress != IntPtr.Zero)
+        {
             Win32.VirtualFreeEx(Memory.Bf1ProHandle, AllocateMemAddress, 0, AllocationType.Reset);
+            AllocateMemAddress = IntPtr.Zero;
+        }
     }
 }

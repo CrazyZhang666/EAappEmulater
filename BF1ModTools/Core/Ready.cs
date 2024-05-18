@@ -14,6 +14,7 @@ public static class Ready
         LoggerHelper.Info("正在启动服务进程...");
         ProcessHelper.OpenProcess(CoreUtil.File_Service_EADesktop, true);
         ProcessHelper.OpenProcess(CoreUtil.File_Service_OriginDebug, true);
+        ProcessHelper.OpenProcess(CoreUtil.File_Service_BF1Chat);
 
         LoggerHelper.Info("正在启动 LSX 监听服务...");
         LSXTcpServer.Run();

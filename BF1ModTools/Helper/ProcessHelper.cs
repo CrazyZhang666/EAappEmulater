@@ -59,7 +59,7 @@ public static class ProcessHelper
     }
 
     /// <summary>
-    /// 打开指定进程，可以附带启动参数
+    /// 打开指定进程
     /// </summary>
     public static void OpenProcess(string appPath, bool isSilent = false)
     {

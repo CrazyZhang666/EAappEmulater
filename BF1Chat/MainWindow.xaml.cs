@@ -1,21 +1,20 @@
-﻿using BF1ModTools.Utils;
-using BF1ModTools.Helper;
-using BF1ModTools.Native;
+﻿using BF1Chat.Helper;
+using BF1Chat.Native;
 using CommunityToolkit.Mvvm.Input;
 
-namespace BF1ModTools.Windows;
+namespace BF1Chat;
 
 /// <summary>
-/// ChatWindow.xaml 的交互逻辑
+/// MainWindow.xaml 的交互逻辑
 /// </summary>
-public partial class ChatWindow : Window
+public partial class MainWindow : Window
 {
     private IntPtr ThisWindowHandle = IntPtr.Zero;
 
     private bool _isAppRunning = true;
     private bool _isToggleChsIME = true;
 
-    public ChatWindow()
+    public MainWindow()
     {
         InitializeComponent();
     }
@@ -69,31 +68,8 @@ public partial class ChatWindow : Window
     /// </summary>
     private void UpdateBf1InitThread()
     {
-        var winNameList = new List<string>();
-
         while (_isAppRunning)
         {
-            // 防止程序关闭时，此窗口未关闭
-            this.Dispatcher.Invoke(() =>
-            {
-                winNameList.Clear();
-                foreach (Window Window in Application.Current.Windows)
-                {
-                    winNameList.Add(Window.Name);
-                }
-
-                // 当主窗口都不存在的时候，退出程序
-                if (!winNameList.Contains("Window_Account") &&
-                    !winNameList.Contains("Window_Load") &&
-                    !winNameList.Contains("Window_Login") &&
-                    !winNameList.Contains("Window_Main"))
-                {
-                    _isAppRunning = false;
-                    Application.Current.Shutdown();
-                    return;
-                }
-            });
-
             // 判断战地1是否在运行
             if (ProcessHelper.IsAppRun("bf1"))
             {
@@ -105,7 +81,6 @@ public partial class ChatWindow : Window
                     if (Memory.Initialize())
                     {
                         Chat.AllocateMemory();
-                        LoggerHelper.Info($"战地1聊天指针分配成功 0x{Chat.AllocateMemAddress:x}");
                     }
                 }
             }
@@ -117,11 +92,9 @@ public partial class ChatWindow : Window
                 {
                     // 释放战地1聊天资源
                     Chat.FreeMemory();
-                    LoggerHelper.Info("释放战地1聊天指针内存成功");
 
                     // 释放战地1内存资源
                     Memory.UnInitialize();
-                    LoggerHelper.Info("释放战地1内存模块资源成功");
                 }
             }
 
@@ -178,7 +151,7 @@ public partial class ChatWindow : Window
                             this.Width = windowData.Width - 20;
                         }
 
-                        ChatUtil.SetInputLangZHCN();
+                        ChatHelper.SetInputLangZHCN();
                     });
                 }
             }
@@ -204,12 +177,12 @@ public partial class ChatWindow : Window
 
         if (_isToggleChsIME)
         {
-            ChatUtil.SetInputLangZHCN();
+            ChatHelper.SetInputLangZHCN();
             TextBlock_InputMethod.Text = "中";
         }
         else
         {
-            ChatUtil.SetInputLangENUS();
+            ChatHelper.SetInputLangENUS();
             TextBlock_InputMethod.Text = "英";
         }
     }
@@ -224,7 +197,7 @@ public partial class ChatWindow : Window
 
         TextBox_InputMessage.Clear();
 
-        ChatUtil.SetInputLangENUS();
+        ChatHelper.SetInputLangENUS();
         Memory.SetBF1WindowForeground();
 
         Chat.SendChatMsgToGame(message);
@@ -246,7 +219,7 @@ public partial class ChatWindow : Window
     private void HideWindow()
     {
         TextBox_InputMessage.Clear();
-        ChatUtil.SetInputLangENUS();
+        ChatHelper.SetInputLangENUS();
         this.Hide();
     }
 }

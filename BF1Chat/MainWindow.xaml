@@ -1,11 +1,11 @@
 ﻿<Window
-    x:Class="BF1ModTools.Windows.ChatWindow"
+    x:Class="BF1Chat.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Name="Window_Chat"
-    Title="战地1马恩中文输入工具"
+    Title="战地1中文输入工具"
     Width="500"
     Height="34"
     MinWidth="400"
@@ -40,12 +40,12 @@
     <DockPanel>
         <TextBlock
             x:Name="TextBlock_InputMethod"
-            Margin="10,0,10,0"
+            Margin="15,0,5,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Background="Transparent"
             DockPanel.Dock="Left"
-            Foreground="#138146"
+            Foreground="#85E900"
             MouseLeftButtonDown="TextBlock_InputMethod_MouseLeftButtonDown"
             Text="中" />
         <TextBox
@@ -63,15 +63,14 @@
             DockPanel.Dock="Right"
             Foreground="White"
             InputLanguageManager.InputLanguage="zh-CN"
-            SelectionBrush="#006CBE"
-            SelectionOpacity="1.0"
-            SelectionTextBrush="White">
+            SelectionBrush="#FFFFFF"
+            SelectionOpacity="0.5"
+            SelectionTextBrush="#000">
             <TextBox.InputBindings>
                 <KeyBinding Key="Enter" Command="{Binding SendChatMessageCommand}" />
                 <KeyBinding Key="Esc" Command="{Binding CancelChatMessageCommand}" />
             </TextBox.InputBindings>
         </TextBox>
     </DockPanel>
-
 
 </Window>

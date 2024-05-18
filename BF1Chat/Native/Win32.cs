@@ -1,4 +1,4 @@
-﻿namespace BF1ModTools.Native;
+﻿namespace BF1Chat.Native;
 
 public static class Win32
 {

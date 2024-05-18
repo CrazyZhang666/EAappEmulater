@@ -1,6 +1,6 @@
-﻿namespace BF1ModTools.Utils;
+﻿namespace BF1Chat.Helper;
 
-public static class ChatUtil
+public static class ChatHelper
 {
     /// <summary>
     /// 美式键盘
