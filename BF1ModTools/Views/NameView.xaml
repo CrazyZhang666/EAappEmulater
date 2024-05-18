@@ -64,9 +64,9 @@
                 <ui:IconHyperlink
                     Margin="5"
                     VerticalAlignment="Center"
-                    Text="加入KOOK"
-                    ToolTip="https://kook.top/WVuDlM"
-                    Uri="https://kook.top/WVuDlM" />
+                    Text="加入QQ群: 743735539"
+                    ToolTip="https://qm.qq.com/q/LxSQw9xq6s"
+                    Uri="https://qm.qq.com/q/LxSQw9xq6s" />
             </StackPanel>
         </DockPanel>
     </Border>

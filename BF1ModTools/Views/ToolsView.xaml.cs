@@ -22,7 +22,7 @@ public partial class ToolsView : UserControl
         {
             if (!ProcessHelper.IsAppRun(CoreUtil.Name_BF1))
             {
-                NotifierHelper.Warning("战地1未运行，请先Mod启动战地1再执行本操作");
+                NotifierHelper.Warning("战地1未运行，请先启动战地1模组后再执行本操作");
                 return;
             }
 
