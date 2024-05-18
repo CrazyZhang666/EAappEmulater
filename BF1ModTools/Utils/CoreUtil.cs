@@ -121,7 +121,6 @@ public static class CoreUtil
 
         await ProcessHelper.CloseProcess("FrostyModManager");
         await ProcessHelper.CloseProcess("MarneLauncher");
-        await ProcessHelper.CloseProcess("BattlefieldChat");
     }
 
     /// <summary>

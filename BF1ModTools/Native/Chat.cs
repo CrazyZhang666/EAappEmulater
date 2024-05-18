@@ -96,6 +96,36 @@ public static class Chat
             return address;
     }
 
+    /// <summary>
+    /// 判断战地1窗口是否在最前
+    /// </summary>
+    /// <returns></returns>
+    public static bool IsBf1WindowTopmost()
+    {
+        var address = Memory.Read<long>(Offsets.OFFSET_DXRENDERER);
+        if (!Memory.IsValid(address))
+            return false;
+        address = Memory.Read<long>(address + 0x820);
+        if (!Memory.IsValid(address))
+            return false;
+
+        return Memory.Read<byte>(address + 0x5F) == 0x01;
+    }
+
+    /// <summary>
+    /// 判断战地1窗口是否全屏
+    /// </summary>
+    public static bool IsWindowFullscreen()
+    {
+        if (Marshal.GetExceptionForHR(Win32.SHQueryUserNotificationState(out UserNotificationState state)) == null &&
+            state == UserNotificationState.QUNS_RUNNING_D3D_FULL_SCREEN)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     //////////////////////////////////////////////////////////////////
 
     /// <summary>

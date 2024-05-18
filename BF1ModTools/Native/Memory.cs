@@ -121,8 +121,8 @@ public static class Memory
     public static bool GetWindowData(out WindowData windowData)
     {
         // 获取指定窗口句柄的窗口矩形数据和客户区矩形数据
-        Win32.GetWindowRect(Bf1WinHandle, out WinRect windowRect);
-        Win32.GetClientRect(Bf1WinHandle, out WinRect clientRect);
+        Win32.GetWindowRect(Bf1WinHandle, out RECT windowRect);
+        Win32.GetClientRect(Bf1WinHandle, out RECT clientRect);
 
         // 计算窗口区的宽和高
         var windowWidth = windowRect.Right - windowRect.Left;

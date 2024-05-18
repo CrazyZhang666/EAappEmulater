@@ -61,8 +61,31 @@ public partial class ChatWindow : Window
     /// </summary>
     private void UpdateBf1InitThread()
     {
+        var winNameList = new List<string>();
+
         while (_isAppRunning)
         {
+            // 防止程序关闭时，此窗口未关闭
+            this.Dispatcher.Invoke(() =>
+            {
+                winNameList.Clear();
+                foreach (Window Window in Application.Current.Windows)
+                {
+                    winNameList.Add(Window.Name);
+                }
+
+                // 当主窗口都不存在的时候，退出程序
+                if (!winNameList.Contains("Window_Account") &&
+                    !winNameList.Contains("Window_Load") &&
+                    !winNameList.Contains("Window_Login") &&
+                    !winNameList.Contains("Window_Main"))
+                {
+                    _isAppRunning = false;
+                    Application.Current.Shutdown();
+                    return;
+                }
+            });
+
             // 判断战地1是否在运行
             if (ProcessHelper.IsAppRun("bf1"))
             {
@@ -103,31 +126,35 @@ public partial class ChatWindow : Window
     /// </summary>
     private void UpdateInputStateThread()
     {
+        // 避免窗口重复显示
         bool isShow = false;
 
         while (_isAppRunning)
         {
-            // 检查聊天框是否开启
-            if (Chat.IsBf1ChatOpen())
+            // 当聊天框是开启
+            // 并且 战地1窗口不在最前
+            if (Chat.IsBf1ChatOpen() && !Chat.IsBf1WindowTopmost())
             {
                 // 聊天框开启
-                if (!isShow)
+                // 如果输入窗口不显示
+                // 并且 必须是非全屏状态
+                if (!isShow && !Chat.IsWindowFullscreen())
                 {
                     isShow = true;
 
                     this.Dispatcher.Invoke(() =>
                     {
-                        var thisWindowThreadId = Win32.GetWindowThreadProcessId(ThisWindowHandle, IntPtr.Zero);
-                        var currentForegroundWindow = Win32.GetForegroundWindow();
-                        var currentForegroundWindowThreadId = Win32.GetWindowThreadProcessId(currentForegroundWindow, IntPtr.Zero);
+                        var thisWinThreadId = Win32.GetWindowThreadProcessId(ThisWindowHandle, IntPtr.Zero);
+                        var currForeWindow = Win32.GetForegroundWindow();
+                        var currForeWinThreadId = Win32.GetWindowThreadProcessId(currForeWindow, IntPtr.Zero);
 
-                        Win32.AttachThreadInput(currentForegroundWindowThreadId, thisWindowThreadId, true);
+                        Win32.AttachThreadInput(currForeWinThreadId, thisWinThreadId, true);
 
                         this.Show();
                         this.Activate();
                         this.Focus();
 
-                        Win32.AttachThreadInput(currentForegroundWindowThreadId, thisWindowThreadId, false);
+                        Win32.AttachThreadInput(currForeWinThreadId, thisWinThreadId, false);
 
                         this.Topmost = true;
                         this.Topmost = false;
@@ -151,6 +178,7 @@ public partial class ChatWindow : Window
             else
             {
                 // 聊天框关闭
+                // 如果输入窗口显示
                 if (isShow)
                 {
                     isShow = false;

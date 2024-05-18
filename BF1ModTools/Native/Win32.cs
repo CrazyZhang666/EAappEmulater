@@ -30,10 +30,10 @@ public static class Win32
     public static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, int dwSize, AllocationType dwFreeType);
 
     [DllImport("user32.dll")]
-    public static extern bool GetWindowRect(IntPtr hWnd, out WinRect lpRect);
+    public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
     [DllImport("user32.dll")]
-    public static extern bool GetClientRect(IntPtr hWnd, out WinRect lpRect);
+    public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
 
     [DllImport("user32.dll", EntryPoint = "keybd_event")]
     public static extern void Keybd_Event(WinVK bVk, uint bScan, uint dwFlags, uint dwExtraInfo);
@@ -49,6 +49,9 @@ public static class Win32
 
     [DllImport("user32.dll")]
     public static extern uint GetWindowThreadProcessId(IntPtr hWnd, IntPtr ProcessId);
+
+    [DllImport("shell32.dll")]
+    public static extern int SHQueryUserNotificationState(out UserNotificationState state);
 }
 
 [Flags]
@@ -100,10 +103,21 @@ public enum MemoryProtection
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public struct WinRect
+public struct RECT
 {
     public int Left;
     public int Top;
     public int Right;
     public int Bottom;
+}
+
+public enum UserNotificationState : int
+{
+    QUNS_NOT_PRESENT = 1,
+    QUNS_BUSY,
+    QUNS_RUNNING_D3D_FULL_SCREEN,
+    QUNS_PRESENTATION_MODE,
+    QUNS_ACCEPTS_NOTIFICATIONS,
+    QUNS_QUIET_TIME,
+    QUNS_APP,
 }
