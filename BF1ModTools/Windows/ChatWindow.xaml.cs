@@ -57,6 +57,14 @@ public partial class ChatWindow : Window
     }
 
     /// <summary>
+    /// 窗口失去焦点时
+    /// </summary>
+    private void Window_Deactivated(object sender, EventArgs e)
+    {
+        HideWindow();
+    }
+
+    /// <summary>
     /// 更新战地1初始化线程
     /// </summary>
     private void UpdateBf1InitThread()
@@ -132,8 +140,7 @@ public partial class ChatWindow : Window
         while (_isAppRunning)
         {
             // 当聊天框是开启
-            // 并且 战地1窗口不在最前
-            if (Chat.IsBf1ChatOpen() && !Chat.IsBf1WindowTopmost())
+            if (Chat.IsBf1ChatOpen())
             {
                 // 聊天框开启
                 // 如果输入窗口不显示
@@ -211,7 +218,7 @@ public partial class ChatWindow : Window
     /// 发送聊天消息
     /// </summary>
     [RelayCommand]
-    private async Task SendChatMessage()
+    private void SendChatMessage()
     {
         var message = TextBox_InputMessage.Text.Trim();
 
@@ -220,17 +227,17 @@ public partial class ChatWindow : Window
         ChatUtil.SetInputLangENUS();
         Memory.SetBF1WindowForeground();
 
-        await Chat.SendChatMsgToGame(message);
+        Chat.SendChatMsgToGame(message);
     }
 
     /// <summary>
     /// 取消发送消息
     /// </summary>
     [RelayCommand]
-    private async Task CancelChatMessage()
+    private void CancelChatMessage()
     {
         HideWindow();
-        await Memory.KeyPress(WinVK.ESCAPE);
+        Memory.KeyPress(WinVK.ESCAPE);
     }
 
     /// <summary>

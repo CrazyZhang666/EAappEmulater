@@ -131,8 +131,7 @@ public static class Chat
     /// <summary>
     /// 发送聊天消息到游戏
     /// </summary>
-    /// <param name="message"></param>
-    public static async Task SendChatMsgToGame(string message)
+    public static void SendChatMsgToGame(string message)
     {
         // 去除多余空格
         message = message.Trim();
@@ -164,7 +163,7 @@ public static class Chat
 
         //////////////////////////////////////////////////////
 
-        await Memory.KeyPress(WinVK.RETURN);
+        Memory.KeyPress(WinVK.RETURN);
 
         //////////////////////////////////////////////////////
 

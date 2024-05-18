@@ -91,12 +91,12 @@ public static class Memory
     /// <summary>
     /// 按键模拟
     /// </summary>
-    public static async Task KeyPress(WinVK winVK, int delay = 50)
+    public static void KeyPress(WinVK winVK, int delay = 50)
     {
         Win32.Keybd_Event(winVK, Win32.MapVirtualKey(winVK, 0), 0, 0);
-        await Task.Delay(delay);
+        Thread.Sleep(delay);
         Win32.Keybd_Event(winVK, Win32.MapVirtualKey(winVK, 0), 2, 0);
-        await Task.Delay(delay);
+        Thread.Sleep(delay);
     }
 
     /// <summary>
