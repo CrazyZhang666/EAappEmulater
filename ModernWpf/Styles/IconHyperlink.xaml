@@ -31,7 +31,7 @@
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Icon, Converter={StaticResource IsNullOrWhiteSpaceConverter}}" Value="True">
                             <Setter TargetName="IconFont" Property="Margin" Value="0" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content, Converter={StaticResource IsNullOrWhiteSpaceConverter}}" Value="True">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text, Converter={StaticResource IsNullOrWhiteSpaceConverter}}" Value="True">
                             <Setter TargetName="IconFont" Property="Margin" Value="0" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>

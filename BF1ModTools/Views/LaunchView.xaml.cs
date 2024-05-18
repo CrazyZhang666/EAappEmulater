@@ -132,6 +132,13 @@ public partial class LaunchView : UserControl
     [RelayCommand]
     private void RunMarneLauncher()
     {
+        // 如果战地1未运行，则不允许启动MarneLauncher
+        if (!ProcessHelper.IsAppRun(CoreUtil.Name_BF1))
+        {
+            NotifierHelper.Warning("战地1未运行，请先启动战地1游戏");
+            return;
+        }
+
         // 如果程序已经在运行，则结束操作
         if (ProcessHelper.IsAppRun(CoreUtil.Name_MarneLauncher))
         {

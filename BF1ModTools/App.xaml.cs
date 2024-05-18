@@ -1,5 +1,6 @@
 ﻿using BF1ModTools.Utils;
 using BF1ModTools.Helper;
+using BF1ModTools.Windows;
 
 namespace BF1ModTools;
 
@@ -54,6 +55,10 @@ public partial class App : Application
             }
         }
         LoggerHelper.Info($"当前系统 WebVieww2 环境正常");
+
+        // 战地1中文聊天窗口
+        var chatWindow = new ChatWindow();
+        chatWindow.Show();
 
         //////////////////////////////////////////////////////
 

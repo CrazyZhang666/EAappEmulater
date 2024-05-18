@@ -39,11 +39,6 @@
                 Command="{Binding OpenBF1FolderCommand}"
                 Content="打开战地1目录"
                 Icon="&#xED43;" />
-            <ui:IconButton
-                Margin="2.5"
-                Command="{Binding RunBattlefieldChatCommand}"
-                Content="启用中文聊天"
-                Icon="&#xE8F2;" />
         </WrapPanel>
     </Border>
 

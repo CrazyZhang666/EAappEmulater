@@ -30,8 +30,6 @@ public static class CoreUtil
     public static string Dir_Mods_Bf1 { get; private set; }
 
     public static string File_FrostyMod_FrostyModManager { get; private set; }
-    public static string File_BattlefieldChat { get; private set; }
-
     public static string File_Marne_MarneDll { get; private set; }
     public static string File_Marne_MarneLauncher { get; private set; }
     #endregion
@@ -40,7 +38,6 @@ public static class CoreUtil
 
     public const string Name_FrostyModManager = "FrostyModManager";
     public const string Name_MarneLauncher = "MarneLauncher";
-    public const string Name_BattlefieldChat = "BattlefieldChat";
 
     //////////////////////////////////
 
@@ -93,8 +90,6 @@ public static class CoreUtil
         Dir_Mods_Bf1 = Path.Combine(Dir_Mods, "bf1");
 
         File_FrostyMod_FrostyModManager = Path.Combine(Dir_AppData, "FrostyMod\\FrostyModManager.exe");
-        File_BattlefieldChat = Path.Combine(Dir_AppData, "Tools\\BattlefieldChat.exe");
-
         File_Marne_MarneLauncher = Path.Combine(Dir_AppData, "Marne\\MarneLauncher.exe");
         File_Marne_MarneDll = Path.Combine(Dir_AppData, "Marne\\Marne.dll");
         #endregion
