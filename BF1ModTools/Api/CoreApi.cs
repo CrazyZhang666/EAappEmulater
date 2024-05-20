@@ -24,7 +24,7 @@ public static class CoreApi
     {
         try
         {
-            var request = new RestRequest("https://api.battlefield.vip/marne/update.txt", Method.Get);
+            var request = new RestRequest("http://120.76.47.131:10086/marne/update.txt", Method.Get);
 
             var response = await _client.ExecuteAsync(request);
             LoggerHelper.Info($"GetWebUpdateVersion 请求结束，状态 {response.ResponseStatus}");

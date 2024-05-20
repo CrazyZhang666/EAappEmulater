@@ -1,6 +1,5 @@
 ﻿using BF1ModTools.Utils;
 using BF1ModTools.Helper;
-using BF1ModTools.Models;
 using CommunityToolkit.Mvvm.Input;
 
 namespace BF1ModTools.Views;
@@ -13,42 +12,6 @@ public partial class ToolsView : UserControl
     public ToolsView()
     {
         InitializeComponent();
-    }
-
-    [RelayCommand]
-    private void CheckModState()
-    {
-        try
-        {
-            if (!ProcessHelper.IsAppRun(CoreUtil.Name_BF1))
-            {
-                NotifierHelper.Warning("战地1未运行，请先启动战地1模组后再执行本操作");
-                return;
-            }
-
-            var jsonPath = Path.Combine(Globals.BF1InstallDir, "ModData\\Marne\\patch\\mods.json");
-            if (!File.Exists(jsonPath))
-            {
-                LoggerHelper.Warn("未发现战地1目录 ModData 里的 mods.json 文件，Mod未生效");
-                return;
-            }
-
-            var jsonStr = File.ReadAllText(jsonPath);
-            var modInfoList = JsonHelper.JsonDeserialize<List<ModInfo>>(jsonStr);
-            LoggerHelper.Info($"当前应用Mod数量: {modInfoList.Count}");
-
-            foreach (var modInfo in modInfoList)
-            {
-                LoggerHelper.Info($"已应用Mod: {modInfo.file_name}");
-            }
-
-            var result = ProcessHelper.GetProcessCommandLineArgs(CoreUtil.Name_BF1);
-            LoggerHelper.Info($"战地1命令行: {result}");
-        }
-        catch (Exception ex)
-        {
-            LoggerHelper.Error($"检测Mod状态发生异常", ex);
-        }
     }
 
     [RelayCommand]

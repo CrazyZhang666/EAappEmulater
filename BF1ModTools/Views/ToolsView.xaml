@@ -14,11 +14,6 @@
         <WrapPanel>
             <ui:IconButton
                 Margin="2.5"
-                Command="{Binding CheckModStateCommand}"
-                Content="检测Mod状态"
-                Icon="&#xE704;" />
-            <ui:IconButton
-                Margin="2.5"
                 Command="{Binding ClearModDataCommand}"
                 Content="清理Mod数据"
                 Icon="&#xE74D;" />
