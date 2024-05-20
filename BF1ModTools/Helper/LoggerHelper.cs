@@ -15,7 +15,7 @@ public static class LoggerHelper
 
         var logfile = new FileTarget("logfile")
         {
-            FileName = "${specialfolder:folder=MyDocuments}/BF1ModTools/Log/NLog/${shortdate}.log",
+            FileName = "${specialfolder:folder=CommonApplicationData}/BF1ModTools/Log/NLog/${shortdate}.log",
             Layout = "${longdate} ${level:upperCase=true} ${message} ${exception:format=message}",
             MaxArchiveFiles = 30,
             ArchiveAboveSize = 1024 * 1024 * 10,
