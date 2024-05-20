@@ -1,6 +1,7 @@
 ﻿using BF1ModTools.Utils;
 using BF1ModTools.Helper;
 using BF1ModTools.Models;
+using BF1ModTools.Windows;
 using CommunityToolkit.Mvvm.Input;
 
 namespace BF1ModTools.Views;
@@ -43,76 +44,11 @@ public partial class LaunchView : UserControl
             return;
         }
 
-        // 选择要安装的Mod文件（支持多选）
-        var dialog = new OpenFileDialog
+        var modWindow = new ModWindow
         {
-            Title = "请选择要安装的战地1寒霜Mod文件（支持多选）",
-            DefaultExt = ".fbmod",
-            Filter = "寒霜Mod文件 (.fbmod)|*.fbmod",
-            Multiselect = true,
-            InitialDirectory = Globals.DialogDir2,
-            RestoreDirectory = true,
-            AddExtension = true,
-            CheckFileExists = true,
-            CheckPathExists = true
+            Owner = Application.Current.MainWindow
         };
-
-        // 如果未选择，则退出程序
-        if (dialog.ShowDialog() == false)
-            return;
-
-        // 记住本次选择的文件路径
-        Globals.DialogDir2 = Path.GetDirectoryName(dialog.FileName);
-
-        // 输出选择Mod文件数量
-        LoggerHelper.Info($"当前选择战地1 Mod 数量: {dialog.FileNames.Length}");
-
-        try
-        {
-            // 文件夹如果不存在则创建
-            FileHelper.CreateDirectory(CoreUtil.Dir_Mods_Bf1);
-
-            // 清空旧版Mod文件夹
-            FileHelper.ClearDirectory(CoreUtil.Dir_Mods_Bf1);
-            LoggerHelper.Info("清空旧版 Mod 文件夹 成功");
-
-            // 创建FrostyMod配置文件
-            var modConfig = new ModConfig();
-
-            // 设置战地1安装目录
-            modConfig.Games.bf1.GamePath = Globals.BF1InstallDir;
-
-            // 临时保存选择Mod文件名称列表
-            var modFiles = new List<string>();
-            // 遍历选择的Mod文件列表
-            foreach (var file in dialog.FileNames)
-            {
-                // 获取文件名称，带扩展名
-                var fileName = Path.GetFileName(file);
-
-                // 复制mod文件到寒霜mod管理器指定文件夹
-                File.Copy(file, Path.Combine(CoreUtil.Dir_Mods_Bf1, fileName), true);
-                // 添加Mod文件名全称+特定后缀到列表中
-                modFiles.Add($"{fileName}:True");
-
-                LoggerHelper.Info($"已选择战地1 Mod 名称: {fileName}");
-            }
-
-            // 设置Mod名称并启用
-            modConfig.Games.bf1.Packs.Marne = string.Join("|", modFiles);
-
-            // 写入Frosty\manager_config.json配置文件
-            File.WriteAllText(CoreUtil.File_Config_ManagerConfig, JsonHelper.JsonSerialize(modConfig));
-            LoggerHelper.Info("写入 FrostyModManager 配置文件成功");
-
-            LoggerHelper.Info("正在启动 FrostyModManager 中...");
-            ProcessHelper.OpenProcess(CoreUtil.File_FrostyMod_FrostyModManager);
-        }
-        catch (Exception ex)
-        {
-            NotifierHelper.Error("安装 Mod 过程中发生异常");
-            LoggerHelper.Error($"安装 Mod 过程中发生异常 {ex.Message}");
-        }
+        modWindow.ShowDialog();
     }
 
     /// <summary>

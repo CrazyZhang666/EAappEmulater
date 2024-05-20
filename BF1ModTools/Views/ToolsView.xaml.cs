@@ -50,7 +50,7 @@ public partial class ToolsView : UserControl
     [RelayCommand]
     private async Task KillBf1Process()
     {
-        if (MessageBox.Show("你确定要强制结束《战地1》进程吗？",
+        if (MessageBox.Show("你确定要结束《战地1》进程吗？",
             "警告", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
         {
             await ProcessHelper.CloseProcess(CoreUtil.Name_BF1);

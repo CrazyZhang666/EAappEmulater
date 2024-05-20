@@ -20,7 +20,6 @@ public partial class AccountWindow
 
     /// <summary>
     /// 窗口加载完成事件
-    /// 
     /// </summary>
     private async void Window_Account_Loaded(object sender, RoutedEventArgs e)
     {

@@ -14,6 +14,17 @@ public class IconButton : Button
         DependencyProperty.Register("Icon", typeof(string), typeof(IconButton), new PropertyMetadata(null));
 
     /// <summary>
+    /// Icon图标大小
+    /// </summary>
+    public double IconSize
+    {
+        get { return (double)GetValue(IconSizeProperty); }
+        set { SetValue(IconSizeProperty, value); }
+    }
+    public static readonly DependencyProperty IconSizeProperty =
+        DependencyProperty.Register("IconSize", typeof(double), typeof(IconButton), new PropertyMetadata(null));
+
+    /// <summary>
     /// 圆角值
     /// </summary>
     public CornerRadius CornerRadius

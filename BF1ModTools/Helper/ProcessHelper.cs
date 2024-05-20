@@ -129,26 +129,4 @@ public static class ProcessHelper
             LoggerHelper.Error($"关闭进程异常 {appName}", ex);
         }
     }
-
-    /// <summary>
-    /// 获取指定进程命令行参数
-    /// </summary>
-    public static string GetProcessCommandLineArgs(string appName)
-    {
-        try
-        {
-            using var searcher = new ManagementObjectSearcher(
-                $"SELECT CommandLine FROM Win32_Process WHERE Name='{appName}.exe'");
-
-            var args = searcher.Get();
-            var mgmBaseOnject = args.Cast<ManagementBaseObject>().SingleOrDefault();
-
-            return mgmBaseOnject["CommandLine"].ToString();
-        }
-        catch (Exception ex)
-        {
-            LoggerHelper.Error($"获取指定进程命令行参数异常 {appName}", ex);
-            return string.Empty;
-        }
-    }
 }
