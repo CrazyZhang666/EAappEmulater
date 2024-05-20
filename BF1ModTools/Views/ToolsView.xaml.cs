@@ -76,7 +76,7 @@ public partial class ToolsView : UserControl
             }
 
             FileHelper.ClearDirectory(modDataDir);
-            NotifierHelper.Success("执行清理Mod数据操作操作成功");
+            NotifierHelper.Success("执行清理Mod数据操作成功");
         }
         catch (Exception ex)
         {
@@ -91,13 +91,9 @@ public partial class ToolsView : UserControl
             "警告", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
         {
             await ProcessHelper.CloseProcess(CoreUtil.Name_BF1);
+            await ProcessHelper.CloseProcess(CoreUtil.Name_FrostyModManager);
+            await ProcessHelper.CloseProcess(CoreUtil.Name_MarneLauncher);
         }
-    }
-
-    [RelayCommand]
-    private void OpenConfigFolder()
-    {
-        ProcessHelper.OpenDirectory(CoreUtil.Dir_Default);
     }
 
     [RelayCommand]

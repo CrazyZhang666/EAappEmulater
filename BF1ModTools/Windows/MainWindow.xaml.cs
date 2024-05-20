@@ -81,15 +81,6 @@ public partial class MainWindow
     }
 
     /// <summary>
-    /// 超链接请求导航事件
-    /// </summary>
-    private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-    {
-        ProcessHelper.OpenLink(e.Uri.OriginalString);
-        e.Handled = true;
-    }
-
-    /// <summary>
     /// 检查更新
     /// </summary>
     private async Task CheckUpdate()
@@ -132,6 +123,15 @@ public partial class MainWindow
                 return;
             }
         }
+    }
+
+    /// <summary>
+    /// 打开配置文件
+    /// </summary>
+    [RelayCommand]
+    private void OpenConfigFolder()
+    {
+        ProcessHelper.OpenDirectory(CoreUtil.Dir_Default);
     }
 
     /// <summary>

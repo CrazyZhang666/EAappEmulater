@@ -31,11 +31,6 @@
             <Label />
             <ui:IconButton
                 Margin="2.5"
-                Command="{Binding OpenConfigFolderCommand}"
-                Content="打开配置目录"
-                Icon="&#xED43;" />
-            <ui:IconButton
-                Margin="2.5"
                 Command="{Binding OpenBF1FolderCommand}"
                 Content="打开战地1目录"
                 Icon="&#xED43;" />

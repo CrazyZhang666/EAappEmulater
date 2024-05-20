@@ -29,14 +29,14 @@ DWORD WINAPI LoaderThread(LPVOID lpParam)
 	if (!isFindWin)
 		return S_OK;
 
-	// 获取文档路径    
-	PWSTR documentsPath;
-	HRESULT hr = SHGetKnownFolderPath(FOLDERID_Documents, 0, NULL, &documentsPath);
+	// 获取数据文件夹路径    
+	PWSTR dataPath;
+	HRESULT hr = SHGetKnownFolderPath(FOLDERID_ProgramData, 0, NULL, &dataPath);
 	if (!SUCCEEDED(hr))
 		return S_OK;
 
 	// 构建 马恩DLL 文件路径
-	std::filesystem::path dllPath = std::filesystem::path(documentsPath) / "BF1ModTools" / "AppData" / "Marne" / "Marne.dll";
+	std::filesystem::path dllPath = std::filesystem::path(dataPath) / "BF1ModTools" / "AppData" / "Marne" / "Marne.dll";
 
 	// 检查文件是否存在
 	if (!std::filesystem::exists(dllPath))

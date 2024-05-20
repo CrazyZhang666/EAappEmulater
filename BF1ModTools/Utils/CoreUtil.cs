@@ -6,7 +6,7 @@ namespace BF1ModTools.Utils;
 public static class CoreUtil
 {
     #region 配置目录
-    public static string Dir_MyDocuments { get; private set; }
+    public static string Dir_CommonAppData { get; private set; }
     public static string Dir_Default { get; private set; }
 
     public static string Dir_AppData { get; private set; }
@@ -56,8 +56,8 @@ public static class CoreUtil
     static CoreUtil()
     {
         #region 配置目录
-        Dir_MyDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        Dir_Default = Path.Combine(Dir_MyDocuments, "BF1ModTools");
+        Dir_CommonAppData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+        Dir_Default = Path.Combine(Dir_CommonAppData, "BF1ModTools");
 
         Dir_AppData = Path.Combine(Dir_Default, "AppData");
         Dir_Mods = Path.Combine(Dir_Default, "Mods");
