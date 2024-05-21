@@ -5,6 +5,13 @@
     ShutdownMode="OnMainWindowClose"
     StartupUri="MainWindow.xaml">
 
-    <Application.Resources />
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--  资源字典  -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ModernWpf;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 
 </Application>

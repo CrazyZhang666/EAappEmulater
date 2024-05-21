@@ -40,6 +40,7 @@
                     <Setter Property="Background" Value="White" />
                     <Setter Property="BorderThickness" Value="0" />
                     <Setter Property="Cursor" Value="Hand" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -50,7 +51,7 @@
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}">
                                     <Border BorderBrush="#E5E5E5" BorderThickness="0,0,0,1">
-                                        <ContentPresenter />
+                                        <ContentPresenter VerticalAlignment="{TemplateBinding VerticalAlignment}" />
                                     </Border>
                                 </Border>
                                 <ControlTemplate.Triggers>

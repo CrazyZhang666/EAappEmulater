@@ -8,6 +8,7 @@
         <PlatformTarget>x64</PlatformTarget>
         <Nullable>disable</Nullable>
         <ImplicitUsings>disable</ImplicitUsings>
+        <StartupObject>BF1Chat.App</StartupObject>
         <StartupObject>MarneSATools.App</StartupObject>
     </PropertyGroup>
 
@@ -30,8 +31,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-      <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
+      <None Remove="Assets\Icons\Favicon.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+        <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Assets\Icons\Favicon.ico" />
     </ItemGroup>
 
 </Project>
