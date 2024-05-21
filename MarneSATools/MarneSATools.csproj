@@ -8,8 +8,8 @@
         <PlatformTarget>x64</PlatformTarget>
         <Nullable>disable</Nullable>
         <ImplicitUsings>disable</ImplicitUsings>
-        <StartupObject>BF1Chat.App</StartupObject>
         <StartupObject>MarneSATools.App</StartupObject>
+        <ApplicationIcon>Assets\Icons\Favicon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -29,10 +29,6 @@
         <DebugType>none</DebugType>
         <DebugSymbols>false</DebugSymbols>
     </PropertyGroup>
-
-    <ItemGroup>
-      <None Remove="Assets\Icons\Favicon.ico" />
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
