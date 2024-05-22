@@ -177,7 +177,7 @@ public partial class ModWindow
         }
         catch (Exception ex)
         {
-            NotifierHelper.Error("选择 Mod 过程中发生异常");
+            ModModel.CheckState = $"选择 Mod 过程中发生异常 {ex.Message}";
             LoggerHelper.Error($"选择 Mod 过程中发生异常 {ex.Message}");
         }
     }
@@ -213,7 +213,7 @@ public partial class ModWindow
         }
         catch (Exception ex)
         {
-            NotifierHelper.Error("安装 Mod 过程中发生异常");
+            ModModel.CheckState = $"安装 Mod 过程中发生异常 {ex.Message}";
             LoggerHelper.Error($"安装 Mod 过程中发生异常 {ex.Message}");
         }
     }

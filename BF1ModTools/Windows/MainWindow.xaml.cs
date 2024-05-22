@@ -4,6 +4,7 @@ using BF1ModTools.Utils;
 using BF1ModTools.Helper;
 using CommunityToolkit.Mvvm.Input;
 using Hardcodet.Wpf.TaskbarNotification;
+using Window = ModernWpf.Controls.Window;
 
 namespace BF1ModTools.Windows;
 
@@ -12,6 +13,11 @@ namespace BF1ModTools.Windows;
 /// </summary>
 public partial class MainWindow
 {
+    /// <summary>
+    /// 用于向外暴露主窗口实例
+    /// </summary>
+    public static Window MainWinInstance { get; private set; }
+
     /// <summary>
     /// 窗口关闭识别标志
     /// </summary>
@@ -35,6 +41,8 @@ public partial class MainWindow
 
         Title = $"战地1模组工具箱 v{CoreUtil.VersionInfo} - {CoreUtil.GetIsAdminStr()}";
 
+        // 向外暴露主窗口实例
+        MainWinInstance = this;
         // 重置窗口关闭标志
         IsCodeClose = false;
 

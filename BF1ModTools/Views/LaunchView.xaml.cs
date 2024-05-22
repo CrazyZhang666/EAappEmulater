@@ -46,9 +46,12 @@ public partial class LaunchView : UserControl
 
         var modWindow = new ModWindow
         {
-            Owner = Application.Current.MainWindow
+            Owner = MainWindow.MainWinInstance
         };
+
+        MainWindow.MainWinInstance.IsShowMaskLayer = true;
         modWindow.ShowDialog();
+        MainWindow.MainWinInstance.IsShowMaskLayer = false;
     }
 
     /// <summary>
