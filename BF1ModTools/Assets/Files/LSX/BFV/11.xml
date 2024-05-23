@@ -15,9 +15,13 @@
                 Title="戰地1馬恩模組聯機QQ群: 743735539" TitleId="Origin.OFR.50.0004152" GamePresence=""
                 Persona="03 - QQ Group" PersonaId="10003" State="MUTUAL"
                 MultiplayerId="196216" GroupId="" Presence="INGAME" />
-            <Friend RichPresence="馬恩服務器與EA數據不互通，無法從伺服器列表進入，需要專門啟動器" AvatarId="##AvatarId##" 
-                UserId="20004" Group="" Title="馬恩服務器與EA數據不互通，無法從伺服器列表進入，需要專門啟動器" 
+            <Friend RichPresence="馬恩服務器與EA數據不互通，無法從伺服器列表進入，需要專門啟動器" AvatarId="##AvatarId##"
+                UserId="20004" Group="" Title="馬恩服務器與EA數據不互通，無法從伺服器列表進入，需要專門啟動器"
                 TitleId="Origin.OFR.50.0004152" GamePresence="" Persona="04 - Warning" PersonaId="10004" State="MUTUAL"
+                MultiplayerId="196216" GroupId="" Presence="INGAME" />
+            <Friend RichPresence="如果要遊玩原版戰地1遊戲，請關閉戰地1和模組工具箱，使用原版EaApp啟動遊戲即可" AvatarId="##AvatarId##"
+                UserId="20005" Group="" Title="如果要遊玩原版戰地1遊戲，請關閉戰地1和模組工具箱，使用原版EaApp啟動遊戲即可"
+                TitleId="Origin.OFR.50.0004152" GamePresence="" Persona="05 - Warning" PersonaId="10005" State="MUTUAL"
                 MultiplayerId="196216" GroupId="" Presence="INGAME" />
         </QueryFriendsResponse>
     </Response>

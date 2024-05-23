@@ -80,7 +80,20 @@ public partial class MainWindow : Window
                     // 尝试初始化战地1内存
                     if (Memory.Initialize())
                     {
+                        // 申请战地1聊天内存
                         Chat.AllocateMemory();
+
+                        // 获取战地1窗口数据
+                        if (Memory.GetWindowData(out WindowData windowData))
+                        {
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                // 设置当前聊天窗口大小和位置
+                                this.Top = windowData.Top + 10;
+                                this.Left = windowData.Left + 10;
+                                this.Width = windowData.Width - 20;
+                            });
+                        }
                     }
                 }
             }
