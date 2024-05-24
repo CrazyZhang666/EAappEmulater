@@ -29,6 +29,11 @@
                 Command="{Binding OpenBF1FolderCommand}"
                 Content="打开战地1目录"
                 Icon="&#xED43;" />
+            <ui:IconButton
+                Margin="2.5"
+                Command="{Binding FixBF1DocumentJSCommand}"
+                Content="修复战地1文档JS"
+                Icon="&#xED43;" />
         </WrapPanel>
     </Border>
 

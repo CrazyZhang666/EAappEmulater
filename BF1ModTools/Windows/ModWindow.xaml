@@ -25,15 +25,7 @@
                 VerticalAlignment="Center"
                 DockPanel.Dock="Right"
                 Orientation="Horizontal"
-                WindowChrome.IsHitTestVisibleInChrome="True">
-                <ui:IconHyperlink
-                    Margin="0,0,7,0"
-                    VerticalAlignment="Center"
-                    Icon="&#xE896;"
-                    Text="点我下载服务器Mod文件"
-                    ToolTip="https://www.123pan.com/s/QEorVv-ngyv3.html"
-                    Uri="https://www.123pan.com/s/QEorVv-ngyv3.html" />
-            </StackPanel>
+                WindowChrome.IsHitTestVisibleInChrome="True" />
             <StackPanel Orientation="Horizontal">
                 <ui:Image
                     Width="18"
@@ -74,7 +66,17 @@
                 IsReadOnly="True"
                 Text="{Binding ModModel.ModMD5}" />
 
-            <ui:IconHeader Title="选择要安装的Mod文件" />
+            <DockPanel LastChildFill="False">
+                <ui:IconHeader Title="选择要安装的Mod文件" />
+                <ui:IconHyperlink
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Bottom"
+                    DockPanel.Dock="Right"
+                    Icon="&#xE896;"
+                    Text="点我下载服务器Mod文件"
+                    ToolTip="https://www.123pan.com/s/QEorVv-ngyv3.html"
+                    Uri="https://www.123pan.com/s/QEorVv-ngyv3.html" />
+            </DockPanel>
             <DockPanel>
                 <ui:IconButton
                     Margin="0,5,5,5"
