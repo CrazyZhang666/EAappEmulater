@@ -41,6 +41,9 @@ public static class FileHelper
     {
         try
         {
+            if (!Directory.Exists(dirPath))
+                return;
+
             var dir = new DirectoryInfo(dirPath);
             var fileInfo = dir.GetFileSystemInfos();
 

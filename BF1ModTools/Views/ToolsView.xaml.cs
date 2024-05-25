@@ -31,7 +31,7 @@ public partial class ToolsView : UserControl
                 return;
             }
 
-            var modDataDir = Path.Combine(Globals.BF1InstallDir, "ModData");
+            var modDataDir = Path.Combine(Globals.BF1InstallDir, "ModData\\Marne");
             if (!Directory.Exists(modDataDir))
             {
                 NotifierHelper.Warning("未发现战地1Mod数据文件夹，操作取消");

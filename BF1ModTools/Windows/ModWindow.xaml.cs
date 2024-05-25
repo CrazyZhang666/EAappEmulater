@@ -163,6 +163,11 @@ public partial class ModWindow
             FileHelper.ClearDirectory(CoreUtil.Dir_Mods_Bf1);
             LoggerHelper.Info("清空 Mod文件夹 旧版文件成功");
 
+            // 清空模组文件夹
+            var modDataDir = Path.Combine(Globals.BF1InstallDir, "ModData\\Marne");
+            if (Directory.Exists(modDataDir))
+                FileHelper.ClearDirectory(modDataDir);
+
             // 获取文件名称，带扩展名
             var fileName = Path.GetFileName(dialog.FileName);
             // 复制mod文件到 寒霜mod管理器 指定mod文件夹
