@@ -164,7 +164,7 @@ public partial class ModWindow
             LoggerHelper.Info("清空 Mod文件夹 旧版文件成功");
 
             // 清空模组文件夹
-            var modDataDir = Path.Combine(Globals.BF1InstallDir, "ModData\\Marne");
+            var modDataDir = Path.Combine(Globals.BF1InstallDir, "ModData");
             if (Directory.Exists(modDataDir))
                 FileHelper.ClearDirectory(modDataDir);
 
