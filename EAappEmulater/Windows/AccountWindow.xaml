@@ -79,6 +79,13 @@
                             Margin="0,5,5,5"
                             VerticalAlignment="Center"
                             Source="{Binding Avatar}" />
+                        <TextBlock
+                            Margin="2,7,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            FontSize="8"
+                            Foreground="Gray"
+                            Text="{Binding AccountSlot}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -124,6 +131,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             d:Text="S0"
+                            FontSize="10"
                             Foreground="Gray"
                             Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.AccountSlot}" />
                     </Grid>

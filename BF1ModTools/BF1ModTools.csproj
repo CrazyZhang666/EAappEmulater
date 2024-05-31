@@ -63,10 +63,10 @@
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
         <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
-        <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2478.35" />
+        <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2535.41" />
         <PackageReference Include="NLog" Version="5.3.2" />
         <PackageReference Include="Notification.Wpf" Version="8.0.0" />
-        <PackageReference Include="RestSharp" Version="110.2.0" />
+        <PackageReference Include="RestSharp" Version="111.2.0" />
     </ItemGroup>
 
     <ItemGroup>

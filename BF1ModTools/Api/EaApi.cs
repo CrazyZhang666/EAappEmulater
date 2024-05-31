@@ -12,7 +12,7 @@ public static class EaApi
     {
         var options = new RestClientOptions()
         {
-            MaxTimeout = 20000,
+            Timeout = TimeSpan.FromSeconds(20),
             FollowRedirects = false,
             ThrowOnAnyError = false,
             ThrowOnDeserializationError = false
