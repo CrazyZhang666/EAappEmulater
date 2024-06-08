@@ -386,7 +386,7 @@ public static class LSXTcpServer
             "><GetGameInfo version=" => ScoketMsgBFH[5].Replace("##ID##", id),
             "><GetInternetConnectedState version=" => ScoketMsgBFH[6].Replace("##ID##", id),
             "><GetPresence version=" => ScoketMsgBFH[7].Replace("##ID##", id),
-            "><GetProfile version=" => ScoketMsgBFH[8].Replace("##ID##", id),
+            "><GetProfile version=" => ScoketMsgBFH[8].Replace("##ID##", id).Replace("##PID##", Account.PersonaId).Replace("##DSNM##", Account.PlayerName).Replace("##UID##", Account.UserId),
             "><RequestLicense UserId=" => ScoketMsgBFH[15].Replace("##ID##", id),
             "><GetSetting version=" => partArray[7] switch
             {

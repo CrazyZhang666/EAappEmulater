@@ -91,4 +91,27 @@ public static class RegistryHelper
 
         return "en_US";
     }
+
+    /// <summary>
+    /// 获取Origin/EA App注册表情况，如果不存在就写入一个，这样做可以在不安装平台的情况启动游戏
+    /// </summary>
+    public static void CheckAndAddEAAppRegistryKey()
+    {
+        using (RegistryKey baseKey = Registry.LocalMachine)
+        {
+            using (RegistryKey subKey = baseKey.OpenSubKey(@"SOFTWARE\Wow6432Node\Origin", writable: true))
+            {
+                if (subKey == null)
+                {
+                    using (RegistryKey newKey = baseKey.CreateSubKey(@"SOFTWARE\Wow6432Node\Origin"))
+                    {
+                        if (newKey != null)
+                        {
+                            newKey.SetValue("ClientPath", @"C:\Program Files\Electronic Arts\EA Desktop\EA Desktop\EADesktop.exe", RegistryValueKind.String);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

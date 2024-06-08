@@ -25,6 +25,9 @@ public static class Ready
         // 加载玩家头像
         await LoadAvatar();
 
+        //检查EA App注册表
+        RegistryHelper.CheckAndAddEAAppRegistryKey();
+
         // 定时刷新 BaseToken 数据
         LoggerHelper.Info("正在启动 定时刷新 BaseToken 服务...");
         _autoUpdateTimer = new Timer(AutoUpdateBaseToken, null, TimeSpan.FromHours(2), TimeSpan.FromHours(2));
