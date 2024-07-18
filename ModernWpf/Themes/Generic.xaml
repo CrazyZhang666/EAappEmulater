@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Base.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Normal.xaml" />
+
+        <ResourceDictionary Source="/ModernWpf;component/Styles/IconFont.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/ScrollViewer.xaml" />
+
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Button.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/TextBox.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/CheckBox.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/ToggleButton.xaml" />
+
+        <ResourceDictionary Source="/ModernWpf;component/Styles/ListBox.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/ListView.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/ComboBox.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/TabControl.xaml" />
+
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Image.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Avatar.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/NavMenu.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/IconButton.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/TextBoxHint.xaml" />
+
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Loading.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Dialog.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/IconHeader.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/FormLabel.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/GameMenu.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/CardMenu.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/IconHyperlink.xaml" />
+
+        <ResourceDictionary Source="/ModernWpf;component/Styles/ContextMenu.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/UserControl.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/WinButton.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/Window.xaml" />
+
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

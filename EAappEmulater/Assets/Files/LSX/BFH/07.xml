@@ -1,0 +1,7 @@
+﻿<LSX>
+    <Response sender="XMPP" id="##ID##">
+        <GetPresenceResponse Title="" UserId="1201618778" Group="" MultiplayerId=""
+            RichPresence="Battlefield™ Hardline" Presence="INGAME" TitleId="" GamePresence=""
+            GroupId="" SessionId="" />
+    </Response>
+</LSX>

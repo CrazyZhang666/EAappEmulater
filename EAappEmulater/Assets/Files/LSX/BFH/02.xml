@@ -1,0 +1,40 @@
+﻿<LSX>
+    <Response sender="EbisuSDK" id="##ID##">
+        <GetConfigResponse>
+            <Service Name="EbisuSDK" Facility="SDK" />
+            <Service Name="EbisuSDK" Facility="PROFILE" />
+            <Service Name="XMPP" Facility="PRESENCE" />
+            <Service Name="XMPP" Facility="FRIENDS" />
+            <Service Name="Commerce" Facility="COMMERCE" />
+            <Service Name="EbisuSDK" Facility="RECENTPLAYER" />
+            <Service Name="EbisuSDK" Facility="IGO" />
+            <Service Name="EbisuSDK" Facility="MISC" />
+            <Service Name="EALS" Facility="LOGIN" />
+            <Service Name="Utility" Facility="UTILITY" />
+            <Service Name="XMPP" Facility="XMPP" />
+            <Service Name="XMPP" Facility="CHAT" />
+            <Service Name="EbisuSDK" Facility="IGO_EVENT" />
+            <Service Name="EALS" Facility="EALS_EVENTS" />
+            <Service Name="EbisuSDK" Facility="LOGIN_EVENT" />
+            <Service Name="XMPP" Facility="INVITE_EVENT" />
+            <Service Name="EbisuSDK" Facility="PROFILE_EVENT" />
+            <Service Name="XMPP" Facility="PRESENCE_EVENT" />
+            <Service Name="XMPP" Facility="FRIENDS_EVENT" />
+            <Service Name="Commerce" Facility="COMMERCE_EVENT" />
+            <Service Name="XMPP" Facility="CHAT_EVENT" />
+            <Service Name="EbisuSDK" Facility="DOWNLOAD_EVENT" />
+            <Service Name="EbisuSDK" Facility="PERMISSION" />
+            <Service Name="EbisuSDK" Facility="RESOURCES" />
+            <Service Name="EbisuSDK" Facility="BLOCKED_USERS" />
+            <Service Name="EbisuSDK" Facility="BLOCKED_USER_EVENT" />
+            <Service Name="EbisuSDK" Facility="GET_USERID" />
+            <Service Name="EbisuSDK" Facility="ONLINE_STATUS_EVENT" />
+            <Service Name="EbisuSDK" Facility="ACHIEVEMENT" />
+            <Service Name="EbisuSDK" Facility="ACHIEVEMENT_EVENT" />
+            <Service Name="EbisuSDK" Facility="BROADCAST_EVENT" />
+            <Service Name="PI" Facility="PROGRESSIVE_INSTALLATION" />
+            <Service Name="PI" Facility="PROGRESSIVE_INSTALLATION_EVENT" />
+            <Service Name="EbisuSDK" Facility="CONTENT" />
+        </GetConfigResponse>
+    </Response>
+</LSX>

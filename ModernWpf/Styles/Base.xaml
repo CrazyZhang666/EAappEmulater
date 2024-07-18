@@ -1,0 +1,23 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cvt="clr-namespace:ModernWpf.Converters">
+
+    <cvt:StringToImageSourceConverter x:Key="StringToImageSourceConverter" />
+    <cvt:StringToImageSource2Converter x:Key="StringToImageSourceConverter2" />
+    <cvt:IsNullOrWhiteSpaceConverter x:Key="IsNullOrWhiteSpaceConverter" />
+    <cvt:IsNullOrWhiteSpace2Converter x:Key="IsNullOrWhiteSpace2Converter" />
+    <cvt:IsNullObjectConverter x:Key="IsNullObjectConverter" />
+    <cvt:IsNullObject2Converter x:Key="IsNullObject2Converter" />
+    <cvt:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <cvt:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+
+    <SolidColorBrush x:Key="Win11Blue" Color="#0078D4" />
+    <SolidColorBrush x:Key="Win11Green" Color="#107C10" />
+    <SolidColorBrush x:Key="Win11Yellow" Color="#FF8C00" />
+    <SolidColorBrush x:Key="Win11Red" Color="#DA3B01" />
+    <SolidColorBrush x:Key="Win11Gray" Color="#4C4A48" />
+
+    <SolidColorBrush x:Key="BorderColor" Color="#BBBBBB" />
+
+</ResourceDictionary>

@@ -1,0 +1,6 @@
+﻿<LSX>
+    <Response sender="EbisuSDK" id="##ID##">
+        <GetGameInfoResponse
+            GameInfo="cs_CZ,de_DE,en_US,es_ES,fr_FR,it_IT,ko_KR,pl_PL,pt_BR,ru_RU,zh_TW,ja_JP" />
+    </Response>
+</LSX>

@@ -1,0 +1,9 @@
+﻿<LSX>
+    <Response id="##ID##" sender="EbisuSDK">
+        <GetProfileResponse PersonaId="##PID##" Persona="##DSNM##" Country="US" GeoCountry="US"
+            UserIndex="0" IsTrialSubscriber="false"
+            AvatarId="C:\Users\ADMIN\AppData\Local\Origin\AvatarsCache\5fd0d349abfbbfc98580cb89ae797665.jpg"
+            IsUnderAge="false" IsSubscriber="false" IsSteamSubscriber="false" SubscriberLevel="0"
+            CommerceCurrency="USD" UserId="##UID##" CommerceCountry="US" />
+    </Response>
+</LSX>

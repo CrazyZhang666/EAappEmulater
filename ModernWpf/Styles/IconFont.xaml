@@ -1,0 +1,35 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:ModernWpf.Controls">
+
+    <Style x:Key="IconFontStyleBase" TargetType="{x:Type controls:IconFont}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:IconFont}">
+                    <TextBlock
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                        FocusVisualStyle="{TemplateBinding FocusVisualStyle}"
+                        FontFamily="{TemplateBinding FontFamily}"
+                        FontSize="{TemplateBinding FontSize}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Opacity="{TemplateBinding Opacity}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                        Text="{TemplateBinding Icon}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource IconFontStyleBase}" TargetType="{x:Type controls:IconFont}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontFamily" Value="pack://application:,,,/ModernWpf;component/Assets/Fonts/#Segoe MDL2 Assets" />
+    </Style>
+
+</ResourceDictionary>

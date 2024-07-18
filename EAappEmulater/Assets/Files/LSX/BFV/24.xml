@@ -1,0 +1,11 @@
+﻿<LSX>
+    <Response id="##ID##" sender="PI">
+        <QueryChunkStatusResponse>
+            <ChunkStatus ChunkETA="0" TotalETA="0" Type="REQUIRED" Progress="1" Size="32639396202"
+                ChunkId="0" Name="0" ItemId="Origin.OFR.50.0001455" State="INSTALLED" />
+            <ChunkStatus ChunkETA="0" TotalETA="0" Type="RECOMMENDED" Progress="1"
+                Size="35636260230" ChunkId="1" Name="1" ItemId="Origin.OFR.50.0001455"
+                State="INSTALLED" />
+        </QueryChunkStatusResponse>
+    </Response>
+</LSX>
