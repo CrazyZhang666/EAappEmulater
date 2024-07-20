@@ -99,6 +99,8 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="VerticalContentAlignment" Value="Top" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:TextBoxHint}">
@@ -129,10 +131,11 @@
                                     Text="{TemplateBinding Hint}" />
                                 <ScrollViewer
                                     x:Name="PART_ContentHost"
-                                    HorizontalAlignment="Stretch"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                     Focusable="False"
-                                    HorizontalScrollBarVisibility="Disabled"
-                                    VerticalScrollBarVisibility="Auto" />
+                                    HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
+                                    VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}" />
                             </Grid>
                         </DockPanel>
                     </Border>

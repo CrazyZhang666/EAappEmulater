@@ -24,7 +24,7 @@ public static class CoreApi
     {
         try
         {
-            var request = new RestRequest("https://api.battlefield.vip/eaapp/update.txt", Method.Get);
+            var request = new RestRequest("https://api.github.com/repos/CrazyZhang666/EAappEmulater/releases/latest", Method.Get);
 
             var response = await _client.ExecuteAsync(request);
             LoggerHelper.Info($"GetWebUpdateVersion 请求结束，状态 {response.ResponseStatus}");
@@ -38,7 +38,10 @@ public static class CoreApi
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                if (Version.TryParse(response.Content, out Version version))
+                var jsonNode = JsonNode.Parse(response.Content);
+
+                var tagName = jsonNode["tag_name"].GetValue<string>();
+                if (Version.TryParse(tagName, out Version version))
                 {
                     LoggerHelper.Info($"获取服务器更新版本号成功 {version}");
                     return version;

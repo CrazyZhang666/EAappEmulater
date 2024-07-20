@@ -30,8 +30,8 @@
                     VerticalAlignment="Center"
                     Icon="&#xE896;"
                     Text="发现新版本，点击下载"
-                    ToolTip="https://battlefield.vip"
-                    Uri="https://battlefield.vip"
+                    ToolTip="https://github.com/CrazyZhang666/EAappEmulater/releases"
+                    Uri="https://github.com/CrazyZhang666/EAappEmulater/releases"
                     Visibility="Hidden"
                     WindowChrome.IsHitTestVisibleInChrome="True" />
                 <!--  //////////////  -->

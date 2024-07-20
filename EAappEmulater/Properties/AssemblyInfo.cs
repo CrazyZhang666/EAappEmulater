@@ -12,12 +12,12 @@
 
 // PropertyGroup Generate????Attribute
 [assembly: AssemblyTitle("EA app 模拟器")]
-[assembly: AssemblyCompany("https://battlefield.vip")]
+[assembly: AssemblyCompany("https://github.com/CrazyZhang666/EAappEmulater")]
 [assembly: AssemblyProduct("EA app 模拟器")]
-[assembly: AssemblyVersion("1.6.0.0")]
-[assembly: AssemblyFileVersion("1.6.0.0")]
-[assembly: AssemblyInformationalVersion("1.6.0.0")]
+[assembly: AssemblyVersion("1.6.1.0")]
+[assembly: AssemblyFileVersion("1.6.1.0")]
+[assembly: AssemblyInformationalVersion("1.6.1.0")]
 
 // 不重复
-[assembly: AssemblyDescription("https://battlefield.vip")]
+[assembly: AssemblyDescription("https://github.com/CrazyZhang666/EAappEmulater")]
 [assembly: AssemblyCopyright("Copyright © 2024-2024")]
