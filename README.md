@@ -4,7 +4,11 @@ EAapp模拟器 By `Misaka_Mikoto_01` And `CrazyZhang666`
 
 > 本项目开发目标是作为一个简易的EA Desktop/Origin替代品，毕竟新的EA Desktop/Origin实在是太烂了
 
-## 软件预览
+## 工具下载
+
+https://github.com/CrazyZhang666/EAappEmulater/releases
+
+## 截图预览
 
 ![Snipaste_2024-07-25_12-39-47](https://github.com/user-attachments/assets/08311c22-3f9d-45aa-82ef-3dc146724f9c)
 
