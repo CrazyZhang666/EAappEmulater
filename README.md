@@ -24,7 +24,7 @@ EAapp模拟器 By `Misaka_Mikoto_01` And `CrazyZhang666`
 - 可不经过steam直接启动ea游戏
 - 可绕过ea账号对于语言的限制
 
-## 现在问题
+## 已知问题
 
 - 好友系统
 - 部分游戏内不显示头像
@@ -32,7 +32,7 @@ EAapp模拟器 By `Misaka_Mikoto_01` And `CrazyZhang666`
 - 无法使用云存档
 - 部分ea游戏在不安装平台的情况下无法启动
 
-## 未来计划
+## 未来路线
 
 - 离线模式
 - 修复游戏内头像
