@@ -1,5 +1,8 @@
-﻿using EAappEmulater.Core;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using EAappEmulater.Core;
 using EAappEmulater.Helper;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Data.SqlTypes;
 
 namespace EAappEmulater.Api;
 
@@ -63,5 +66,57 @@ public static class EasyEaApi
             return null;
 
         return JsonHelper.JsonDeserialize<Friends>(result.Content);
+    }
+
+    /// <summary>
+    /// 下载玩家头像并生成lsx响应
+    /// </summary>
+    public static async Task<string> GetQueryImageXml(string id,string userid, string width,string imageid)
+    {
+        var savePath = string.Empty;
+        string[] files = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache"), $"{userid}.*");
+        string link = string.Empty;
+        if (files.Length > 0)
+        {
+            LoggerHelper.Info($"发现本地玩家头像图片缓存，跳过网络下载操作 {files[0]}");
+            savePath = files[0];
+        }
+        else 
+        {
+            var result = await EaApi.GetAvatarByUserId(userid);
+            if (!result.IsSuccess)
+                return string.Empty;
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(result.Content);
+            XmlNode linkNode = xmlDoc.SelectSingleNode("//link");
+            link = linkNode.InnerText;
+            string fileName = link.Substring(link.LastIndexOf('/') + 1);
+            savePath = savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("208x208", userid));
+            if (!await CoreApi.DownloadWebImage(link, savePath))
+            {
+                LoggerHelper.Warn($"下载当前登录玩家头像失败 {userid}");
+            }
+        }
+        var doc = new XmlDocument();
+        var lsx = doc.CreateElement("LSX");
+        doc.AppendChild(lsx);
+
+        var response = doc.CreateElement("Response");
+        response.SetAttribute("id", id);
+        response.SetAttribute("sender", "EbisuSDK");
+        lsx.AppendChild(response);
+
+        var queryImageResponse = doc.CreateElement("QueryImageResponse");
+        queryImageResponse.SetAttribute("Result", "0");
+        response.AppendChild(queryImageResponse);
+
+        var image = doc.CreateElement("Image");
+        image.SetAttribute("Width", width);
+        image.SetAttribute("ImageId", imageid);
+        image.SetAttribute("Height", width);
+        image.SetAttribute("ResourcePath", savePath);
+        queryImageResponse.AppendChild(image);
+
+        return doc.InnerXml;
     }
 }

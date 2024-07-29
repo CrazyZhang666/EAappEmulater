@@ -46,7 +46,7 @@ public static class CoreUtil
         Dir_Cache = Path.Combine(Dir_Default, "Cache");
         Dir_Config = Path.Combine(Dir_Default, "Config");
         Dir_Account = Path.Combine(Dir_Default, "Account");
-        Dir_Avatar = Path.Combine(Dir_Default, "Avatar");
+        Dir_Avatar = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache");
         Dir_Service = Path.Combine(Dir_Default, "Service");
         Dir_Log = Path.Combine(Dir_Default, "Log");
 

@@ -20,7 +20,7 @@ public static class LSXTcpServer
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFV.{i:D2}.xml");
 
             // 头像 \AppData\Local\Origin\AvatarsCache（不清楚为啥不显示）
-            text = text.Replace("##AvatarId##", "Avatars40.jpg");
+            text = text.Replace("##AvatarId##", Account.Avatar);
 
             ScoketMsgBFV.Add(text);
         }
@@ -89,6 +89,16 @@ public static class LSXTcpServer
             return Globals.FriendsXmlString;
 
         return ScoketMsgBFV[11];
+    }
+    /// <summary>
+    /// 获取好友列表xml
+    /// </summary>
+    private static string QueryPresenceResponse()
+    {
+        if (Globals.IsGetFriendsSuccess)
+            return Globals.QueryPresenceString;
+
+        return ScoketMsgBFV[13];
     }
 
     /// <summary>
@@ -334,8 +344,8 @@ public static class LSXTcpServer
                 _ => string.Empty,
             },
             "><QueryFriends UserId=" => GetFriendsXmlString().Replace("##ID##", id),
-            "><QueryImage ImageId=" => ScoketMsgBFV[12].Replace("##ID##", id).Replace("##ImageId##", partArray[5]).Replace("##Width##", partArray[7]),
-            "><QueryPresence UserId=" => ScoketMsgBFV[13].Replace("##ID##", id),
+            "><QueryImage ImageId=" => await EasyEaApi.GetQueryImageXml(id,partArray[5].Replace("user:",""), partArray[7], partArray[5]),
+            "><QueryPresence UserId=" => QueryPresenceResponse().Replace("##ID##", id).Replace("##UID##", Account.UserId),
             "><SetPresence UserId=" => ScoketMsgBFV[14].Replace("##ID##", id),
             "><GetAllGameInfo version=" => contentId switch
             {

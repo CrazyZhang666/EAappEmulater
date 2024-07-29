@@ -247,7 +247,7 @@ public static class Ready
     /// </summary>
     private static async Task<bool> DownloadAvatar(bool isOverride = true)
     {
-        var savePath = Path.Combine(CoreUtil.Dir_Avatar, $"{Account.AvatarId}.png");
+        var savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", $"{Account.AvatarId}.jpg");
         if (File.Exists(savePath) && isOverride)
         {
             Account.Avatar = savePath;

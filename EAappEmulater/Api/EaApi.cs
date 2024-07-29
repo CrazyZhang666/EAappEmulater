@@ -1,6 +1,9 @@
 ﻿using EAappEmulater.Core;
 using EAappEmulater.Helper;
 using RestSharp;
+using System;
+using System.Data.SqlTypes;
+using System.Security.Policy;
 
 namespace EAappEmulater.Api;
 
@@ -643,6 +646,64 @@ public static class EaApi
 
                     UpdateCookie(response.Cookies, respResult.ApiName);
                 }
+            }
+            else
+            {
+                LoggerHelper.Info($"{respResult.ApiName} 请求失败，返回结果 {response.Content}");
+            }
+        }
+        catch (Exception ex)
+        {
+            respResult.Exception = ex.Message;
+            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
+        }
+
+        return respResult;
+    }
+
+    /// <summary>
+    /// 通过AuthToken获取玩家头像信息
+    /// </summary>
+    public static async Task<RespResult> GetAvatarByUserId(string userId)
+    {
+        var respResult = new RespResult("GetAvatarByUserId Api");
+        if (string.IsNullOrWhiteSpace(Account.AccessToken))
+        {
+            LoggerHelper.Warn($"AccessToken 为空，{respResult.ApiName} 请求终止");
+            return respResult;
+        }
+        try
+        {
+            var request = new RestRequest($"https://api1.origin.com/avatar/user/{userId}/avatars")
+            {
+                Method = Method.Get
+            };
+
+            request.AddParameter("size", "1");
+
+            request.AddHeader("Accept", "application/xml");
+            request.AddHeader("AuthToken", Account.AccessToken);
+
+            var response = await _client.ExecuteAsync(request);
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+
+            respResult.StatusText = response.ResponseStatus;
+            respResult.StatusCode = response.StatusCode;
+            respResult.Content = response.Content;
+            LoggerHelper.Info($"{respResult.ApiName} 请求结束，内容 {response.Content}");
+            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            {
+                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                return respResult;
+            }
+
+            respResult.StatusCode = response.StatusCode;
+            respResult.Content = response.Content;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                respResult.IsSuccess = true;
             }
             else
             {
