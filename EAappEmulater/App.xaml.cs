@@ -124,6 +124,14 @@ public partial class App : Application
     /// </summary>
     private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
     {
+        // 2024/07/25
+        // 目前无法解决这个异常，所以停止生成对应崩溃日志
+        if (e.Exception.Message.Equals("A Task's exception(s) were not observed either by Waiting on the Task or accessing its Exception property. As a result, the unobserved exception was rethrown by the finalizer thread. (由于线程退出或应用程序请求，已中止 I/O 操作。)"))
+        {
+            LoggerHelper.Error("Task线程捕获到未经处理的异常", e.Exception);
+            return;
+        }
+
         var msg = GetExceptionInfo(e.Exception, e.ToString());
         SaveCrashLog(msg);
     }

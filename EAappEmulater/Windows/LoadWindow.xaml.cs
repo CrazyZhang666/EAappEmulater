@@ -112,7 +112,7 @@ public partial class LoadWindow
         LoggerHelper.Info("开始初始化游戏信息...");
 
         // 关闭服务进程
-        await CoreUtil.CloseServiceProcess();
+        CoreUtil.CloseServiceProcess();
 
         DisplayLoadState("正在释放资源服务进程文件...");
         LoggerHelper.Info("正在释放资源服务进程文件...");

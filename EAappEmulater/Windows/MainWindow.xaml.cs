@@ -93,7 +93,7 @@ public partial class MainWindow
     /// <summary>
     /// 窗口关闭事件
     /// </summary>
-    private async void Window_Main_Closing(object sender, CancelEventArgs e)
+    private void Window_Main_Closing(object sender, CancelEventArgs e)
     {
         // 当用户从UI点击关闭时才执行
         if (!IsCodeClose)
@@ -113,7 +113,7 @@ public partial class MainWindow
         }
 
         // 清理工作
-        await Ready.Stop();
+        Ready.Stop();
 
         // 释放托盘图标
         NotifyIcon_Main?.Dispose();
