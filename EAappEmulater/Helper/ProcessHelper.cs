@@ -100,7 +100,7 @@ public static class ProcessHelper
     /// <summary>
     /// 根据名字关闭指定进程
     /// </summary>
-    public static async Task CloseProcess(string appName)
+    public static void CloseProcess(string appName)
     {
         if (string.IsNullOrWhiteSpace(appName))
             return;
@@ -110,18 +110,16 @@ public static class ProcessHelper
 
         try
         {
-            var isSuccess = false;
+            var isFind = false;
 
             foreach (var process in Process.GetProcessesByName(appName))
             {
+                // 关闭进程树
                 process.Kill(true);
-                await process.WaitForExitAsync();
-                isSuccess = true;
+                LoggerHelper.Info($"关闭进程成功 {appName}.exe");
             }
 
-            if (isSuccess)
-                LoggerHelper.Info($"关闭进程成功 {appName}.exe");
-            else
+            if (!isFind)
                 LoggerHelper.Warn($"未找到进程信息 {appName}.exe");
         }
         catch (Exception ex)

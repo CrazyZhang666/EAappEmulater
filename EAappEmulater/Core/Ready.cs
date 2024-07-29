@@ -34,32 +34,27 @@ public static class Ready
         LoggerHelper.Info("启动 定时刷新 BaseToken 服务成功");
     }
 
-    public static async Task Stop()
+    public static void Stop()
     {
         // 保存全局配置文件
         Globals.Write();
-        await Task.Delay(50);
 
         // 保存账号配置文件
         Account.Write();
-        await Task.Delay(50);
 
         LoggerHelper.Info("正在关闭 LSX 监听服务...");
         LSXTcpServer.Stop();
-        await Task.Delay(50);
 
         LoggerHelper.Info("正在关闭 Battlelog 监听服务...");
         BattlelogHttpServer.Stop();
-        await Task.Delay(50);
 
         LoggerHelper.Info("正在关闭 定时刷新 BaseToken 服务...");
         _autoUpdateTimer?.Dispose();
         _autoUpdateTimer = null;
         LoggerHelper.Info("关闭 定时刷新 BaseToken 服务成功");
-        await Task.Delay(50);
 
         // 关闭服务进程
-        await CoreUtil.CloseServiceProcess();
+        CoreUtil.CloseServiceProcess();
     }
 
     /// <summary>
