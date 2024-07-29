@@ -25,6 +25,7 @@ public partial class FriendView : UserControl
     {
         Globals.IsGetFriendsSuccess = false;
         Globals.FriendsXmlString = string.Empty;
+        Globals.QueryPresenceString = string.Empty;
 
         LoggerHelper.Info("正在获取当前账号好友列表中...");
 
@@ -85,6 +86,7 @@ public partial class FriendView : UserControl
 
                     // 生成好友列表字符串
                     GenerateXmlString();
+                    GenerateXmlStringForQueryPresence();
 
                     break;
                 }
@@ -139,5 +141,66 @@ public partial class FriendView : UserControl
 
         Globals.FriendsXmlString = doc.InnerXml;
         Globals.IsGetFriendsSuccess = true;
+    }
+    private void GenerateXmlStringForQueryPresence()
+    {
+        if (_friendInfoList.Count == 0)
+            return;
+
+        var doc = new XmlDocument();
+
+        var lsx = doc.CreateElement("LSX");
+        doc.AppendChild(lsx);
+
+        var response = doc.CreateElement("Response");
+        response.SetAttribute("id", "##ID##");
+        response.SetAttribute("sender", "XMPP");
+        lsx.AppendChild(response);
+
+        var queryFreiResp = doc.CreateElement("QueryPresenceResponse");
+        response.AppendChild(queryFreiResp);
+
+        foreach (var friendInfo in _friendInfoList)
+        {
+            var friend = doc.CreateElement("Friend");
+
+            var title = MiscUtil.GetRandomFriendTitle();
+
+            friend.SetAttribute("RichPresence", title);
+            friend.SetAttribute("AvatarId", "##AvatarId##");
+            friend.SetAttribute("UserId", $"{friendInfo.UserId}");
+            friend.SetAttribute("Group", "");
+            friend.SetAttribute("Title", title);
+            friend.SetAttribute("TitleId", "Origin.OFR.50.0004152");
+            friend.SetAttribute("GamePresence", "");
+            friend.SetAttribute("Persona", friendInfo.DisplayName);
+            friend.SetAttribute("PersonaId", $"{friendInfo.PersonaId}");
+            friend.SetAttribute("State", "MUTUAL");
+            friend.SetAttribute("MultiplayerId", "196216");
+            friend.SetAttribute("GroupId", "");
+            friend.SetAttribute("Presence", "INGAME");
+
+            queryFreiResp.AppendChild(friend);
+        }
+
+        // 手动添加一个额外的 Friend 元素
+        var extraFriend = doc.CreateElement("Friend");
+        extraFriend.SetAttribute("RichPresence", "");
+        extraFriend.SetAttribute("AvatarId", "");
+        extraFriend.SetAttribute("UserId", "##UID##");
+        extraFriend.SetAttribute("Group", "");
+        extraFriend.SetAttribute("Title", "");
+        extraFriend.SetAttribute("TitleId", "");
+        extraFriend.SetAttribute("GamePresence", "");
+        extraFriend.SetAttribute("Persona", "");
+        extraFriend.SetAttribute("PersonaId", "------");
+        extraFriend.SetAttribute("State", "NONE");
+        extraFriend.SetAttribute("MultiplayerId", "");
+        extraFriend.SetAttribute("GroupId", "");
+        extraFriend.SetAttribute("Presence", "UNKNOWN");
+
+        queryFreiResp.AppendChild(extraFriend);
+
+        Globals.QueryPresenceString = doc.InnerXml;
     }
 }

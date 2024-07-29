@@ -19,6 +19,8 @@ public static class Globals
 
     public static bool IsGetFriendsSuccess { get; set; } = false;
     public static string FriendsXmlString { get; set; } = string.Empty;
+    public static string QueryPresenceString { get; set; } = string.Empty;
+
 
     static Globals()
     {

@@ -93,19 +93,19 @@ public static class RegistryHelper
     }
 
     /// <summary>
-    /// 获取Origin/EA App注册表情况，如果不存在就写入一个，这样做可以在不安装平台的情况启动游戏
+    /// 获取Origin/EA App注册表情况并且每次启动都直接写入
     /// </summary>
     public static void CheckAndAddEaAppRegistryKey()
     {
+        /*
+         * 这样可以解决f1 23等游戏不安装EA Desktop/Origin并且注册表ClientPath路径没有程序则没办法启动的问题
+         * 还能顺便解决ttf2等游戏启动的时候会弹出ea app的问题
+         */
         try
         {
             using RegistryKey localMachine = Registry.LocalMachine;
-            using RegistryKey subKey = localMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Origin", true);
-            if (subKey != null)
-                return;
-
-            using RegistryKey newSubKey = localMachine.CreateSubKey(@"SOFTWARE\Wow6432Node\Origin");
-            newSubKey?.SetValue("ClientPath", @"C:\Program Files\Electronic Arts\EA Desktop\EA Desktop\EADesktop.exe", RegistryValueKind.String);
+            using RegistryKey newSubKey = localMachine.CreateSubKey(@"SOFTWARE\Wow6432Node\Origin", true);
+            newSubKey?.SetValue("ClientPath", @"C:\Windows\System32\cmdkey.exe", RegistryValueKind.String);
         }
         catch (Exception ex)
         {

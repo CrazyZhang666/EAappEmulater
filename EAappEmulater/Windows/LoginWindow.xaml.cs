@@ -9,7 +9,7 @@ namespace EAappEmulater.Windows;
 /// </summary>
 public partial class LoginWindow
 {
-    private const string _host = "https://accounts.ea.com/connect/auth?client_id=sparta-backend-as-user-pc&response_type=code&release_type=none";
+    private const string _host = "https://accounts.ea.com/connect/auth?response_type=code&locale=zh_CN&client_id=EADOTCOM-WEB-SERVER";
 
     /**
      * 2024/04/29
@@ -131,7 +131,7 @@ public partial class LoginWindow
 
         var source = WebView2_Main.Source.ToString();
         LoggerHelper.Info($"当前 WebView2 地址: {source}");
-        if (!source.Contains("127.0.0.1/success?code="))
+        if (!source.Contains("test.pulse.ea.com"))
             return;
 
         LoggerHelper.Info("玩家登录成功，开始获取 cookies...");
