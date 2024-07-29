@@ -16,7 +16,7 @@ https://github.com/CrazyZhang666/EAappEmulater/releases
 
 ## 功能介绍
 
-- 完美支持战地全系列和其他部分ea游戏免平台启动
+- 完美支持战地全系列和其他部分EA游戏完全脱离EA Desktop/Origin启动游戏
 - 完全使用原生方式启动游戏，不再需要修改游戏文件
 - 完美兼容寒霜mod的使用
 - 完美兼容带有eaac反作弊游戏
@@ -31,15 +31,12 @@ https://github.com/CrazyZhang666/EAappEmulater/releases
 ## 已知问题
 
 - 好友系统
-- 部分游戏内不显示头像
 - 无法下载检查更新游戏
 - 无法使用云存档
-- 部分ea游戏在不安装平台的情况下无法启动
 
 ## 未来路线
 
 - 离线模式
-- 修复游戏内头像
 - 修复好友系统
 - 支持下载游戏
 
