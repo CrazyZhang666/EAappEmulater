@@ -48,7 +48,8 @@ https://github.com/CrazyZhang666/EAappEmulater/releases
 - 战地风云1
 - 战地风云V
 - 战地风云2042
-- F1® 23
+- EA SPORTS™ F1® 23
+- EA SPORTS™ F1® 24（未经测试，试玩版许可证无法启动）
 - FC™ 24
 - FIFA 22
 - FIFA 23
@@ -56,9 +57,14 @@ https://github.com/CrazyZhang666/EAappEmulater/releases
 - 极品飞车19
 - 极品飞车 : 热度
 - 极品飞车 : 不羁
+- 极品飞车：宿敌（无法联网）
 - 植物大战僵尸 : 和睦小镇保卫战
 - 植物大战僵尸 : 花园战争
 - 植物大战僵尸 : 花园战争2
 - 星球大战 : 战场前线
 - 星球大战 : 战场前线2
+- 星球大战 绝地-陨落的武士团™
+- 星球大战™ 战机中队
 - 泰坦陨落2
+- 圣歌
+- PGA Tour
