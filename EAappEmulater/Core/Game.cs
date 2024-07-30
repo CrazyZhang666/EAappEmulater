@@ -39,6 +39,11 @@ public static class Game
                 execPath = Path.Combine(gameInfo.Dir, "Nuts\\Binaries\\Win64", gameInfo.AppName);
                 execPath2 = Path.Combine(gameInfo.Dir2, "Nuts\\Binaries\\Win64", gameInfo.AppName);
             }
+            else if (gameInfo.GameType is GameType.SWJFO)
+            {
+                execPath = Path.Combine(gameInfo.Dir, "SwGame\\Binaries\\Win64", gameInfo.AppName);
+                execPath2 = Path.Combine(gameInfo.Dir2, "SwGame\\Binaries\\Win64", gameInfo.AppName);
+            }
             else
             {
                 // 其他
@@ -173,6 +178,12 @@ public static class Game
                     startInfo.FileName = Path.Combine(gameInfo.Dir2, "Nuts\\Binaries\\Win64", gameInfo.AppName);
                     startInfo.WorkingDirectory = Path.Combine(gameInfo.Dir2, "Nuts\\Binaries\\Win64", gameInfo.AppName);
                 }
+                else if (gameInfo.GameType is GameType.SWJFO)
+                {
+                    // 星球大战 绝地：陨落的武士团
+                    startInfo.FileName = Path.Combine(gameInfo.Dir2, "SwGame\\Binaries\\Win64", gameInfo.AppName);
+                    startInfo.WorkingDirectory = Path.Combine(gameInfo.Dir2, "SwGame\\Binaries\\Win64", gameInfo.AppName);
+                }
                 else
                 {
                     // 其他
@@ -192,6 +203,12 @@ public static class Game
                     // 双人成行
                     startInfo.FileName = Path.Combine(gameInfo.Dir, "Nuts\\Binaries\\Win64", gameInfo.AppName);
                     startInfo.WorkingDirectory = Path.Combine(gameInfo.Dir, "Nuts\\Binaries\\Win64");
+                }
+                else if (gameInfo.GameType is GameType.SWJFO)
+                {
+                    // 星球大战 绝地：陨落的武士团
+                    startInfo.FileName = Path.Combine(gameInfo.Dir, "SwGame\\Binaries\\Win64", gameInfo.AppName);
+                    startInfo.WorkingDirectory = Path.Combine(gameInfo.Dir, "SwGame\\Binaries\\Win64");
                 }
                 else
                 {

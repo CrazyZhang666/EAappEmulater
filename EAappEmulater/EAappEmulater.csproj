@@ -119,6 +119,7 @@
         <Resource Include="Assets\Images\Games\BFH.jpg" />
         <Resource Include="Assets\Images\Games\BFV.jpg" />
         <Resource Include="Assets\Images\Games\F123.jpg" />
+        <Resource Include="Assets\Images\Games\F124.jpg" />
         <Resource Include="Assets\Images\Games\FC24.jpg" />
         <Resource Include="Assets\Images\Games\FIFA23.jpg" />
         <Resource Include="Assets\Images\Games\NFS22.jpg" />
@@ -132,6 +133,11 @@
         <Resource Include="Assets\Images\Games\ITT.jpg" />
         <Resource Include="Assets\Images\Games\FIFA22.jpg" />
         <Resource Include="Assets\Images\Games\NFS19.jpg" />
+        <Resource Include="Assets\Images\Games\PGA.jpg" />
+        <Resource Include="Assets\Images\Games\ANTHEM.jpg" />
+        <Resource Include="Assets\Images\Games\NFS18.jpg" />
+        <Resource Include="Assets\Images\Games\SWJFO.jpg" />
+        <Resource Include="Assets\Images\Games\SWSD.jpg" />
         <Resource Include="Assets\Images\Regions\ar_SA.png" />
         <Resource Include="Assets\Images\Regions\cs_CZ.png" />
         <Resource Include="Assets\Images\Regions\da_DK.png" />
