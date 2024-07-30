@@ -21,5 +21,11 @@ public enum GameType
     PVZGW2,
     SWBF1,
     SWBF2,
-    TTF2
+    TTF2,
+    F124,
+    PGA,
+    ANTHEM,
+    NFS18,
+    SWSD,
+    SWJFO,
 }

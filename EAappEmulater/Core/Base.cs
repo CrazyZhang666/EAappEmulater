@@ -142,7 +142,7 @@ public static class Base
         {
             GameType = GameType.F123,
             Name = "F1® 23",
-            Name2 = "EA SPORTS™ F1® 23 3",
+            Name2 = "EA SPORTS™ F1® 23",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/F123.jpg",
             IsUseCustom = false,
             Dir = string.Empty,
@@ -429,6 +429,132 @@ public static class Base
             Regedit = "SOFTWARE\\Respawn\\Titanfall2",
             Regedit2 = "SOFTWARE\\WOW6432Node\\Respawn\\Titanfall2",
             Locales = new() { "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "pl_PL", "ru_RU", "es_MX", "ja_JP", "pt_BR", "zh_TW" },
+            IsOldLSX = false
+        };
+
+        GameInfoDb[GameType.F124] = new()
+        {
+            GameType = GameType.F124,
+            Name = "F1® 24",
+            Name2 = "EA SPORTS™ F1® 24",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/F124.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = true,
+            AppName = "EAAntiCheat.GameServiceLauncher.exe",
+            ContentId = "16425782",
+            Regedit = "SOFTWARE\\Codemasters\\F1_24",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\Codemasters\\F1_24",
+            Locales = new() { "en_GB", "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "ja_JP", "nl_NL", "pl_PL", "pt_BR", "zh_CN", "ar_SA", "es_MX" },
+            IsOldLSX = false
+        };
+
+        GameInfoDb[GameType.PGA] = new()
+        {
+            GameType = GameType.PGA,
+            Name = "PGA Tour",
+            Name2 = "PGA Tour",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/PGA.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "PGATour.exe",
+            ContentId = "16425629",
+            Regedit = "SOFTWARE\\EA Sports\\PGA Tour",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Sports\\PGA Tour",
+            Locales = new() { "en_GB", "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "ja_JP", "nl_NL", "pl_PL", "pt_BR", "zh_CN", "ar_SA", "es_MX", "zh_TW" },
+            IsOldLSX = false
+        };
+
+        GameInfoDb[GameType.ANTHEM] = new()
+        {
+            GameType = GameType.ANTHEM,
+            Name = "圣歌",
+            Name2 = "Anthem",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/ANTHEM.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "Anthem.exe",
+            ContentId = "1034365",
+            Regedit = "SOFTWARE\\BioWare\\Anthem",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\BioWare\\Anthem",
+            Locales = new() { "en_GB", "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "ja_JP", "nl_NL", "pl_PL", "pt_BR", "zh_CN", "ar_SA", "es_MX", "zh_TW" },
+            IsOldLSX = false
+        };
+
+        GameInfoDb[GameType.NFS18] = new()
+        {
+            GameType = GameType.NFS18,
+            Name = "极品飞车：宿敌",
+            Name2 = "Need for Speed: Rivals",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS18.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "NFS14.exe",
+            ContentId = "1004776",
+            Regedit = "SOFTWARE\\EA Games\\Need for Speed(TM) Rivals",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Need for Speed(TM) Rivals",
+            Locales = new() { "en_GB", "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "ja_JP", "nl_NL", "pl_PL", "pt_BR", "ar_SA", "es_MX", "zh_TW" },
+            IsOldLSX = true
+        };
+
+        GameInfoDb[GameType.SWSD] = new()
+        {
+            GameType = GameType.SWSD,
+            Name = "星球大战™ 战机中队",
+            Name2 = "STAR WARS™: Squadrons",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWSD.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "starwarssquadrons_launcher.exe",
+            ContentId = "16124549",
+            Regedit = "SOFTWARE\\EA Games\\STAR WARS Squadrons",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\STAR WARS Squadrons",
+            Locales = new() { "en_GB", "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "ja_JP", "nl_NL", "pl_PL", "pt_BR", "zh_CN", "ar_SA", "es_MX", "zh_TW" },
+            IsOldLSX = false
+        };
+
+        GameInfoDb[GameType.SWJFO] = new()
+        {
+            GameType = GameType.SWJFO,
+            Name = "星球大战 绝地-陨落的武士团™",
+            Name2 = "STAR WARS Jedi - Fallen Order™",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWJFO.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "starwarsjedifallenorder.exe",
+            ContentId = "196485",
+            Regedit = "SOFTWARE\\Respawn\\Jedi Fallen Order",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\Respawn\\Jedi Fallen Order",
+            Locales = new() { "en_GB", "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "ja_JP", "nl_NL", "pl_PL", "pt_BR", "zh_CN", "ar_SA", "es_MX", "zh_TW" },
             IsOldLSX = false
         };
 

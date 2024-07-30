@@ -183,7 +183,7 @@ public partial class FriendView : UserControl
             queryFreiResp.AppendChild(friend);
         }
 
-        // 手动添加一个额外的 Friend 元素
+        // 手动添加一个额外的 Friend 元素，这个就是玩家本人的信息
         var extraFriend = doc.CreateElement("Friend");
         extraFriend.SetAttribute("RichPresence", "");
         extraFriend.SetAttribute("AvatarId", "");

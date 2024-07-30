@@ -1,9 +1,6 @@
 ﻿using EAappEmulater.Core;
 using EAappEmulater.Helper;
 using RestSharp;
-using System;
-using System.Data.SqlTypes;
-using System.Security.Policy;
 
 namespace EAappEmulater.Api;
 
