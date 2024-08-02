@@ -558,6 +558,27 @@ public static class Base
             IsOldLSX = false
         };
 
+        GameInfoDb[GameType.MOHW] = new()
+        {
+            GameType = GameType.MOHW,
+            Name = "荣誉勋章:铁血悍将",
+            Name2 = "Medal of Honor™ Warfighter",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/MOHW.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "Launcher.exe",
+            ContentId = "71702",
+            Regedit = "SOFTWARE\\Danger Close Games\\Medal of Honor Warfighter",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\Danger Close Games\\Medal of Honor Warfighter",
+            Locales = new() { "en_GB", "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "ja_JP", "nl_NL", "pl_PL", "pt_BR", "ar_SA", "es_MX", "zh_TW" },
+            IsOldLSX = true
+        };
+
         ////////////////////////////////////////////////////
 
         // 提前缓存游戏注册表信息

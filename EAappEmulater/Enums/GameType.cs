@@ -28,4 +28,5 @@ public enum GameType
     NFS18,
     SWSD,
     SWJFO,
+    MOHW,
 }

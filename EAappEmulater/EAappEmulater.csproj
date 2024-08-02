@@ -138,6 +138,7 @@
         <Resource Include="Assets\Images\Games\NFS18.jpg" />
         <Resource Include="Assets\Images\Games\SWJFO.jpg" />
         <Resource Include="Assets\Images\Games\SWSD.jpg" />
+        <Resource Include="Assets\Images\Games\MOHW.jpg" />
         <Resource Include="Assets\Images\Regions\ar_SA.png" />
         <Resource Include="Assets\Images\Regions\cs_CZ.png" />
         <Resource Include="Assets\Images\Regions\da_DK.png" />
