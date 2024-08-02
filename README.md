@@ -1,6 +1,6 @@
-# EAappEmulater
+# EAapp模拟器
 
-EAapp模拟器 By `Misaka_Mikoto_01` And `CrazyZhang666`
+EAapp模拟器（EAappEmulater） By `Misaka_Mikoto_01` And `CrazyZhang666`
 
 > 本项目开发目标是作为一个简易的EA Desktop/Origin替代品，毕竟新的EA Desktop/Origin实在是太烂了
 
