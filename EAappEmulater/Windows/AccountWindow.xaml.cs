@@ -45,10 +45,6 @@ public partial class AccountWindow
             if (!string.IsNullOrWhiteSpace(account.Remid) && string.IsNullOrWhiteSpace(account.Avatar))
                 account.Avatar = "Default";
 
-            // 验证玩家头像与玩家头像Id是否一致
-            if (!account.Avatar.Contains(account.AvatarId))
-                account.Avatar = "Default";
-
             // 添加到动态集合中
             ObsCol_AccountInfos.Add(account);
         }

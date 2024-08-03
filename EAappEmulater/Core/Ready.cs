@@ -2,6 +2,8 @@
 using EAappEmulater.Utils;
 using EAappEmulater.Helper;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.VisualBasic.ApplicationServices;
+using static System.Windows.Forms.LinkLabel;
 
 namespace EAappEmulater.Core;
 
@@ -242,26 +244,34 @@ public static class Ready
     /// </summary>
     private static async Task<bool> DownloadAvatar(bool isOverride = true)
     {
-        var savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", $"{Account.AvatarId}.jpg");
-        if (File.Exists(savePath) && isOverride)
+        string[] files = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache"), $"{Account.UserId}.*");
+        var savePath = string.Empty;
+        string link = string.Empty;
+        if (files.Length > 0)
         {
-            Account.Avatar = savePath;
-
+            Account.Avatar = files[0];
             LoggerHelper.Info($"发现本地玩家头像图片缓存，跳过网络下载操作 {Account.Avatar}");
             WeakReferenceMessenger.Default.Send("", "LoadAvatar");
-
             return true;
         }
 
-        var avatarLink = $"https://secure.download.dm.origin.com/production/avatar/prod/userAvatar/{Account.AvatarId}/208x208.JPEG ";
-
-        // 开始缓存玩家头像到本地
-        if (!await CoreApi.DownloadWebImage(avatarLink, savePath))
+        var result = await EaApi.GetAvatarByUserId(Account.UserId);
+        if (!result.IsSuccess)
         {
-            LoggerHelper.Warn($"下载当前登录玩家头像失败 {Account.AvatarId}");
+            LoggerHelper.Warn($"下载当前登录玩家头像失败 {Account.UserId}");
             return false;
         }
-
+        XmlDocument xmlDoc = new XmlDocument();
+        xmlDoc.LoadXml(result.Content);
+        XmlNode linkNode = xmlDoc.SelectSingleNode("//link");
+        link = linkNode.InnerText;
+        string fileName = link.Substring(link.LastIndexOf('/') + 1);
+        savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("208x208", Account.UserId));
+        if (!await CoreApi.DownloadWebImage(link, savePath))
+        {
+            LoggerHelper.Warn($"下载当前登录玩家头像失败 {Account.UserId}");
+            return false;
+        }
         Account.Avatar = savePath;
 
         LoggerHelper.Info($"下载当前登录玩家头像成功");
