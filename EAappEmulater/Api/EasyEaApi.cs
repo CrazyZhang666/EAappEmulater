@@ -91,7 +91,7 @@ public static class EasyEaApi
             XmlNode linkNode = xmlDoc.SelectSingleNode("//link");
             link = linkNode.InnerText;
             string fileName = link.Substring(link.LastIndexOf('/') + 1);
-            savePath = savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("208x208", userid));
+            savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("208x208", userid));
             if (!await CoreApi.DownloadWebImage(link, savePath))
             {
                 LoggerHelper.Warn($"下载当前登录玩家头像失败 {userid}");
