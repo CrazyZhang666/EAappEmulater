@@ -63,7 +63,7 @@ public partial class App : Application
             if (endPoint.Port == 3216)
             {
                 LoggerHelper.Error("检测到 TCP端口 3216 被占用，请解除端口占用");
-                MsgBoxHelper.Error("检测到 TCP端口 3216 被占用，请解除端口占用", "初始化错误");
+                MsgBoxHelper.Error("检测到 TCP端口 3216 被占用，请解除端口占用\n一般情况下只需要关闭 Origin 和 EaApp 程序即可", "初始化错误");
                 Current.Shutdown();
                 return;
             }
@@ -71,7 +71,7 @@ public partial class App : Application
             if (endPoint.Port == 3215)
             {
                 LoggerHelper.Error("检测到 TCP端口 3215 被占用，请解除端口占用");
-                MsgBoxHelper.Error("检测到 TCP端口 3215 被占用，请解除端口占用", "初始化错误");
+                MsgBoxHelper.Error("检测到 TCP端口 3215 被占用，请解除端口占用\n一般情况下只需要关闭 Origin 和 EaApp 程序即可", "初始化错误");
                 Current.Shutdown();
                 return;
             }
@@ -79,7 +79,7 @@ public partial class App : Application
             if (endPoint.Port == 4219)
             {
                 LoggerHelper.Error("检测到 TCP端口 4219 被占用，请解除端口占用");
-                MsgBoxHelper.Error("检测到 TCP端口 4219 被占用，请解除端口占用", "初始化错误");
+                MsgBoxHelper.Error("检测到 TCP端口 4219 被占用，请解除端口占用\n一般情况下只需要关闭 Origin 和 EaApp 程序即可", "初始化错误");
                 Current.Shutdown();
                 return;
             }
