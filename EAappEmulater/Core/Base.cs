@@ -267,7 +267,7 @@ public static class Base
         GameInfoDb[GameType.NFS21] = new()
         {
             GameType = GameType.NFS21,
-            Name = "极品飞车 : 热度",
+            Name = "极品飞车: 热度",
             Name2 = "Need for Speed™ Heat",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS21.jpg",
             IsUseCustom = false,
@@ -288,7 +288,7 @@ public static class Base
         GameInfoDb[GameType.NFS22] = new()
         {
             GameType = GameType.NFS22,
-            Name = "极品飞车 : 不羁",
+            Name = "极品飞车: 不羁",
             Name2 = "Need For Speed™ : Unbound",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS22.jpg",
             IsUseCustom = false,
@@ -309,7 +309,7 @@ public static class Base
         GameInfoDb[GameType.PVZGN] = new()
         {
             GameType = GameType.PVZGN,
-            Name = "植物大战僵尸 : 和睦小镇保卫战",
+            Name = "植物大战僵尸: 和睦小镇保卫战",
             Name2 = "Plants vs Zombies Battle for Neighborville",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/PVZBN.jpg",
             IsUseCustom = false,
@@ -330,7 +330,7 @@ public static class Base
         GameInfoDb[GameType.PVZGW] = new()
         {
             GameType = GameType.PVZGW,
-            Name = "植物大战僵尸 : 花园战争",
+            Name = "植物大战僵尸: 花园战争",
             Name2 = "PVZ Garden Warfare",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/PVZGW.jpg",
             IsUseCustom = false,
@@ -351,7 +351,7 @@ public static class Base
         GameInfoDb[GameType.PVZGW2] = new()
         {
             GameType = GameType.PVZGW2,
-            Name = "植物大战僵尸 : 花园战争2",
+            Name = "植物大战僵尸: 花园战争2",
             Name2 = "Plants vs. Zombies Garden Warfare 2",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/PVZGW2.jpg",
             IsUseCustom = false,
@@ -372,7 +372,7 @@ public static class Base
         GameInfoDb[GameType.SWBF1] = new()
         {
             GameType = GameType.SWBF1,
-            Name = "星球大战 : 战场前线",
+            Name = "星球大战: 战场前线",
             Name2 = "STAR WARS Battlefront",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWBF1.jpg",
             IsUseCustom = false,
@@ -393,7 +393,7 @@ public static class Base
         GameInfoDb[GameType.SWBF2] = new()
         {
             GameType = GameType.SWBF2,
-            Name = "星球大战 : 战场前线2",
+            Name = "星球大战: 战场前线2",
             Name2 = "Star Wars : BattleFront II",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/SWBF2.jpg",
             IsUseCustom = false,
@@ -498,7 +498,7 @@ public static class Base
         GameInfoDb[GameType.NFS18] = new()
         {
             GameType = GameType.NFS18,
-            Name = "极品飞车：宿敌",
+            Name = "极品飞车: 宿敌",
             Name2 = "Need for Speed: Rivals",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS18.jpg",
             IsUseCustom = false,
@@ -561,7 +561,7 @@ public static class Base
         GameInfoDb[GameType.MOHW] = new()
         {
             GameType = GameType.MOHW,
-            Name = "荣誉勋章:铁血悍将",
+            Name = "荣誉勋章: 铁血悍将",
             Name2 = "Medal of Honor™ Warfighter",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/MOHW.jpg",
             IsUseCustom = false,

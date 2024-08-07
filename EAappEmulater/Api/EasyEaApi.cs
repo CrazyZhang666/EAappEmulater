@@ -1,8 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using EAappEmulater.Core;
+﻿using EAappEmulater.Core;
 using EAappEmulater.Helper;
-using Microsoft.VisualBasic.ApplicationServices;
-using System.Data.SqlTypes;
 
 namespace EAappEmulater.Api;
 
@@ -71,7 +68,7 @@ public static class EasyEaApi
     /// <summary>
     /// 下载玩家头像并生成lsx响应
     /// </summary>
-    public static async Task<string> GetQueryImageXml(string id,string userid, string width,string imageid)
+    public static async Task<string> GetQueryImageXml(string id, string userid, string width, string imageid)
     {
         var savePath = string.Empty;
         string[] files = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache"), $"{userid}.*");
@@ -81,7 +78,7 @@ public static class EasyEaApi
             LoggerHelper.Info($"发现本地玩家头像图片缓存，跳过网络下载操作 {files[0]}");
             savePath = files[0];
         }
-        else 
+        else
         {
             var result = await EaApi.GetAvatarByUserId(userid);
             if (!result.IsSuccess)
@@ -91,7 +88,7 @@ public static class EasyEaApi
             XmlNode linkNode = xmlDoc.SelectSingleNode("//link");
             link = linkNode.InnerText;
             string fileName = link.Substring(link.LastIndexOf('/') + 1);
-            savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("208x208", userid));
+            savePath = savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("208x208", userid));
             if (!await CoreApi.DownloadWebImage(link, savePath))
             {
                 LoggerHelper.Warn($"下载当前登录玩家头像失败 {userid}");

@@ -106,7 +106,7 @@ public static class Account
 
             item.Value.IsUseCustom = ReadBoolean(key, "IsUseCustom");
 
-            item.Value.Dir = ReadString(key, "Dir");
+            //item.Value.Dir = ReadString(key, "Dir");
             item.Value.Args = ReadString(key, "Args");
             item.Value.Dir2 = ReadString(key, "Dir2");
             item.Value.Args2 = ReadString(key, "Args2");
@@ -140,7 +140,7 @@ public static class Account
 
             WriteBoolean(key, "IsUseCustom", item.Value.IsUseCustom);
 
-            WriteString(key, "Dir", item.Value.Dir);
+            //WriteString(key, "Dir", item.Value.Dir);
             WriteString(key, "Args", item.Value.Args);
             WriteString(key, "Dir2", item.Value.Dir2);
             WriteString(key, "Args2", item.Value.Args2);

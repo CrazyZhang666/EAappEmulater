@@ -344,7 +344,7 @@ public static class LSXTcpServer
                 _ => string.Empty,
             },
             "><QueryFriends UserId=" => GetFriendsXmlString().Replace("##ID##", id),
-            "><QueryImage ImageId=" => await EasyEaApi.GetQueryImageXml(id,partArray[5].Replace("user:",""), partArray[7], partArray[5]),
+            "><QueryImage ImageId=" => await EasyEaApi.GetQueryImageXml(id, partArray[5].Replace("user:", ""), partArray[7], partArray[5]),
             "><QueryPresence UserId=" => QueryPresenceResponse().Replace("##ID##", id).Replace("##UID##", Account.UserId),
             "><SetPresence UserId=" => ScoketMsgBFV[14].Replace("##ID##", id),
             "><GetAllGameInfo version=" => contentId switch
