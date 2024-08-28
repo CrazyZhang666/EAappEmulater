@@ -23,16 +23,27 @@ public static class LoggerHelper
             Encoding = Encoding.UTF8
         };
 
-#if DEBUG
+        // 默认完整日志
         config.AddRule(LogLevel.Trace, LogLevel.Fatal, logfile);
         config.AddRule(LogLevel.Trace, LogLevel.Fatal, new NlogViewerTarget());
-#else
-        config.AddRule(LogLevel.Info, LogLevel.Fatal, logfile);
-        config.AddRule(LogLevel.Info, LogLevel.Fatal, new NlogViewerTarget());
-#endif
 
         LogManager.ThrowExceptions = false;
         LogManager.Configuration = config;
+    }
+
+    /// <summary>
+    /// 设置日志最小等级
+    /// </summary>
+    public static void SetLogMinLevel(LogLevel minLevel)
+    {
+        var config = LogManager.Configuration;
+
+        foreach (var item in config.LoggingRules)
+        {
+            item.SetLoggingLevels(minLevel, LogLevel.Fatal);
+        }
+
+        LogManager.ReconfigExistingLoggers();
     }
 
     #region Trace，追踪

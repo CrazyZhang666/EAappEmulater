@@ -101,18 +101,16 @@ public static class RegistryHelper
          * 这样可以解决F1 23等游戏不安装EA Desktop/Origin并且注册表ClientPath路径没有程序则没办法启动的问题
          * 还能顺便解决TTF2等游戏启动的时候会弹出EA App的问题
          */
+
         try
         {
-            using (RegistryKey localMachine = Registry.LocalMachine)
+            using var localMachine = Registry.LocalMachine;
+            using var newSubKey = localMachine.CreateSubKey(@"SOFTWARE\Wow6432Node\Origin", true);
+
+            if (newSubKey is not null)
             {
-                using (RegistryKey newSubKey = localMachine.CreateSubKey(@"SOFTWARE\Wow6432Node\Origin", true))
-                {
-                    if (newSubKey != null)
-                    {
-                        string clientPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "cmdkey.exe");
-                        newSubKey.SetValue("ClientPath", clientPath, RegistryValueKind.String);
-                    }
-                }
+                var clientPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "cmdkey.exe");
+                newSubKey.SetValue("ClientPath", clientPath, RegistryValueKind.String);
             }
         }
         catch (Exception ex)

@@ -1,5 +1,5 @@
-﻿using EAappEmulater.Utils;
-using EAappEmulater.Helper;
+﻿using EAappEmulater.Helper;
+using EAappEmulater.Utils;
 
 namespace EAappEmulater;
 

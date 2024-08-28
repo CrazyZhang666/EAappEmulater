@@ -1,6 +1,6 @@
-﻿using EAappEmulater.Utils;
+﻿using CommunityToolkit.Mvvm.Input;
 using EAappEmulater.Helper;
-using CommunityToolkit.Mvvm.Input;
+using EAappEmulater.Utils;
 
 namespace EAappEmulater.Views;
 

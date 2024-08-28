@@ -1,6 +1,6 @@
 ﻿using Notification.Wpf;
-using Notification.Wpf.Controls;
 using Notification.Wpf.Constants;
+using Notification.Wpf.Controls;
 
 namespace EAappEmulater.Helper;
 

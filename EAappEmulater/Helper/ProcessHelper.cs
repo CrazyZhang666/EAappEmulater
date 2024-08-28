@@ -117,6 +117,8 @@ public static class ProcessHelper
                 // 关闭进程树
                 process.Kill(true);
                 LoggerHelper.Info($"关闭进程成功 {appName}.exe");
+
+                isFind = true;
             }
 
             if (!isFind)

@@ -1,6 +1,6 @@
-﻿using EAappEmulater.Helper;
+﻿using CommunityToolkit.Mvvm.Input;
+using EAappEmulater.Helper;
 using Microsoft.Web.WebView2.Core;
-using CommunityToolkit.Mvvm.Input;
 
 namespace EAappEmulater.Windows;
 

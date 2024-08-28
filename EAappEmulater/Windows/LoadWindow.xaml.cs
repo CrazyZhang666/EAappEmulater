@@ -1,9 +1,9 @@
-﻿using EAappEmulater.Api;
+﻿using CommunityToolkit.Mvvm.Input;
+using EAappEmulater.Api;
 using EAappEmulater.Core;
-using EAappEmulater.Utils;
 using EAappEmulater.Helper;
+using EAappEmulater.Utils;
 using RestSharp;
-using CommunityToolkit.Mvvm.Input;
 
 namespace EAappEmulater.Windows;
 

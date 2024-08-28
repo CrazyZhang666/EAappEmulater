@@ -1,8 +1,8 @@
-﻿using EAappEmulater.Core;
+﻿using CommunityToolkit.Mvvm.Input;
+using EAappEmulater.Core;
 using EAappEmulater.Enums;
 using EAappEmulater.Models;
 using EAappEmulater.Windows;
-using CommunityToolkit.Mvvm.Input;
 
 namespace EAappEmulater.Views;
 

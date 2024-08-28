@@ -1,9 +1,7 @@
-﻿using EAappEmulater.Api;
-using EAappEmulater.Utils;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using EAappEmulater.Api;
 using EAappEmulater.Helper;
-using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.VisualBasic.ApplicationServices;
-using static System.Windows.Forms.LinkLabel;
+using EAappEmulater.Utils;
 
 namespace EAappEmulater.Core;
 

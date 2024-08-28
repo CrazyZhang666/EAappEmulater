@@ -1,7 +1,7 @@
 ﻿using EAappEmulater.Core;
 using EAappEmulater.Enums;
-using EAappEmulater.Utils;
 using EAappEmulater.Helper;
+using EAappEmulater.Utils;
 
 namespace EAappEmulater;
 

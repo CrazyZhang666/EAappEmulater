@@ -1,11 +1,11 @@
-﻿using EAappEmulater.Api;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using EAappEmulater.Api;
 using EAappEmulater.Core;
-using EAappEmulater.Utils;
-using EAappEmulater.Views;
 using EAappEmulater.Helper;
 using EAappEmulater.Models;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
+using EAappEmulater.Utils;
+using EAappEmulater.Views;
 using Hardcodet.Wpf.TaskbarNotification;
 using Window = ModernWpf.Controls.Window;
 
