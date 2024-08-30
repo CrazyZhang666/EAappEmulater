@@ -17,7 +17,7 @@
         <ListView.View>
             <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
                 <GridViewColumn
-                    Width="60"
+                    Width="95"
                     DisplayMemberBinding="{Binding Time}"
                     Header="时间" />
                 <GridViewColumn

@@ -49,7 +49,7 @@ public partial class LogView : UserControl
 
             var item = new LogInfo()
             {
-                Time = logEvent.TimeStamp.ToString("HH:mm:ss"),
+                Time = logEvent.TimeStamp.ToString("HH:mm:ss.ffff"),
                 Level = logEvent.Level.Name,
                 Message = $"{logEvent.Message} {logEvent.Exception?.Message}"
             };
