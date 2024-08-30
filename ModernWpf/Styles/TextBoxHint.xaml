@@ -97,8 +97,11 @@
         <Setter Property="BorderBrush" Value="{StaticResource BorderColor}" />
         <Setter Property="CornerRadius" Value="0" />
         <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Top" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="Template">
@@ -124,15 +127,17 @@
                                     x:Name="HintTextBlock"
                                     Margin="3,0,0,0"
                                     Padding="{TemplateBinding Padding}"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
                                     Focusable="False"
                                     Opacity="0.5"
                                     Text="{TemplateBinding Hint}" />
                                 <ScrollViewer
                                     x:Name="PART_ContentHost"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                     Focusable="False"
                                     HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
                                     VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}" />
