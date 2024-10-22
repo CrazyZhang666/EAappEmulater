@@ -44,12 +44,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0" />
-        <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
-        <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2739.15" />
-        <PackageReference Include="NLog" Version="5.3.3" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+        <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
+        <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2849.39" />
+        <PackageReference Include="NLog" Version="5.3.4" />
         <PackageReference Include="Notification.Wpf" Version="8.0.0" />
-        <PackageReference Include="RestSharp" Version="112.0.0" />
+        <PackageReference Include="RestSharp" Version="112.1.0" />
     </ItemGroup>
 
     <ItemGroup>
