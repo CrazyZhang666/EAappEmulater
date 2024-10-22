@@ -124,4 +124,31 @@ public static class FileHelper
             inStream?.Close();
         }
     }
+    /// <summary>
+    /// 从游戏文件读取installerdata.xml版本号
+    /// </summary>
+    public static string GetGameVersion(string contentID)
+    {
+        try
+        {
+            string xmlFilePath = RegistryHelper.GetInstallDirByContentId(contentID) + "__Installer\\installerdata.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(xmlFilePath);
+            XmlNode gameVersionNode = doc.SelectSingleNode("//gameVersion");
+
+            if (gameVersionNode != null && gameVersionNode.Attributes["version"] != null)
+            {
+                return gameVersionNode.Attributes["version"].Value;
+            }
+            else
+            {
+                return "1.0.0.0";
+            }
+        }
+        catch (Exception)
+        {
+
+            return "1.0.0.0";
+        }
+    }
 }

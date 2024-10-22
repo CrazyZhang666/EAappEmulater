@@ -93,6 +93,24 @@ public static class RegistryHelper
     }
 
     /// <summary>
+    /// 获取当前游戏安装路径
+    /// </summary>
+    public static string GetInstallDirByContentId(string contentId)
+    {
+        if (Base.GameRegistryDb.TryGetValue(contentId, out List<string> regs))
+        {
+            foreach (var reg in regs)
+            {
+                var locale = GetRegistryTargetVaule(reg, "Install Dir");
+                if (!string.IsNullOrWhiteSpace(locale))
+                    return locale;
+            }
+        }
+
+        return "";
+    }
+
+    /// <summary>
     /// 获取Origin/EA App注册表情况并且每次启动都直接写入
     /// </summary>
     public static void CheckAndAddEaAppRegistryKey()

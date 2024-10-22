@@ -15,7 +15,7 @@ public static class LSXTcpServer
     static LSXTcpServer()
     {
         // 加载XML字符串
-        for (int i = 0; i <= 25; i++)
+        for (int i = 0; i <= 27; i++)
         {
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFV.{i:D2}.xml");
 
@@ -347,21 +347,19 @@ public static class LSXTcpServer
             "><QueryImage ImageId=" => await EasyEaApi.GetQueryImageXml(id, partArray[5].Replace("user:", ""), partArray[7], partArray[5]),
             "><QueryPresence UserId=" => QueryPresenceResponse().Replace("##ID##", id).Replace("##UID##", Account.UserId),
             "><SetPresence UserId=" => ScoketMsgBFV[14].Replace("##ID##", id),
-            "><GetAllGameInfo version=" => contentId switch
-            {
-                "1039093" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", "1.0.1.3"),
-                "16115019" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", "1.0.83.40087"),
-                "198235" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", "1.0.87.30122"),
-                "16425635" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", "1.0.87.30122"),
-                _ => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", "1.0.108.2038")
-            },
+            "><GetAllGameInfo version=" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", FileHelper.GetGameVersion(contentId)),
             "><IsProgressiveInstallationAvailable ItemId=" => ScoketMsgBFV[17].Replace("##ID##", id).Replace("Origin.OFR.50.0004342", "Origin.OFR.50.0001455"),
             "><QueryContent UserId=" => ScoketMsgBFV[18].Replace("##ID##", id),
-            "><QueryEntitlements UserId=" => ScoketMsgBFV[21].Replace("##ID##", id),
+            "><QueryEntitlements UserId=" => contentId switch
+            {
+                "198387" => ScoketMsgBFV[27].Replace("##ID##", id),
+                _ => ScoketMsgBFV[21].Replace("##ID##", id),
+            },
             "><QueryOffers UserId=" => ScoketMsgBFV[22].Replace("##ID##", id),
             "><SetDownloaderUtilization Utilization=" => ScoketMsgBFV[23].Replace("##ID##", id),
             "><QueryChunkStatus ItemId=" => ScoketMsgBFV[24].Replace("##ID##", id),
             "><GetPresenceVisibility UserId=" => ScoketMsgBFV[25].Replace("##ID##", id),
+            "><GetWalletBalance UserId=" => ScoketMsgBFV[26].Replace("##ID##", id),
             _ => string.Empty,
         };
     }

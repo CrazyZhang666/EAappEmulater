@@ -106,6 +106,8 @@
         <EmbeddedResource Include="Assets\Files\LSX\BFV\23.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\24.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\25.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\26.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\27.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\TTF2\00.xml" />
         <EmbeddedResource Include="Assets\Files\Misc\UpdateNotes.txt" />
     </ItemGroup>
@@ -139,6 +141,7 @@
         <Resource Include="Assets\Images\Games\SWJFO.jpg" />
         <Resource Include="Assets\Images\Games\SWSD.jpg" />
         <Resource Include="Assets\Images\Games\MOHW.jpg" />
+        <Resource Include="Assets\Images\Games\FC25.jpg" />
         <Resource Include="Assets\Images\Regions\ar_SA.png" />
         <Resource Include="Assets\Images\Regions\cs_CZ.png" />
         <Resource Include="Assets\Images\Regions\da_DK.png" />

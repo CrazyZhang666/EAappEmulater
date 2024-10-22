@@ -29,4 +29,5 @@ public enum GameType
     SWSD,
     SWJFO,
     MOHW,
+    FC25
 }

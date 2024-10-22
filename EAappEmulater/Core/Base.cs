@@ -87,8 +87,8 @@ public static class Base
             Dir2 = string.Empty,
             Args2 = string.Empty,
             IsInstalled = false,
-            IsEAAC = false,
-            AppName = "bf1.exe",
+            IsEAAC = true,
+            AppName = "EAAntiCheat.GameServiceLauncher.exe",
             ContentId = "1026023",
             Regedit = "SOFTWARE\\EA Games\\Battlefield 1",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield 1",
@@ -577,6 +577,27 @@ public static class Base
             Regedit2 = "SOFTWARE\\WOW6432Node\\Danger Close Games\\Medal of Honor Warfighter",
             Locales = new() { "en_GB", "en_US", "fr_FR", "de_DE", "it_IT", "es_ES", "ja_JP", "nl_NL", "pl_PL", "pt_BR", "ar_SA", "es_MX", "zh_TW" },
             IsOldLSX = true
+        };
+
+        GameInfoDb[GameType.FC25] = new()
+        {
+            GameType = GameType.FC25,
+            Name = "EA SPORTS FC 25",
+            Name2 = "EA SPORTS FC 25",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/FC25.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = true,
+            AppName = "EAAntiCheat.GameServiceLauncher.exe",
+            ContentId = "198387",
+            Regedit = "SOFTWARE\\EA Sports\\EA SPORTS FC 25",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Sports\\EA SPORTS FC 25",
+            Locales = new() { "pt_PT", "tr_TR", "ko_KR", "cs_CZ", "zh_CN", "zh_HK", "da_DK", "no_NO", "sv_SE", "en_US", "pt_BR", "de_DE", "es_ES", "fr_FR", "it_IT", "ja_JP", "es_MX", "nl_NL", "pl_PL", "ru_RU", "ar_SA" },
+            IsOldLSX = false
         };
 
         ////////////////////////////////////////////////////

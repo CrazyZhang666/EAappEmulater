@@ -1,0 +1,9 @@
+﻿<LSX>
+  <Response sender="Commerce" id="##ID##">
+    <QueryEntitlementsResponse>
+      <Entitlement EntitlementTag="ONLINE_ACCESS" Expiration="0000-00-00T00:00:00" LastModifiedDate="2024-10-19T06:55:00" GrantDate="2024-10-19T06:55:00" ResourceId="" EntitlementId="1022487313462" ItemId="Origin.OFR.50.0005506" Source="STEAM" Type="DEFAULT" Version="0" UseCount="0" Group="FC25PC"/>
+      <Entitlement EntitlementTag="FC25PC_FULLGAME" Expiration="0000-00-00T00:00:00" LastModifiedDate="2024-10-19T06:55:00" GrantDate="2024-10-19T06:55:00" ResourceId="" EntitlementId="1022487113462" ItemId="Origin.OFR.50.0005506" Source="STEAM" Type="DEFAULT" Version="0" UseCount="0" Group="FC25PC"/>
+      <Entitlement EntitlementTag="FC25PC_BASEGAME" Expiration="0000-00-00T00:00:00" LastModifiedDate="2024-10-19T06:55:00" GrantDate="2024-10-19T06:55:00" ResourceId="" EntitlementId="1022486913462" ItemId="Origin.OFR.50.0005391" Source="STEAM" Type="DEFAULT" Version="0" UseCount="0" Group="FC25PC"/>
+    </QueryEntitlementsResponse>
+  </Response>
+</LSX>
