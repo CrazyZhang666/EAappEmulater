@@ -50,9 +50,10 @@ https://github.com/CrazyZhang666/EAappEmulater/releases
 - 战地风云2042
 - EA SPORTS™ F1® 23
 - EA SPORTS™ F1® 24（未经测试，试玩版许可证无法启动）
-- FC™ 24
 - FIFA 22
 - FIFA 23
+- EA SPORTS™ FC™ 24
+- EA SPORTS™ FC™ 25
 - 双人成行
 - 极品飞车19
 - 极品飞车 : 热度
