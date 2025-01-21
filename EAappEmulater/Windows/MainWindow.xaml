@@ -141,6 +141,12 @@
                             ToolTip="游戏库" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"
+                            CommandParameter="EADesktopWeb"
+                            GroupName="NavMenu"
+                            Icon="&#xF466;"
+                            ToolTip="EA App界面" />
+                        <ui:NavMenu
+                            Command="{Binding NavigateCommand}"
                             CommandParameter="FriendView"
                             GroupName="NavMenu"
                             Icon="&#xE716;"

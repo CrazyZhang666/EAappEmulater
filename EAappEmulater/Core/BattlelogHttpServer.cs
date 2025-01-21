@@ -269,12 +269,28 @@ public static class BattlelogHttpServer
                     var strBuilder = new StringBuilder();
                     foreach (var ip in ipArray)
                     {
-                        strBuilder.Append($"{{\"ip\":\"{ip}\",\"time\":1}},");
+                        try
+                        {
+                            Ping ping = new Ping();
+                            PingReply reply = ping.Send(ip.Trim());
+                            if (reply.Status == IPStatus.Success)
+                            {
+                                strBuilder.Append($"{{\"ip\":\"{ip}\",\"time\":{reply.RoundtripTime}}},");
+                            }
+                            else
+                            {
+                                strBuilder.Append($"{{\"ip\":\"{ip}\",\"time\":-1}},");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            strBuilder.Append($"{{\"ip\":\"{ip}\",\"time\":-1}},");
+                        }
                     }
 
                     LoggerHelper.Info("Battlelog 返回 Ping 信息");
-                    var responseStr = $"[{strBuilder}]";
-                    WriteOutputStream(context, 200, true, responseStr.Replace("},]", "}]"));
+                    var responseStr = $"[{strBuilder.ToString().TrimEnd(',')}]";
+                    WriteOutputStream(context, 200, true, responseStr);
                 }
                 else if (nameValCol["offerIds"] == "DR:224766400")
                 {

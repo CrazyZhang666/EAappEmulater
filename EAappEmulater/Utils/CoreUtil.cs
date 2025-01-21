@@ -20,7 +20,6 @@ public static class CoreUtil
     public static string Dir_Log_Crash { get; private set; }
     public static string Dir_Log_NLog { get; private set; }
 
-    public static string File_Service_EADesktop { get; private set; }
     public static string File_Service_OriginDebug { get; private set; }
     #endregion
 
@@ -65,7 +64,6 @@ public static class CoreUtil
         FileHelper.CreateDirectory(Dir_Log_Crash);
         FileHelper.CreateDirectory(Dir_Log_NLog);
 
-        File_Service_EADesktop = Path.Combine(Dir_Service, "EADesktop.exe");
         File_Service_OriginDebug = Path.Combine(Dir_Service, "OriginDebug.exe");
         #endregion
 
@@ -96,7 +94,6 @@ public static class CoreUtil
     public static void CloseServiceProcess()
     {
         LoggerHelper.Info("准备关闭服务进程");
-        ProcessHelper.CloseProcess("EADesktop");
         ProcessHelper.CloseProcess("OriginDebug");
         ProcessHelper.CloseProcess("Origin");
 

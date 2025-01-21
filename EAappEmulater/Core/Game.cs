@@ -1,5 +1,6 @@
 ﻿using EAappEmulater.Enums;
 using EAappEmulater.Helper;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace EAappEmulater.Core;
 
@@ -166,6 +167,7 @@ public static class Game
             {
                 UseShellExecute = false
             };
+            startInfo.Verb = "";
 
             // 判断是否使用自定义路径启动游戏
             if (gameInfo.IsUseCustom)
@@ -227,8 +229,20 @@ public static class Game
                 startInfo.EnvironmentVariables[variable.Key] = variable.Value;
             }
 
+
+            string serializedData = $"{startInfo.FileName};{startInfo.WorkingDirectory};{startInfo.Arguments};{Account.OriginPCToken};{Account.PlayerName};{EaCrypto.GetRTPHandshakeCode()};{gameInfo.ContentId}";
+
             // 启动程序
-            Process.Start(startInfo);
+            using (var pipeClient = new NamedPipeClientStream(".", "RunGame_OriginDebug", PipeDirection.Out))
+            {
+                pipeClient.Connect();
+                using (var writer = new StreamWriter(pipeClient))
+                {
+                    writer.WriteLine(serializedData);
+                }
+            }
+
+            //Process.Start(startInfo);
 
             LoggerHelper.Info($"启动游戏 {gameInfo.Name} 成功");
             if (isNotice)

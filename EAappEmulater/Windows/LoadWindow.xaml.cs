@@ -116,7 +116,6 @@ public partial class LoadWindow
 
         DisplayLoadState("正在释放资源服务进程文件...");
         LoggerHelper.Info("正在释放资源服务进程文件...");
-        FileHelper.ExtractResFile("Exec.EADesktop.exe", CoreUtil.File_Service_EADesktop);
         FileHelper.ExtractResFile("Exec.OriginDebug.exe", CoreUtil.File_Service_OriginDebug);
 
         /////////////////////////////////////////////////

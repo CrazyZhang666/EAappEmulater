@@ -59,7 +59,7 @@ public static class ProcessHelper
     }
 
     /// <summary>
-    /// 打开指定进程（支持静默）
+    /// 打开指定进程，使用explorer来启动避免继承管理员身份
     /// </summary>
     public static void OpenProcess(string appPath, bool isSilent = false)
     {
@@ -68,26 +68,21 @@ public static class ProcessHelper
             LoggerHelper.Warn($"程序路径不存在 {appPath}");
             return;
         }
-
         var fileInfo = new FileInfo(appPath);
-
         try
         {
-            // 如果应在启动进程时使用 shell，则为 true；如果直接从可执行文件创建进程，则为 false。
-            // 默认值为 true .NET Framework 应用和 false .NET Core 应用。
             var processInfo = new ProcessStartInfo
             {
                 UseShellExecute = true,
-                FileName = fileInfo.FullName,
-                WorkingDirectory = fileInfo.DirectoryName
+                FileName = "explorer.exe",
+                Arguments = $"\"{fileInfo.FullName}\"",
+                WorkingDirectory = fileInfo.DirectoryName,
             };
-
             if (isSilent)
             {
                 processInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 processInfo.CreateNoWindow = true;
             }
-
             Process.Start(processInfo);
             LoggerHelper.Info($"启动程序成功 {appPath}");
         }
