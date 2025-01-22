@@ -133,7 +133,7 @@ public static class RegistryHelper
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error("写入 EADesktop 安装路径注册表异常", ex);
+            Console.WriteLine(ex);
         }
     }
 }

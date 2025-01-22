@@ -600,6 +600,47 @@ public static class Base
             IsOldLSX = false
         };
 
+        GameInfoDb[GameType.NFS17] = new()
+        {
+            GameType = GameType.NFS17,
+            Name = "Need for Speed™ Most Wanted",
+            Name2 = "Need for Speed™ Most Wanted",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS17.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = true,
+            AppName = "NFS13.exe",
+            ContentId = "71628",
+            Regedit = "SOFTWARE\\EA Games\\Need for Speed(TM) Most Wanted",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Need for Speed(TM) Most Wanted",
+            Locales = new() { "pt_PT", "tr_TR", "ko_KR", "cs_CZ", "zh_TW", "da_DK", "no_NO", "sv_SE", "en_US", "pt_BR", "de_DE", "es_ES", "fr_FR", "it_IT", "ja_JP", "es_MX", "nl_NL", "pl_PL", "ru_RU", "ar_SA" },
+            IsOldLSX = true
+        };
+        GameInfoDb[GameType.NFS11RE] = new()
+        {
+            GameType = GameType.NFS11RE,
+            Name = "《極速快感™：超熱力追緝》重製版",
+            Name2 = "Need for Speed™ Hot Pursuit Remastered",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS11RE.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = true,
+            AppName = "NFS11Remastered.exe",
+            ContentId = "198281",
+            Regedit = "SOFTWARE\\EA Games\\Need For Speed Hot Pursuit Remastered",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Need For Speed Hot Pursuit Remastered",
+            Locales = new() { "pt_PT", "tr_TR", "ko_KR", "cs_CZ", "zh_TW", "da_DK", "no_NO", "sv_SE", "en_US", "pt_BR", "de_DE", "es_ES", "fr_FR", "it_IT", "ja_JP", "es_MX", "nl_NL", "pl_PL", "ru_RU", "ar_SA" },
+            IsOldLSX = false
+        };
+
         ////////////////////////////////////////////////////
 
         // 提前缓存游戏注册表信息

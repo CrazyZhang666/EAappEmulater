@@ -407,7 +407,7 @@ public static class LSXTcpServer
             "><QueryImage ImageId=" => ScoketMsgBFH[12].Replace("##ID##", id),
             "><QueryPresence UserId=" => ScoketMsgBFH[13].Replace("##ID##", id),
             "><SetPresence version=" => ScoketMsgBFH[14].Replace("##ID##", id),
-            "><GetAuthToken version=" => ScoketMsgBFH[16].Replace("##ID##", id).Replace("##AuthCode##", await EasyEaApi.GetLSXAutuCode("GOS-BlazeServer-HAVANA-PC")),
+            "><GetAuthToken version=" => ScoketMsgBFH[16].Replace("##ID##", id).Replace("##AuthCode##", Account.OriginPCToken),
             //"><QueryFriends version=" => GetFriendsXmlString().Replace("##ID##", id),
             _ => string.Empty,
         };

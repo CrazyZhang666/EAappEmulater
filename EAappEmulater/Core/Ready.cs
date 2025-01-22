@@ -13,7 +13,6 @@ public static class Ready
     {
         // 打开服务进程
         LoggerHelper.Info("正在启动服务进程...");
-        ProcessHelper.OpenProcess(CoreUtil.File_Service_EADesktop, true);
         ProcessHelper.OpenProcess(CoreUtil.File_Service_OriginDebug, true);
 
         LoggerHelper.Info("正在启动 LSX 监听服务...");

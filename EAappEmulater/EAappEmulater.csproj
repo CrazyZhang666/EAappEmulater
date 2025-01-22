@@ -28,6 +28,7 @@
 
     <PropertyGroup>
         <WebView2LoaderPreference>Static</WebView2LoaderPreference>
+        <SignAssembly>False</SignAssembly>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -61,7 +62,6 @@
         <EmbeddedResource Include="Assets\Files\Battlelog\76889.json" />
         <EmbeddedResource Include="Assets\Files\Battlelog\ping.json" />
         <EmbeddedResource Include="Assets\Files\Battlelog\status.json" />
-        <EmbeddedResource Include="Assets\Files\Exec\EADesktop.exe" />
         <EmbeddedResource Include="Assets\Files\Exec\OriginDebug.exe" />
         <EmbeddedResource Include="Assets\Files\LSX\BFH\00.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFH\01.xml" />
@@ -142,6 +142,8 @@
         <Resource Include="Assets\Images\Games\SWSD.jpg" />
         <Resource Include="Assets\Images\Games\MOHW.jpg" />
         <Resource Include="Assets\Images\Games\FC25.jpg" />
+        <Resource Include="Assets\Images\Games\NFS17.jpg" />
+        <Resource Include="Assets\Images\Games\NFS11RE.jpg" />
         <Resource Include="Assets\Images\Regions\ar_SA.png" />
         <Resource Include="Assets\Images\Regions\cs_CZ.png" />
         <Resource Include="Assets\Images\Regions\da_DK.png" />

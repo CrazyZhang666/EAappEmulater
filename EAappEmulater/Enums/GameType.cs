@@ -29,5 +29,7 @@ public enum GameType
     SWSD,
     SWJFO,
     MOHW,
-    FC25
+    FC25,
+    NFS17,
+    NFS11RE
 }
