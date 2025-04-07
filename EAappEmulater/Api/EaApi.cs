@@ -1,6 +1,13 @@
 ﻿using EAappEmulater.Core;
 using EAappEmulater.Helper;
 using RestSharp;
+using System.Management;
+using System.Net.Sockets;
+using System.Text.RegularExpressions;
+using System.Web;
+using Newtonsoft.Json;
+using System.Numerics;
+
 
 namespace EAappEmulater.Api;
 
@@ -66,14 +73,11 @@ public static class EaApi
                 Method = Method.Get
             };
 
-            request.AddParameter("client_id", "ORIGIN_JS_SDK");
+            request.AddParameter("client_id", "JUNO_PC_CLIENT");
             request.AddParameter("response_type", "token");
-            request.AddParameter("redirect_uri", "nucleus:rest");
-            request.AddParameter("prompt", "none");
-            request.AddParameter("release_type", "prod");
-
-            request.AddHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36");
-            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("redirect_uri", "qrc:///html/login_successful.html");
+            request.AddParameter("token_format", "JWT");
+            request.AddParameter("pc_sign", HardwareInfo.GetPcSign());
             request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
 
             var response = await _client.ExecuteAsync(request);
@@ -83,6 +87,7 @@ public static class EaApi
             respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;
             respResult.Content = response.Content;
+            respResult.IsSuccess = false;
 
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
@@ -96,12 +101,26 @@ public static class EaApi
                 return respResult;
             }
 
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode == HttpStatusCode.Redirect)
             {
                 // 错误返回 {"error_code":"login_required","error":"login_required","error_number":"102100"}
+                var location = response.Headers.ToList()
+                    .Find(x => x.Name.Equals("location", StringComparison.OrdinalIgnoreCase))
+                    .Value.ToString();
+                if (string.IsNullOrEmpty(location) || !location.Contains("#"))
+                {
+                    // 如果没有 "Location" 头部或包含 "#"，返回 null
+                    return null;
+                }
 
-                var content = JsonHelper.JsonDeserialize<Token>(response.Content);
-                Account.AccessToken = content.access_token;
+                string locationUrl = location.Replace("#", "?");
+                var uri = new Uri(locationUrl);
+                var query = HttpUtility.ParseQueryString(uri.Query);
+
+                string accessToken = query["access_token"];
+                string expiresStr = query["expires_in"];
+                Account.AccessToken = accessToken;
+                Account.OriginPCToken = accessToken;
                 LoggerHelper.Info($"{respResult.ApiName} 获取 AccessToken 成功 {Account.AccessToken}");
 
                 respResult.IsSuccess = true;
@@ -181,7 +200,7 @@ public static class EaApi
     }
 
     /// <summary>
-    /// 批量获取玩家头像 (access_token)
+    /// 批量获取玩家头像（使用 GraphQL）
     /// </summary>
     public static async Task<RespResult> GetAvatarByUserIds(List<string> userIds)
     {
@@ -193,41 +212,34 @@ public static class EaApi
             return respResult;
         }
 
-        if (userIds.Count == 0)
+        if (userIds == null || userIds.Count == 0)
         {
-            LoggerHelper.Warn($"UserId列表 为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn($"UserId列表为空，{respResult.ApiName} 请求终止");
             return respResult;
         }
 
         try
         {
-            var idStr = string.Join(";", userIds);
-            var request = new RestRequest($"https://api1.origin.com/avatar/user/{idStr}/avatars")
-            {
-                Method = Method.Get
-            };
+            // 构建 GraphQL 批量查询
+            var queryParts = userIds.Select((id, index) => $"u{index}: playerByPd(pd: {id}) {{ avatar {{ large {{ path }} }} }}");
+            var query = $"query {{ {string.Join(" ", queryParts)} }}";
 
-            request.AddParameter("size", "1");
-
-            request.AddHeader("Accept", "application/json");
-            request.AddHeader("AuthToken", Account.AccessToken);
+            var request = new RestRequest("https://service-aggregation-layer.juno.ea.com/graphql", Method.Post);
+            request.AddHeader("Authorization", $"Bearer {Account.AccessToken}");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddJsonBody(new { query });
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
 
-            respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;
             respResult.Content = response.Content;
+            LoggerHelper.Info($"{respResult.ApiName} 响应: {response.StatusCode}");
 
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                LoggerHelper.Warn($"{respResult.ApiName} 请求超时");
                 return respResult;
             }
-
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -235,7 +247,7 @@ public static class EaApi
             }
             else
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求失败，返回结果 {response.Content}");
+                LoggerHelper.Warn($"{respResult.ApiName} 请求失败: {response.Content}");
             }
         }
         catch (Exception ex)
@@ -246,6 +258,7 @@ public static class EaApi
 
         return respResult;
     }
+
 
     /// <summary>
     /// 获取登录玩家好友列表 (access_token)
@@ -715,4 +728,142 @@ public static class EaApi
 
         return respResult;
     }
+
+
+    class HardwareInfo
+    {
+        public static string GetWMI(string className, string property)
+        {
+            try
+            {
+                using var searcher = new ManagementObjectSearcher($"SELECT {property} FROM {className}");
+                foreach (ManagementObject obj in searcher.Get())
+                    return obj[property]?.ToString()?.Trim();
+            }
+            catch { }
+            return string.Empty;
+        }
+
+        public static string GetBIOSSerial() =>
+            GetWMI("Win32_BIOS", "SerialNumber");
+
+        public static string GetMotherboardSerial() =>
+            GetWMI("Win32_BaseBoard", "SerialNumber");
+
+        public static string GetHDDSerial() =>
+            GetWMI("Win32_PhysicalMedia", "SerialNumber");
+
+        public static int GetGPUDeviceIdFromPnP()
+        {
+            try
+            {
+                using var searcher = new ManagementObjectSearcher("SELECT DeviceID, Name FROM Win32_PnPEntity");
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    var name = obj["Name"]?.ToString() ?? "";
+                    var deviceId = obj["DeviceID"]?.ToString() ?? "";
+
+                    // 更精准判断：必须是 NVIDIA 且 DeviceID 来自 PCI 总线（不是 HDAUDIO）
+                    if (deviceId.StartsWith("PCI\\VEN_10DE", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine($"[GPU] {name}, {deviceId}");
+
+                        var devMatch = Regex.Match(deviceId, @"DEV_([0-9A-F]{4})", RegexOptions.IgnoreCase);
+                        if (devMatch.Success)
+                        {
+                            return Convert.ToInt32(devMatch.Groups[1].Value, 16);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting GPU device ID: " + ex.Message);
+            }
+
+            return 0;
+        }
+
+        public static string GetMacAddress()
+        {
+            return NetworkInterface.GetAllNetworkInterfaces()
+                .FirstOrDefault(nic => nic.OperationalStatus == OperationalStatus.Up &&
+                                       nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)?
+                .GetPhysicalAddress().ToString();
+        }
+
+        public static string GenerateMID()
+        {
+            var raw = GetBIOSSerial()
+                    + GetMotherboardSerial()
+                    + GetHDDSerial()
+                    + GetMacAddress();
+
+            using var sha = SHA256.Create();
+            byte[] hashBytes = sha.ComputeHash(Encoding.UTF8.GetBytes(raw));
+
+            BigInteger bigInt = new BigInteger(hashBytes.Append((byte)0).ToArray()); // 防止负数
+            string digits = BigInteger.Abs(bigInt).ToString();
+
+            return digits.PadLeft(19, '0').Substring(0, 19);
+        }
+
+        public static string GetTimestamp()
+        {
+            var now = DateTime.Now;
+            return $"{now:yyyy-MM-dd H:m:s:fff}";
+        }
+
+
+        public static string GetPcSign()
+        {
+            var machineId = new
+            {
+                av = "v1",
+                bsn = GetBIOSSerial(),
+                gid = GetGPUDeviceIdFromPnP(),
+                hsn = GetHDDSerial() ?? "To Be Filled By O.E.M.",
+                mac = "$" + GetMacAddress(),
+                mid = GenerateMID(),
+                msn = GetMotherboardSerial(),
+                sv = "v2",
+                ts = GetTimestamp()
+            };
+
+            string json = JsonConvert.SerializeObject(machineId);
+            string base64urlPayload = ToBase64Url(json);
+            string secret = "nt5FfJbdPzNcl2pkC3zgjO43Knvscxft";
+            string signature = CreateHmac(base64urlPayload, secret);
+            return base64urlPayload + "." + signature;
+        }
+
+        public static string ToBase64Url(string value)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(value);
+            string base64 = Convert.ToBase64String(bytes);
+            string base64Url = base64.Split('=')[0];
+            base64Url = base64Url.Replace('+', '-').Replace('/', '_');
+
+            return base64Url;
+        }
+
+        public static string CreateHmac(string data, string secret)
+        {
+            using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(secret)))
+            {
+                byte[] hashBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(data));
+                return Base64UrlEncode(hashBytes);
+            }
+        }
+
+        private static string Base64UrlEncode(byte[] input)
+        {
+            string base64 = Convert.ToBase64String(input);
+            base64 = base64.Split('=')[0];
+            base64 = base64.Replace('+', '-').Replace('/', '_');
+
+            return base64;
+        }
+    }
+
 }
