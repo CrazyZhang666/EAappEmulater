@@ -87,6 +87,8 @@ public static class Ready
 
     /// <summary>
     /// 非常重要，Api请求前置条件
+    /// 由于Origin停运, 更改为EA App Token获取
+    /// 只需要获取一个Token即可
     /// 刷新基础请求必备Token (多个)
     /// </summary>
     public static async Task<bool> RefreshBaseTokens(bool isInit = true)
@@ -105,29 +107,29 @@ public static class Ready
             LoggerHelper.Info("刷新 Token 成功");
         }
 
-        //////////////////////////////////////
+        ////////////////////////////////////////
 
-        // 刷新 OriginPCAuth
-        {
-            var result = await EaApi.GetOriginPCAuth();
-            if (!result.IsSuccess)
-            {
-                LoggerHelper.Warn("刷新 OriginPCAuth 失败");
-                return false;
-            }
-            LoggerHelper.Info("刷新 OriginPCAuth 成功");
-        }
+        //// 刷新 OriginPCAuth
+        //{
+        //    var result = await EaApi.GetOriginPCAuth();
+        //    if (!result.IsSuccess)
+        //    {
+        //        LoggerHelper.Warn("刷新 OriginPCAuth 失败");
+        //        return false;
+        //    }
+        //    LoggerHelper.Info("刷新 OriginPCAuth 成功");
+        //}
 
-        // OriginPCToken
-        {
-            var result = await EaApi.GetOriginPCToken();
-            if (!result.IsSuccess)
-            {
-                LoggerHelper.Warn("刷新 OriginPCToken 失败");
-                return false;
-            }
-            LoggerHelper.Info("刷新 OriginPCToken 成功");
-        }
+        //// OriginPCToken
+        //{
+        //    var result = await EaApi.GetOriginPCToken();
+        //    if (!result.IsSuccess)
+        //    {
+        //        LoggerHelper.Warn("刷新 OriginPCToken 失败");
+        //        return false;
+        //    }
+        //    LoggerHelper.Info("刷新 OriginPCToken 成功");
+        //}
 
         return true;
     }
@@ -146,7 +148,15 @@ public static class Ready
         }
 
         LoggerHelper.Info("获取当前登录玩家信息成功");
-        var persona = result.personas.persona[0];
+        LoggerHelper.Info($"{result.personas.ToString()}");
+        var persona = result.personas.persona
+            .FirstOrDefault(p => p.namespaceName == "cem_ea_id");
+
+        if (persona == null)
+        {
+            LoggerHelper.Warn("没有找到 namespaceName 为 cem_ea_id 的 persona");
+            return false;
+        }
 
         Account.PlayerName = persona.displayName;
         LoggerHelper.Info($"玩家名称 {Account.PlayerName}");

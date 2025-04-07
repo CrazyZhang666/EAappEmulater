@@ -80,7 +80,7 @@ public partial class LoadWindow
 
             var result = await EaApi.GetToken();
             // 代表请求完成，排除超时情况
-            if (result.StatusText == ResponseStatus.Completed)
+            if (result.StatusCode == HttpStatusCode.Redirect)
             {
                 if (result.IsSuccess)
                 {
