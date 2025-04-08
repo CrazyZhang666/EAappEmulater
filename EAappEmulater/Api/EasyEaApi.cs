@@ -80,15 +80,22 @@ public static class EasyEaApi
         }
         else
         {
-            var result = await EaApi.GetAvatarByUserId(userid);
-            if (!result.IsSuccess)
+            var userIds = new List<string>
+            {
+                userid
+            };
+
+            var result = await EasyEaApi.GetAvatarByUserIds(userIds);
+            if (result == null || !result.Values.Any(u => u?.avatar != null))
+            {
                 return string.Empty;
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(result.Content);
-            XmlNode linkNode = xmlDoc.SelectSingleNode("//link");
-            link = linkNode.InnerText;
+            }
+
+            // 仅获取数组第一个
+            var avatar = result.Values.First().avatar;             
+            link = avatar.large.path.ToString();
             string fileName = link.Substring(link.LastIndexOf('/') + 1);
-            savePath = savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("208x208", userid));
+            savePath = savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("416x416", userid));
             if (!await CoreApi.DownloadWebImage(link, savePath))
             {
                 LoggerHelper.Warn($"下载当前登录玩家头像失败 {userid}");

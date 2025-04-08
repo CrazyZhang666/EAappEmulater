@@ -1,12 +1,16 @@
 ﻿using EAappEmulater.Core;
 using EAappEmulater.Helper;
+using GraphQL;
+using GraphQL.Client.Http;
+using GraphQL.Client.Serializer.Newtonsoft;
+using Newtonsoft.Json;
 using RestSharp;
 using System.Management;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Web;
-using Newtonsoft.Json;
 using System.Numerics;
+
 
 
 namespace EAappEmulater.Api;
@@ -199,12 +203,9 @@ public static class EaApi
         return respResult;
     }
 
-    /// <summary>
-    /// 批量获取玩家头像（使用 GraphQL）
-    /// </summary>
     public static async Task<RespResult> GetAvatarByUserIds(List<string> userIds)
     {
-        var respResult = new RespResult("GetAvatarByUserIds Api");
+        var respResult = new RespResult("GetAccountAvatarByUserId Api");
 
         if (string.IsNullOrWhiteSpace(Account.AccessToken))
         {
@@ -221,33 +222,40 @@ public static class EaApi
         try
         {
             // 构建 GraphQL 批量查询
-            var queryParts = userIds.Select((id, index) => $"u{index}: playerByPd(pd: {id}) {{ avatar {{ large {{ path }} }} }}");
+            var queryParts = userIds.Select((id, index) => $"u{index}: playerByPd(pd: {id}) {{ avatar {{ avatarId, large {{ path }} }} }}");
             var query = $"query {{ {string.Join(" ", queryParts)} }}";
 
-            var request = new RestRequest("https://service-aggregation-layer.juno.ea.com/graphql", Method.Post);
-            request.AddHeader("Authorization", $"Bearer {Account.AccessToken}");
-            request.AddHeader("Content-Type", "application/json");
-            request.AddJsonBody(new { query });
+            // 创建 GraphQL 客户端
+            var graphQLClient = new GraphQLHttpClient("https://service-aggregation-layer.juno.ea.com/graphql", new NewtonsoftJsonSerializer());
 
-            var response = await _client.ExecuteAsync(request);
-
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
-            LoggerHelper.Info($"{respResult.ApiName} 响应: {response.StatusCode}");
-
-            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            // 创建 GraphQL 请求
+            var graphQLRequest = new GraphQLRequest
             {
-                LoggerHelper.Warn($"{respResult.ApiName} 请求超时");
-                return respResult;
-            }
+                Query = query
+            };
 
-            if (response.StatusCode == HttpStatusCode.OK)
+            // 设置 Authorization 头部
+            graphQLClient.HttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {Account.AccessToken}");
+
+            // 执行请求并获取原始响应内容
+            var response = await graphQLClient.SendQueryAsync<object>(graphQLRequest);
+
+            // 获取 JSON 响应的原始内容
+            string responseContent = response.Data.ToString();
+
+            respResult.StatusCode = HttpStatusCode.OK; // 因为我们不获取 StatusCode，所以这里默认设为 OK
+            respResult.Content = responseContent;
+
+            LoggerHelper.Info($"{respResult.ApiName} 响应: {response.AsGraphQLHttpResponse().StatusCode}");
+
+            // 根据响应内容判断是否成功
+            if (!string.IsNullOrWhiteSpace(responseContent))
             {
                 respResult.IsSuccess = true;
             }
             else
             {
-                LoggerHelper.Warn($"{respResult.ApiName} 请求失败: {response.Content}");
+                LoggerHelper.Warn($"{respResult.ApiName} 请求失败，响应内容为空");
             }
         }
         catch (Exception ex)
@@ -258,6 +266,7 @@ public static class EaApi
 
         return respResult;
     }
+
 
 
     /// <summary>

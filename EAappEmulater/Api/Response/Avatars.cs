@@ -1,9 +1,32 @@
-﻿namespace EAappEmulater.Api;
+﻿using static EAappEmulater.Api.Avatars;
 
-public class Avatars
+namespace EAappEmulater.Api;
+
+public class Avatars : Dictionary<string, UserAvatar>
 {
-    public List<UsersItem> users { get; set; }
+    public class UserAvatar
+    {
+        public Avatar avatar { get; set; }
+    }
+
+    public class Avatar
+    {
+        public int avatarId { get; set; }
+        public AvatarSize large { get; set; }
+    }
+
+    public class AvatarSize
+    {
+        public string path { get; set; }
+    }
 }
+
+public class AvatarInfo
+{
+    public int AvatarId { get; set; }
+    public string Url { get; set; }
+}
+
 
 public class UsersItem
 {

@@ -1,4 +1,6 @@
-﻿using EAappEmulater.Api;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using EAappEmulater.Api;
+using EAappEmulater.Core;
 using EAappEmulater.Helper;
 using EAappEmulater.Models;
 using EAappEmulater.Utils;
@@ -52,6 +54,7 @@ public partial class FriendView : UserControl
                 {
                     LoggerHelper.Info("获取当前账号好友列表成功");
                     LoggerHelper.Info($"当前账号好友数量为 {friends.entries.Count}");
+                    
 
                     foreach (var entry in friends.entries)
                     {
@@ -59,7 +62,6 @@ public partial class FriendView : UserControl
                         {
                             Avatar = "Default",
                             DiffDays = CoreUtil.GetDiffDays(entry.timestamp),
-
                             DisplayName = entry.displayName ?? string.Empty,
                             NickName = entry.nickName,
                             UserId = entry.userId,
@@ -87,7 +89,9 @@ public partial class FriendView : UserControl
                     // 生成好友列表字符串
                     GenerateXmlString();
                     GenerateXmlStringForQueryPresence();
-
+                    // 获取好友头像
+                    LoggerHelper.Info("准备获取好友头像");
+                    UpdateFriendsAvatars();
                     break;
                 }
             }
@@ -202,5 +206,102 @@ public partial class FriendView : UserControl
         queryFreiResp.AppendChild(extraFriend);
 
         Globals.QueryPresenceString = doc.InnerXml;
+    }
+
+    private async void UpdateFriendsAvatars()
+    {
+        var userIdList = ObsCol_FriendInfos
+                    .Select(e => e.UserId.ToString())
+                    .Distinct()                      
+                    .ToList();
+
+        // 获取所有用户的头像信息
+        var avatarResult = await EasyEaApi.GetAvatarByUserIds(userIdList);
+        if (avatarResult == null)
+        {
+            LoggerHelper.Warn("获取好友头像失败");
+            return;
+        }
+
+        // 构建一个字典，将 userId 映射到对应的头像信息
+        var avatarMap = new Dictionary<long, AvatarInfo>();
+        // 使用下标索引来根据 userIdList 映射头像
+        foreach (var kvp in avatarResult)
+        {
+            // 确保 kvp.Key 是形如 "u0", "u1", "u2" 等
+            if (kvp.Key.StartsWith("u"))
+            {
+                // 提取下标 X
+                if (int.TryParse(kvp.Key.Substring(1), out int index) && index < userIdList.Count)
+                {
+                    var userId = userIdList[index]; // 根据索引取对应的 userId
+                    if (long.TryParse(userId, out long uid))
+                    {
+                        if (kvp.Value?.avatar != null)
+                        {
+                            var avatarInfo = new AvatarInfo
+                            {
+                                AvatarId = kvp.Value.avatar.avatarId,
+                                Url = kvp.Value.avatar.large?.path
+                            };
+                            avatarMap[uid] = avatarInfo; // 使用 long 类型的 uid 作为键
+                        }
+                    }
+                    else
+                    {
+                        LoggerHelper.Warn($"无法解析 userId: {userId}");
+                    }
+                }
+                else
+                {
+                    LoggerHelper.Warn($"无法解析 kvp.Key: {kvp.Key.Substring(1)}");
+                }
+            }
+        }
+
+        // 遍历每个好友信息，更新头像
+        foreach (var friendInfo in ObsCol_FriendInfos)
+        {
+            if (avatarMap.ContainsKey(friendInfo.UserId))
+            {
+                var avatarInfo = avatarMap[friendInfo.UserId];
+                // 下载头像
+                string downloadedAvatarUrl = await DownloadAvatarByUserId(friendInfo.UserId.ToString(), avatarInfo.AvatarId.ToString(), avatarInfo.Url);
+
+                // 如果下载成功，更新 Avatar 字段，否则设置为 "Default"
+                friendInfo.Avatar = downloadedAvatarUrl ?? "Default";
+            }
+            else
+            {
+                // 没有找到头像信息时，设置为默认值
+                friendInfo.Avatar = "Default";
+                LoggerHelper.Warn($"没有找到好友 {friendInfo.UserId} 的头像");
+            }
+        }
+
+        // 发送消息通知加载头像
+        WeakReferenceMessenger.Default.Send("", "LoadAvatar");
+    }
+
+    /// <summary>
+    /// 下载玩家头像
+    /// </summary>
+    private static async Task<string> DownloadAvatarByUserId(string UserId, string AvatarId, string AvatarUrl)
+    {
+        string[] files = Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache"), $"{AvatarId}.*");
+        var savePath = string.Empty;
+        if (files.Length > 0)
+        {
+            return files[0];
+        }
+
+        string fileName = AvatarUrl.Substring(AvatarUrl.LastIndexOf('/') + 1);
+        savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("416x416", UserId));
+        if (!await CoreApi.DownloadWebImage(AvatarUrl, savePath))
+        {
+            LoggerHelper.Warn($"下载玩家头像失败 {AvatarId}");
+            return null;
+        }
+        return savePath;
     }
 }
