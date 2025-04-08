@@ -2,6 +2,7 @@
 using EAappEmulater.Api;
 using EAappEmulater.Helper;
 using EAappEmulater.Utils;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace EAappEmulater.Core;
 
@@ -107,30 +108,6 @@ public static class Ready
             LoggerHelper.Info("刷新 Token 成功");
         }
 
-        ////////////////////////////////////////
-
-        //// 刷新 OriginPCAuth
-        //{
-        //    var result = await EaApi.GetOriginPCAuth();
-        //    if (!result.IsSuccess)
-        //    {
-        //        LoggerHelper.Warn("刷新 OriginPCAuth 失败");
-        //        return false;
-        //    }
-        //    LoggerHelper.Info("刷新 OriginPCAuth 成功");
-        //}
-
-        //// OriginPCToken
-        //{
-        //    var result = await EaApi.GetOriginPCToken();
-        //    if (!result.IsSuccess)
-        //    {
-        //        LoggerHelper.Warn("刷新 OriginPCToken 失败");
-        //        return false;
-        //    }
-        //    LoggerHelper.Info("刷新 OriginPCToken 成功");
-        //}
-
         return true;
     }
 
@@ -197,7 +174,7 @@ public static class Ready
             if (string.IsNullOrWhiteSpace(Account.AvatarId))
             {
                 // 开始获取头像玩家Id
-                if (await GetAvatarByUserIds())
+                if (await GetAccountAvatarByUserId())
                 {
                     // 获取头像Id成功后下载头像
                     if (await DownloadAvatar())
@@ -218,9 +195,9 @@ public static class Ready
     }
 
     /// <summary>
-    /// 批量获取玩家头像Id
+    /// 获取当前登录玩家头像Id
     /// </summary>
-    private static async Task<bool> GetAvatarByUserIds()
+    private static async Task<bool> GetAccountAvatarByUserId()
     {
         LoggerHelper.Info("正在获取当前登录玩家头像Id中...");
 
@@ -230,14 +207,14 @@ public static class Ready
         };
 
         var result = await EasyEaApi.GetAvatarByUserIds(userIds);
-        if (result is null)
+        if (result == null || !result.Values.Any(u => u?.avatar != null))
         {
             LoggerHelper.Warn("获取当前登录玩家头像Id失败");
             return false;
         }
 
         // 仅获取数组第一个
-        var avatar = result.users.First().avatar;
+        var avatar = result.Values.First().avatar;
         Account.AvatarId = avatar.avatarId.ToString();
 
         LoggerHelper.Info("获取当前登录玩家头像Id成功");
@@ -245,6 +222,7 @@ public static class Ready
 
         return true;
     }
+
 
     /// <summary>
     /// 下载玩家头像
@@ -261,19 +239,23 @@ public static class Ready
             WeakReferenceMessenger.Default.Send("", "LoadAvatar");
             return true;
         }
+        var userIds = new List<string>
+            {
+                Account.UserId
+            };
 
-        var result = await EaApi.GetAvatarByUserId(Account.UserId);
-        if (!result.IsSuccess)
+        var result = await EasyEaApi.GetAvatarByUserIds(userIds);
+        if (result == null || !result.Values.Any(u => u?.avatar != null))
         {
             LoggerHelper.Warn($"下载当前登录玩家头像失败 {Account.UserId}");
             return false;
         }
-        XmlDocument xmlDoc = new XmlDocument();
-        xmlDoc.LoadXml(result.Content);
-        XmlNode linkNode = xmlDoc.SelectSingleNode("//link");
-        link = linkNode.InnerText;
+
+        // 仅获取数组第一个
+        var avatar = result.Values.First().avatar;
+        link = avatar.large.path.ToString();
         string fileName = link.Substring(link.LastIndexOf('/') + 1);
-        savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("208x208", Account.UserId));
+        savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("416x416", Account.UserId));
         if (!await CoreApi.DownloadWebImage(link, savePath))
         {
             LoggerHelper.Warn($"下载当前登录玩家头像失败 {Account.UserId}");
