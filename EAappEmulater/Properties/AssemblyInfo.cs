@@ -14,10 +14,10 @@
 [assembly: AssemblyTitle("EA app 模拟器")]
 [assembly: AssemblyCompany("https://github.com/CrazyZhang666/EAappEmulater")]
 [assembly: AssemblyProduct("EA app 模拟器")]
-[assembly: AssemblyVersion("1.7.3.0")]
-[assembly: AssemblyFileVersion("1.7.3.0")]
-[assembly: AssemblyInformationalVersion("1.7.3.0")]
+[assembly: AssemblyVersion("1.7.4.0")]
+[assembly: AssemblyFileVersion("1.7.4.0")]
+[assembly: AssemblyInformationalVersion("1.7.4.0")]
 
 // 不重复
 [assembly: AssemblyDescription("https://github.com/CrazyZhang666/EAappEmulater")]
-[assembly: AssemblyCopyright("Copyright © 2024-2024")]
+[assembly: AssemblyCopyright("Copyright © 2024-2025")]
