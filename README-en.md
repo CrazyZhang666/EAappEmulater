@@ -1,7 +1,7 @@
 # EAapp Emulater
 **[简体中文](README.md) | English**
 
-EAapp Emulater by `Misaka_Mikoto_01` and `CrazyZhang666`
+EAapp Emulater by `Misaka_Mikoto_01`  `CrazyZhang666`  `B1397KB`
 
 > This project is developed as a simple EA Desktop/Origin replacement, after all, the new EA Desktop/Origin is really terrible.
 
