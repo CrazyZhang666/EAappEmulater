@@ -1,7 +1,7 @@
 # EAapp模拟器
 **简体中文 | [English](README-en.md)**
 
-EAapp模拟器（EA App Emulater） by `Misaka_Mikoto_01`  `CrazyZhang666` `B1397KB`
+EAapp模拟器（EA App Emulater） by `Misaka_Mikoto_01`  `CrazyZhang666`  `B1397KB`
 
 > 本项目开发目标是作为一个简易的EA Desktop/Origin替代品，毕竟新的EA Desktop/Origin实在是太烂了
 
@@ -17,6 +17,10 @@ https://github.com/CrazyZhang666/EAappEmulater/releases
 ![QQ_1744206817863](https://github.com/user-attachments/assets/c4b9803e-71ea-43e0-a7cc-89b684c37b89)
 
 目前仅支持简体中文(zh-CN)与英语(en-US). 如果您对其他语言的翻译感兴趣, 请Fork代码, 并在Assets/Files/Lang中新建你的语言文件, 并按照zh-CN.xaml标准进行编写.
+
+默认情况下，我们会读取您电脑的主要语言，并将其设置为程序的默认显示语言。
+
+如果您对翻译有任何疑问，请 Fork 代码并提交正确的翻译，或提交新的Issue。
 
 ## 截图预览
 
