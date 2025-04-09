@@ -23,7 +23,8 @@ public partial class AccountWindow
     /// </summary>
     private void Window_Account_Loaded(object sender, RoutedEventArgs e)
     {
-        Title = $"EA app 模拟器 v{CoreUtil.VersionInfo}";
+        Title = $"EA App 模拟器 v{CoreUtil.VersionInfo}";
+
 
         // 遍历读取10个配置文件槽
         foreach (var item in Account.AccountPathDb)
@@ -115,6 +116,21 @@ public partial class AccountWindow
     private void OpenConfigFolder()
     {
         ProcessHelper.OpenDirectory(CoreUtil.Dir_Default);
+    }
+
+
+    /// <summary>
+    /// 切换语言
+    /// </summary>
+    [RelayCommand]
+    private void ChangeLanguage()
+    {
+        if (Globals.Language != null && Globals.Language == "zh-CN") {
+            App.SetLanguage("en-US");
+        } else if (Globals.Language != null && Globals.Language == "en-US")
+        {
+            App.SetLanguage("zh-CN");
+        }
     }
 
     /// <summary>

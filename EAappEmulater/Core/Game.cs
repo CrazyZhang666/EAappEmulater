@@ -1,5 +1,6 @@
 ﻿using EAappEmulater.Enums;
 using EAappEmulater.Helper;
+using EAappEmulater.Models;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace EAappEmulater.Core;
@@ -13,7 +14,7 @@ public static class Game
     {
         var environmentVariables = new Dictionary<string, string>();
         foreach (DictionaryEntry dirEnity in Environment.GetEnvironmentVariables())
-        {
+        {   
             environmentVariables.Add(dirEnity.Key.ToString(), dirEnity.Value.ToString());
         }
         return environmentVariables;
@@ -60,9 +61,9 @@ public static class Game
                 // 判断游戏路径
                 if (string.IsNullOrWhiteSpace(gameInfo.Dir2))
                 {
-                    LoggerHelper.Warn($"{gameType} 游戏路径为空，启动游戏终止 {gameInfo.Dir}");
+                    LoggerHelper.Warn(I18nHelper.I18n._("Core.Game.StartGameErrorDir", gameType, gameInfo.Dir));
                     if (isNotice)
-                        NotifierHelper.Warning($"{gameType} 游戏路径为空，启动游戏终止");
+                        NotifierHelper.Warning(I18nHelper.I18n._("Core.Game.StartGameErrorDir", gameType, ""));
 
                     return;
                 }
@@ -70,9 +71,9 @@ public static class Game
                 // 判断游戏文件
                 if (!File.Exists(execPath2))
                 {
-                    LoggerHelper.Warn($"{gameType} 游戏主程序文件不存在，启动游戏终止 {execPath2}");
+                    LoggerHelper.Warn(I18nHelper.I18n._("Core.Game.StartGameErrorExe", gameType, execPath2));
                     if (isNotice)
-                        NotifierHelper.Warning($"{gameType} 游戏主程序文件不存在，启动游戏终止");
+                        NotifierHelper.Warning(I18nHelper.I18n._("Core.Game.StartGameErrorExe", gameType, ""));
 
                     return;
                 }
@@ -84,9 +85,9 @@ public static class Game
                 // 判断游戏路径
                 if (string.IsNullOrWhiteSpace(gameInfo.Dir))
                 {
-                    LoggerHelper.Warn($"{gameType} 游戏路径为空，启动游戏终止 {gameInfo.Dir}");
+                    LoggerHelper.Warn(I18nHelper.I18n._("Core.Game.StartGameErrorDir", gameType, gameInfo.Dir));
                     if (isNotice)
-                        NotifierHelper.Warning($"{gameType} 游戏路径为空，启动游戏终止");
+                        NotifierHelper.Warning(I18nHelper.I18n._("Core.Game.StartGameErrorDir", gameType, ""));
 
                     return;
                 }
@@ -94,9 +95,9 @@ public static class Game
                 // 判断游戏文件
                 if (!File.Exists(execPath))
                 {
-                    LoggerHelper.Warn($"{gameType} 游戏主程序文件不存在，启动游戏终止 {execPath}");
+                    LoggerHelper.Warn(I18nHelper.I18n._("Core.Game.StartGameErrorExe", gameType, execPath));
                     if (isNotice)
-                        NotifierHelper.Warning($"{gameType} 游戏主程序文件不存在，启动游戏终止");
+                        NotifierHelper.Warning(I18nHelper.I18n._("Core.Game.StartGameErrorExe", gameType, ""));
 
                     return;
                 }
@@ -106,9 +107,9 @@ public static class Game
 
             if (string.IsNullOrWhiteSpace(Account.OriginPCToken))
             {
-                LoggerHelper.Warn($"{gameType} OriginPCToken 为空，启动游戏终止");
+                LoggerHelper.Warn(I18nHelper.I18n._("Core.Game.StartGameErrorToken", gameType));
                 if (isNotice)
-                    NotifierHelper.Warning($"{gameType} OriginPCToken 为空，启动游戏终止");
+                    NotifierHelper.Warning(I18nHelper.I18n._("Core.Game.StartGameErrorToken", gameType));
 
                 return;
             }
@@ -127,9 +128,9 @@ public static class Game
                     _ => BattlelogType.None,
                 };
 
-            LoggerHelper.Info($"{gameInfo.Name} 正在启动游戏中...");
+            LoggerHelper.Info(I18nHelper.I18n._("Core.Game.StartGameProcess", gameInfo.Name));
             if (isNotice)
-                NotifierHelper.Notice($"{gameInfo.Name} 正在启动游戏中...");
+                NotifierHelper.Notice(I18nHelper.I18n._("Core.Game.StartGameProcess", gameInfo.Name));
 
             // 获取当前进程所有环境变量名及其值
             var environmentVariables = GetEnvironmentVariables();
@@ -244,15 +245,15 @@ public static class Game
 
             //Process.Start(startInfo);
 
-            LoggerHelper.Info($"启动游戏 {gameInfo.Name} 成功");
+            LoggerHelper.Info(I18nHelper.I18n._("Core.Game.StartGameSuccess", gameInfo.Name));
             if (isNotice)
-                NotifierHelper.Success($"启动游戏 {gameInfo.Name} 成功");
+                NotifierHelper.Success(I18nHelper.I18n._("Core.Game.StartGameSuccess", gameInfo.Name));
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"启动游戏发生异常 {gameType}", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Core.Game.StartGameError", gameType, ex));
             if (isNotice)
-                NotifierHelper.Error($"启动游戏发生异常 {gameType} 详情请看日志");
+                NotifierHelper.Error(I18nHelper.I18n._("Core.Game.StartGameErrorNotice", gameType));
         }
     }
 }

@@ -38,7 +38,7 @@
                                 x:Name="PART_ButtonRunGame"
                                 Margin="15,20"
                                 VerticalAlignment="Bottom"
-                                Content="启动游戏" />
+                                Content="{DynamicResource Modal.GameMenu.StartGame}" />
                             <Button
                                 x:Name="PART_ButtonSetGameArgs"
                                 Margin="5"
@@ -46,7 +46,7 @@
                                 VerticalAlignment="Top"
                                 Content="&#xE713;"
                                 Style="{DynamicResource ButtonStyle_OnlyIcon}"
-                                ToolTip="高级设置" />
+                                ToolTip="{DynamicResource Modal.GameMenu.SetGameArgs}" />
                         </Grid>
                         <!--  已安装游戏角标识别  -->
                         <Border

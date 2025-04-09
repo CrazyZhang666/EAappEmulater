@@ -41,6 +41,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Assets\Images\Regions\NULL.png" />
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\ModernWpf\ModernWpf.csproj" />
     </ItemGroup>
 

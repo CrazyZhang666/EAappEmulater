@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
     x:Name="Window_Load"
-    Title="EA app 模拟器"
+    Title="{DynamicResource Windows.LoadWindow.Title}"
     Width="480"
     Height="270"
     CaptionBackground="#FDFDFD"
@@ -30,7 +30,7 @@
                     Command="{Binding OpenConfigFolderCommand}"
                     FontSize="14"
                     Icon="&#xE713;"
-                    ToolTip="打开配置文件" />
+                    ToolTip="{DynamicResource Windows.LoadWindow.OpenConfig}" />
                 <Border
                     Width="1"
                     Height="14"
@@ -73,7 +73,7 @@
                 x:Name="TextBlock_CheckState"
                 Width="280"
                 Margin="0,20,0,0"
-                Text="正在验证玩家账号有效性..."
+                Text="{DynamicResource Windows.LoadWindow.VerifyAccount}"
                 TextAlignment="Center"
                 TextWrapping="Wrap" />
             <!--  /////////////  -->
@@ -84,12 +84,12 @@
                 <ui:IconButton
                     Margin="0,0,5,5"
                     Command="{Binding RunAccountWindowCommand}"
-                    Content="返回账号选择"
+                    Content="{DynamicResource Windows.LoadWindow.BackChooseAccount}"
                     Icon="&#xE748;" />
                 <ui:IconButton
                     Margin="0,0,5,5"
                     Command="{Binding ExitApplicationCommand}"
-                    Content="退出程序"
+                    Content="{DynamicResource Windows.LoadWindow.Exit}"
                     Icon="&#xE8BB;" />
             </WrapPanel>
         </StackPanel>

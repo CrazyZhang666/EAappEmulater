@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
     x:Name="Window_Advanced"
-    Title="EA app 模拟器"
+    Title="{DynamicResource Windows.AdvancedWindow.Title}"
     Width="700"
     Height="380"
     CaptionHeight="32"
@@ -68,56 +68,56 @@
                 <!--  主要功能区域  -->
                 <TabControl>
                     <!--  注册表  -->
-                    <ui:IconTabItem Header="注册表" Icon="&#xF158;">
+                    <ui:IconTabItem Header="{DynamicResource Windows.AdvancedWindow.Registry}" Icon="&#xF158;">
                         <DockPanel Margin="0,3,0,0">
                             <!--  标题  -->
-                            <ui:IconHeader Title="游戏位置" DockPanel.Dock="Top" />
+                            <ui:IconHeader Title="{DynamicResource Windows.AdvancedWindow.Path}" DockPanel.Dock="Top" />
                             <!--  游戏路径  -->
                             <ui:TextBoxHint
                                 DockPanel.Dock="Top"
-                                Hint="显示注册表游戏安装目录位置"
+                                Hint="{DynamicResource Windows.AdvancedWindow.ShowPath}"
                                 IsReadOnly="True"
                                 Text="{Binding AdvancedModel.GameDir}" />
                             <!--  标题  -->
                             <ui:IconHeader
-                                Title="启动参数"
+                                Title="{DynamicResource Windows.AdvancedWindow.StartParameters}"
                                 Margin="5,0,5,0"
                                 DockPanel.Dock="Top" />
                             <!--  启动参数  -->
                             <ui:TextBoxHint
-                                Hint="输入游戏高级启动参数，比如：-PerfOverlay.DrawFps 1"
+                                Hint="{DynamicResource Windows.AdvancedWindow.StartParametersExample}"
                                 Style="{StaticResource TextBoxHintStyle_MultiLine}"
                                 Text="{Binding AdvancedModel.GameArgs}" />
                         </DockPanel>
                     </ui:IconTabItem>
 
                     <!--  自定义  -->
-                    <ui:IconTabItem Header="自定义" Icon="&#xF8A5;">
+                    <ui:IconTabItem Header="{DynamicResource Windows.AdvancedWindow.Custom}" Icon="&#xF8A5;">
                         <DockPanel Margin="0,3,0,0">
                             <!--  标题  -->
-                            <ui:IconHeader Title="游戏位置" DockPanel.Dock="Top" />
+                            <ui:IconHeader Title="{DynamicResource Windows.AdvancedWindow.Path}" DockPanel.Dock="Top" />
                             <!--  游戏路径  -->
                             <DockPanel DockPanel.Dock="Top">
                                 <ui:IconButton
                                     Margin="0,5,5,5"
                                     Command="{Binding SelcetFilePathCommand}"
-                                    Content="浏览"
+                                    Content="{DynamicResource Windows.AdvancedWindow.Browse}"
                                     DockPanel.Dock="Right"
                                     Icon="&#xE71E;" />
                                 <ui:TextBoxHint
-                                    Hint="请选择游戏安装目录主程序exe文件位置"
+                                    Hint="{DynamicResource Windows.AdvancedWindow.BrowseTip}"
                                     Icon="&#xE838;"
                                     IsReadOnly="True"
                                     Text="{Binding AdvancedModel.GameDir2}" />
                             </DockPanel>
                             <!--  标题  -->
                             <ui:IconHeader
-                                Title="启动参数"
+                                Title="{DynamicResource Windows.AdvancedWindow.StartParameters}"
                                 Margin="5,0,5,0"
                                 DockPanel.Dock="Top" />
                             <!--  启动参数  -->
                             <ui:TextBoxHint
-                                Hint="输入游戏高级启动参数，比如：-dataPath ./ModData/Default"
+                                Hint="{DynamicResource Windows.AdvancedWindow.StartParametersExample}"
                                 Style="{StaticResource TextBoxHintStyle_MultiLine}"
                                 Text="{Binding AdvancedModel.GameArgs2}" />
                         </DockPanel>
@@ -129,7 +129,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" Text="启用自定义" />
+                    <TextBlock VerticalAlignment="Center" Text="{DynamicResource Windows.AdvancedWindow.EnableCustom}" />
                     <ToggleButton Margin="10,0,0,0" IsChecked="{Binding AdvancedModel.IsUseCustom}" />
                 </StackPanel>
             </Grid>
@@ -170,12 +170,12 @@
                     <ui:IconButton
                         Margin="0,5,5,5"
                         Command="{Binding SaveOptionCommand}"
-                        Content="保存"
+                        Content="{DynamicResource Windows.AdvancedWindow.Save}"
                         Icon="&#xE74E;" />
                     <ui:IconButton
                         Margin="0,5,5,5"
                         Command="{Binding CancelOptionCommand}"
-                        Content="取消"
+                        Content="{DynamicResource Windows.AdvancedWindow.Cancel}"
                         Icon="&#xE711;" />
                 </StackPanel>
             </DockPanel>

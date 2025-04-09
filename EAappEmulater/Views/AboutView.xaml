@@ -22,27 +22,27 @@
             Margin="10"
             FontSize="30"
             FontWeight="Bold"
-            Text="EA app 模拟器"
+            Text="{DynamicResource Views.AboutView.Title}"
             TextAlignment="Center" />
 
         <TextBlock
             x:Name="TextBlock_Name01"
             Margin="5,10,5,5"
             HorizontalAlignment="Center"
-            Text="核心算法: Misaka_Mikoto_01" />
+            Text="{DynamicResource Views.AboutView.CoreAlgorithm}" />
         <TextBlock
             Width="{Binding ElementName=TextBlock_Name01, Path=ActualWidth}"
             HorizontalAlignment="Center"
-            Text="程序设计: CrazyZhang666" />
+            Text="{DynamicResource Views.AboutView.Design}" />
 
         <TextBlock
             Margin="5,20,5,5"
             HorizontalAlignment="Center"
-            Text="本程序仅供学习研究使用" />
+            Text="{DynamicResource Views.AboutView.Declare}" />
         <TextBlock
             HorizontalAlignment="Center"
             Opacity="0.8"
-            Text="© 2024 Electronic Arts Inc. All rights reserved." />
+            Text="© 2025 Electronic Arts Inc. All rights reserved." />
 
         <WrapPanel Margin="5" HorizontalAlignment="Center">
             <ui:IconHyperlink

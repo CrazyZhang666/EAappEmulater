@@ -19,7 +19,7 @@ public static class LSXTcpServer
         {
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFV.{i:D2}.xml");
 
-            // 头像 \AppData\Local\Origin\AvatarsCache（不清楚为啥不显示）
+            // 头像 \AppData\Local\Origin\AvatarsCache
             text = text.Replace("##AvatarId##", Account.Avatar);
 
             ScoketMsgBFV.Add(text);

@@ -13,13 +13,14 @@ public static class Ready
     public static async void Run()
     {
         // 打开服务进程
-        LoggerHelper.Info("正在启动服务进程...");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.StartProcess"));
+
         ProcessHelper.OpenProcess(CoreUtil.File_Service_OriginDebug, true);
 
-        LoggerHelper.Info("正在启动 LSX 监听服务...");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.StartLSXListen"));
         LSXTcpServer.Run();
 
-        LoggerHelper.Info("正在启动 Battlelog 监听服务...");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.StartBattlelogListen"));
         BattlelogHttpServer.Run();
 
         // 加载玩家头像
@@ -29,9 +30,9 @@ public static class Ready
         RegistryHelper.CheckAndAddEaAppRegistryKey();
 
         // 定时刷新 BaseToken 数据
-        LoggerHelper.Info("正在启动 定时刷新 BaseToken 服务...");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.StartUpdateToken"));
         _autoUpdateTimer = new Timer(AutoUpdateBaseToken, null, TimeSpan.FromHours(2), TimeSpan.FromHours(2));
-        LoggerHelper.Info("启动 定时刷新 BaseToken 服务成功");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.StartUpdateTokenSuccess"));
     }
 
     public static void Stop()
@@ -42,16 +43,16 @@ public static class Ready
         // 保存账号配置文件
         Account.Write();
 
-        LoggerHelper.Info("正在关闭 LSX 监听服务...");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.StopLSXListen"));
         LSXTcpServer.Stop();
 
-        LoggerHelper.Info("正在关闭 Battlelog 监听服务...");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.StopBattlelogListen"));
         BattlelogHttpServer.Stop();
 
-        LoggerHelper.Info("正在关闭 定时刷新 BaseToken 服务...");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.StopUpdateToken"));
         _autoUpdateTimer?.Dispose();
         _autoUpdateTimer = null;
-        LoggerHelper.Info("关闭 定时刷新 BaseToken 服务成功");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.StopUpdateTokenSuccess"));
 
         // 关闭服务进程
         CoreUtil.CloseServiceProcess();
@@ -68,19 +69,19 @@ public static class Ready
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
-                LoggerHelper.Error("定时刷新 BaseToken 数据失败，请检查网络连接");
+                LoggerHelper.Error(I18nHelper.I18n._("Core.Ready.AutoUpdateTokenErrorNetwork"));
                 return;
             }
 
             // 第1次不提示重试
             if (i > 0)
             {
-                LoggerHelper.Warn($"定时刷新 BaseToken 数据失败，开始第 {i} 次重试中...");
+                LoggerHelper.Warn(I18nHelper.I18n._("Core.Ready.AutoUpdateTokenErrorRetry", i));
             }
 
             if (await RefreshBaseTokens(false))
             {
-                LoggerHelper.Info("定时刷新 BaseToken 数据成功");
+                LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.AutoUpdateTokenSuccess"));
                 break;
             }
         }
@@ -102,10 +103,10 @@ public static class Ready
             var result = await EaApi.GetToken();
             if (!result.IsSuccess)
             {
-                LoggerHelper.Warn("刷新 Token 失败");
+                LoggerHelper.Warn(I18nHelper.I18n._("Core.Ready.RefreshTokenError"));
                 return false;
             }
-            LoggerHelper.Info("刷新 Token 成功");
+            LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.RefreshTokenSuccess"));
         }
 
         return true;
@@ -116,33 +117,33 @@ public static class Ready
     /// </summary>
     public static async Task<bool> GetLoginAccountInfo()
     {
-        LoggerHelper.Info("正在获取当前登录玩家信息...");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.GetLoginAccountInfoProcess"));
         var result = await EasyEaApi.GetLoginAccountInfo();
         if (result is null)
         {
-            LoggerHelper.Warn("获取当前登录玩家信息失败");
+            LoggerHelper.Warn(I18nHelper.I18n._("Core.Ready.GetLoginAccountInfoError"));
             return false;
         }
 
-        LoggerHelper.Info("获取当前登录玩家信息成功");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.GetLoginAccountInfoSuccess"));
         LoggerHelper.Info($"{result.personas.ToString()}");
         var persona = result.personas.persona
             .FirstOrDefault(p => p.namespaceName == "cem_ea_id");
 
         if (persona == null)
         {
-            LoggerHelper.Warn("没有找到 namespaceName 为 cem_ea_id 的 persona");
+            LoggerHelper.Warn(I18nHelper.I18n._("Core.Ready.GetLoginAccountInfoErrorNotFound"));
             return false;
         }
 
         Account.PlayerName = persona.displayName;
-        LoggerHelper.Info($"玩家名称 {Account.PlayerName}");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.GetLoginAccountInfoPlayerName", Account.PlayerName));
 
         Account.PersonaId = persona.personaId.ToString();
-        LoggerHelper.Info($"玩家PId {Account.PersonaId}");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.GetLoginAccountInfoPersonaId", Account.PersonaId));
 
         Account.UserId = persona.pidId.ToString();
-        LoggerHelper.Info($"玩家UserId {Account.UserId}");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.GetLoginAccountInfoUserId", Account.UserId));
 
         return true;
     }
@@ -152,7 +153,7 @@ public static class Ready
     /// </summary>
     private static async Task LoadAvatar()
     {
-        LoggerHelper.Info("正在获取当前登录玩家头像中...");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.LoadAvatarProcess"));
 
         // 最多执行4次
         for (int i = 0; i <= 4; i++)
@@ -160,14 +161,14 @@ public static class Ready
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
-                LoggerHelper.Error("获取当前登录玩家头像失败，请检查网络连接");
+                LoggerHelper.Error(I18nHelper.I18n._("Core.Ready.LoadAvatarErrorNetwork"));
                 return;
             }
 
             // 第1次不提示重试
             if (i > 0)
             {
-                LoggerHelper.Info($"获取当前登录玩家头像，开始第 {i} 次重试中...");
+                LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.LoadAvatarErrorRetry", i));
             }
 
             // 只有头像Id为空才网络获取
@@ -199,7 +200,7 @@ public static class Ready
     /// </summary>
     private static async Task<bool> GetAccountAvatarByUserId()
     {
-        LoggerHelper.Info("正在获取当前登录玩家头像Id中...");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.GetAccountAvatarByUserIdProcess"));
 
         var userIds = new List<string>
         {
@@ -209,7 +210,7 @@ public static class Ready
         var result = await EasyEaApi.GetAvatarByUserIds(userIds);
         if (result == null || !result.Values.Any(u => u?.avatar != null))
         {
-            LoggerHelper.Warn("获取当前登录玩家头像Id失败");
+            LoggerHelper.Warn(I18nHelper.I18n._("Core.Ready.GetAccountAvatarByUserIdError"));
             return false;
         }
 
@@ -217,8 +218,8 @@ public static class Ready
         var avatar = result.Values.First().avatar;
         Account.AvatarId = avatar.avatarId.ToString();
 
-        LoggerHelper.Info("获取当前登录玩家头像Id成功");
-        LoggerHelper.Info($"玩家 AvatarId {Account.AvatarId}");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.GetAccountAvatarByUserIdSuccess"));
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.GetAccountAvatarByUserId", Account.AvatarId));
 
         return true;
     }
@@ -235,7 +236,7 @@ public static class Ready
         if (files.Length > 0)
         {
             Account.Avatar = files[0];
-            LoggerHelper.Info($"发现本地玩家头像图片缓存，跳过网络下载操作 {Account.Avatar}");
+            LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.DownloadAvatarSkip", Account.Avatar));
             WeakReferenceMessenger.Default.Send("", "LoadAvatar");
             return true;
         }
@@ -247,7 +248,7 @@ public static class Ready
         var result = await EasyEaApi.GetAvatarByUserIds(userIds);
         if (result == null || !result.Values.Any(u => u?.avatar != null))
         {
-            LoggerHelper.Warn($"下载当前登录玩家头像失败 {Account.UserId}");
+            LoggerHelper.Warn(I18nHelper.I18n._("Core.Ready.DownloadAvatarError", Account.UserId));
             return false;
         }
 
@@ -258,13 +259,13 @@ public static class Ready
         savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("416x416", Account.UserId));
         if (!await CoreApi.DownloadWebImage(link, savePath))
         {
-            LoggerHelper.Warn($"下载当前登录玩家头像失败 {Account.UserId}");
+            LoggerHelper.Warn(I18nHelper.I18n._("Core.Ready.DownloadAvatarError", Account.UserId));
             return false;
         }
         Account.Avatar = savePath;
 
-        LoggerHelper.Info($"下载当前登录玩家头像成功");
-        LoggerHelper.Info($"玩家 Avatar {Account.Avatar}");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.DownloadAvatarSuccess", Account.UserId));
+        LoggerHelper.Info(I18nHelper.I18n._("Core.Ready.DownloadAvatar", Account.Avatar));
 
         WeakReferenceMessenger.Default.Send("", "LoadAvatar");
 

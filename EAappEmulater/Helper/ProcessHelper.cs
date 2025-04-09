@@ -1,4 +1,6 @@
-﻿namespace EAappEmulater.Helper;
+﻿using System.Security.Policy;
+
+namespace EAappEmulater.Helper;
 
 public static class ProcessHelper
 {
@@ -23,7 +25,7 @@ public static class ProcessHelper
     {
         if (!url.StartsWith("http"))
         {
-            LoggerHelper.Warn($"链接不是http格式 {url}");
+            LoggerHelper.Warn(I18nHelper.I18n._("Helper.ProcessHelper.OpenLinkFormatError", url));
             return;
         }
 
@@ -33,7 +35,7 @@ public static class ProcessHelper
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"打开http链接异常 {url}", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Helper.ProcessHelper.OpenLinkError", url, ex));
         }
     }
 
@@ -44,7 +46,7 @@ public static class ProcessHelper
     {
         if (!Directory.Exists(dirPath))
         {
-            LoggerHelper.Warn($"文件夹路径不存在 {dirPath}");
+            LoggerHelper.Warn(I18nHelper.I18n._("Helper.ProcessHelper.OpenDirectoryFormatError", dirPath));
             return;
         }
 
@@ -54,7 +56,7 @@ public static class ProcessHelper
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"打开文件夹异常 {dirPath}", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Helper.ProcessHelper.OpenDirectoryError", dirPath, ex));
         }
     }
 
@@ -65,7 +67,7 @@ public static class ProcessHelper
     {
         if (!File.Exists(appPath))
         {
-            LoggerHelper.Warn($"程序路径不存在 {appPath}");
+            LoggerHelper.Warn(I18nHelper.I18n._("Helper.ProcessHelper.OpenProcessFormatError", appPath));
             return;
         }
         var fileInfo = new FileInfo(appPath);
@@ -84,11 +86,11 @@ public static class ProcessHelper
                 processInfo.CreateNoWindow = true;
             }
             Process.Start(processInfo);
-            LoggerHelper.Info($"启动程序成功 {appPath}");
+            LoggerHelper.Info(I18nHelper.I18n._("Helper.ProcessHelper.OpenProcessSuccess", appPath));
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"启动程序异常 {appPath}", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Helper.ProcessHelper.OpenProcessError", appPath, ex));
         }
     }
 
@@ -111,17 +113,17 @@ public static class ProcessHelper
             {
                 // 关闭进程树
                 process.Kill(true);
-                LoggerHelper.Info($"关闭进程成功 {appName}.exe");
+                LoggerHelper.Info(I18nHelper.I18n._("Helper.ProcessHelper.CloseProcessSuccess", appName));
 
                 isFind = true;
             }
 
             if (!isFind)
-                LoggerHelper.Warn($"未找到进程信息 {appName}.exe");
+                LoggerHelper.Warn(I18nHelper.I18n._("Helper.ProcessHelper.CloseProcessErrorNotFound", appName));
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"关闭进程异常 {appName}", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Helper.ProcessHelper.CloseProcessError", appName, ex));
         }
     }
 }

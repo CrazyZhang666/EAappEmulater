@@ -44,11 +44,11 @@ public static class NotifierHelper
             var title = type switch
             {
                 NotificationType.None => "",
-                NotificationType.Information => "信息",
-                NotificationType.Success => "成功",
-                NotificationType.Warning => "警告",
-                NotificationType.Error => "错误",
-                NotificationType.Notification => "通知",
+                NotificationType.Information => "信息 Information",
+                NotificationType.Success => "成功 Success",
+                NotificationType.Warning => "警告 Warning",
+                NotificationType.Error => "错误 Error",
+                NotificationType.Notification => "通知 Notice",
                 _ => "",
             };
 

@@ -37,21 +37,21 @@ public static class EaApi
     /// </summary>
     private static void UpdateCookie(CookieCollection cookies, string apiName)
     {
-        LoggerHelper.Info($"{apiName} Cookie 数量为 {cookies.Count}");
+        LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.UpdateCookieCount", apiName, cookies.Count));
 
         foreach (var item in cookies.ToList())
         {
             if (item.Name.Equals("remid", StringComparison.OrdinalIgnoreCase))
             {
                 Account.Remid = item.Value;
-                LoggerHelper.Info($"{apiName} 获取 Remid 成功 {Account.Remid}");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.UpdateCookieGetRemid", apiName, Account.Remid));
                 continue;
             }
 
             if (item.Name.Equals("sid", StringComparison.OrdinalIgnoreCase))
             {
                 Account.Sid = item.Value;
-                LoggerHelper.Info($"{apiName} 获取 Sid 成功 {Account.Sid}");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.UpdateCookieGetRemid", apiName, Account.Sid));
                 continue;
             }
         }
@@ -66,7 +66,7 @@ public static class EaApi
 
         if (string.IsNullOrWhiteSpace(Account.Remid) || string.IsNullOrWhiteSpace(Account.Sid))
         {
-            LoggerHelper.Warn($"Remid 或 Sid 为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundRemidOrSid", respResult.ApiName));
             return respResult;
         }
 
@@ -85,8 +85,8 @@ public static class EaApi
             request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.StatusCode));
 
             respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;
@@ -95,13 +95,13 @@ public static class EaApi
 
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ErrorTimeout", respResult.ApiName));
                 return respResult;
             }
 
             if (response.Content.Contains("error_code", StringComparison.OrdinalIgnoreCase))
             {
-                LoggerHelper.Warn($"{respResult.ApiName} 请求失败，Cookie 已失效，返回结果 {response.Content}");
+                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetTokenReqErrorExpiredCookie", respResult.ApiName, response.Content));
                 return respResult;
             }
 
@@ -125,7 +125,7 @@ public static class EaApi
                 string expiresStr = query["expires_in"];
                 Account.AccessToken = accessToken;
                 Account.OriginPCToken = accessToken;
-                LoggerHelper.Info($"{respResult.ApiName} 获取 AccessToken 成功 {Account.AccessToken}");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetTokenReqSuccess", respResult.ApiName, Account.AccessToken));
 
                 respResult.IsSuccess = true;
 
@@ -133,13 +133,13 @@ public static class EaApi
             }
             else
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求失败，返回结果 {response.Content}");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
             }
         }
         catch (Exception ex)
         {
             respResult.Exception = ex.Message;
-            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Api.EaApi.ReqErrorEx", respResult.ApiName, ex));
         }
 
         return respResult;
@@ -154,7 +154,7 @@ public static class EaApi
 
         if (string.IsNullOrWhiteSpace(Account.AccessToken))
         {
-            LoggerHelper.Warn($"AccessToken 为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundToken", respResult.ApiName));
             return respResult;
         }
 
@@ -169,8 +169,8 @@ public static class EaApi
             request.AddHeader("Authorization", $"Bearer {Account.AccessToken}");
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.StatusCode));
 
             respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;
@@ -178,7 +178,7 @@ public static class EaApi
 
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ErrorTimeout", respResult.ApiName));
                 return respResult;
             }
 
@@ -191,13 +191,13 @@ public static class EaApi
             }
             else
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求失败，返回结果 {response.Content}");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
             }
         }
         catch (Exception ex)
         {
             respResult.Exception = ex.Message;
-            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Api.EaApi.ReqErrorEx", respResult.ApiName, ex));
         }
 
         return respResult;
@@ -209,13 +209,13 @@ public static class EaApi
 
         if (string.IsNullOrWhiteSpace(Account.AccessToken))
         {
-            LoggerHelper.Warn($"AccessToken 为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundToken", respResult.ApiName));
             return respResult;
         }
 
         if (userIds == null || userIds.Count == 0)
         {
-            LoggerHelper.Warn($"UserId列表为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundUserId", respResult.ApiName));
             return respResult;
         }
 
@@ -234,34 +234,28 @@ public static class EaApi
                 Query = query
             };
 
-            // 设置 Authorization 头部
             graphQLClient.HttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {Account.AccessToken}");
-
-            // 执行请求并获取原始响应内容
             var response = await graphQLClient.SendQueryAsync<object>(graphQLRequest);
-
-            // 获取 JSON 响应的原始内容
             string responseContent = response.Data.ToString();
 
-            respResult.StatusCode = HttpStatusCode.OK; // 因为我们不获取 StatusCode，所以这里默认设为 OK
+            respResult.StatusCode = HttpStatusCode.OK;
             respResult.Content = responseContent;
 
             LoggerHelper.Info($"{respResult.ApiName} 响应: {response.AsGraphQLHttpResponse().StatusCode}");
 
-            // 根据响应内容判断是否成功
             if (!string.IsNullOrWhiteSpace(responseContent))
             {
                 respResult.IsSuccess = true;
             }
             else
             {
-                LoggerHelper.Warn($"{respResult.ApiName} 请求失败，响应内容为空");
+                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ReqErrorEmpty", respResult.ApiName));
             }
         }
         catch (Exception ex)
         {
             respResult.Exception = ex.Message;
-            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Api.EaApi.ReqErrorEx", respResult.ApiName, ex));
         }
 
         return respResult;
@@ -278,13 +272,13 @@ public static class EaApi
 
         if (string.IsNullOrWhiteSpace(Account.AccessToken))
         {
-            LoggerHelper.Warn($"AccessToken 为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundToken", respResult.ApiName));
             return respResult;
         }
 
         if (string.IsNullOrWhiteSpace(Account.UserId))
         {
-            LoggerHelper.Warn($"UserId 为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundUserId", respResult.ApiName));
             return respResult;
         }
 
@@ -303,8 +297,8 @@ public static class EaApi
             request.AddHeader("X-AuthToken", Account.AccessToken);
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.StatusCode));
 
             respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;
@@ -312,7 +306,7 @@ public static class EaApi
 
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ErrorTimeout", respResult.ApiName));
                 return respResult;
             }
 
@@ -325,187 +319,22 @@ public static class EaApi
             }
             else
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求失败，返回结果 {response.Content}");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
             }
         }
         catch (Exception ex)
         {
             respResult.Exception = ex.Message;
-            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Api.EaApi.ReqErrorEx", respResult.ApiName, ex));
         }
 
         return respResult;
     }
 
-    /// <summary>
-    /// 获取 Origin PC AuthCode (http://127.0.0.1/success?code=????)
-    /// 需要 AccessToken 和 cookie
-    /// 为 GetOriginPCToken 提供前置参数
-    /// </summary>
-    public static async Task<RespResult> GetOriginPCAuth()
-    {
-        var respResult = new RespResult("GetOriginPCAuth Api");
-
-        if (string.IsNullOrWhiteSpace(Account.Remid) || string.IsNullOrWhiteSpace(Account.Sid))
-        {
-            LoggerHelper.Warn($"Remid 或 Sid 为空，{respResult.ApiName} 请求终止");
-            return respResult;
-        }
-
-        if (string.IsNullOrWhiteSpace(Account.AccessToken))
-        {
-            LoggerHelper.Warn($"AccessToken 为空，{respResult.ApiName} 请求终止");
-            return respResult;
-        }
-
-        try
-        {
-            var request = new RestRequest("https://accounts.ea.com/connect/auth")
-            {
-                Method = Method.Get
-            };
-
-            request.AddParameter("access_token", Account.AccessToken);
-            request.AddParameter("client_id", "ORIGIN_PC");
-            request.AddParameter("response_type", "code");
-
-            request.AddHeader("User-Agent", "Mozilla / 5.0 EA Download Manager Origin/ 10.5.94.46774");
-            request.AddHeader("X-Origin-Platform", "PCWIN");
-            request.AddHeader("localeInfo", "zh_TW");
-            request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
-
-            var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
-
-            respResult.StatusText = response.ResponseStatus;
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
-
-            if (response.ResponseStatus == ResponseStatus.TimedOut)
-            {
-                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
-                return respResult;
-            }
-
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
-
-            if (response.StatusCode == HttpStatusCode.Redirect)
-            {
-                var localtion = response.Headers.ToList()
-                    .Find(x => x.Name.Equals("location", StringComparison.OrdinalIgnoreCase))
-                    .Value.ToString();
-
-                LoggerHelper.Info($"{respResult.ApiName} 获取 localtion 为 {localtion}");
-                if (localtion is not null)
-                {
-                    Account.OriginPCAuth = localtion.Split("=")[1];
-                    LoggerHelper.Info($"{respResult.ApiName} 获取 OriginPCAuth 成功 {Account.OriginPCAuth}");
-
-                    respResult.IsSuccess = true;
-
-                    UpdateCookie(response.Cookies, respResult.ApiName);
-                }
-            }
-            else
-            {
-                LoggerHelper.Info($"{respResult.ApiName} 请求失败，返回结果 {response.Content}");
-            }
-        }
-        catch (Exception ex)
-        {
-            respResult.Exception = ex.Message;
-            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
-        }
-
-        return respResult;
-    }
-
-    /// <summary>
-    /// 获取 Origin PC AccessToken
-    /// 需要 OriginPCAuth 和 cookie
-    /// 为 GetAutuCode 提供前置参数
-    /// </summary>
-    public static async Task<RespResult> GetOriginPCToken()
-    {
-        var respResult = new RespResult("GetOriginPCToken Api");
-
-        if (string.IsNullOrWhiteSpace(Account.Remid) || string.IsNullOrWhiteSpace(Account.Sid))
-        {
-            LoggerHelper.Warn($"Remid 或 Sid 为空，{respResult.ApiName} 请求终止");
-            return respResult;
-        }
-
-        if (string.IsNullOrWhiteSpace(Account.OriginPCAuth))
-        {
-            LoggerHelper.Warn($"OriginPCAuth 为空，{respResult.ApiName} 请求终止");
-            return respResult;
-        }
-
-        try
-        {
-            var request = new RestRequest("https://accounts.ea.com/connect/token")
-            {
-                Method = Method.Post
-            };
-
-            request.AddHeader("User-Agent", "Mozilla/5.0 EA Download Manager Origin/10.5.115.51547");
-            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            request.AddHeader("X-Origin-Platform", "PCWIN");
-            request.AddHeader("localeInfo", "en_US");
-            request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
-
-            request.AddParameter("application/x-www-form-urlencoded",
-                $"grant_type=authorization_code&code={Account.OriginPCAuth}&client_id=ORIGIN_PC&client_secret=UIY8dwqhi786T78ya8Kna78akjcp0s&redirect_uri=qrc:///html/login_successful.html",
-                ParameterType.RequestBody);
-
-            var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
-
-            respResult.StatusText = response.ResponseStatus;
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
-
-            if (response.ResponseStatus == ResponseStatus.TimedOut)
-            {
-                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
-                return respResult;
-            }
-
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                var content = JsonHelper.JsonDeserialize<OriginPCToken>(response.Content);
-                Account.OriginPCToken = content.access_token;
-                LoggerHelper.Info($"{respResult.ApiName} 获取 OriginPCToken 成功 {Account.OriginPCToken}");
-
-                respResult.IsSuccess = true;
-
-                UpdateCookie(response.Cookies, respResult.ApiName);
-            }
-            else
-            {
-                LoggerHelper.Info($"{respResult.ApiName} 请求失败，返回结果 {response.Content}");
-            }
-        }
-        catch (Exception ex)
-        {
-            respResult.Exception = ex.Message;
-            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
-        }
-
-        return respResult;
-    }
 
     /// <summary>
     /// 前置条件
     /// 1. GetToken
-    /// 2. GetOriginPCAuth
-    /// 3. GetOriginPCToken
     /// 获取LSX游戏许可证
     /// </summary>
     public static async Task<RespResult> GetLSXLicense(string requestToken, string contentId)
@@ -514,13 +343,13 @@ public static class EaApi
 
         if (string.IsNullOrWhiteSpace(Account.Remid) || string.IsNullOrWhiteSpace(Account.Sid))
         {
-            LoggerHelper.Warn($"Remid 或 Sid 为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundRemidOrSid", respResult.ApiName));
             return respResult;
         }
 
         if (string.IsNullOrWhiteSpace(Account.OriginPCToken))
         {
-            LoggerHelper.Warn($"OriginPCToken 为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundToken", respResult.ApiName));
             return respResult;
         }
 
@@ -542,8 +371,8 @@ public static class EaApi
             request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.StatusCode));
 
             respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;
@@ -551,7 +380,7 @@ public static class EaApi
 
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ErrorTimeout", respResult.ApiName));
                 return respResult;
             }
 
@@ -566,7 +395,7 @@ public static class EaApi
                 if (!string.IsNullOrWhiteSpace(decryptArray[1]))
                 {
                     respResult.Content = decryptArray[1];
-                    LoggerHelper.Debug($"{respResult.ApiName} 获取 License 成功 {decryptArray[1]}");
+                    LoggerHelper.Debug(I18nHelper.I18n._("Api.EaApi.GetLSXLicenseSuccess", respResult.ApiName, decryptArray[1]));
 
                     respResult.IsSuccess = true;
 
@@ -574,18 +403,18 @@ public static class EaApi
                 }
                 else
                 {
-                    LoggerHelper.Warn($"{respResult.ApiName} 获取 License 失败");
+                    LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetLSXLicenseError", respResult.ApiName));
                 }
             }
             else
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求失败，返回结果 {response.Content}");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
             }
         }
         catch (Exception ex)
         {
             respResult.Exception = ex.Message;
-            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Api.EaApi.ReqErrorEx", respResult.ApiName, ex));
         }
 
         return respResult;
@@ -594,8 +423,6 @@ public static class EaApi
     /// <summary>
     /// 前置条件
     /// 1. GetToken
-    /// 2. GetOriginPCAuth
-    /// 3. GetOriginPCToken
     /// 通过 cookie 获取 AutuCode (需要 settingId 作为 client_id 参数)
     /// 特殊版本，和网页登录账号获取 AutuCode 不同
     /// </summary>
@@ -605,13 +432,13 @@ public static class EaApi
 
         if (string.IsNullOrWhiteSpace(Account.Remid) || string.IsNullOrWhiteSpace(Account.Sid))
         {
-            LoggerHelper.Warn($"Remid 或 Sid 为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundRemidOrSid", respResult.ApiName));
             return respResult;
         }
 
         if (string.IsNullOrWhiteSpace(Account.OriginPCToken))
         {
-            LoggerHelper.Warn($"OriginPCToken 为空，{respResult.ApiName} 请求终止");
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundToken", respResult.ApiName));
             return respResult;
         }
 
@@ -633,8 +460,8 @@ public static class EaApi
             request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.StatusCode));
 
             respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;
@@ -642,7 +469,7 @@ public static class EaApi
 
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ErrorTimeout", respResult.ApiName));
                 return respResult;
             }
 
@@ -651,15 +478,15 @@ public static class EaApi
 
             if (response.StatusCode == HttpStatusCode.Redirect)
             {
-                var localtion = response.Headers.ToList()
+                var location = response.Headers.ToList()
                     .Find(x => x.Name.Equals("location", StringComparison.OrdinalIgnoreCase))
                     .Value.ToString();
 
-                LoggerHelper.Info($"{respResult.ApiName} 获取 localtion 为 {localtion}");
-                if (localtion is not null)
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetLSXAutuCodeLocation", respResult.ApiName, location));
+                if (location is not null)
                 {
-                    Account.LSXAuthCode = localtion.Split("=")[1];
-                    LoggerHelper.Info($"{respResult.ApiName} 获取 AuthCode 成功 {Account.LSXAuthCode}");
+                    Account.LSXAuthCode = location.Split("=")[1];
+                    LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetLSXAutuCodeSuccess", respResult.ApiName, Account.LSXAuthCode));
 
                     respResult.IsSuccess = true;
 
@@ -668,71 +495,13 @@ public static class EaApi
             }
             else
             {
-                LoggerHelper.Info($"{respResult.ApiName} 请求失败，返回结果 {response.Content}");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
             }
         }
         catch (Exception ex)
         {
             respResult.Exception = ex.Message;
-            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
-        }
-
-        return respResult;
-    }
-
-    /// <summary>
-    /// 通过AuthToken获取玩家头像信息
-    /// </summary>
-    public static async Task<RespResult> GetAvatarByUserId(string userId)
-    {
-        var respResult = new RespResult("GetAvatarByUserId Api");
-        if (string.IsNullOrWhiteSpace(Account.AccessToken))
-        {
-            LoggerHelper.Warn($"AccessToken 为空，{respResult.ApiName} 请求终止");
-            return respResult;
-        }
-        try
-        {
-            var request = new RestRequest($"https://api1.origin.com/avatar/user/{userId}/avatars")
-            {
-                Method = Method.Get
-            };
-
-            request.AddParameter("size", "1");
-
-            request.AddHeader("Accept", "application/xml");
-            request.AddHeader("AuthToken", Account.AccessToken);
-
-            var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态 {response.ResponseStatus}");
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，状态码 {response.StatusCode}");
-
-            respResult.StatusText = response.ResponseStatus;
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
-            LoggerHelper.Info($"{respResult.ApiName} 请求结束，内容 {response.Content}");
-            if (response.ResponseStatus == ResponseStatus.TimedOut)
-            {
-                LoggerHelper.Info($"{respResult.ApiName} 请求超时");
-                return respResult;
-            }
-
-            respResult.StatusCode = response.StatusCode;
-            respResult.Content = response.Content;
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                respResult.IsSuccess = true;
-            }
-            else
-            {
-                LoggerHelper.Info($"{respResult.ApiName} 请求失败，返回结果 {response.Content}");
-            }
-        }
-        catch (Exception ex)
-        {
-            respResult.Exception = ex.Message;
-            LoggerHelper.Error($"{respResult.ApiName} 请求异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Api.EaApi.ReqErrorEx", respResult.ApiName, ex));
         }
 
         return respResult;
@@ -775,8 +544,6 @@ public static class EaApi
                     // 更精准判断：必须是 NVIDIA 且 DeviceID 来自 PCI 总线（不是 HDAUDIO）
                     if (deviceId.StartsWith("PCI\\VEN_10DE", StringComparison.OrdinalIgnoreCase))
                     {
-                        Console.WriteLine($"[GPU] {name}, {deviceId}");
-
                         var devMatch = Regex.Match(deviceId, @"DEV_([0-9A-F]{4})", RegexOptions.IgnoreCase);
                         if (devMatch.Success)
                         {
@@ -787,7 +554,6 @@ public static class EaApi
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error getting GPU device ID: " + ex.Message);
             }
 
             return 0;

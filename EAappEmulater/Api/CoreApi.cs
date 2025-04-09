@@ -1,5 +1,6 @@
 ﻿using EAappEmulater.Helper;
 using RestSharp;
+using System;
 
 namespace EAappEmulater.Api;
 
@@ -27,12 +28,12 @@ public static class CoreApi
             var request = new RestRequest("https://api.github.com/repos/CrazyZhang666/EAappEmulater/releases/latest", Method.Get);
 
             var response = await _client.ExecuteAsync(request);
-            LoggerHelper.Info($"GetWebUpdateVersion 请求结束，状态 {response.ResponseStatus}");
-            LoggerHelper.Info($"GetWebUpdateVersion 请求结束，状态码 {response.StatusCode}");
+            LoggerHelper.Info(I18nHelper.I18n._("Api.CoreApi.GetWebUpdateVersionStatus", response.ResponseStatus));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.CoreApi.GetWebUpdateVersionStatus", response.StatusCode));
 
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
-                LoggerHelper.Info($"GetWebUpdateVersion 请求超时");
+                LoggerHelper.Info(I18nHelper.I18n._("Api.CoreApi.GetWebUpdateVersionTimeout"));
                 return null;
             }
 
@@ -43,17 +44,17 @@ public static class CoreApi
                 var tagName = jsonNode["tag_name"].GetValue<string>();
                 if (Version.TryParse(tagName, out Version version))
                 {
-                    LoggerHelper.Info($"获取服务器更新版本号成功 {version}");
+                    LoggerHelper.Info(I18nHelper.I18n._("Api.CoreApi.GetWebUpdateVersionSuccess", version));
                     return version;
                 }
             }
 
-            LoggerHelper.Warn($"获取服务器更新版本号失败 {response.Content}");
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.CoreApi.GetWebUpdateVersionError", response.Content));
             return null;
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error("获取服务器更新版本号发生异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Api.CoreApi.GetWebUpdateVersionErrorEx", ex));
             return null;
         }
     }
@@ -70,7 +71,7 @@ public static class CoreApi
             var bytes = await _client.DownloadDataAsync(request);
             if (bytes == null || bytes.Length == 0)
             {
-                LoggerHelper.Warn($"下载网络图片失败 {imgUrl}");
+                LoggerHelper.Warn(I18nHelper.I18n._("Api.CoreApi.DownloadWebImageError", imgUrl));
                 return false;
             }
 
@@ -79,7 +80,7 @@ public static class CoreApi
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"下载网络图片发生异常 {imgUrl}", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Api.CoreApi.DownloadWebImageErrorEx", imgUrl, ex));
             return false;
         }
     }

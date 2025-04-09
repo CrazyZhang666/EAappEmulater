@@ -75,7 +75,7 @@ public static class EasyEaApi
         string link = string.Empty;
         if (files.Length > 0)
         {
-            LoggerHelper.Info($"发现本地玩家头像图片缓存，跳过网络下载操作 {files[0]}");
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EasyEaApi.FindLocalAvatarSkipDownload", files[0]));
             savePath = files[0];
         }
         else
@@ -98,7 +98,7 @@ public static class EasyEaApi
             savePath = savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("416x416", userid));
             if (!await CoreApi.DownloadWebImage(link, savePath))
             {
-                LoggerHelper.Warn($"下载当前登录玩家头像失败 {userid}");
+                LoggerHelper.Warn(I18nHelper.I18n._("Api.EasyEaApi.DownloadAvatarError", userid));
             }
         }
         var doc = new XmlDocument();

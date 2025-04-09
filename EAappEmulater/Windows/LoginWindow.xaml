@@ -7,7 +7,7 @@
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
     xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     x:Name="Window_Login"
-    Title="EA app 模拟器"
+    Title="{DynamicResource Windows.LoginWindow.Title}"
     Width="380"
     Height="660"
     CaptionBackground="#FDFDFD"
@@ -31,7 +31,7 @@
                     Command="{Binding ReloadLoginPageCommand}"
                     FontSize="12"
                     Icon="&#xE72C;"
-                    ToolTip="重新加载登录页面" />
+                    ToolTip="{DynamicResource Windows.LoginWindow.Reload}" />
                 <Border
                     Width="1"
                     Height="14"
@@ -65,7 +65,7 @@
             VerticalAlignment="Center"
             Visibility="Visible">
             <ui:Loading />
-            <TextBlock Margin="0,20,0,0" Text="正在加载登录页面..." />
+            <TextBlock Margin="0,20,0,0" Text="{DynamicResource Windows.LoginWindow.Process}" />
         </StackPanel>
     </Grid>
 

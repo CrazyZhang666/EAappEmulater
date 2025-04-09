@@ -11,12 +11,12 @@
 [assembly: Guid("a1155efc-e1c6-4abc-b91e-8a6a391490e3")]
 
 // PropertyGroup Generate????Attribute
-[assembly: AssemblyTitle("EA app 模拟器")]
+[assembly: AssemblyTitle("EA App 模拟器")]
 [assembly: AssemblyCompany("https://github.com/CrazyZhang666/EAappEmulater")]
-[assembly: AssemblyProduct("EA app 模拟器")]
-[assembly: AssemblyVersion("1.7.4.0")]
-[assembly: AssemblyFileVersion("1.7.4.0")]
-[assembly: AssemblyInformationalVersion("1.7.4.0")]
+[assembly: AssemblyProduct("EA App 模拟器")]
+[assembly: AssemblyVersion("1.8.0.0")]
+[assembly: AssemblyFileVersion("1.8.0.0")]
+[assembly: AssemblyInformationalVersion("1.8.0.0")]
 
 // 不重复
 [assembly: AssemblyDescription("https://github.com/CrazyZhang666/EAappEmulater")]

@@ -41,7 +41,7 @@ public static class BattlelogHttpServer
     {
         if (_httpListener is not null)
         {
-            LoggerHelper.Warn("Battlelog 监听服务已经在运行，请勿重复启动");
+            LoggerHelper.Warn(I18nHelper.I18n._("Core.BattlelogHttpServer.AlreadyListen"));
             return;
         }
 
@@ -54,8 +54,8 @@ public static class BattlelogHttpServer
         _httpListener.Prefixes.Add("http://127.0.0.1:4219/");
         _httpListener.Start();
 
-        LoggerHelper.Info("启动 Battlelog 监听服务成功");
-        LoggerHelper.Debug("Battlelog 服务监听端口为 3215 和 4219");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.BattlelogHttpServer.ListenSuccess"));
+        LoggerHelper.Debug(I18nHelper.I18n._("Core.BattlelogHttpServer.ListenSuccessDebug"));
 
         _httpListener.BeginGetContext(Result, null);
 
@@ -73,7 +73,7 @@ public static class BattlelogHttpServer
     {
         _httpListener?.Stop();
         _httpListener = null;
-        LoggerHelper.Info("停止 Battlelog 监听服务成功");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.BattlelogHttpServer.StopListenSuccess"));
 
         /////////////////////////////////////////////////
 
@@ -123,7 +123,7 @@ public static class BattlelogHttpServer
             if (context.Request.HttpMethod == "GET")
             {
                 if (context.Request.RawUrl != "/")
-                    LoggerHelper.Debug($"Battlelog 处理 GET 请求 Url {context.Request.Url}");
+                    LoggerHelper.Debug(I18nHelper.I18n._("Core.BattlelogHttpServer.GetUrlDebug", context.Request.Url));
 
                 // 处理 4219 端口请求
                 if (context.Request.UserHostName == "127.0.0.1:4219")
@@ -216,7 +216,7 @@ public static class BattlelogHttpServer
                     switch (context.Request.RawUrl)
                     {
                         case "/game/status?masterTitleId=50182":
-                            LoggerHelper.Info("Battlelog 获取 战地3 安装状态");
+                            LoggerHelper.Info(I18nHelper.I18n._("Core.BattlelogHttpServer.Get50182"));
                             WriteOutputStream(context, 200, true, _gameStatus["50182"]);
                             break;
                         case "/game/status?masterTitleId=000000":
@@ -226,19 +226,19 @@ public static class BattlelogHttpServer
                             WriteOutputStream(context, 200, true, _gameStatus["ping"]);
                             break;
                         case "/game/launch/status/cee4e0c885634dc2bfcb7ee88e2f4c24":
-                            LoggerHelper.Info("Battlelog 获取状态");
+                            LoggerHelper.Info(I18nHelper.I18n._("Core.BattlelogHttpServer.Get2f4c24"));
                             WriteOutputStream(context, 200, true, _gameStatus["2f4c24"]);
                             break;
                         case "/game/status?masterTitleId=181931":
-                            LoggerHelper.Info("Battlelog 获取 荣誉勋章战士 安装状态");
+                            LoggerHelper.Info(I18nHelper.I18n._("Core.BattlelogHttpServer.Get181931"));
                             WriteOutputStream(context, 200, true, _gameStatus["181931"]);
                             break;
                         case "/game/status?masterTitleId=76889":
-                            LoggerHelper.Info("Battlelog 获取 战地4 安装状态");
+                            LoggerHelper.Info(I18nHelper.I18n._("Core.BattlelogHttpServer.Get76889"));
                             WriteOutputStream(context, 200, true, _gameStatus["76889"]);
                             break;
                         case "/game/status?masterTitleId=182288":
-                            LoggerHelper.Info("Battlelog 获取 战地硬仗 安装状态");
+                            LoggerHelper.Info(I18nHelper.I18n._("Core.BattlelogHttpServer.Get182288"));
                             WriteOutputStream(context, 200, true, _gameStatus["182288"]);
                             break;
                         default:
@@ -256,7 +256,7 @@ public static class BattlelogHttpServer
             if (context.Request.HttpMethod == "POST")
             {
                 if (context.Request.RawUrl != "/")
-                    LoggerHelper.Debug($"Battlelog 处理 POST 请求 Url {context.Request.Url}");
+                    LoggerHelper.Debug(I18nHelper.I18n._("Core.BattlelogHttpServer.PostUrlDebug", context.Request.Url));
 
                 var nameValCol = context.Request.QueryString;
                 var cmdParams = nameValCol["cmdParams"];
@@ -288,13 +288,13 @@ public static class BattlelogHttpServer
                         }
                     }
 
-                    LoggerHelper.Info("Battlelog 返回 Ping 信息");
+                    LoggerHelper.Info(I18nHelper.I18n._("Core.BattlelogHttpServer.PingBack"));
                     var responseStr = $"[{strBuilder.ToString().TrimEnd(',')}]";
                     WriteOutputStream(context, 200, true, responseStr);
                 }
                 else if (nameValCol["offerIds"] == "DR:224766400")
                 {
-                    LoggerHelper.Info("Battlelog 准备启动 战地3");
+                    LoggerHelper.Info(I18nHelper.I18n._("Core.BattlelogHttpServer.StartBF3"));
                     BattlelogType = BattlelogType.BF3;
 
                     Game.RunGame(GameType.BF3, cmdParams, false);
@@ -302,14 +302,14 @@ public static class BattlelogHttpServer
                 }
                 else if (nameValCol["offerIds"] == "OFB-EAST:109552316@subscription")
                 {
-                    LoggerHelper.Info("Battlelog 准备启动 战地4");
+                    LoggerHelper.Info(I18nHelper.I18n._("Core.BattlelogHttpServer.StartBF4"));
 
                     Game.RunGame(GameType.BF4, cmdParams, false);
                     WriteOutputStream(context, 202, true, _gameStatus["status"]);
                 }
                 else if (nameValCol["offerIds"] == "Origin.OFR.50.0000846@subscription")
                 {
-                    LoggerHelper.Info("Battlelog 准备启动 战地硬仗");
+                    LoggerHelper.Info(I18nHelper.I18n._("Core.BattlelogHttpServer.StartBFHD"));
 
                     Game.RunGame(GameType.BFH, cmdParams, false);
                     WriteOutputStream(context, 202, true, _gameStatus["status"]);
@@ -318,7 +318,7 @@ public static class BattlelogHttpServer
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error("处理 Battlelog 客户端连接发生异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Core.BattlelogHttpServer.ClientError", ex));
         }
     }
 }

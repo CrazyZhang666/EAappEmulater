@@ -19,15 +19,15 @@
                 <GridViewColumn
                     Width="95"
                     DisplayMemberBinding="{Binding Time}"
-                    Header="时间" />
+                    Header="{DynamicResource Views.LogView.Time}" />
                 <GridViewColumn
                     Width="50"
                     DisplayMemberBinding="{Binding Level}"
-                    Header="等级" />
+                    Header="{DynamicResource Views.LogView.Level}" />
                 <GridViewColumn
                     Width="800"
                     DisplayMemberBinding="{Binding Message}"
-                    Header="日志" />
+                    Header="{DynamicResource Views.LogView.Info}" />
             </GridView>
         </ListView.View>
     </ListView>

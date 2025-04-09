@@ -38,4 +38,21 @@ public partial class SettingView : UserControl
     {
         ProcessHelper.OpenDirectory(CoreUtil.Dir_Default);
     }
+
+
+    /// <summary>
+    /// 切换语言
+    /// </summary>
+    [RelayCommand]
+    private void ChangeLanguage()
+    {
+        if (Globals.Language != null && Globals.Language == "zh-CN")
+        {
+            App.SetLanguage("en-US");
+        }
+        else if (Globals.Language != null && Globals.Language == "en-US")
+        {
+            App.SetLanguage("zh-CN");
+        }
+    }
 }

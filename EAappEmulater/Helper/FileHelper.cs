@@ -75,11 +75,11 @@ public static class FileHelper
                 }
             }
 
-            LoggerHelper.Info($"清空文件夹成功 {dirPath}");
+            LoggerHelper.Info(I18nHelper.I18n._("Helper.FileHelper.ClearDirectorySuccess", dirPath));
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"清空文件夹异常 {dirPath}", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Helper.FileHelper.ClearDirectoryError", dirPath, ex));
         }
     }
 
@@ -112,11 +112,11 @@ public static class FileHelper
 
             outStream.Flush();
 
-            LoggerHelper.Info($"释放资源文件成功 {outputPath}");
+            LoggerHelper.Info(I18nHelper.I18n._("Helper.FileHelper.ExtractResFileSuccess", outputPath));
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"释放资源文件异常 {outputPath}", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Helper.FileHelper.ExtractResFileError", outputPath, ex));
         }
         finally
         {

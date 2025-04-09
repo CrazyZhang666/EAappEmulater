@@ -8,7 +8,7 @@
     xmlns:tb="http://www.hardcodet.net/taskbar"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
     x:Name="Window_Main"
-    Title="EA app 模拟器"
+    Title="{DynamicResource Windows.MainWindow.Title}"
     Width="1000"
     Height="650"
     MinWidth="1000"
@@ -29,7 +29,7 @@
                     Margin="0,0,7,0"
                     VerticalAlignment="Center"
                     Icon="&#xE896;"
-                    Text="发现新版本，点击下载"
+                    Text="{DynamicResource Windows.MainWindow.NewVersionAvaliable}"
                     ToolTip="https://github.com/CrazyZhang666/EAappEmulater/releases"
                     Uri="https://github.com/CrazyZhang666/EAappEmulater/releases"
                     Visibility="Hidden"
@@ -74,16 +74,16 @@
         <ContextMenu x:Key="ContextMenu_Notify">
             <MenuItem
                 Command="{Binding ShowWindowCommand}"
-                Header="显示主窗口"
+                Header="{DynamicResource Windows.MainWindow.ShowMainWindow}"
                 Icon="&#xE737;" />
             <MenuItem
                 Command="{Binding SwitchAccountCommand}"
-                Header="更换账号"
+                Header="{DynamicResource Windows.MainWindow.ShowMainWindow}"
                 Icon="&#xE748;" />
             <Separator />
             <MenuItem
                 Command="{Binding ExitAppCommand}"
-                Header="退出程序"
+                Header="{DynamicResource Windows.MainWindow.Exit}"
                 Icon="&#xE711;" />
         </ContextMenu>
     </ui:Window.Resources>
@@ -98,7 +98,7 @@
             MenuActivation="RightClick"
             NoLeftClickDelay="True"
             PopupActivation="DoubleClick"
-            ToolTipText="EA app 模拟器" />
+            ToolTipText="{DynamicResource Windows.MainWindow.Title}" />
 
         <!--  主区域  -->
         <Grid>
@@ -116,13 +116,13 @@
                             CommandParameter="AccountView"
                             GroupName="NavMenu"
                             Icon="&#xE77B;"
-                            ToolTip="账户" />
+                            ToolTip="{DynamicResource Windows.MainWindow.Account}" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"
                             CommandParameter="SettingView"
                             GroupName="NavMenu"
                             Icon="&#xE713;"
-                            ToolTip="设置" />
+                            ToolTip="{DynamicResource Windows.MainWindow.Settings}" />
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Top">
                         <ui:NavMenu
@@ -132,43 +132,43 @@
                             GroupName="NavMenu"
                             Icon="&#xFA00;"
                             IsChecked="True"
-                            ToolTip="已安装" />
+                            ToolTip="{DynamicResource Windows.MainWindow.AlreadyInstall}" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"
                             CommandParameter="Game2View"
                             GroupName="NavMenu"
                             Icon="&#xE719;"
-                            ToolTip="游戏库" />
+                            ToolTip="{DynamicResource Windows.MainWindow.GameLibrary}" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"
                             CommandParameter="EADesktopWeb"
                             GroupName="NavMenu"
                             Icon="&#xF466;"
-                            ToolTip="EA App界面" />
+                            ToolTip="{DynamicResource Windows.MainWindow.EaAppView}" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"
                             CommandParameter="FriendView"
                             GroupName="NavMenu"
                             Icon="&#xE716;"
-                            ToolTip="好友" />
+                            ToolTip="{DynamicResource Windows.MainWindow.Friends}" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"
                             CommandParameter="LogView"
                             GroupName="NavMenu"
                             Icon="&#xF0E3;"
-                            ToolTip="日志" />
+                            ToolTip="{DynamicResource Windows.MainWindow.Logs}" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"
                             CommandParameter="UpdateView"
                             GroupName="NavMenu"
                             Icon="&#xE753;"
-                            ToolTip="更新" />
+                            ToolTip="{DynamicResource Windows.MainWindow.Update}" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"
                             CommandParameter="AboutView"
                             GroupName="NavMenu"
                             Icon="&#xFA01;"
-                            ToolTip="关于" />
+                            ToolTip="{DynamicResource Windows.MainWindow.About}" />
                     </StackPanel>
                 </DockPanel>
             </Border>

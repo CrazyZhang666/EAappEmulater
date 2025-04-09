@@ -1,5 +1,6 @@
 ﻿using EAappEmulater.Enums;
 using EAappEmulater.Helper;
+using System.Text;
 
 namespace EAappEmulater.Core;
 
@@ -35,8 +36,9 @@ public class PipeServer
         };
         _thread.Start();
 
-        LoggerHelper.Info($"{_battleType} 线程状态 {_thread.ThreadState}");
-        LoggerHelper.Info($"{_battleType} 启动 Pipe 监听服务成功");
+        
+        LoggerHelper.Info(I18nHelper.I18n._("Core.PipeServer.Status", _battleType, _thread.ThreadState));
+        LoggerHelper.Info(I18nHelper.I18n._("Core.PipeServer.ListenSuccess", _battleType));
     }
 
     /// <summary>
@@ -47,8 +49,8 @@ public class PipeServer
         _isRunning = false;
         _pipeClient.Close();
 
-        LoggerHelper.Info($"{_battleType} 线程状态 {_thread.ThreadState}");
-        LoggerHelper.Info($"{_battleType} 停止 Pipe 监听服务成功");
+        LoggerHelper.Info(I18nHelper.I18n._("Core.PipeServer.Status", _battleType, _thread.ThreadState));
+        LoggerHelper.Info(I18nHelper.I18n._("Core.PipeServer.StopListenSuccess", _battleType));
     }
 
     /// <summary>
@@ -74,7 +76,7 @@ public class PipeServer
                 }
                 catch (TimeoutException ex)
                 {
-                    LoggerHelper.Error($"{_battleType} 处理 Pipe 客户端连接发生超时异常", ex);
+                    LoggerHelper.Error(I18nHelper.I18n._("Core.PipeServer.ConnErrorTimeOut", _pipeClient, ex));
                     continue;
                 }
 
@@ -95,7 +97,7 @@ public class PipeServer
                     stringBuilder.Append(" : " + Encoding.ASCII.GetString(memoryStream.ToArray()));
 
                     GameState = stringBuilder.ToString();
-                    LoggerHelper.Debug($"{_battleType} Pipe 当前游戏状态 {stringBuilder}");
+                    LoggerHelper.Debug(I18nHelper.I18n._("Core.PipeServer.GameStatus", _pipeClient, stringBuilder));
                 }
 
                 Thread.Sleep(1000);
@@ -103,7 +105,7 @@ public class PipeServer
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"{_battleType} 处理 Pipe 客户端连接发生异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Core.PipeServer.ConnError", _pipeClient, ex));
         }
     }
 }

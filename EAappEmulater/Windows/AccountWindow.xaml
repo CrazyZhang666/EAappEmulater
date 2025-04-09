@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
     x:Name="Window_Account"
-    Title="EA app 模拟器"
+    Title="{DynamicResource Windows.AccountWindow.Title}"
     Width="600"
     Height="380"
     CaptionBackground="#FDFDFD"
@@ -26,6 +26,11 @@
                 DockPanel.Dock="Right"
                 Orientation="Horizontal"
                 WindowChrome.IsHitTestVisibleInChrome="True">
+                <ui:WinButton
+                    Command="{Binding ChangeLanguageCommand}"
+                    FontSize="14"
+                    Icon="&#xE774;"
+                    ToolTip="{DynamicResource Windows.AccountWindow.SwitchLang}" />
                 <ui:IconHyperlink
                     Margin="0,0,7,0"
                     Text="GitHub"
@@ -35,7 +40,7 @@
                     Command="{Binding OpenConfigFolderCommand}"
                     FontSize="14"
                     Icon="&#xE713;"
-                    ToolTip="打开配置文件" />
+                    ToolTip="{DynamicResource Windows.AccountWindow.OpenConfig}" />
                 <Border
                     Width="1"
                     Height="14"
@@ -65,7 +70,7 @@
         <ListBox
             x:Name="ListBox_AccountInfo"
             ItemsSource="{Binding ObsCol_AccountInfos}"
-            Style="{StaticResource ListBoxStyle_Avatar}">
+            Style="{StaticResource ListBoxStyle_Avatar}" Cursor="">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -96,7 +101,7 @@
                 <ui:IconButton
                     Padding="10"
                     Command="{Binding LoginAccountCommand}"
-                    Content="登录选中账号"
+                    Content="{DynamicResource Windows.AccountWindow.LoginAccount}"
                     Icon="&#xE77B;">
                     <ui:IconButton.Style>
                         <Style BasedOn="{StaticResource IconButtonStyle_Base}" TargetType="{x:Type ui:IconButton}">
@@ -140,12 +145,12 @@
                             <ui:IconButton
                                 Margin="0,0,5,5"
                                 Command="{Binding GetCookieCommand}"
-                                Content="获取Cookie"
+                                Content="{DynamicResource Windows.AccountWindow.GetCookie}"
                                 Icon="&#xE72C;" />
                             <ui:IconButton
                                 Margin="0,0,5,5"
                                 Command="{Binding ChangeAccountCommand}"
-                                Content="更换新账号"
+                                Content="{DynamicResource Windows.AccountWindow.ChangeAccount}"
                                 Icon="&#xE8FA;" />
                         </WrapPanel>
                         <TextBlock
@@ -161,7 +166,7 @@
                 <ui:TextBoxHint
                     x:Name="TextBoxHint_Remid"
                     Height="70"
-                    Hint="显示选中账号Remid信息"
+                    Hint="{DynamicResource Windows.AccountWindow.ShowRemid}"
                     Style="{StaticResource TextBoxHintStyle_MultiLine}"
                     Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Remid}" />
 
@@ -169,7 +174,7 @@
                 <ui:TextBoxHint
                     x:Name="TextBoxHint_Sid"
                     Height="70"
-                    Hint="显示选中账号Sid信息"
+                    Hint="{DynamicResource Windows.AccountWindow.ShowSid}"
                     Style="{StaticResource TextBoxHintStyle_MultiLine}"
                     Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Sid}" />
 

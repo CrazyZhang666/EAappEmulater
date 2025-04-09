@@ -24,7 +24,7 @@
                     <ui:IconButton
                         Margin="0,0,5,5"
                         Command="{Binding SwitchAccountCommand}"
-                        Content="更换登录账号"
+                        Content="{DynamicResource Views.AccountView.ChangeAccount}"
                         Icon="&#xE748;" />
                 </StackPanel>
                 <TextBlock
