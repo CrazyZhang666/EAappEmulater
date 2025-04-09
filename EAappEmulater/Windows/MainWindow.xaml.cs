@@ -51,9 +51,9 @@ public partial class MainWindow
     /// </summary>
     private async void Window_Main_Loaded(object sender, RoutedEventArgs e)
     {
-        LoggerHelper.Info("启动主程序成功");
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.MainWindow.StartMainProcessSuccessful"));
 
-        Title = $"EA app 模拟器 v{CoreUtil.VersionInfo}";
+        Title = I18nHelper.I18n._("Windows.MainWindow.TitleWithVersion", CoreUtil.VersionInfo);
 
         // 向外暴露主窗口实例
         MainWinInstance = this;
@@ -105,7 +105,8 @@ public partial class MainWindow
             // 仅第一次通知
             if (!_isFirstNotice)
             {
-                NotifyIcon_Main.ShowBalloonTip("EA app 模拟器 已最小化到托盘", "可通过托盘右键菜单完全退出程序", BalloonIcon.Info);
+
+                NotifyIcon_Main.ShowBalloonTip(I18nHelper.I18n._("Windows.MainWindow.MainClosingTipTitle"), I18nHelper.I18n._("Windows.MainWindow.MainClosingTipDes"), BalloonIcon.Info);
                 _isFirstNotice = true;
             }
 
@@ -119,7 +120,7 @@ public partial class MainWindow
         NotifyIcon_Main?.Dispose();
         NotifyIcon_Main = null;
 
-        LoggerHelper.Info("关闭主程序成功");
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.MainWindow.MainClosingSuccess"));
     }
 
     /// <summary>
@@ -159,8 +160,8 @@ public partial class MainWindow
     /// </summary>
     private async Task CheckUpdate()
     {
-        LoggerHelper.Info("正在检测新版本中...");
-        NotifierHelper.Notice("正在检测新版本中...");
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.MainWindow.CheckUpdate"));
+        NotifierHelper.Notice(I18nHelper.I18n._("Windows.MainWindow.CheckUpdate"));
 
         // 最多执行4次
         for (int i = 0; i <= 4; i++)
@@ -168,18 +169,18 @@ public partial class MainWindow
             // 当第4次还是失败，终止程序
             if (i > 3)
             {
-                IconHyperlink_Update.Text = $"发现新版本，点击下载更新";
+                IconHyperlink_Update.Text = I18nHelper.I18n._("Windows.MainWindow.NewVersionAvailable");
                 IconHyperlink_Update.Visibility = Visibility.Visible;
 
-                LoggerHelper.Error("检测新版本失败，请检查网络连接");
-                NotifierHelper.Error("检测新版本失败，请检查网络连接");
+                LoggerHelper.Error(I18nHelper.I18n._("Windows.MainWindow.CheckUpdateError"));
+                NotifierHelper.Error(I18nHelper.I18n._("Windows.MainWindow.CheckUpdateError"));
                 return;
             }
 
             // 第1次不提示重试
             if (i > 0)
             {
-                LoggerHelper.Warn($"检测新版本失败，开始第 {i} 次重试中...");
+                LoggerHelper.Warn(I18nHelper.I18n._("Windows.MainWindow.CheckUpdateErrorRetry", i));
             }
 
             var webVersion = await CoreApi.GetWebUpdateVersion();
@@ -187,16 +188,16 @@ public partial class MainWindow
             {
                 if (CoreUtil.VersionInfo >= webVersion)
                 {
-                    LoggerHelper.Info($"恭喜，当前是最新版本 {CoreUtil.VersionInfo}");
-                    NotifierHelper.Info($"恭喜，当前是最新版本 {CoreUtil.VersionInfo}");
+                    LoggerHelper.Info(I18nHelper.I18n._("Windows.MainWindow.CheckUpdateSuccess", CoreUtil.VersionInfo));
+                    NotifierHelper.Info(I18nHelper.I18n._("Windows.MainWindow.CheckUpdateSuccess", CoreUtil.VersionInfo));
                     return;
                 }
 
-                IconHyperlink_Update.Text = $"发现新版本 v{webVersion}，点击下载更新";
+                IconHyperlink_Update.Text = I18nHelper.I18n._("Windows.MainWindow.CheckUpdateSuccess", webVersion);
                 IconHyperlink_Update.Visibility = Visibility.Visible;
 
-                LoggerHelper.Info($"发现最新版本，请前往官网下载最新版本 {webVersion}");
-                NotifierHelper.Warning($"发现最新版本，请前往官网下载最新版本 {webVersion}");
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.MainWindow.CheckUpdateNewVersionAvailableWeb", webVersion));
+                NotifierHelper.Warning(I18nHelper.I18n._("Windows.MainWindow.CheckUpdateNewVersionAvailableWeb", webVersion));
                 return;
             }
         }

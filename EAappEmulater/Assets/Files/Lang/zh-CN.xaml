@@ -1,0 +1,368 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--Windows/MainWindow.xaml-->
+    <sys:String x:Key="Windows.MainWindow.Title">EA App 模拟器</sys:String>
+    <sys:String x:Key="Windows.MainWindow.NewVersionAvailable">发现新版本，点击下载</sys:String>
+    <sys:String x:Key="Windows.MainWindow.ShowMainWindow">显示主窗口</sys:String>
+    <sys:String x:Key="Windows.MainWindow.ChangeAccount">更换账号</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Exit">退出程序</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Account">账户</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Settings">设置</sys:String>
+    <sys:String x:Key="Windows.MainWindow.AlreadyInstall">已安装</sys:String>
+    <sys:String x:Key="Windows.MainWindow.GameLibrary">游戏库</sys:String>
+    <sys:String x:Key="Windows.MainWindow.EaAppView">EA App 界面</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Friends">好友</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Logs">日志</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Update">更新</sys:String>
+    <sys:String x:Key="Windows.MainWindow.About">关于</sys:String>
+
+    
+    <!--Windows/MainWindow.xaml.cs-->
+    <sys:String x:Key="Windows.MainWindow.StartMainProcessSuccessful">启动主程序成功</sys:String>
+    <sys:String x:Key="Windows.MainWindow.TitleWithVersion">EA App 模拟器 v{0}</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingTipTitle">EA App 模拟器 已最小化到托盘</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingTipDes">可通过托盘右键菜单完全退出程序</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingSuccess">关闭主程序成功</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdate">正在检测新版本中...</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateError">检测新版本失败，请检查网络连接</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateErrorRetry">检测新版本失败，开始第 {0} 次重试中...</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateSuccess">恭喜，当前是最新版本 {0}</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateNewVersionAvailable">发现新版本 v{0}，点击下载更新</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateNewVersionAvailableWeb">发现新版本 v{0}，点击下载更新</sys:String>
+
+
+    <!--Windows/LoginWindow.xaml-->
+    <sys:String x:Key="Windows.LoginWindow.Title">EA App 模拟器  登录账号</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.Reload">重新加载登录界面</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.Process">正在加载登录界面...</sys:String>
+
+
+    <!--Windows/LoginWindow.xaml.cs-->
+    <sys:String x:Key="Windows.LoginWindow.InitWebView2">开始初始化 WebView2 ...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.InitWebView2Success">初始化 WebView2 完成...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ClearWebView2Cache">开始清理当前登录账号缓存...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ClearWebView2CacheSuccess">清空 WebView2 缓存成功</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.LoadWebView2LoginView">开始加载 WebView2 登录界面...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ReloadWebView2ViewSuccess">重新加载登录页面成功</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2InitError">WebView2 初始化异常: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.CurrentWebView2Source">当前 WebView2 地址: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2LoginSuccess">玩家登录成功，开始获取 cookies...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2GetCookieError">登录账号成功，获取Cookie失败，请尝试清除WebView2缓存</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.FindCookieFile">发现 cookies 文件，开始遍历中...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.FindCookieCount">Cookie 数量为 {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.RemidGetSuccess">获取 Remid 成功: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.SidGetSuccess">获取 Sid 成功: {0}</sys:String>
+
+
+    <!--Windows/LoadWindow.xaml-->
+    <sys:String x:Key="Windows.LoadWindow.Title">EA App 模拟器  加载程序</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.OpenConfig">打开配置文件</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.VerifyAccount">正在验证玩家账号有效性...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.BackChooseAccount">返回选择账号</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.Exit">退出程序</sys:String>
+
+
+    <!--Windows/LoadWindow.xaml.cs-->
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidity">正在检测玩家 Cookie 有效性...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityError">检测玩家 Cookie 有效性失败，程序终止，请检查网络连接</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityErrorRetry">检测玩家 Cookie 有效性失败，开始第 {0} 次重试中...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValiditySuccess">检测玩家 Cookie 有效性成功, 玩家 Cookie 有效</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityErrorStop">玩家 Cookie 无效，程序终止，请手动更新 Cookie</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.InitGameInfo">开始初始化游戏信息...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CloseServiceProcess">正在释放资源服务进程文件...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryInfo">正在获取注册表游戏信息...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfo">开始获取《{0}》注册表游戏信息...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoSuccess">从 Regedit 获取《{0}》注册表游戏信息成功</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistry2GameInfoSuccess">从 Regedit2 获取《{0}》注册表游戏信息成功</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoNotFound">未获取到《{0}》注册表游戏信息</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenProcess">正在刷新 BaseToken 数据...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenErrorNetwork">刷新 BaseToken 数据失败，程序终止，请检查网络连接</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenRetry">刷新 BaseToken 数据失败，开始第 {0} 次重试中...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenSuccess">刷新 BaseToken 数据成功</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoProcess">正在获取玩家账号信息...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoErrorNetwork">获取玩家账号信息失败，程序终止，请检查网络连接</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoRetry">获取玩家账号信息失败，开始第 {0} 次重试中...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoSuccess">获取玩家账号信息成功</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.StartMainProcess">初始化完成，开始启动主程序...</sys:String>
+
+
+    <!--Windows/AccountWindow.xaml-->
+    <sys:String x:Key="Windows.AccountWindow.Title">EA App 模拟器  账号选择</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.OpenConfig">打开配置文件</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.LoginAccount">登录选中账号</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.GetCookie">获取Cookie</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ChangeAccount">更换新账号</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ShowRemid">显示选中账号Remid信息</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ShowSid">显示选中账号Sid信息</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.SwitchLang">English</sys:String>
+
+
+    <!--Windows/Dialog/AdvancedWindow.xaml-->
+    <sys:String x:Key="Windows.AdvancedWindow.Title">EA App 模拟器  游戏选择</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Registry">注册表</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Path">游戏安装位置</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.ShowPath">显示注册表游戏安装目录位置</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.StartParameters">启动参数</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.StartParametersExample">输入游戏高级启动参数，比如：-PerfOverlay.DrawFps 1</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Custom">自定义</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Browse">浏览</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.BrowseTip">请选择游戏安装目录主程序exe文件位置</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.EnableCustom">启用自定义</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Save">保存</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Cancel">取消</sys:String>
+
+
+    <!--Windows/Dialog/AdvancedWindow.xaml.cs-->
+    <sys:String x:Key="Windows.AdvancedWindow.FileDialogTitle">请选择当前游戏主程序exe文件路径</sys:String>
+
+
+    <!--Views/SettingView.xaml-->
+    <sys:String x:Key="Views.SettingView.SystemInfo">系统信息</sys:String>
+    <sys:String x:Key="Views.SettingView.VersionInfo">程序版本</sys:String>
+    <sys:String x:Key="Views.SettingView.UserName">用户名称</sys:String>
+    <sys:String x:Key="Views.SettingView.MachineName">电脑名称</sys:String>
+    <sys:String x:Key="Views.SettingView.OsVersion">系统版本</sys:String>
+    <sys:String x:Key="Views.SettingView.SystemDirectory">系统目录</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeVersion">运行库平台</sys:String>
+    <sys:String x:Key="Views.SettingView.OSArchitecture">运行库版本</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeIdentifier">运行库环境</sys:String>
+    <sys:String x:Key="Views.SettingView.Tools">常用工具</sys:String>
+    <sys:String x:Key="Views.SettingView.OpenConfigFolder">打开配置目录</sys:String>
+    <sys:String x:Key="Views.SettingView.ChangeLanguage">English</sys:String>
+
+
+    <!--Views/LogView.xaml-->
+    <sys:String x:Key="Views.LogView.Time">时间</sys:String>
+    <sys:String x:Key="Views.LogView.Level">等级</sys:String>
+    <sys:String x:Key="Views.LogView.Info">日志</sys:String>
+
+
+    <!--Views/AccountView.xaml-->
+    <sys:String x:Key="Views.AccountView.ChangeAccount">更换登录账号</sys:String>
+
+
+    <!--Views/AboutView.xaml-->
+    <sys:String x:Key="Views.AboutView.Title">EA App 模拟器</sys:String>
+    <sys:String x:Key="Views.AboutView.CoreAlgorithm">核心算法: Misaka_Mikoto_01</sys:String>
+    <sys:String x:Key="Views.AboutView.Design">程序设计: CrazyZhang666  B1397KB</sys:String>
+    <sys:String x:Key="Views.AboutView.Declare">本程序仅供学习研究使用</sys:String>
+
+
+    <!--Views/FriendView.xaml.cs-->
+    <sys:String x:Key="Views.FriendView.GetFriendsProcess">正在获取当前账号好友列表中...</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsErrorNetwork">获取当前账号好友列表失败，请检查网络连接</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsRetry">获取当前账号好友列表，开始第 {0} 次重试中...</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsSuccess">获取当前账号好友列表成功, 当前账号好友数量为 {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsError">获取当前账号好友列表发生异常: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatar">准备获取好友头像</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarError">获取好友头像失败</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorUserId">无法解析 userId: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorKvp">无法解析 kvp.Key: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorNotFound">没有找到好友 {0} 的头像</sys:String>
+    <sys:String x:Key="Views.FriendView.DownloadAvatarError">下载玩家头像失败 {0}</sys:String>
+
+    
+    <!--Modal/GameMenu.xaml-->
+    <sys:String x:Key="Modal.GameMenu.StartGame">启动游戏</sys:String>
+    <sys:String x:Key="Modal.GameMenu.SetGameArgs">高级设置</sys:String>
+    
+
+    <!--Utils/CoreUtil.cs-->
+    <sys:String x:Key="Utils.CoreUtil.CloseServiceProcess">准备关闭服务进程</sys:String>
+    <sys:String x:Key="Utils.CoreUtil.CheckWebView2EnvInfo">WebView2 Runtime 版本信息 {0}</sys:String>
+    <sys:String x:Key="Utils.CoreUtil.CheckWebView2EnvError">WebView2 Runtime 环境异常 {0}</sys:String>
+
+
+    <!--Helper/FileHelper.cs-->
+    <sys:String x:Key="Helper.FileHelper.ClearDirectorySuccess">清空文件夹成功 {0}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ClearDirectoryError">清空文件夹异常 {0} {1}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ExtractResFileSuccess">释放资源文件成功 {0}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ExtractResFileError">释放资源文件异常 {0} {1}</sys:String>
+
+    
+    <!--Helper/JsonHelper.cs-->
+    <sys:String x:Key="Helper.JsonHelper.JsonDeserializeError">反序列化发生异常 {0}</sys:String>
+    <sys:String x:Key="Helper.JsonHelper.JsonSerializeError">序列化发生异常 {0}</sys:String>
+
+
+    <!--Helper/MsgBoxHelper.cs-->
+    <sys:String x:Key="Helper.MsgBoxHelper.ExceptionInfo">发生了未知的异常，查看异常提示以获取更多信息&#x0a;&#x0a;异常信息 : &#x0a;{0}</sys:String>
+
+    
+    <!--Helper/ProcessHelper.cs-->
+    <sys:String x:Key="Helper.ProcessHelper.OpenLinkFormatError">链接不是http格式 {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenLinkError">打开http链接异常 {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenDirectoryFormatError">文件夹路径不存在 {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenDirectoryError">打开文件夹异常 {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessFormatError">程序路径不存在 {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessSuccess">启动程序成功 {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessError">启动程序异常 {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessSuccess">关闭进程成功 {0}.exe</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessErrorNotFound">未找到进程信息 {0}.exe</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessError">关闭进程异常 {0} {1}</sys:String>
+
+
+    <!--Helper/RegistryHelper.cs-->
+    <sys:String x:Key="Helper.RegistryHelper.GetRegistryTargetVauleError">读取注册表异常 {0} {1} {2}</sys:String>
+    <sys:String x:Key="Helper.RegistryHelper.SetRegistryTargetVaule">写入注册表异常 {0} {1} {2} {3}</sys:String>
+
+
+    <!--Core/Ready.cs-->
+    <sys:String x:Key="Core.Ready.StartProcess">正在启动服务进程...</sys:String>
+    <sys:String x:Key="Core.Ready.StartLSXListen">正在启动 LSX 监听服务...</sys:String>
+    <sys:String x:Key="Core.Ready.StartBattlelogListen">正在启动 Battlelog 监听服务...</sys:String>
+    <sys:String x:Key="Core.Ready.StartUpdateToken">正在启动 定时刷新 BaseToken 服务...</sys:String>
+    <sys:String x:Key="Core.Ready.StartUpdateTokenSuccess">启动 定时刷新 BaseToken 服务成功</sys:String>
+    <sys:String x:Key="Core.Ready.StopLSXListen">正在关闭 LSX 监听服务...</sys:String>
+    <sys:String x:Key="Core.Ready.StopBattlelogListen">正在关闭 Battlelog 监听服务...</sys:String>
+    <sys:String x:Key="Core.Ready.StopUpdateToken">正在关闭 定时刷新 BaseToken 服务...</sys:String>
+    <sys:String x:Key="Core.Ready.StopUpdateTokenSuccess">关闭 定时刷新 BaseToken 服务成功</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenErrorNetwork">定时刷新 BaseToken 数据失败，请检查网络连接</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenErrorRetry">定时刷新 BaseToken 数据失败，开始第 {0} 次重试中...</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenSuccess">定时刷新 BaseToken 数据成功</sys:String>
+    <sys:String x:Key="Core.Ready.RefreshTokenError">刷新 Token 失败</sys:String>
+    <sys:String x:Key="Core.Ready.RefreshTokenSuccess">刷新 Token 成功</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoProcess">正在获取当前登录玩家信息...</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoError">获取当前登录玩家信息失败</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoSuccess">获取当前登录玩家信息成功</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoErrorNotFound">没有找到 namespaceName 为 cem_ea_id 的 persona</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoPlayerName">玩家名称 {0}</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoPersonaId">玩家PId {0}</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoUserId">玩家UserId {0}</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarProcess">正在获取当前登录玩家头像中...</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarErrorNetwork">获取当前登录玩家头像失败，请检查网络连接</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarErrorRetry">获取当前登录玩家头像，开始第 {0} 次重试中...</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdProcess">正在获取当前登录玩家头像Id中...</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdError">获取当前登录玩家头像Id失败</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdSuccess">获取当前登录玩家头像Id成功</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserId">玩家 AvatarId {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarSkip">发现本地玩家头像图片缓存，跳过网络下载操作 {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarError">下载当前登录玩家头像失败 {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarSuccess">下载当前登录玩家头像成功</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatar">玩家 Avatar {0}</sys:String>
+
+
+    <!--Core/PipeServer.cs-->
+    <sys:String x:Key="Core.PipeServer.Status">{0} 线程状态 {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.ListenSuccess">{0} 启动 Pipe 监听服务成功</sys:String>
+    <sys:String x:Key="Core.PipeServer.StopListenSuccess">{0} 停止 Pipe 监听服务成功</sys:String>
+    <sys:String x:Key="Core.PipeServer.ConnErrorTimeOut">{0} 处理 Pipe 客户端连接发生超时异常 {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.GameStatus">{0} Pipe 当前游戏状态 {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.ConnError">{0} 处理 Pipe 客户端连接发生异常 {1}</sys:String>
+
+
+    <!--Core/LSXTcpServer.cs-->
+    <sys:String x:Key="Core.LSXTcpServer.AlreadyStart">LSX 监听服务已经在运行，请勿重复启动</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ListenSuccess">启动 LSX 监听服务成功, LSX 服务监听端口为 3216</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.StopListenSuccess">停止 LSX 监听服务成功</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.FindClientConn">发现 TCP 客户端连接 {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.CurrentType">当前 BattlelogType {1}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ChallengeRes">本次启动 Challenge Response 为 {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ContentId">本次启动 ContentId 为 {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.StartGamePrepare">准备启动游戏中...</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ChallengeResError">Challenge Response 致命错误!</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.NewChallengeRes">处理解密 Challenge 响应 NewResponse {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.NewChallengeSeedRes">处理解密 Challenge 响应 Seed {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.CurrentLsxRes">当前 {0} LSX 回复 {1}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenErrorTimeout">处理 TCP Battlelog 客户端连接发生超时异常 {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenError">处理 TCP 客户端连接发生异常 {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenEnd">TCP 客户端连接处理结束 {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ReadTcpStringError">异步读取 TCP 字符串时发生异常 {0}</sys:String>
+
+
+    <!--Core/Game.cs-->
+    <sys:String x:Key="Core.Game.StartGameErrorDir">{0} 游戏路径为空，启动游戏终止 {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorExe">{0} 游戏主程序文件不存在，启动游戏终止 {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorToken">{0} EA Token 为空，启动游戏终止</sys:String>
+    <sys:String x:Key="Core.Game.StartGameProcess">{0} 正在启动游戏中...</sys:String>
+    <sys:String x:Key="Core.Game.StartGameSuccess">启动游戏 {0} 成功</sys:String>
+    <sys:String x:Key="Core.Game.StartGameError">启动游戏发生异常 {0} {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorNotice">启动游戏发生异常 {0} 详情请看日志</sys:String>
+
+    
+    <!--Core/BattlelogHttpServer.cs-->
+    <sys:String x:Key="Core.BattlelogHttpServer.AlreadyListen">Battlelog 监听服务已经在运行，请勿重复启动</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ListenSuccess">启动 Battlelog 监听服务成功</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ListenSuccessDebug">Battlelog 服务监听端口为 3215 和 4219</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StopListenSuccess">停止 Battlelog 监听服务成功</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.GetUrlDebug">Battlelog 处理 GET 请求 Url {0}</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get50182">Battlelog 获取 战地3 安装状态</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get2f4c24">Battlelog 获取状态</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get181931">Battlelog 获取 荣誉勋章战士 安装状态</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get76889">Battlelog 获取 战地4 安装状态</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get182288">Battlelog 获取 战地硬仗 安装状态</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.PostUrlDebug">Battlelog 处理 POST 请求 Url {0}</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.PingBack">Battlelog 返回 Ping 信息</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBF3">Battlelog 准备启动 战地3</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBF4">Battlelog 准备启动 战地4</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBFHD">Battlelog 准备启动 战地硬仗</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ClientError">处理 Battlelog 客户端连接发生异常{0}</sys:String>
+
+
+    <!--Api/EasyEaApi.cs-->
+    <sys:String x:Key="Api.EasyEaApi.FindLocalAvatarSkipDownload">发现本地玩家头像图片缓存，跳过网络下载操作 {0}</sys:String>
+    <sys:String x:Key="Api.EasyEaApi.DownloadAvatarError">下载当前登录玩家头像失败 {0}</sys:String>
+
+
+    <!--Api/EaApi.cs-->
+    <sys:String x:Key="Api.EaApi.UpdateCookieCount">{0} Cookie 数量为 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.UpdateCookieGetRemid">{0} 获取 Remid 成功 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.UpdateCookieGetSid">{0} 获取 Sid 成功 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundRemidOrSid">Remid 或 Sid 为空，{0} 请求终止</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqStatus">{0} 请求结束，状态 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqStatusCode">{0} 请求结束，状态码 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorTimeout">{0} 请求超时</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqErrorExpiredCookie">{0} 请求失败，Cookie 已失效，返回结果 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqSuccess">{0} 获取 AccessToken 成功 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqError">{0} 请求失败，返回结果 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqErrorEx">{0} 请求异常 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundToken">EA Token 为空，{0} 请求终止</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundUserId">UserId列表为空，{0} 请求终止</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqErrorEmpty">{0} 请求失败，响应内容为空</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXLicenseSuccess">{0} 获取 License 成功 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXLicenseError">{0} 获取 License 失败</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXAutuCodeLocation">{0} 获取 location 为 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXAutuCodeSuccess">{0} 获取 AuthCode 成功 {1}</sys:String>
+
+
+    <!--Api/CoreApi.cs-->
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionStatus">GetWebUpdateVersion 请求结束，状态 {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionStatusCode">GetWebUpdateVersion 请求结束，状态码 {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionTimeout">GetWebUpdateVersion 请求超时</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionSuccess">获取服务器更新版本号成功 {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionError">获取服务器更新版本号失败 {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionErrorEx">获取服务器更新版本号发生异常 {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.DownloadWebImageError">下载网络图片失败 {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.DownloadWebImageErrorEx">下载网络图片发生异常 {0} {1}</sys:String>
+
+
+    <!--Globals.cs-->
+    <sys:String x:Key="Globals.ReadConfig">开始读取全局配置文件...</sys:String>
+    <sys:String x:Key="Globals.CurrentConfigPath">当前读取配置文件路径 {0}</sys:String>
+    <sys:String x:Key="Globals.ReadConfigSuccess">读取配置文件成功 Globals AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.EnumTryParseSuccess">枚举转换成功 AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.EnumTryParseError">枚举转换失败 AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.SetDefaultLanguageSuccess">设置默认语言成功 {0}</sys:String>
+    <sys:String x:Key="Globals.SetDefaultLanguageError">不支持的默认语言, 默认使用系统语言</sys:String>
+    <sys:String x:Key="Globals.ReadGlobalConfigSuccess">读取全局配置文件成功</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigProcess">开始保存全局配置文件...</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigPath">当前保存配置文件路径 {0}</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigSuccess">保存全局配置文件成功</sys:String>
+
+    
+    <!--App.xaml.cs-->
+    <sys:String x:Key="App.Welcome">欢迎使用 {0} 程序</sys:String>
+    <sys:String x:Key="App.DuplicateWarn">请不要重复打开，程序已经运行</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheck">正在进行 WebView2 环境检测中...</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheckNotFound">未发现 WebView2 运行环境，请前往微软官网下载安装&#x0a;https://go.microsoft.com/fwlink/p/?LinkId=2124703</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheckSuccess">当前系统 WebView2 环境正常</sys:String>
+    <sys:String x:Key="App.TCPPortCheck">正在进行 TCP端口 可用性检测...</sys:String>
+    <sys:String x:Key="App.TCPPortCheckErrorTitle">初始化错误</sys:String>
+    <sys:String x:Key="App.TCPPortCheck3216">检测到 TCP端口 3216 被占用，请解除端口占用&#x0a;一般情况下只需要关闭 Origin 和 EaApp 程序即可</sys:String>
+    <sys:String x:Key="App.TCPPortCheck3215">检测到 TCP端口 3215 被占用，请解除端口占用&#x0a;一般情况下只需要关闭 Origin 和 EaApp 程序即可</sys:String>
+    <sys:String x:Key="App.TCPPortCheck4219">检测到 TCP端口 4219 被占用，请解除端口占用&#x0a;一般情况下只需要关闭 Origin 和 EaApp 程序即可</sys:String>
+    <sys:String x:Key="App.TCPPortCheckSuccess">当前系统 TCP端口 检测正常</sys:String>
+    <sys:String x:Key="App.TaskEx">Task线程捕获到未经处理的异常</sys:String>
+
+</ResourceDictionary>

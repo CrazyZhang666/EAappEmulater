@@ -24,7 +24,13 @@ public partial class AdvancedWindow
 
         _gameInfo = Base.GameInfoDb[gameType];
 
-        AdvancedModel.Name = _gameInfo.Name;
+        if (Globals.Language == "zh-CN")
+        {
+            AdvancedModel.Name = _gameInfo.Name;
+        } else
+        {
+            AdvancedModel.Name = _gameInfo.Name2;
+        }
         AdvancedModel.Name2 = _gameInfo.Name2;
         AdvancedModel.Image = _gameInfo.Image;
 
@@ -78,7 +84,7 @@ public partial class AdvancedWindow
     {
         var dialog = new OpenFileDialog
         {
-            Title = "请选择当前游戏主程序exe文件路径",
+            Title = I18nHelper.I18n._("Windows.AdvancedWindow.FileDialogTitle"),
             FileName = _gameInfo.AppName,
             DefaultExt = ".exe",
             Filter = "可执行文件 (.exe)|*.exe",

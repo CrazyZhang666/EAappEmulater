@@ -22,7 +22,25 @@ public partial class App : Application
     /// </summary>
     protected override void OnStartup(StartupEventArgs e)
     {
-        LoggerHelper.Info($"欢迎使用 {AppName} 程序");
+
+        if (!string.IsNullOrWhiteSpace(Globals.DefaultLanguage))
+        {
+            SetLanguage(Globals.DefaultLanguage);
+        }
+        else
+        {
+            var systemLanguage = CultureInfo.CurrentUICulture.Name;
+            if (systemLanguage.StartsWith("zh", StringComparison.OrdinalIgnoreCase))
+            {
+                SetLanguage("zh-CN");
+            }
+            else
+            {
+                SetLanguage("en-US");
+            }
+        }
+
+        LoggerHelper.Info(I18nHelper.I18n._("App.Welcome", AppName));
 
         // 注册异常捕获
         RegisterEvents();
@@ -34,57 +52,57 @@ public partial class App : Application
         AppMainMutex = new Mutex(true, AppName, out var createdNew);
         if (!createdNew)
         {
-            LoggerHelper.Warn("请不要重复打开，程序已经运行");
-            MsgBoxHelper.Warning($"请不要重复打开，程序已经运行\n如果一直提示，请到\"任务管理器-详细信息（win7为进程）\"里\n强制结束 \"{AppName}.exe\" 程序");
+            LoggerHelper.Warn(I18nHelper.I18n._("App.DuplicateWarn"));
+            MsgBoxHelper.Warning(I18nHelper.I18n._("App.DuplicateWarn"));
             Current.Shutdown();
             return;
         }
 
         //////////////////////////////////////////////////////
 
-        LoggerHelper.Info("正在进行 WebVieww2 环境检测中...");
+        LoggerHelper.Info(I18nHelper.I18n._("App.WebView2EnvCheck"));
         if (!CoreUtil.CheckWebView2Env())
         {
-            if (MessageBox.Show("未发现 WebView2 运行环境，请前往微软官网下载安装\nhttps://go.microsoft.com/fwlink/p/?LinkId=2124703",
-                "WebView2 环境检测", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+            if (MessageBox.Show(I18nHelper.I18n._("App.WebView2EnvCheckNotFound"),
+                "WebView2 Warn", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
             {
                 ProcessHelper.OpenLink("https://go.microsoft.com/fwlink/p/?LinkId=2124703");
                 Current.Shutdown();
                 return;
             }
         }
-        LoggerHelper.Info($"当前系统 WebVieww2 环境正常");
+        LoggerHelper.Info(I18nHelper.I18n._("App.WebView2EnvCheckSuccess"));
 
-        LoggerHelper.Info("正在进行 TCP端口 可用性检测...");
+        LoggerHelper.Info(I18nHelper.I18n._("App.TCPPortCheck"));
         var ipProperties = IPGlobalProperties.GetIPGlobalProperties();
         var ipEndPoints = ipProperties.GetActiveTcpListeners();
         foreach (var endPoint in ipEndPoints)
         {
             if (endPoint.Port == 3216)
             {
-                LoggerHelper.Error("检测到 TCP端口 3216 被占用，请解除端口占用");
-                MsgBoxHelper.Error("检测到 TCP端口 3216 被占用，请解除端口占用\n一般情况下只需要关闭 Origin 和 EaApp 程序即可", "初始化错误");
+                LoggerHelper.Error(I18nHelper.I18n._("App.TCPPortCheck3216"));
+                MsgBoxHelper.Error(I18nHelper.I18n._("App.TCPPortCheck3216"), I18nHelper.I18n._("App.TCPPortCheckErrorTitle"));
                 Current.Shutdown();
                 return;
             }
 
             if (endPoint.Port == 3215)
             {
-                LoggerHelper.Error("检测到 TCP端口 3215 被占用，请解除端口占用");
-                MsgBoxHelper.Error("检测到 TCP端口 3215 被占用，请解除端口占用\n一般情况下只需要关闭 Origin 和 EaApp 程序即可", "初始化错误");
+                LoggerHelper.Error(I18nHelper.I18n._("App.TCPPortCheck3215"));
+                MsgBoxHelper.Error(I18nHelper.I18n._("App.TCPPortCheck3215"), I18nHelper.I18n._("App.TCPPortCheckErrorTitle"));
                 Current.Shutdown();
                 return;
             }
 
             if (endPoint.Port == 4219)
             {
-                LoggerHelper.Error("检测到 TCP端口 4219 被占用，请解除端口占用");
-                MsgBoxHelper.Error("检测到 TCP端口 4219 被占用，请解除端口占用\n一般情况下只需要关闭 Origin 和 EaApp 程序即可", "初始化错误");
+                LoggerHelper.Error(I18nHelper.I18n._("App.TCPPortCheck4219"));
+                MsgBoxHelper.Error(I18nHelper.I18n._("App.TCPPortCheck4219"), I18nHelper.I18n._("App.TCPPortCheckErrorTitle"));
                 Current.Shutdown();
                 return;
             }
         }
-        LoggerHelper.Info("当前系统 TCP端口 检测正常");
+        LoggerHelper.Info(I18nHelper.I18n._("App.TCPPortCheckSuccess"));
 
         //////////////////////////////////////////////////////
 
@@ -128,7 +146,7 @@ public partial class App : Application
         // 目前无法解决这个异常，所以停止生成对应崩溃日志
         if (e.Exception.Message.Equals("A Task's exception(s) were not observed either by Waiting on the Task or accessing its Exception property. As a result, the unobserved exception was rethrown by the finalizer thread. (由于线程退出或应用程序请求，已中止 I/O 操作。)"))
         {
-            LoggerHelper.Error("Task线程捕获到未经处理的异常", e.Exception);
+            LoggerHelper.Error(I18nHelper.I18n._("App.TaskEx", e.Exception));
             return;
         }
 
@@ -179,5 +197,21 @@ public partial class App : Application
             File.WriteAllText(path, log);
         }
         catch { }
+    }
+
+    public static void SetLanguage(string lang)
+    {
+        string dictPath = $"Assets/Files/Lang/{lang}.xaml";
+        var dict = new ResourceDictionary() { Source = new Uri(dictPath, UriKind.Relative) };
+
+        // 清理旧的语言资源
+        var oldDict = Current.Resources.MergedDictionaries
+            .FirstOrDefault(d => d.Source != null && d.Source.OriginalString.StartsWith("Assets/Files/Lang"));
+
+        if (oldDict != null)
+            Current.Resources.MergedDictionaries.Remove(oldDict);
+
+        Current.Resources.MergedDictionaries.Add(dict);
+        Globals.Language = lang;
     }
 }

@@ -658,147 +658,147 @@ public static class Base
         GameLocaleDb["NULL"] = new()
         {
             Code = "NULL",
-            Name = "未知语言",
+            Name = "Unknown",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/NULL.png"
         };
 
         GameLocaleDb["ar_SA"] = new()
         {
             Code = "ar_SA",
-            Name = "阿拉伯语",
+            Name = "عربي",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/ar_SA.png"
         };
 
         GameLocaleDb["cs_CZ"] = new()
         {
             Code = "cs_CZ",
-            Name = "捷克语",
+            Name = "čeština",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/cs_CZ.png"
         };
 
         GameLocaleDb["da_DK"] = new()
         {
             Code = "da_DK",
-            Name = "丹麦语",
+            Name = "Dansk",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/da_DK.png"
         };
 
         GameLocaleDb["de_DE"] = new()
         {
             Code = "de_DE",
-            Name = "德语",
+            Name = "Deutsch",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/de_DE.png"
         };
 
         GameLocaleDb["en_GB"] = new()
         {
             Code = "en_GB",
-            Name = "英语 - 英国",
+            Name = "English (UK)",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/en_GB.png"
         };
 
         GameLocaleDb["en_US"] = new()
         {
             Code = "en_US",
-            Name = "英语",
+            Name = "English",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/en_US.png"
         };
 
         GameLocaleDb["es_ES"] = new()
         {
             Code = "es_ES",
-            Name = "西班牙语 - 西班牙",
+            Name = "Español (España)",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/es_ES.png"
         };
 
         GameLocaleDb["es_MX"] = new()
         {
             Code = "es_MX",
-            Name = "西班牙语 - 拉丁美洲",
+            Name = "Español (AL)",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/es_MX.png"
         };
 
         GameLocaleDb["fr_FR"] = new()
         {
             Code = "fr_FR",
-            Name = "法语",
+            Name = "Français",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/fr_FR.png"
         };
 
         GameLocaleDb["it_IT"] = new()
         {
             Code = "it_IT",
-            Name = "意大利语",
+            Name = "Italiano",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/it_IT.png"
         };
 
         GameLocaleDb["ja_JP"] = new()
         {
             Code = "ja_JP",
-            Name = "日语",
+            Name = "日本語",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/ja_JP.png"
         };
 
         GameLocaleDb["ko_KR"] = new()
         {
             Code = "ko_KR",
-            Name = "韩语",
+            Name = "한국인",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/ko_KR.png"
         };
 
         GameLocaleDb["nl_NL"] = new()
         {
             Code = "nl_NL",
-            Name = "荷兰语",
+            Name = "Nederlands",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/nl_NL.png"
         };
 
         GameLocaleDb["no_NO"] = new()
         {
             Code = "no_NO",
-            Name = "挪威语",
+            Name = "Norsk",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/no_NO.png"
         };
 
         GameLocaleDb["pl_PL"] = new()
         {
             Code = "pl_PL",
-            Name = "波兰语",
+            Name = "Polski",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/pl_PL.png"
         };
 
         GameLocaleDb["pt_BR"] = new()
         {
             Code = "pt_BR",
-            Name = "葡萄牙语 - 巴西",
+            Name = "Português (Brasil)",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/pt_BR.png"
         };
 
         GameLocaleDb["pt_PT"] = new()
         {
             Code = "pt_PT",
-            Name = "葡萄牙语",
+            Name = "Português",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/pt_PT.png"
         };
 
         GameLocaleDb["ru_RU"] = new()
         {
             Code = "ru_RU",
-            Name = "俄语",
+            Name = "Русский",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/ru_RU.png"
         };
 
         GameLocaleDb["sv_SE"] = new()
         {
             Code = "sv_SE",
-            Name = "瑞典语",
+            Name = "Svenska",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/sv_SE.png"
         };
 
         GameLocaleDb["tr_TR"] = new()
         {
             Code = "tr_TR",
-            Name = "土耳其语",
+            Name = "Türkçe",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/tr_TR.png"
         };
 
@@ -812,14 +812,14 @@ public static class Base
         GameLocaleDb["zh_HK"] = new()
         {
             Code = "zh_HK",
-            Name = "繁体中文",
+            Name = "繁體中文 (香港)",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/zh_HK.png"
         };
 
         GameLocaleDb["zh_TW"] = new()
         {
             Code = "zh_TW",
-            Name = "繁体中文",
+            Name = "繁體中文 (台灣)",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Regions/zh_TW.png"
         };
     }

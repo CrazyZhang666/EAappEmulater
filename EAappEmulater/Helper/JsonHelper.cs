@@ -38,7 +38,7 @@ public static class JsonHelper
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error("反序列化发生异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Helper.JsonHelper.JsonDeserializeError", ex));
             return default;
         }
     }
@@ -57,7 +57,7 @@ public static class JsonHelper
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error("序列化发生异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Helper.JsonHelper.JsonSerializeError", ex));
             return default;
         }
     }

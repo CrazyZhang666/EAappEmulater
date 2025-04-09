@@ -10,6 +10,8 @@
             <!--  资源字典  -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/ModernWpf;component/Themes/Generic.xaml" />
+                <!-- 默认语言 -->
+                <ResourceDictionary Source="Assets\Files\Lang\zh-CN.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

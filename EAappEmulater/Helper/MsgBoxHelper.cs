@@ -5,7 +5,7 @@ public static class MsgBoxHelper
     /// <summary>
     /// 通用信息弹窗，Information
     /// </summary>
-    public static void Information(string content, string title = "提示")
+    public static void Information(string content, string title = "提示 Information")
     {
         MessageBox.Show(content, title, MessageBoxButton.OK, MessageBoxImage.Information);
     }
@@ -13,7 +13,7 @@ public static class MsgBoxHelper
     /// <summary>
     /// 通用警告弹窗，Warning
     /// </summary>
-    public static void Warning(string content, string title = "警告")
+    public static void Warning(string content, string title = "警告 Warning")
     {
         MessageBox.Show(content, title, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
@@ -21,7 +21,7 @@ public static class MsgBoxHelper
     /// <summary>
     /// 通用错误弹窗，Error
     /// </summary>
-    public static void Error(string content, string title = "错误")
+    public static void Error(string content, string title = "错误 Error")
     {
         MessageBox.Show(content, title, MessageBoxButton.OK, MessageBoxImage.Error);
     }
@@ -29,9 +29,9 @@ public static class MsgBoxHelper
     /// <summary>
     /// 通用异常弹窗，Exception
     /// </summary>
-    public static void Exception(Exception ex, string title = "异常")
+    public static void Exception(Exception ex, string title = "异常 Exception")
     {
-        MessageBox.Show("发生了未知的异常，查看异常提示以获取更多信息\n\n异常信息 : \n" + ex.Message,
+        MessageBox.Show(I18nHelper.I18n._("Helper.MsgBoxHelper.ExceptionInfo", ex.Message),
             title, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }

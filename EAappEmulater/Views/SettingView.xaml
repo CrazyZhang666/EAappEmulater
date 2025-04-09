@@ -23,30 +23,34 @@
             BorderThickness="1"
             SnapsToDevicePixels="True">
             <StackPanel>
-                <ui:IconHeader Title="系统信息" />
+                <ui:IconHeader Title="{DynamicResource Views.SettingView.SystemInfo}" />
                 <StackPanel>
-                    <ui:FormLabel x:Name="FormLabel_VersionInfo" Title="程序版本" />
+                    <ui:FormLabel x:Name="FormLabel_VersionInfo" Title="{DynamicResource Views.SettingView.VersionInfo}" />
 
                     <Label />
-                    <ui:FormLabel x:Name="FormLabel_UserName" Title="用户名称" />
-                    <ui:FormLabel x:Name="FormLabel_MachineName" Title="电脑名称" />
-                    <ui:FormLabel x:Name="FormLabel_OSVersion" Title="系统版本" />
-                    <ui:FormLabel x:Name="FormLabel_SystemDirectory" Title="系统目录" />
+                    <ui:FormLabel x:Name="FormLabel_UserName" Title="{DynamicResource Views.SettingView.UserName}" />
+                    <ui:FormLabel x:Name="FormLabel_MachineName" Title="{DynamicResource Views.SettingView.MachineName}" />
+                    <ui:FormLabel x:Name="FormLabel_OSVersion" Title="{DynamicResource Views.SettingView.OsVersion}" />
+                    <ui:FormLabel x:Name="FormLabel_SystemDirectory" Title="{DynamicResource Views.SettingView.SystemDirectory}" />
 
                     <Label />
-                    <ui:FormLabel x:Name="FormLabel_RuntimeVersion" Title="运行库平台" />
-                    <ui:FormLabel x:Name="FormLabel_OSArchitecture" Title="运行库版本" />
-                    <ui:FormLabel x:Name="FormLabel_RuntimeIdentifier" Title="运行库环境" />
+                    <ui:FormLabel x:Name="FormLabel_RuntimeVersion" Title="{DynamicResource Views.SettingView.RuntimeVersion}" />
+                    <ui:FormLabel x:Name="FormLabel_OSArchitecture" Title="{DynamicResource Views.SettingView.OSArchitecture}" />
+                    <ui:FormLabel x:Name="FormLabel_RuntimeIdentifier" Title="{DynamicResource Views.SettingView.RuntimeIdentifier}" />
 
                     <Label />
                 </StackPanel>
 
-                <ui:IconHeader Title="常用工具" />
+                <ui:IconHeader Title="{DynamicResource Views.SettingView.Tools}" />
                 <WrapPanel>
                     <ui:IconButton
                         Command="{Binding OpenConfigFolderCommand}"
-                        Content="打开配置目录"
+                        Content="{DynamicResource Views.SettingView.OpenConfigFolder}"
                         Icon="&#xEC25;" />
+                    <ui:IconButton
+                        Command="{Binding ChangeLanguageCommand}"
+                        Content="{DynamicResource Views.SettingView.ChangeLanguage}"
+                        Icon="&#xE774;" />
                 </WrapPanel>
             </StackPanel>
         </Border>

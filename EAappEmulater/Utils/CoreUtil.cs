@@ -1,6 +1,7 @@
 ﻿using EAappEmulater.Enums;
 using EAappEmulater.Helper;
 using Microsoft.Web.WebView2.Core;
+using System;
 
 namespace EAappEmulater.Utils;
 
@@ -93,10 +94,9 @@ public static class CoreUtil
     /// </summary>
     public static void CloseServiceProcess()
     {
-        LoggerHelper.Info("准备关闭服务进程");
+        LoggerHelper.Info(I18nHelper.I18n._("Utils.CoreUtil.CloseServiceProcess"));
         ProcessHelper.CloseProcess("OriginDebug");
         ProcessHelper.CloseProcess("Origin");
-
         ProcessHelper.CloseProcess("BF1ModTools");
     }
 
@@ -108,12 +108,12 @@ public static class CoreUtil
         try
         {
             var version = CoreWebView2Environment.GetAvailableBrowserVersionString();
-            LoggerHelper.Info($"WebView2 Runtime 版本信息 {version}");
+            LoggerHelper.Info(I18nHelper.I18n._("Utils.CoreUtil.CheckWebView2EnvInfo", version));
             return !string.IsNullOrWhiteSpace(version);
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error("WebView2 Runtime 环境异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Utils.CoreUtil.CheckWebView2EnvError", ex));
             return false;
         }
     }

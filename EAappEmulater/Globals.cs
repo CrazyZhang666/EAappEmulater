@@ -21,6 +21,13 @@ public static class Globals
     public static string FriendsXmlString { get; set; } = string.Empty;
     public static string QueryPresenceString { get; set; } = string.Empty;
 
+    /// <summary>
+    /// 程序主体语言, 默认跟随系统.
+    /// </summary>
+    public static string Language { get; set; } = string.Empty;
+
+    public static string DefaultLanguage { get; set; } = string.Empty;
+
 
     static Globals()
     {
@@ -32,23 +39,36 @@ public static class Globals
     /// </summary>
     public static void Read()
     {
-        LoggerHelper.Info("开始读取全局配置文件...");
+        LoggerHelper.Info(I18nHelper.I18n._("Globals.ReadConfig"));
 
         var slot = IniHelper.ReadString("Globals", "AccountSlot", _configPath);
-        LoggerHelper.Info($"当前读取配置文件路径 {_configPath}");
-        LoggerHelper.Info($"读取配置文件成功 Globals AccountSlot {slot}");
+        var defaultLanguage = IniHelper.ReadString("Globals", "lang", _configPath);
+
+        LoggerHelper.Info(I18nHelper.I18n._("Globals.CurrentConfigPath", _configPath));
+        LoggerHelper.Info(I18nHelper.I18n._("Globals.ReadConfigSuccess", slot));
 
         if (Enum.TryParse(slot, out AccountSlot accountSlot))
         {
             AccountSlot = accountSlot;
-            LoggerHelper.Info($"枚举转换成功 AccountSlot {AccountSlot}");
+            LoggerHelper.Info(I18nHelper.I18n._("Globals.EnumTryParseSuccess", AccountSlot));
         }
         else
         {
-            LoggerHelper.Warn($"枚举转换失败 AccountSlot {slot}");
+            LoggerHelper.Warn(I18nHelper.I18n._("Globals.EnumTryParseError", slot));
         }
 
-        LoggerHelper.Info("读取全局配置文件成功");
+
+        if (defaultLanguage == "zh-CN" || defaultLanguage == "en-US")
+        {
+            DefaultLanguage = defaultLanguage;
+            LoggerHelper.Info(I18nHelper.I18n._("Globals.SetDefaultLanguageSuccess", DefaultLanguage));
+        }
+        else
+        {
+            LoggerHelper.Warn(I18nHelper.I18n._("Globals.SetDefaultLanguageError"));
+        }
+
+        LoggerHelper.Info(I18nHelper.I18n._("Globals.ReadGlobalConfigSuccess"));
     }
 
     /// <summary>
@@ -56,13 +76,11 @@ public static class Globals
     /// </summary>
     public static void Write()
     {
-        LoggerHelper.Info("开始保存全局配置文件...");
+        LoggerHelper.Info(I18nHelper.I18n._("Globals.SaveGlobalConfigProcess"));
 
         IniHelper.WriteString("Globals", "AccountSlot", $"{AccountSlot}", _configPath);
-        LoggerHelper.Info($"当前保存配置文件路径 {_configPath}");
-        LoggerHelper.Info($"保存配置文件成功 Globals AccountSlot {AccountSlot}");
-
-        LoggerHelper.Info("保存全局配置文件成功");
+        LoggerHelper.Info(I18nHelper.I18n._("Globals.SaveGlobalConfigPath", _configPath));
+        LoggerHelper.Info(I18nHelper.I18n._("Globals.SaveGlobalConfigSuccess"));
     }
 
     /// <summary>

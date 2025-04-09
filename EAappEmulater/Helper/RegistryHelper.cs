@@ -21,7 +21,7 @@ public static class RegistryHelper
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"读取注册表异常 {regPath} {keyName}", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Helper.RegistryHelper.GetRegistryTargetVauleError", regPath, keyName, ex));
             return string.Empty;
         }
     }
@@ -44,7 +44,7 @@ public static class RegistryHelper
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"写入注册表异常 {regPath} {keyName} {value}", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Helper.RegistryHelper.SetRegistryTargetVaule", regPath, keyName, value, ex));
         }
     }
 

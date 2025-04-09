@@ -69,7 +69,7 @@ public partial class LoginWindow
     {
         try
         {
-            LoggerHelper.Info("开始初始化 WebView2 ...");
+            LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.InitWebView2"));
 
             var options = new CoreWebView2EnvironmentOptions();
 
@@ -77,7 +77,7 @@ public partial class LoginWindow
             var env = await CoreWebView2Environment.CreateAsync(null, Globals.GetAccountCacheDir(), options);
             await WebView2_Main.EnsureCoreWebView2Async(env);
 
-            LoggerHelper.Info("初始化 WebView2 完成...");
+            LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.InitWebView2Success"));
 
             // 禁止Dev开发工具
             WebView2_Main.CoreWebView2.Settings.AreDevToolsEnabled = false;
@@ -101,12 +101,12 @@ public partial class LoginWindow
             // 用于更换新账号
             if (_isClear)
             {
-                LoggerHelper.Info("开始清理当前登录账号缓存...");
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.ClearWebView2Cache"));
                 await ClearWebView2Cache();
             }
             else
             {
-                LoggerHelper.Info("开始加载 WebView2 登录界面...");
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.LoadWebView2LoginView"));
 
                 // 导航到指定Url
                 WebView2_Main.CoreWebView2.Navigate(_host);
@@ -114,7 +114,7 @@ public partial class LoginWindow
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error($"WebView2 初始化异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Windows.LoginWindow.WebView2InitError", ex));
         }
     }
 
@@ -130,20 +130,20 @@ public partial class LoginWindow
         LoggerHelper.Trace("SourceChanged");
 
         var source = WebView2_Main.Source.ToString();
-        LoggerHelper.Info($"当前 WebView2 地址: {source}");
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.CurrentWebView2Source", source));
         if (!source.Contains("test.pulse.ea.com"))
             return;
 
-        LoggerHelper.Info("玩家登录成功，开始获取 cookies...");
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.WebView2LoginSuccess"));
         var cookies = await WebView2_Main.CoreWebView2.CookieManager.GetCookiesAsync(null);
         if (cookies == null)
         {
-            LoggerHelper.Warn("登录账号成功，获取Cookie失败，请尝试清除WebView2缓存");
+            LoggerHelper.Warn(I18nHelper.I18n._("Windows.LoginWindow.WebView2GetCookieError"));
             return;
         }
 
-        LoggerHelper.Info("发现 cookies 文件，开始遍历中...");
-        LoggerHelper.Info($"Cookie 数量为 {cookies.Count}");
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.FindCookieFile"));
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.FindCookieCount", cookies.Count));
 
         foreach (var item in cookies)
         {
@@ -152,7 +152,7 @@ public partial class LoginWindow
                 if (!string.IsNullOrWhiteSpace(item.Value))
                 {
                     IniHelper.WriteString("Cookie", "Remid", item.Value, Globals.GetAccountIniPath());
-                    LoggerHelper.Info($"获取 Remid 成功: {item.Value}");
+                    LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.RemidGetSuccess", item.Value));
                     continue;
                 }
             }
@@ -162,7 +162,7 @@ public partial class LoginWindow
                 if (!string.IsNullOrWhiteSpace(item.Value))
                 {
                     IniHelper.WriteString("Cookie", "Sid", item.Value, Globals.GetAccountIniPath());
-                    LoggerHelper.Info($"获取 Sid 成功: {item.Value}");
+                    LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.SidGetSuccess", item.Value));
                     continue;
                 }
             }
@@ -199,7 +199,7 @@ public partial class LoginWindow
         WebView2_Main.CoreWebView2.CookieManager.DeleteAllCookies();
         WebView2_Main.CoreWebView2.Navigate(_host);
 
-        LoggerHelper.Info("清空 WebView2 缓存成功");
+        LoggerHelper.Info(I18nHelper.I18n._("ClearWebView2CacheSuccess"));
     }
 
     /// <summary>
@@ -209,7 +209,6 @@ public partial class LoginWindow
     private void ReloadLoginPage()
     {
         WebView2_Main.CoreWebView2.Navigate(_host);
-
-        LoggerHelper.Info("重新加载登录页面成功");
+        LoggerHelper.Info(I18nHelper.I18n._("ReloadWebView2ViewSuccess"));
     }
 }

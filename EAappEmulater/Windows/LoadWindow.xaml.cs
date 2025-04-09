@@ -2,6 +2,7 @@
 using EAappEmulater.Api;
 using EAappEmulater.Core;
 using EAappEmulater.Helper;
+using EAappEmulater.Models;
 using EAappEmulater.Utils;
 using RestSharp;
 
@@ -55,8 +56,8 @@ public partial class LoadWindow
     /// </summary>
     private async Task CheckCookie()
     {
-        DisplayLoadState("正在检测玩家 Cookie 有效性...");
-        LoggerHelper.Info("正在检测玩家 Cookie 有效性...");
+        DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidity"));
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidity"));
 
         // 最多执行4次
         for (int i = 0; i <= 4; i++)
@@ -66,16 +67,16 @@ public partial class LoadWindow
             {
                 Loading_Normal.Visibility = Visibility.Collapsed;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
-                DisplayLoadState("检测玩家 Cookie 有效性失败，程序终止，请检查网络连接");
-                LoggerHelper.Error("检测玩家 Cookie 有效性失败，程序终止，请检查网络连接");
+                DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityError"));
+                LoggerHelper.Error(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityError"));
                 return;
             }
 
             // 第1次不提示重试
             if (i > 0)
             {
-                DisplayLoadState($"检测玩家 Cookie 有效性失败，开始第 {i} 次重试中...");
-                LoggerHelper.Warn($"检测玩家 Cookie 有效性失败，开始第 {i} 次重试中...");
+                DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityErrorRetry", i));
+                LoggerHelper.Warn(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityErrorRetry", i));
             }
 
             var result = await EaApi.GetToken();
@@ -84,9 +85,7 @@ public partial class LoadWindow
             {
                 if (result.IsSuccess)
                 {
-                    LoggerHelper.Info("检测玩家 Cookie 有效性成功");
-                    LoggerHelper.Info("玩家 Cookie 有效");
-
+                    LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValiditySuccess"));
                     // 如果Cookie有效，则开始初始化
                     await InitGameInfo();
 
@@ -96,8 +95,8 @@ public partial class LoadWindow
                 {
                     Loading_Normal.Visibility = Visibility.Collapsed;
                     IconFont_NetworkError.Visibility = Visibility.Visible;
-                    DisplayLoadState("玩家 Cookie 无效，程序终止，请手动更新 Cookie");
-                    LoggerHelper.Error("玩家 Cookie 无效，程序终止，请手动更新 Cookie");
+                    DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityErrorStop"));
+                    LoggerHelper.Error(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityErrorStop"));
                     return;
                 }
             }
@@ -109,30 +108,30 @@ public partial class LoadWindow
     /// </summary>
     private async Task InitGameInfo()
     {
-        LoggerHelper.Info("开始初始化游戏信息...");
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.InitGameInfo"));
 
         // 关闭服务进程
         CoreUtil.CloseServiceProcess();
 
-        DisplayLoadState("正在释放资源服务进程文件...");
-        LoggerHelper.Info("正在释放资源服务进程文件...");
+        DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.CloseServiceProcess"));
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.CloseServiceProcess"));
         FileHelper.ExtractResFile("Exec.OriginDebug.exe", CoreUtil.File_Service_OriginDebug);
 
         /////////////////////////////////////////////////
 
-        DisplayLoadState("正在获取注册表游戏信息...");
-        LoggerHelper.Info("正在获取注册表游戏信息...");
+        DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.GetRegistryInfo"));
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.GetRegistryInfo"));
         // 从注册表获取游戏安装信息
         foreach (var gameInfo in Base.GameInfoDb)
         {
-            LoggerHelper.Info($"开始获取《{gameInfo.Value.Name}》注册表游戏信息...");
+            LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.GetRegistryGameInfo", gameInfo.Value.Name));
 
             var installDir = RegistryHelper.GetRegistryInstallDir(gameInfo.Value.Regedit);
             if (!string.IsNullOrWhiteSpace(installDir))
             {
                 gameInfo.Value.Dir = installDir;
                 gameInfo.Value.IsInstalled = true;
-                LoggerHelper.Info($"从 Regedit 获取《{gameInfo.Value.Name}》注册表游戏信息成功");
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.GetRegistryGameInfoSuccess", gameInfo.Value.Name));
             }
             else
             {
@@ -141,18 +140,18 @@ public partial class LoadWindow
                 {
                     gameInfo.Value.Dir = installDir;
                     gameInfo.Value.IsInstalled = true;
-                    LoggerHelper.Info($"从 Regedit2 获取《{gameInfo.Value.Name}》注册表游戏信息成功");
+                    LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.GetRegistry2GameInfoSuccess", gameInfo.Value.Name));
                 }
             }
 
             if (!gameInfo.Value.IsInstalled)
-                LoggerHelper.Warn($"未获取到《{gameInfo.Value.Name}》注册表游戏信息");
+                LoggerHelper.Warn(I18nHelper.I18n._("Windows.LoadWindow.GetRegistryGameInfoNotFound", gameInfo.Value.Name));
         }
 
         /////////////////////////////////////////////////
 
-        DisplayLoadState("正在刷新 BaseToken 数据...");
-        LoggerHelper.Info("正在刷新 BaseToken 数据...");
+        DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.RefreshBaseTokenProcess"));
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.RefreshBaseTokenProcess"));
 
         // 最多执行4次
         for (int i = 0; i <= 4; i++)
@@ -162,27 +161,27 @@ public partial class LoadWindow
             {
                 Loading_Normal.Visibility = Visibility.Collapsed;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
-                DisplayLoadState("刷新 BaseToken 数据失败，程序终止，请检查网络连接");
-                LoggerHelper.Error("刷新 BaseToken 数据失败，程序终止，请检查网络连接");
+                DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.RefreshBaseTokenErrorNetwork"));
+                LoggerHelper.Error(I18nHelper.I18n._("Windows.LoadWindow.RefreshBaseTokenErrorNetwork"));
                 return;
             }
 
             // 第1次不提示重试
             if (i > 0)
             {
-                DisplayLoadState($"刷新 BaseToken 数据失败，开始第 {i} 次重试中...");
-                LoggerHelper.Warn($"刷新 BaseToken 数据失败，开始第 {i} 次重试中...");
+                DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.RefreshBaseTokenRetry", i));
+                LoggerHelper.Warn(I18nHelper.I18n._("Windows.LoadWindow.RefreshBaseTokenRetry", i));
             }
 
             if (await Ready.RefreshBaseTokens())
             {
-                LoggerHelper.Info("刷新 BaseToken 数据成功");
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.RefreshBaseTokenSuccess"));
                 break;
             }
         }
 
-        DisplayLoadState("正在获取玩家账号信息...");
-        LoggerHelper.Info("正在获取玩家账号信息...");
+        DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.GetLoginAccountInfoProcess"));
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.GetLoginAccountInfoProcess"));
 
         // 最多执行4次
         for (int i = 0; i <= 4; i++)
@@ -192,21 +191,21 @@ public partial class LoadWindow
             {
                 Loading_Normal.Visibility = Visibility.Collapsed;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
-                DisplayLoadState("获取玩家账号信息失败，程序终止，请检查网络连接");
-                LoggerHelper.Error("获取玩家账号信息失败，程序终止，请检查网络连接");
+                DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.GetLoginAccountInfoErrorNetwork"));
+                LoggerHelper.Error(I18nHelper.I18n._("Windows.LoadWindow.GetLoginAccountInfoErrorNetwork"));
                 return;
             }
 
             // 第1次不提示重试
             if (i > 0)
             {
-                DisplayLoadState($"获取玩家账号信息失败，开始第 {i} 次重试中...");
-                LoggerHelper.Info($"获取玩家账号信息失败，开始第 {i} 次重试中...");
+                DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.GetLoginAccountInfoRetry", i));
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.GetLoginAccountInfoRetry", i));
             }
 
             if (await Ready.GetLoginAccountInfo())
             {
-                LoggerHelper.Info("获取玩家账号信息成功");
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.GetLoginAccountInfoSuccess"));
                 break;
             }
         }
@@ -216,8 +215,8 @@ public partial class LoadWindow
         // 保存账号配置文件
         Account.Write();
 
-        DisplayLoadState("初始化完成，开始启动主程序...");
-        LoggerHelper.Info("初始化完成，开始启动主程序...");
+        DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.StartMainProcess"));
+        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.StartMainProcess"));
 
         var mainWindow = new MainWindow();
 

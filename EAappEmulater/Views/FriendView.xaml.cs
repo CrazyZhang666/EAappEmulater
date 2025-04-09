@@ -4,6 +4,9 @@ using EAappEmulater.Core;
 using EAappEmulater.Helper;
 using EAappEmulater.Models;
 using EAappEmulater.Utils;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Linq;
+using System.Reflection;
 
 namespace EAappEmulater.Views;
 
@@ -29,7 +32,7 @@ public partial class FriendView : UserControl
         Globals.FriendsXmlString = string.Empty;
         Globals.QueryPresenceString = string.Empty;
 
-        LoggerHelper.Info("正在获取当前账号好友列表中...");
+        LoggerHelper.Info(I18nHelper.I18n._("Views.FriendView.GetFriendsProcess"));
 
         try
         {
@@ -39,21 +42,20 @@ public partial class FriendView : UserControl
                 // 当第4次还是失败，终止程序
                 if (i > 3)
                 {
-                    LoggerHelper.Error("获取当前账号好友列表失败，请检查网络连接");
+                    LoggerHelper.Error(I18nHelper.I18n._("Views.FriendView.GetFriendsErrorNetwork"));
                     return;
                 }
 
                 // 第1次不提示重试
                 if (i > 0)
                 {
-                    LoggerHelper.Info($"获取当前账号好友列表，开始第 {i} 次重试中...");
+                    LoggerHelper.Info(I18nHelper.I18n._("Views.FriendView.GetFriendsRetry", i));
                 }
 
                 var friends = await EasyEaApi.GetUserFriends();
                 if (friends is not null)
                 {
-                    LoggerHelper.Info("获取当前账号好友列表成功");
-                    LoggerHelper.Info($"当前账号好友数量为 {friends.entries.Count}");
+                    LoggerHelper.Info(I18nHelper.I18n._("Views.FriendView.GetFriendsSuccess", friends.entries.Count));
                     
 
                     foreach (var entry in friends.entries)
@@ -90,7 +92,7 @@ public partial class FriendView : UserControl
                     GenerateXmlString();
                     GenerateXmlStringForQueryPresence();
                     // 获取好友头像
-                    LoggerHelper.Info("准备获取好友头像");
+                    LoggerHelper.Info(I18nHelper.I18n._("Views.FriendView.GetFriendsAvatar"));
                     UpdateFriendsAvatars();
                     break;
                 }
@@ -98,7 +100,7 @@ public partial class FriendView : UserControl
         }
         catch (Exception ex)
         {
-            LoggerHelper.Error("获取当前账号好友列表发生异常", ex);
+            LoggerHelper.Error(I18nHelper.I18n._("Views.FriendView.GetFriendsError", ex));
         }
     }
 
@@ -219,7 +221,7 @@ public partial class FriendView : UserControl
         var avatarResult = await EasyEaApi.GetAvatarByUserIds(userIdList);
         if (avatarResult == null)
         {
-            LoggerHelper.Warn("获取好友头像失败");
+            LoggerHelper.Warn(I18nHelper.I18n._("Views.FriendView.GetFriendsAvatarError"));
             return;
         }
 
@@ -249,12 +251,12 @@ public partial class FriendView : UserControl
                     }
                     else
                     {
-                        LoggerHelper.Warn($"无法解析 userId: {userId}");
+                        LoggerHelper.Warn(I18nHelper.I18n._("Views.FriendView.GetFriendsAvatarErrorUserId", userId));
                     }
                 }
                 else
                 {
-                    LoggerHelper.Warn($"无法解析 kvp.Key: {kvp.Key.Substring(1)}");
+                    LoggerHelper.Warn(I18nHelper.I18n._("Views.FriendView.GetFriendsAvatarErrorKvp", kvp.Key.Substring(1)));
                 }
             }
         }
@@ -275,7 +277,7 @@ public partial class FriendView : UserControl
             {
                 // 没有找到头像信息时，设置为默认值
                 friendInfo.Avatar = "Default";
-                LoggerHelper.Warn($"没有找到好友 {friendInfo.UserId} 的头像");
+                LoggerHelper.Warn(I18nHelper.I18n._("Views.FriendView.GetFriendsAvatarErrorNotFound", friendInfo.UserId));
             }
         }
 
@@ -299,7 +301,7 @@ public partial class FriendView : UserControl
         savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Origin", "AvatarsCache", fileName.Replace("416x416", UserId));
         if (!await CoreApi.DownloadWebImage(AvatarUrl, savePath))
         {
-            LoggerHelper.Warn($"下载玩家头像失败 {AvatarId}");
+            LoggerHelper.Warn(I18nHelper.I18n._("Views.FriendView.DownloadAvatarError", AvatarId));
             return null;
         }
         return savePath;
