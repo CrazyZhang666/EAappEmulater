@@ -9,6 +9,8 @@ EAapp模拟器（EA App Emulater） by `Misaka_Mikoto_01`  `CrazyZhang666`  `B13
 
 https://github.com/CrazyZhang666/EAappEmulater/releases
 
+https://pan.baidu.com/s/1qMwwt4kSFjfHbNBKS-CoIg?pwd=sbea 提取码: sbea 
+
 ## 语言切换
 程序支持动态设置语言, 你可以在设置界面, 点击切换语言按钮
 ![image](https://github.com/user-attachments/assets/cb34ad42-1ce6-4f91-91ad-66d9c1894a1f)
