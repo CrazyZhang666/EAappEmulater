@@ -86,7 +86,7 @@ public static class EaApi
 
             var response = await _client.ExecuteAsync(request);
             LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
-            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.StatusCode));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatusCode", respResult.ApiName, response.StatusCode));
 
             respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;
@@ -101,12 +101,13 @@ public static class EaApi
 
             if (response.Content.Contains("error_code", StringComparison.OrdinalIgnoreCase))
             {
-                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetTokenReqErrorExpiredCookie", respResult.ApiName, response.Content));
+                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetTokenReqErrorExpiredCookie", respResult.ApiName, response.Headers.ToString()));
                 return respResult;
             }
 
             if (response.StatusCode == HttpStatusCode.Redirect)
             {
+
                 // 错误返回 {"error_code":"login_required","error":"login_required","error_number":"102100"}
                 var location = response.Headers.ToList()
                     .Find(x => x.Name.Equals("location", StringComparison.OrdinalIgnoreCase))
@@ -123,10 +124,15 @@ public static class EaApi
 
                 string accessToken = query["access_token"];
                 string expiresStr = query["expires_in"];
+
+                if (string.IsNullOrEmpty(accessToken)) {
+                    LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetTokenReqErrorExpiredCookie", respResult.ApiName, query.ToString()));
+                    return null;
+                }
+
                 Account.AccessToken = accessToken;
                 Account.OriginPCToken = accessToken;
                 LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetTokenReqSuccess", respResult.ApiName, Account.AccessToken));
-
                 respResult.IsSuccess = true;
 
                 UpdateCookie(response.Cookies, respResult.ApiName);
@@ -170,7 +176,7 @@ public static class EaApi
 
             var response = await _client.ExecuteAsync(request);
             LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
-            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.StatusCode));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatusCode", respResult.ApiName, response.StatusCode));
 
             respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;
@@ -298,7 +304,7 @@ public static class EaApi
 
             var response = await _client.ExecuteAsync(request);
             LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
-            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.StatusCode));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatusCode", respResult.ApiName, response.StatusCode));
 
             respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;
@@ -372,7 +378,7 @@ public static class EaApi
 
             var response = await _client.ExecuteAsync(request);
             LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
-            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.StatusCode));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatusCode", respResult.ApiName, response.StatusCode));
 
             respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;
@@ -461,7 +467,7 @@ public static class EaApi
 
             var response = await _client.ExecuteAsync(request);
             LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
-            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.StatusCode));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatusCode", respResult.ApiName, response.StatusCode));
 
             respResult.StatusText = response.ResponseStatus;
             respResult.StatusCode = response.StatusCode;

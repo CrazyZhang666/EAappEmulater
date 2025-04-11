@@ -81,25 +81,23 @@ public partial class LoadWindow
 
             var result = await EaApi.GetToken();
             // 代表请求完成，排除超时情况
-            if (result.StatusCode == HttpStatusCode.Redirect)
+            if (result != null && result.IsSuccess)
             {
-                if (result.IsSuccess)
-                {
-                    LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValiditySuccess"));
-                    // 如果Cookie有效，则开始初始化
-                    await InitGameInfo();
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValiditySuccess"));
+                // 如果Cookie有效，则开始初始化
+                await InitGameInfo();
 
-                    return;
-                }
-                else
-                {
-                    Loading_Normal.Visibility = Visibility.Collapsed;
-                    IconFont_NetworkError.Visibility = Visibility.Visible;
-                    DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityErrorStop"));
-                    LoggerHelper.Error(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityErrorStop"));
-                    return;
-                }
+                return;
             }
+            else
+            {
+                Loading_Normal.Visibility = Visibility.Collapsed;
+                IconFont_NetworkError.Visibility = Visibility.Visible;
+                DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityErrorStop"));
+                LoggerHelper.Error(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityErrorStop"));
+                return;
+            }
+            
         }
     }
 
