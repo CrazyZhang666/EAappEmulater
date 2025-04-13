@@ -102,6 +102,14 @@ public partial class App : Application
                 return;
             }
         }
+        Process currentProcess = Process.GetCurrentProcess();
+        if (currentProcess.ProcessName != "EADesktop") 
+        {
+            LoggerHelper.Error("检测到当前模拟器程序名不为EADesktop.exe，请修改为EADesktop.exe后再启动");
+            MsgBoxHelper.Error("检测到当前模拟器程序名不为EADesktop.exe，请修改为EADesktop.exe后再启动");
+            Current.Shutdown();
+            return;
+        }
         LoggerHelper.Info(I18nHelper.I18n._("App.TCPPortCheckSuccess"));
 
         //////////////////////////////////////////////////////

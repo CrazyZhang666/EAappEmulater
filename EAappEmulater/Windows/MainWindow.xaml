@@ -78,7 +78,7 @@
                 Icon="&#xE737;" />
             <MenuItem
                 Command="{Binding SwitchAccountCommand}"
-                Header="{DynamicResource Windows.MainWindow.ShowMainWindow}"
+                Header="{DynamicResource Windows.MainWindow.ChangeAccount}"
                 Icon="&#xE748;" />
             <Separator />
             <MenuItem

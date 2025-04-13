@@ -31,5 +31,10 @@ public enum GameType
     MOHW,
     FC25,
     NFS17,
-    NFS11RE
+    NFS11RE,
+    BFLABS,
+    BF2042TP,
+    BFVCA,
+    BF1CA,
+    BF4AT
 }
