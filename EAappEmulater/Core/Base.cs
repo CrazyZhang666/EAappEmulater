@@ -640,6 +640,106 @@ public static class Base
             Locales = new() { "pt_PT", "tr_TR", "ko_KR", "cs_CZ", "zh_TW", "da_DK", "no_NO", "sv_SE", "en_US", "pt_BR", "de_DE", "es_ES", "fr_FR", "it_IT", "ja_JP", "es_MX", "nl_NL", "pl_PL", "ru_RU", "ar_SA" },
             IsOldLSX = false
         };
+        GameInfoDb[GameType.BFLABS] = new()
+        {
+            GameType = GameType.BFLABS,
+            Name = "《战地风云™》实验室",
+            Name2 = "Battlefield™ Labs",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BFLABS.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "bflabs.exe",
+            ContentId = "1180461",
+            Regedit = "SOFTWARE\\EA Games\\Battlefield Labs",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield Labs",
+            Locales = new() {"en_US"},
+            IsOldLSX = false
+        };
+        GameInfoDb[GameType.BF2042TP] = new()
+        {
+            GameType = GameType.BF2042TP,
+            Name = "《战地风云™ 2042》 技术性游戏测试",
+            Name2 = "Battlefield 2042 Technical Playtest",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF2042TP.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "bf.exe",
+            ContentId = "193874_alpha",
+            Regedit = "SOFTWARE\\EA Games\\Battlefield 2042 Technical Playtest",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield 2042 Technical Playtest",
+            Locales = new() {"en_US"},
+            IsOldLSX = false
+        };
+        GameInfoDb[GameType.BFVCA] = new()
+        {
+            GameType = GameType.BFVCA,
+            Name = "《战地风云 5™》 封闭 ALPHA 测试",
+            Name2 = "Battlefield V™ Closed Alpha",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BFVCA.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "bfvca.exe",
+            ContentId = "1069140",
+            Regedit = "SOFTWARE\\EA Games\\Battlefield V Closed Alpha",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield V Closed Alpha",
+            Locales = new() { "en_US" },
+            IsOldLSX = false
+        };
+        GameInfoDb[GameType.BF1CA] = new()
+        {
+            GameType = GameType.BF1CA,
+            Name = "《战地风云™ 1》 封闭 ALPHA 测试",
+            Name2 = "Battlefield™ 1 Closed Alpha",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF1CA.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "bf1.exe",
+            ContentId = "1035111",
+            Regedit = "SOFTWARE\\EA Games\\Battlefield 1 Closed Alpha",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield 1 Closed Alpha",
+            Locales = new() { "en_US" },
+            IsOldLSX = false
+        };
+        GameInfoDb[GameType.BF4AT] = new()
+        {
+            GameType = GameType.BF4AT,
+            Name = "Battlefield 4 - Alpha Trial",
+            Name2 = "Battlefield 4 - Alpha Trial",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF4AT.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "bf4.exe",
+            ContentId = "1012776",
+            Regedit = "SOFTWARE\\EA Games\\Battlefield 4 Alpha Trial",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield 1 Alpha Trial",
+            Locales = new() { "en_US" },
+            IsOldLSX = true
+        };
 
         ////////////////////////////////////////////////////
 

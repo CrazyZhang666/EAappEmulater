@@ -29,6 +29,7 @@
     <PropertyGroup>
         <WebView2LoaderPreference>Static</WebView2LoaderPreference>
         <SignAssembly>False</SignAssembly>
+        <AssemblyName>$(MSBuildProjectName)</AssemblyName>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -152,6 +153,11 @@
         <Resource Include="Assets\Images\Games\FC25.jpg" />
         <Resource Include="Assets\Images\Games\NFS17.jpg" />
         <Resource Include="Assets\Images\Games\NFS11RE.jpg" />
+        <Resource Include="Assets\Images\Games\BF4AT.jpg" />
+        <Resource Include="Assets\Images\Games\BFLABS.jpg" />
+        <Resource Include="Assets\Images\Games\BF2042TP.jpg" />
+        <Resource Include="Assets\Images\Games\BFVCA.jpg" />
+        <Resource Include="Assets\Images\Games\BF1CA.jpg" />
         <Resource Include="Assets\Images\Regions\ar_SA.png" />
         <Resource Include="Assets\Images\Regions\cs_CZ.png" />
         <Resource Include="Assets\Images\Regions\da_DK.png" />

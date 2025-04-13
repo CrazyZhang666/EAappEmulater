@@ -148,6 +148,7 @@ public static class LSXTcpServer
             var doc = XDocument.Parse(tcpString.Replace("version=\"\"", "version1=\"\""));
             var request = doc.Element("LSX").Element("Request");
             var contentId = request.Element("ChallengeResponse").Element("ContentId").Value;
+            var version = request.Element("ChallengeResponse")?.Attribute("version")?.Value;
 
             var response = string.Empty;
             var key = string.Empty;
@@ -156,20 +157,17 @@ public static class LSXTcpServer
 
             // 处理 Battlelog 游戏（default代表是其他游戏）
             // 硬仗和 bf4debug 模式的 lsx 请求不一样
-            switch (BattlelogHttpServer.BattlelogType)
+            switch (version)
             {
-                case BattlelogType.BFH:
-                case BattlelogType.BF4Debug:
+                case "2":
                     response = partArray[7];
                     key = partArray[9];
                     break;
-                case BattlelogType.BF4:
                 default:
                     response = partArray[5];
                     key = partArray[7];
                     break;
             }
-
             LoggerHelper.Debug($"本次启动 Challenge Response 为 {response}");
             LoggerHelper.Info($"本次启动 ContentId 为 {contentId}");
             LoggerHelper.Info("准备启动游戏中...");
@@ -200,9 +198,9 @@ public static class LSXTcpServer
             {
                 try
                 {
-                    switch (BattlelogHttpServer.BattlelogType)
+                    switch (version)
                     {
-                        case BattlelogType.BFH:
+                        case "2":
                             {
                                 var data = await ReadTcpString(client, networkStream);
                                 data = EaCrypto.LSXDecryptBFH(data);

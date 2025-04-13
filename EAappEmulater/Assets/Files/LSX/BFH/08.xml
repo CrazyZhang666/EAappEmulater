@@ -1,7 +1,7 @@
 ﻿<LSX>
     <Response sender="EbisuSDK" id="##ID##">
         <GetProfileResponse UserId="##UID##" GeoCountry="HK" UserIndex="0" IsSubscriber="true"
-            PersonaId="##PID##" SubscriberLevel="1" Persona="##DSNM##" Country="CN"
+            PersonaId="##PID##" SubscriberLevel="2" Persona="##DSNM##" Country="CN"
             CommerceCurrency="HKD" IsUnderAge="false" AvatarId="" CommerceCountry="HK"
             IsTrialSubscriber="false" />
     </Response>
