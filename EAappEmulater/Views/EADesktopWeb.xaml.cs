@@ -34,7 +34,7 @@ namespace EAappEmulater.Views
             webView2.ZoomFactor = 0.9;
             webView2.CoreWebView2.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.All);
             webView2.CoreWebView2.Settings.UserAgent = "";
-            //webView2.CoreWebView2.Settings.AreDevToolsEnabled = false;
+            webView2.CoreWebView2.Settings.AreDevToolsEnabled = false;
             webView2.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
             webView2.CoreWebView2.Settings.IsStatusBarEnabled = false;
             webView2.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
