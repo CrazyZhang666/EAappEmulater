@@ -43,17 +43,16 @@ https://pan.baidu.com/s/1qMwwt4kSFjfHbNBKS-CoIg?pwd=sbea 提取码: sbea
 - 切换游戏语言
 - 可不经过steam直接启动ea游戏
 - 可绕过ea账号对于语言的限制
+- 内置ea app原生界面在模拟器中来完成部分功能，比如购买游戏/添加删除好友/与好友聊天等
 
 ## 已知问题
 
-- 好友系统
 - 无法下载检查更新游戏
 - 无法使用云存档
 
 ## 未来路线
 
 - 离线模式
-- 修复好友系统
 - 支持下载游戏
 
 ## 支持游戏
@@ -64,6 +63,11 @@ https://pan.baidu.com/s/1qMwwt4kSFjfHbNBKS-CoIg?pwd=sbea 提取码: sbea
 - 战地风云1
 - 战地风云V
 - 战地风云2042
+- 《战地风云™》实验室
+- 《战地风云™ 2042》 技术性游戏测试
+- 《战地风云 5™》 封闭 ALPHA 测试
+- 《战地风云™ 1》 封闭 ALPHA 测试
+- 《战地风云 4™》 - ALPHA 测试
 - EA SPORTS™ F1® 23
 - EA SPORTS™ F1® 24（未经测试，试玩版许可证无法启动）
 - FIFA 22
@@ -74,6 +78,8 @@ https://pan.baidu.com/s/1qMwwt4kSFjfHbNBKS-CoIg?pwd=sbea 提取码: sbea
 - 极品飞车19
 - 极品飞车 : 热度
 - 极品飞车 : 不羁
+- 极品飞车：最高通缉
+- 极品飞车：热力追踪 重制版
 - 极品飞车：宿敌（无法联网）
 - 植物大战僵尸 : 和睦小镇保卫战
 - 植物大战僵尸 : 花园战争
