@@ -41,17 +41,16 @@ If you have any questions about the translation, please fork the code and submit
 - Switch game language
 - You can start ea games directly without going through steam
 - Can bypass the language restrictions of ea account
+- Built-in EA app native interface to complete some functions in the simulator, such as purchasing games/adding and deleting friends/chatting with friends, etc.
 
 ## Problems
 
-- Unable to use the friend system
 - Unable to download and check for game updates
 - Unable to use cloud saves
 
 ## Roadmap
 
 - Add offline mode
-- Fix friend system
 - Support downloading games
 
 ## Supported Games
@@ -62,6 +61,11 @@ If you have any questions about the translation, please fork the code and submit
 - Battlefield 1
 - BattleField V
 - Battlefield 2042
+- Battlefield™ Labs
+- Battlefield™ 2042 Technical Game Test
+- Battlefield V™ Closed ALPHA Test
+- Battlefield™ 1 Closed ALPHA Test
+- Battlefield 4™ - ALPHA Test
 - EA SPORTS™ F1® 23
 - EA SPORTS™ F1® 24（Trial license cannot start）
 - FIFA 22
@@ -72,6 +76,8 @@ If you have any questions about the translation, please fork the code and submit
 - Need for Speed 19
 - Need for Speed: Heat
 - Need for Speed: Unbound
+- Need for Speed: Most Wanted
+- Need for Speed: Hot Pursuit Remastered
 - Need for Speed: Rivals (no internet connection)
 - Plants vs. Zombies: Defend Neighborville
 - Plants vs. Zombies: Garden Warfare
