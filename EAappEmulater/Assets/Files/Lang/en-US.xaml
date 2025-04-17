@@ -96,6 +96,7 @@
     <sys:String x:Key="Windows.AccountWindow.ShowRemid">Display the selected account's Remid information</sys:String>
     <sys:String x:Key="Windows.AccountWindow.ShowSid">Display the selected account's Sid information</sys:String>
     <sys:String x:Key="Windows.AccountWindow.SwitchLang">Switch English</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.AutoLogin">Auto Login</sys:String>
 
 
     <!--Windows/Dialog/AdvancedWindow.xaml-->
@@ -364,5 +365,6 @@
     <sys:String x:Key="App.TCPPortCheck4219">TCP port 4219 is occupied. Please free the port.&#x0a;Usually closing Origin and EaApp will suffice</sys:String>
     <sys:String x:Key="App.TCPPortCheckSuccess">TCP port check passed</sys:String>
     <sys:String x:Key="App.TaskEx">Unhandled exception captured by Task thread</sys:String>
+    <sys:String x:Key="App.ErrorFileName">It is detected that the current simulator program name is not EADesktop.exe, please change it to EADesktop.exe and then start it</sys:String>
 
 </ResourceDictionary>

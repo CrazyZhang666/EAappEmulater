@@ -96,8 +96,9 @@
     <sys:String x:Key="Windows.AccountWindow.ShowRemid">显示选中账号Remid信息</sys:String>
     <sys:String x:Key="Windows.AccountWindow.ShowSid">显示选中账号Sid信息</sys:String>
     <sys:String x:Key="Windows.AccountWindow.SwitchLang">English</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.AutoLogin">自动登录</sys:String>
 
-
+    
     <!--Windows/Dialog/AdvancedWindow.xaml-->
     <sys:String x:Key="Windows.AdvancedWindow.Title">EA App 模拟器  游戏选择</sys:String>
     <sys:String x:Key="Windows.AdvancedWindow.Registry">注册表</sys:String>
@@ -112,11 +113,11 @@
     <sys:String x:Key="Windows.AdvancedWindow.Save">保存</sys:String>
     <sys:String x:Key="Windows.AdvancedWindow.Cancel">取消</sys:String>
 
-
+    
     <!--Windows/Dialog/AdvancedWindow.xaml.cs-->
     <sys:String x:Key="Windows.AdvancedWindow.FileDialogTitle">请选择当前游戏主程序exe文件路径</sys:String>
 
-
+    
     <!--Views/SettingView.xaml-->
     <sys:String x:Key="Views.SettingView.SystemInfo">系统信息</sys:String>
     <sys:String x:Key="Views.SettingView.VersionInfo">程序版本</sys:String>
@@ -364,5 +365,6 @@
     <sys:String x:Key="App.TCPPortCheck4219">检测到 TCP端口 4219 被占用，请解除端口占用&#x0a;一般情况下只需要关闭 Origin 和 EaApp 程序即可</sys:String>
     <sys:String x:Key="App.TCPPortCheckSuccess">当前系统 TCP端口 检测正常</sys:String>
     <sys:String x:Key="App.TaskEx">Task线程捕获到未经处理的异常</sys:String>
+    <sys:String x:Key="App.ErrorFileName">检测到当前模拟器程序名不为EADesktop.exe，请修改为EADesktop.exe后再启动</sys:String>
 
 </ResourceDictionary>

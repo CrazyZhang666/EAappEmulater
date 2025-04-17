@@ -103,10 +103,10 @@ public partial class App : Application
             }
         }
         Process currentProcess = Process.GetCurrentProcess();
-        if (currentProcess.ProcessName != "EADesktop") 
+        if (currentProcess.ProcessName != "EADesktop")
         {
-            LoggerHelper.Error("检测到当前模拟器程序名不为EADesktop.exe，请修改为EADesktop.exe后再启动");
-            MsgBoxHelper.Error("检测到当前模拟器程序名不为EADesktop.exe，请修改为EADesktop.exe后再启动");
+            LoggerHelper.Error(I18nHelper.I18n._("App.ErrorFileName"));
+            MsgBoxHelper.Error(I18nHelper.I18n._("App.ErrorFileName"));
             Current.Shutdown();
             return;
         }

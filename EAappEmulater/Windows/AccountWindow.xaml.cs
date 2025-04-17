@@ -3,6 +3,9 @@ using EAappEmulater.Core;
 using EAappEmulater.Helper;
 using EAappEmulater.Models;
 using EAappEmulater.Utils;
+using EAappEmulater.Api;
+using EAappEmulater.Enums;
+using Newtonsoft.Json.Linq;
 
 namespace EAappEmulater.Windows;
 
@@ -137,14 +140,14 @@ public partial class AccountWindow
     /// 登录选中账号
     /// </summary>
     [RelayCommand]
-    private void LoginAccount()
+    private async void LoginAccount()
     {
         // 保存数据
         if (!SaveAccountCookie())
             return;
 
         ////////////////////////////////
-
+       
         var loadWindow = new LoadWindow();
 
         // 转移主程序控制权
@@ -160,30 +163,46 @@ public partial class AccountWindow
     /// 获取Cookie
     /// </summary>
     [RelayCommand]
-    private void GetCookie()
+    private async void GetCookie()
     {
         // 保存数据
         if (!SaveAccountCookie())
             return;
 
         ////////////////////////////////
+        var loginUrlData = await Api.EaApi.GetToken();
+        if (loginUrlData != null && !loginUrlData.IsSuccess)
+        {
+            var loginWindow = new LoginWindow(false, loginUrlData.Content);
 
-        var loginWindow = new LoginWindow(false);
+            // 转移主程序控制权
+            Application.Current.MainWindow = loginWindow;
+            // 关闭当前窗口
+            this.Close();
 
-        // 转移主程序控制权
-        Application.Current.MainWindow = loginWindow;
-        // 关闭当前窗口
-        this.Close();
+            // 显示登录窗口
+            loginWindow.Show();
+        }
+        else
+        {
+            var loginWindow = new LoginWindow(false);
 
-        // 显示登录窗口
-        loginWindow.Show();
+            // 转移主程序控制权
+            Application.Current.MainWindow = loginWindow;
+            // 关闭当前窗口
+            this.Close();
+
+            // 显示登录窗口
+            loginWindow.Show();
+        }
+        
     }
 
     /// <summary>
     /// 更换账号
     /// </summary>
     [RelayCommand]
-    private void ChangeAccount()
+    private async void ChangeAccount()
     {
         // 保存数据
         if (!SaveAccountCookie(true))
@@ -194,15 +213,32 @@ public partial class AccountWindow
         Account.Write();
 
         ////////////////////////////////
+        var loginUrlData = await Api.EaApi.GetToken();
+        if (loginUrlData != null && !loginUrlData.IsSuccess)
+        {
+            var loginWindow = new LoginWindow(true, loginUrlData.Content);
 
-        var loginWindow = new LoginWindow(true);
+            // 转移主程序控制权
+            Application.Current.MainWindow = loginWindow;
+            // 关闭当前窗口
+            this.Close();
 
-        // 转移主程序控制权
-        Application.Current.MainWindow = loginWindow;
-        // 关闭当前窗口
-        this.Close();
+            // 显示登录窗口
+            loginWindow.Show();
+        }
+        else
+        {
+            var loginWindow = new LoginWindow(true);
 
-        // 显示登录窗口
-        loginWindow.Show();
+            // 转移主程序控制权
+            Application.Current.MainWindow = loginWindow;
+            // 关闭当前窗口
+            this.Close();
+
+            // 显示登录窗口
+            loginWindow.Show();
+        }
+        
     }
+
 }

@@ -1,4 +1,5 @@
-﻿using EAappEmulater.Helper;
+﻿using EAappEmulater.Core;
+using EAappEmulater.Helper;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using System;
@@ -39,7 +40,7 @@ namespace EAappEmulater.Views
             webView2.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
             webView2.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
             webView2.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
-            webView2.CoreWebView2.Navigate("https://pc.ea.com/zh-hans");
+            webView2.CoreWebView2.Navigate($"https://pc.ea.com/login.html#access_token={Account.AccessToken}&token_type=Bearer");
         }
 
         private  void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)

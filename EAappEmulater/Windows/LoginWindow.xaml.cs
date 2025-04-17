@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using EAappEmulater.Helper;
+using EAappEmulater.Api;
 using Microsoft.Web.WebView2.Core;
 
 namespace EAappEmulater.Windows;
@@ -9,7 +10,7 @@ namespace EAappEmulater.Windows;
 /// </summary>
 public partial class LoginWindow
 {
-    private const string _host = "https://accounts.ea.com/connect/auth?response_type=code&locale=zh_CN&client_id=EADOTCOM-WEB-SERVER";
+    private string _host = "";
 
     /**
      * 2024/04/29
@@ -22,11 +23,12 @@ public partial class LoginWindow
     /// </summary>
     private readonly bool _isClear;
 
-    public LoginWindow(bool isClear)
+    public LoginWindow(bool isClear, string host = "https://accounts.ea.com/connect/auth?response_type=code&locale=zh_CN&client_id=EADOTCOM-WEB-SERVER")
     {
         InitializeComponent();
         this._isClear = isClear;
-    }
+        _host = host;
+    }   
 
     /// <summary>
     /// 窗口加载完成事件
@@ -98,6 +100,21 @@ public partial class LoginWindow
             // 导航完成事件
             WebView2_Main.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
 
+            await WebView2_Main.CoreWebView2.CallDevToolsProtocolMethodAsync(
+                "Fetch.enable",
+                @"{
+        ""patterns"": [
+            {
+                ""urlPattern"": ""https://accounts.ea.com/connect/auth*"",
+                ""requestStage"": ""Response""
+            }
+        ]
+    }"
+            );
+
+            var fetchReceiver = WebView2_Main.CoreWebView2
+                .GetDevToolsProtocolEventReceiver("Fetch.requestPaused");
+            fetchReceiver.DevToolsProtocolEventReceived += CoreWebView2_FetchRequestPaused;
             // 用于更换新账号
             if (_isClear)
             {
@@ -172,6 +189,93 @@ public partial class LoginWindow
 
         this.Close();
     }
+
+    private void CoreWebView2_FetchRequestPaused(object sender, CoreWebView2DevToolsProtocolEventReceivedEventArgs e)
+    {
+
+        using var doc = JsonDocument.Parse(e.ParameterObjectAsJson);
+        var root = doc.RootElement;
+        var requestObj = root.GetProperty("request");
+        var url = requestObj.GetProperty("url").GetString()!;
+        var requestId = root.GetProperty("requestId").GetString()!;
+
+        if (!url.StartsWith("https://accounts.ea.com/connect/auth",
+                             StringComparison.OrdinalIgnoreCase))
+        {
+            ContinueFetch(requestId);
+            return;
+        }
+
+        bool gotRemid = false;
+
+        if (requestObj.TryGetProperty("headers", out var hdrs))
+        {
+            if (hdrs.ValueKind == JsonValueKind.Object)
+            {
+                foreach (var prop in hdrs.EnumerateObject())
+                {
+                    ProcessHeader(prop.Name, prop.Value.GetString()!, ref gotRemid);
+                }
+            }
+            else if (hdrs.ValueKind == JsonValueKind.Array)
+            {
+                // array of { name, value }
+                foreach (var entry in hdrs.EnumerateArray())
+                {
+                    var name = entry.GetProperty("name").GetString()!;
+                    var value = entry.GetProperty("value").GetString()!;
+                    ProcessHeader(name, value, ref gotRemid);
+                }
+            }
+            else
+            {
+                LoggerHelper.Warn("意外的 headers 格式：" + hdrs.ValueKind);
+            }
+        }
+
+        ContinueFetch(requestId);
+
+        if (gotRemid)
+        {
+
+            this.Close();
+        } 
+    }
+
+    private void ProcessHeader(string name, string value, ref bool gotRemid)
+    {
+        if (!name.Equals("Cookie", StringComparison.OrdinalIgnoreCase))
+            return;
+
+        foreach (var cookie in value.Split(';'))
+        {
+            var kv = cookie.Split('=', 2);
+            var key = kv[0].Trim();
+            var val = kv.Length > 1 ? kv[1].Trim() : "";
+
+            if (key.Equals("sid", StringComparison.OrdinalIgnoreCase) &&
+                !string.IsNullOrEmpty(val))
+            {
+                IniHelper.WriteString("Cookie", "Sid", val, Globals.GetAccountIniPath());
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.SidGetSuccess", val));
+            }
+            else if (key.Equals("remid", StringComparison.OrdinalIgnoreCase) &&
+                     !string.IsNullOrEmpty(val))
+            {
+                IniHelper.WriteString("Cookie", "Remid", val, Globals.GetAccountIniPath());
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.RemidGetSuccess", val));
+                gotRemid = true;
+            }
+        }
+    }
+
+    private void ContinueFetch(string requestId)
+    {
+        _ = WebView2_Main.CoreWebView2.CallDevToolsProtocolMethodAsync(
+            "Fetch.continueRequest",
+            $@"{{ ""requestId"": ""{requestId}"" }}");
+    }
+
 
     private void CoreWebView2_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
     {
