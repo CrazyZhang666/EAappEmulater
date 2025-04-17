@@ -89,13 +89,24 @@ public partial class LoadWindow
 
                 return;
             }
-            else
+            else if (result != null && !result.IsSuccess)
             {
+                var loginWindow = new LoginWindow(false, result.Content);
+
+                // 转移主程序控制权
+                Application.Current.MainWindow = loginWindow;
+                // 关闭当前窗口
+                this.Close();
+
+                // 显示登录窗口
+                loginWindow.Show();
+                return;
+            }
+            else {
                 Loading_Normal.Visibility = Visibility.Collapsed;
                 IconFont_NetworkError.Visibility = Visibility.Visible;
                 DisplayLoadState(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityErrorStop"));
                 LoggerHelper.Error(I18nHelper.I18n._("Windows.LoadWindow.CheckCookieValidityErrorStop"));
-                return;
             }
             
         }

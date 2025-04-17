@@ -64,12 +64,6 @@ public static class EaApi
     {
         var respResult = new RespResult("GetToken Api");
 
-        if (string.IsNullOrWhiteSpace(Account.Remid) || string.IsNullOrWhiteSpace(Account.Sid))
-        {
-            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundRemidOrSid", respResult.ApiName));
-            return respResult;
-        }
-
         try
         {
             var request = new RestRequest("https://accounts.ea.com/connect/auth")
@@ -112,10 +106,15 @@ public static class EaApi
                 var location = response.Headers.ToList()
                     .Find(x => x.Name.Equals("location", StringComparison.OrdinalIgnoreCase))
                     .Value.ToString();
-                if (string.IsNullOrEmpty(location) || !location.Contains("#"))
+                if (string.IsNullOrEmpty(location))
                 {
                     // 如果没有 "Location" 头部或包含 "#"，返回 null
                     return null;
+                }
+                if (location.StartsWith("https://signin.ea.com/p/juno/login?fid=")) {
+                    respResult.Content = location;
+                    return respResult;
+
                 }
 
                 string locationUrl = location.Replace("#", "?");
