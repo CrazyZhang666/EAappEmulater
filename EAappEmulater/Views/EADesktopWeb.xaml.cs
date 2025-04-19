@@ -30,8 +30,8 @@ namespace EAappEmulater.Views
             var options = new CoreWebView2EnvironmentOptions();
             var env = await CoreWebView2Environment.CreateAsync(null, Globals.GetAccountCacheDir(), options);
             await webView2.EnsureCoreWebView2Async(env);
-            //0.9缩放才能显示登录按钮
-            webView2.ZoomFactor = 0.9;
+            //0.8缩放才能显示登录按钮
+            webView2.ZoomFactor = 0.8;
             webView2.CoreWebView2.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.All);
             webView2.CoreWebView2.Settings.UserAgent = "";
             webView2.CoreWebView2.Settings.AreDevToolsEnabled = false;
@@ -40,6 +40,25 @@ namespace EAappEmulater.Views
             webView2.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
             webView2.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
             webView2.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
+            var cookieManager = webView2.CoreWebView2.CookieManager;
+            var cookie = cookieManager.CreateCookie(
+                name: "remid",
+                value: Account.Remid,
+                Domain: ".ea.com",
+                Path: "/connect");
+
+            cookie.IsHttpOnly = true;
+            cookie.IsSecure = true;
+            cookieManager.AddOrUpdateCookie(cookie);
+            var cookie2 = cookieManager.CreateCookie(
+                name: "sid",
+                value: Account.Sid,
+                Domain: ".ea.com",
+                Path: "/connect");
+
+            cookie2.IsHttpOnly = true;
+            cookie2.IsSecure = true;
+            cookieManager.AddOrUpdateCookie(cookie2);
             webView2.CoreWebView2.Navigate($"https://pc.ea.com/login.html#access_token={Account.AccessToken}&token_type=Bearer");
         }
 
