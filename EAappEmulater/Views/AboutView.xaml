@@ -31,7 +31,7 @@
             HorizontalAlignment="Center"
             Text="{DynamicResource Views.AboutView.CoreAlgorithm}" />
         <TextBlock
-            Width="{Binding ElementName=TextBlock_Name01, Path=ActualWidth}"
+            Width="206"
             HorizontalAlignment="Center"
             Text="{DynamicResource Views.AboutView.Design}" />
 

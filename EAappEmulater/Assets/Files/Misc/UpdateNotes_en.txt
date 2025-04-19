@@ -1,0 +1,166 @@
+﻿2025/04/19 v1.8.3.1
+------------------------
+- Adjust the cookie saving logic, store it to the file immediately once it is obtained, and prevent the abnormal closing of the program from causing the cookie not to be stored.
+
+2025/04/17 v1.8.3.0
+------------------------
+- Adjust the login client logic, switch to EA App login, and prevent the cookie from expiring quickly.
+- Fix internationalization errors.
+- Fix the login logic, and automatically pop up the login interface when the cookie expires.
+
+2025/04/13 v1.8.2.0
+------------------------
+[Newly added support for the following games]
+- "Battlefield™" Lab
+- "Battlefield™ 2042" Technical Game Test
+- "Battlefield 5™" Closed ALPHA Test
+- "Battlefield™ 1" Closed ALPHA Test
+- "Battlefield 4™" - ALPHA Test
+
+[Bug Fix]
+- Fixed the taskbar right-click menu display error
+- Fixed some games LSX reading errors
+- Fixed EA PLAY PRO subscription invalidation in some games
+
+Fixed the update log that was not written in the previous 1.7.4.0:
+[Newly added support for the following games]
+- Need for Speed: Most Wanted
+- Need for Speed: Hot Pursuit Remastered
+
+[New features]
+- Built-in EA app native interface to complete some functions in the simulator, such as purchasing games/adding and deleting friends/chatting with friends, etc.
+- The game startup method has been rewritten, and the game now starts no longer defaults to the administrator, which may avoid many problems
+
+[Bug fixes]
+- The ping function of the battlelog webpage has been fixed
+- Some old EA games have been fixed and cannot be played online, such as Need for Speed: Rivals, etc.
+- EADesktop.exe has been removed to facilitate the use of accelerators
+
+2025/04/09 v1.8.1.0
+------------------------
+- Fixed the return and processing of error information when obtaining Token
+
+2025/04/09 v1.8.0.0
+------------------------
+- Support internationalization, currently only supports Simplified Chinese (zh-CN) and English (en-US)
+- Fix some known issues
+
+2025/04/08 v1.7.4.0
+------------------------
+- Update the way to obtain tokens (Origin replaced by EA)
+- Fix the acquisition of avatars in the friend list
+
+2024/10/22 v1.7.3.0
+------------------------
+- Update to support the latest version of Battlefield 1
+- Add support for EA SPORTS FC 25
+- Update third-party dependency libraries
+
+2024/08/30 v1.7.2.0
+------------------------
+- Add more detailed log output for easy troubleshooting
+- Optimize some UI usage experience
+
+2024/08/07 v1.7.1.0
+------------------------
+- Fix the bug that some players will crash the software when clicking on the game library
+- Optimize the user experience
+
+2024/08/02 v1.7.0.0
+------------------------
+[Bug fix]
+- Fix the problem that the avatars of friends and yourself are not displayed in the game
+- Fix the problem that some EA games cannot be started without installing the platform (such as F1 23)
+- Fix the problem that the platform will pop up when some EA games are started (such as Titanfall 2)
+- Modify the login interface to the full version including third-party login
+[Newly added support for the following games]
+- Need for Speed: Rivals (cannot connect to the Internet)
+- Anthem
+- PGA Tour
+- EA SPORTS™ F1® 24 (untested, the trial version license cannot be started)
+- Star Wars Jedi: Fallen Order™
+- Star Wars™ Squadrons
+- Medal of Honor: Predator
+
+2024/07/20 v1.6.1.0
+------------------------
+- Modify the hyperlink in the software to point to GitHub
+
+2024/07/18 v1.6.0.0
+------------------------
+- Open source EAapp simulator source code
+
+2024/06/24 v1.5.9.0
+------------------------
+- Added detection of TCP port occupation when starting the program
+- Upgraded dependent library version
+
+2024/06/12 v1.5.8.0
+------------------------
+- Fixed the problem that the game cannot be started without installing EaApp
+- Fixed known bugs
+
+2024/05/31 v1.5.7.0
+------------------------
+- The number of account slots increased from 10 to 100
+- Upgraded dependent library version
+
+2024/05/04 v1.5.6.0
+------------------------
+- Fixed the problem that the battlelog webpage status cannot obtain the game status
+
+2024/05/01 v1.5.5.0
+------------------------
+- Fixed the problem that some players will crash when obtaining the friend list
+
+2024/05/01 v1.5.4.0
+------------------------
+- Added minimize to system tray function to prevent accidental touch
+- Modified theme program color matching, imitating Win11 style
+- Optimized user experience and polished details
+
+2024/04/30 v1.5.3.0
+------------------------
+- Maybe fixed the problem of incorrect display of user ID on the scoreboard of Star Wars: Battlefront 2
+- Maybe fixed the problem that Titanfall 2 Polaris private server could not connect
+- Fixed the problem that FIFA22 FIFA23 FC24 displayed that the game version needed to be updated, resulting in the inability to connect to the Internet
+- Fixed other known bugs
+
+2024/04/29 v1.5.2.0
+------------------------
+- Improved the detection update reminder method
+- Improved the style of the game advanced settings dialog box
+- Optimized program structure
+
+2024/04/29 v1.5.1.0
+------------------------
+- Fixed the problem of repeated prompts for canceling update pop-up windows
+- Fixed the white screen problem when WebView2 was first loaded
+- Fixed the problem of changing accounts without clearing old data
+- Update third-party library dependencies
+
+2024/04/29 v1.5.0.0
+------------------------
+- Add new game support:
+Plants vs. Zombies: Garden Warfare 1
+Plants vs. Zombies: Defend Neighborville
+Star Wars: Battlefront 1
+Need for Speed: Heat
+Need for Speed ​​19
+It Takes Two (cannot play multiplayer online because origin is not available in the game)
+FIFA 22
+- Fixed the problem that Titanfall 2 shows that Origin is currently offline and cannot enter multiplayer mode (compatible with Polaris private servers)
+- Fixed the problem that Titanfall 2 can only use English
+- Fixed the problem that Titanfall 2 cannot connect to the data center
+- Fixed the problem that FIFA23 FC24 cannot switch to the currently installed language when starting
+
+2024/04/29 v1.4.4.0
+------------------------
+- Optimize the multi-account switching function, players can freely choose the account to log in when starting
+- Supports filling in cookies to log in at startup
+- Fixed known bugs
+
+2024/04/24 v1.4.3.0
+------------------------
+- Fixed the problem of repeated logins caused by timeout of verification cookie validity
+- Fixed the problem of friends list not being updated correctly when switching accounts
