@@ -16,6 +16,12 @@ public partial class UpdateView : UserControl
 
     private void ToDoList()
     {
-        TextBoxHint_UpdateNotes.Text = FileHelper.GetEmbeddedResourceText("Misc.UpdateNotes.txt");
+        if (Globals.Language == "zh-CN")
+        {
+            TextBoxHint_UpdateNotes.Text = FileHelper.GetEmbeddedResourceText("Misc.UpdateNotes.txt");
+        } else
+        {
+            TextBoxHint_UpdateNotes.Text = FileHelper.GetEmbeddedResourceText("Misc.UpdateNotes_en.txt");
+        }
     }
 }

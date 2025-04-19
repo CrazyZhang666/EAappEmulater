@@ -45,13 +45,15 @@ public static class EaApi
             {
                 Account.Remid = item.Value;
                 LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.UpdateCookieGetRemid", apiName, Account.Remid));
+                IniHelper.WriteString("Cookie", "Remid", item.Value, Globals.GetAccountIniPath());
                 continue;
             }
 
             if (item.Name.Equals("sid", StringComparison.OrdinalIgnoreCase))
             {
                 Account.Sid = item.Value;
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.UpdateCookieGetRemid", apiName, Account.Sid));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.UpdateCookieGetSid", apiName, Account.Sid));
+                IniHelper.WriteString("Cookie", "Sid", item.Value, Globals.GetAccountIniPath());
                 continue;
             }
         }
