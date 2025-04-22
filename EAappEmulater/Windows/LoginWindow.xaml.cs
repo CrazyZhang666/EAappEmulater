@@ -320,7 +320,7 @@ public partial class LoginWindow
         WebView2_Main.Visibility = Visibility.Hidden;
         WebView2_Loading.Visibility = Visibility.Visible;
 
-        LoggerHelper.Trace("NavigationStarting:" + e.Uri);
+        LoggerHelper.Trace("NavigationStarting");
     }
 
     private void CoreWebView2_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
