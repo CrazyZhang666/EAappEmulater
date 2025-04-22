@@ -75,10 +75,13 @@ public static class EaApi
 
             request.AddParameter("client_id", "JUNO_PC_CLIENT");
             request.AddParameter("response_type", "token");
-            request.AddParameter("redirect_uri", "qrc:///html/login_successful.html");
+            request.AddParameter("redirect_uri", "https://pc.ea.com/login.html");
             request.AddParameter("token_format", "JWT");
             request.AddParameter("pc_sign", HardwareInfo.GetPcSign());
-            request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
+            if (!String.IsNullOrEmpty(Account.Remid))
+            {
+                request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
+            }
 
             var response = await _client.ExecuteAsync(request);
             LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
@@ -92,7 +95,7 @@ public static class EaApi
             if (response.ResponseStatus == ResponseStatus.TimedOut)
             {
                 LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ErrorTimeout", respResult.ApiName));
-                return respResult;
+                return null;
             }
 
             if (response.Content.Contains("error_code", StringComparison.OrdinalIgnoreCase))
