@@ -170,31 +170,15 @@ public partial class AccountWindow
             return;
 
         ////////////////////////////////
-        var loginUrlData = await Api.EaApi.GetToken();
-        if (loginUrlData != null && !loginUrlData.IsSuccess)
-        {
-            var loginWindow = new LoginWindow(false, loginUrlData.Content);
+        var loginWindow = new LoginWindow(false);
 
-            // 转移主程序控制权
-            Application.Current.MainWindow = loginWindow;
-            // 关闭当前窗口
-            this.Close();
+        // 转移主程序控制权
+        Application.Current.MainWindow = loginWindow;
+        // 关闭当前窗口
+        this.Close();
 
-            // 显示登录窗口
-            loginWindow.Show();
-        }
-        else
-        {
-            var loginWindow = new LoginWindow(false);
-
-            // 转移主程序控制权
-            Application.Current.MainWindow = loginWindow;
-            // 关闭当前窗口
-            this.Close();
-
-            // 显示登录窗口
-            loginWindow.Show();
-        }
+        // 显示登录窗口
+        loginWindow.Show();
         
     }
 
@@ -213,31 +197,16 @@ public partial class AccountWindow
         Account.Write();
 
         ////////////////////////////////
-        var loginUrlData = await Api.EaApi.GetToken();
-        if (loginUrlData != null && !loginUrlData.IsSuccess)
-        {
-            var loginWindow = new LoginWindow(true, loginUrlData.Content);
+        var loginWindow = new LoginWindow(true);
 
-            // 转移主程序控制权
-            Application.Current.MainWindow = loginWindow;
-            // 关闭当前窗口
-            this.Close();
+        // 转移主程序控制权
+        Application.Current.MainWindow = loginWindow;
+        // 关闭当前窗口
+        this.Close();
 
-            // 显示登录窗口
-            loginWindow.Show();
-        }
-        else
-        {
-            var loginWindow = new LoginWindow(true);
-
-            // 转移主程序控制权
-            Application.Current.MainWindow = loginWindow;
-            // 关闭当前窗口
-            this.Close();
-
-            // 显示登录窗口
-            loginWindow.Show();
-        }
+        // 显示登录窗口
+        loginWindow.Show();
+        
         
     }
 

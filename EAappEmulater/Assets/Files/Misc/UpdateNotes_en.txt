@@ -1,4 +1,9 @@
-﻿2025/04/19 v1.8.3.1
+﻿2025/04/22 v1.8.4.0
+------------------------
+- Fix the login acquisition logic to ensure that the third-party platform login can obtain the cookie normally. #71
+- Adjust some logic to prevent antivirus software from reporting viruses.
+
+2025/04/19 v1.8.3.1
 ------------------------
 - Adjust the cookie saving logic, store it to the file immediately once it is obtained, and prevent the abnormal closing of the program from causing the cookie not to be stored.
 

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using EAappEmulater.Helper;
 using EAappEmulater.Api;
+using EAappEmulater.Core;
+using EAappEmulater.Helper;
 using Microsoft.Web.WebView2.Core;
 
 namespace EAappEmulater.Windows;
@@ -23,11 +24,13 @@ public partial class LoginWindow
     /// </summary>
     private readonly bool _isClear;
 
-    public LoginWindow(bool isClear, string host = "https://accounts.ea.com/connect/auth?response_type=code&locale=zh_CN&client_id=EADOTCOM-WEB-SERVER")
+    public LoginWindow(bool isClear, string host = "")
     {
         InitializeComponent();
         this._isClear = isClear;
-        _host = host;
+        if (String.IsNullOrEmpty(host)) { 
+            _host = host;
+        }
     }   
 
     /// <summary>
@@ -79,7 +82,22 @@ public partial class LoginWindow
             var env = await CoreWebView2Environment.CreateAsync(null, Globals.GetAccountCacheDir(), options);
             await WebView2_Main.EnsureCoreWebView2Async(env);
 
+            if (String.IsNullOrEmpty(_host))
+            {
+                var loginUrlData = await Api.EaApi.GetToken();
+                if (loginUrlData != null && !loginUrlData.IsSuccess)
+                {
+                    _host = loginUrlData.Content;
+                }
+                else
+                {
+                    _host = "https://accounts.ea.com/connect/auth?response_type=code&locale=zh_CN&client_id=EADOTCOM-WEB-SERVER";
+                }
+            }
+            
+
             LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.InitWebView2Success"));
+
 
             // 禁止Dev开发工具
             WebView2_Main.CoreWebView2.Settings.AreDevToolsEnabled = false;
@@ -100,21 +118,85 @@ public partial class LoginWindow
             // 导航完成事件
             WebView2_Main.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
 
-            await WebView2_Main.CoreWebView2.CallDevToolsProtocolMethodAsync(
-                "Fetch.enable",
-                @"{
-        ""patterns"": [
-            {
-                ""urlPattern"": ""https://accounts.ea.com/connect/auth*"",
-                ""requestStage"": ""Response""
-            }
-        ]
-    }"
-            );
+            // 添加请求拦截器过滤器
+            WebView2_Main.CoreWebView2.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.All);
 
-            var fetchReceiver = WebView2_Main.CoreWebView2
-                .GetDevToolsProtocolEventReceiver("Fetch.requestPaused");
-            fetchReceiver.DevToolsProtocolEventReceived += CoreWebView2_FetchRequestPaused;
+            await WebView2_Main.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync(@"
+    window.addEventListener('DOMContentLoaded', () => {
+        let href = window.location.href;
+        if (href.startsWith('https://pc.ea.com/login.html')) {
+            window.chrome.webview.postMessage({ type: 'redirect', url: href });
+        }
+    });
+");
+
+            // 注册事件处理程序
+            WebView2_Main.CoreWebView2.WebResourceRequested += (sender, args) =>
+            {
+                var uri = new Uri(args.Request.Uri);
+                if (uri.Host.Equals("pc.ea.com", StringComparison.OrdinalIgnoreCase))
+                {
+                    // 设置或覆盖请求头
+                    args.Request.Headers.SetHeader("x-juno-max-img-res", "1080");
+                    args.Request.Headers.SetHeader("User-Agent",
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Origin/10.6.0.00000 EAApp/13.377.0.5890 Chrome/109.0.5414.120 Safari/537.36");
+
+                }
+            };
+
+            WebView2_Main.CoreWebView2.NewWindowRequested += (sender, args) =>
+            {
+                args.Handled = true; // 阻止 WebView2 创建新窗口
+
+                var targetUri = args.Uri;
+
+                // 在当前窗口导航目标链接
+                WebView2_Main.CoreWebView2.Navigate(targetUri);
+            };
+
+            await WebView2_Main.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync(@"
+    window.open = function(url) {
+        location.href = url;
+        return null;
+    };
+    document.querySelectorAll('a[target=""_blank""]').forEach(a => a.target = '_self');
+");
+            WebView2_Main.CoreWebView2.Settings.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Origin/10.6.0.00000 EAApp/13.377.0.5890 Chrome/109.0.5414.120 Safari/537.36";
+
+            WebView2_Main.CoreWebView2.WebMessageReceived += (s, e) =>
+            {
+                var msg = e.WebMessageAsJson;
+
+                try
+                {
+                    var data = System.Text.Json.JsonDocument.Parse(msg);
+                    if (data.RootElement.GetProperty("type").GetString() == "redirect")
+                    {
+                        var redirectUrl = data.RootElement.GetProperty("url").GetString();
+
+                        // 提取 token 逻辑
+                        var uri = new Uri(redirectUrl.Replace("qrc:/", "http://fake/")); // 避免非法 URI 报错
+                        var fragment = uri.Fragment; // 取 # 后的参数
+                        var queryParams = System.Web.HttpUtility.ParseQueryString(fragment.TrimStart('#'));
+                        var token = queryParams["access_token"];
+                        IniHelper.WriteString("Cookie", "AccessToken", token, Globals.GetAccountIniPath());
+                        IniHelper.WriteString("Cookie", "OriginPCToken", token, Globals.GetAccountIniPath());
+
+                        Account.AccessToken = token;
+                        Account.OriginPCToken = token;
+
+                        // 跳转空白页
+                        WebView2_Main.CoreWebView2.Navigate("about:blank");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LoggerHelper.Debug("解析重定向失败：" + ex.Message);
+                }
+            };
+
+
+
             // 用于更换新账号
             if (_isClear)
             {
@@ -148,7 +230,7 @@ public partial class LoginWindow
 
         var source = WebView2_Main.Source.ToString();
         LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.CurrentWebView2Source", source));
-        if (!source.Contains("test.pulse.ea.com"))
+        if (!source.Contains("pc.ea.com"))
             return;
 
         LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.WebView2LoginSuccess"));
@@ -161,15 +243,19 @@ public partial class LoginWindow
 
         LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.FindCookieFile"));
         LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.FindCookieCount", cookies.Count));
-
+        bool isRemidGet = false;
         foreach (var item in cookies)
         {
+            if (!item.Domain.EndsWith(".ea.com", StringComparison.OrdinalIgnoreCase))
+                continue;
+
             if (item.Name.Equals("remid", StringComparison.OrdinalIgnoreCase))
             {
                 if (!string.IsNullOrWhiteSpace(item.Value))
                 {
                     IniHelper.WriteString("Cookie", "Remid", item.Value, Globals.GetAccountIniPath());
                     LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.RemidGetSuccess", item.Value));
+                    isRemidGet = true;
                     continue;
                 }
             }
@@ -186,61 +272,13 @@ public partial class LoginWindow
         }
 
         ////////////////////////////////
-
-        this.Close();
-    }
-
-    private void CoreWebView2_FetchRequestPaused(object sender, CoreWebView2DevToolsProtocolEventReceivedEventArgs e)
-    {
-
-        using var doc = JsonDocument.Parse(e.ParameterObjectAsJson);
-        var root = doc.RootElement;
-        var requestObj = root.GetProperty("request");
-        var url = requestObj.GetProperty("url").GetString()!;
-        var requestId = root.GetProperty("requestId").GetString()!;
-
-        if (!url.StartsWith("https://accounts.ea.com/connect/auth",
-                             StringComparison.OrdinalIgnoreCase))
+        if (isRemidGet)
         {
-            ContinueFetch(requestId);
-            return;
-        }
-
-        bool gotRemid = false;
-
-        if (requestObj.TryGetProperty("headers", out var hdrs))
-        {
-            if (hdrs.ValueKind == JsonValueKind.Object)
-            {
-                foreach (var prop in hdrs.EnumerateObject())
-                {
-                    ProcessHeader(prop.Name, prop.Value.GetString()!, ref gotRemid);
-                }
-            }
-            else if (hdrs.ValueKind == JsonValueKind.Array)
-            {
-                // array of { name, value }
-                foreach (var entry in hdrs.EnumerateArray())
-                {
-                    var name = entry.GetProperty("name").GetString()!;
-                    var value = entry.GetProperty("value").GetString()!;
-                    ProcessHeader(name, value, ref gotRemid);
-                }
-            }
-            else
-            {
-                LoggerHelper.Warn("意外的 headers 格式：" + hdrs.ValueKind);
-            }
-        }
-
-        ContinueFetch(requestId);
-
-        if (gotRemid)
-        {
-
             this.Close();
-        } 
+        }
     }
+
+    
 
     private void ProcessHeader(string name, string value, ref bool gotRemid)
     {
@@ -282,7 +320,7 @@ public partial class LoginWindow
         WebView2_Main.Visibility = Visibility.Hidden;
         WebView2_Loading.Visibility = Visibility.Visible;
 
-        LoggerHelper.Trace("NavigationStarting");
+        LoggerHelper.Trace("NavigationStarting:" + e.Uri);
     }
 
     private void CoreWebView2_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
