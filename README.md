@@ -26,9 +26,9 @@ https://pan.baidu.com/s/1qMwwt4kSFjfHbNBKS-CoIg?pwd=sbea 提取码: sbea
 
 ## 截图预览
 
-![Snipaste_2024-07-25_12-39-47](https://github.com/user-attachments/assets/08311c22-3f9d-45aa-82ef-3dc146724f9c)
+![01](https://github.com/user-attachments/assets/522e163c-788b-4b8c-8e55-529a79e49ac6)
 
-![Snipaste_2024-07-25_12-44-40](https://github.com/user-attachments/assets/cc00df46-b39e-4889-9a3c-4cf44d7980fa)
+![02](https://github.com/user-attachments/assets/befb962a-3186-41c8-b2da-66f7ef53091c)
 
 ## 功能介绍
 
