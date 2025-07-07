@@ -67,6 +67,11 @@ public static class EaApi
         var respResult = new RespResult("GetToken Api");
         var tempToken = "";
 
+        if (string.IsNullOrWhiteSpace(Account.Remid))
+        {
+            return null;
+        }
+
         try
         {
             var request = new RestRequest("https://accounts.ea.com/connect/auth")
@@ -113,6 +118,7 @@ public static class EaApi
             else
             {
                 LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
+                return null;
             }
         }
         catch (Exception ex)
@@ -171,7 +177,6 @@ public static class EaApi
                 if (location.StartsWith("https://signin.ea.com/p/juno/login?fid=")) {
                     respResult.Content = location;
                     return respResult;
-
                 }
 
                 string locationUrl = location.Replace("#", "?");

@@ -230,7 +230,7 @@ public partial class LoginWindow
 
         var source = WebView2_Main.Source.ToString();
         LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.CurrentWebView2Source", source));
-        if (!source.Contains("pc.ea.com"))
+        if (!source.Contains("pc.ea.com") && !source.Contains("test.pulse.ea.com"))
             return;
 
         LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.WebView2LoginSuccess"));
