@@ -65,6 +65,62 @@ public static class EaApi
     public static async Task<RespResult> GetToken()
     {
         var respResult = new RespResult("GetToken Api");
+        var tempToken = "";
+
+        try
+        {
+            var request = new RestRequest("https://accounts.ea.com/connect/auth")
+            {
+                Method = Method.Get
+            };
+
+            request.AddParameter("client_id", "ORIGIN_JS_SDK");
+            request.AddParameter("response_type", "token");
+            request.AddParameter("redirect_uri", "nucleus:rest");
+
+            request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
+
+            var response = await _client.ExecuteAsync(request);
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatusCode", respResult.ApiName, response.StatusCode));
+
+            respResult.StatusText = response.ResponseStatus;
+            respResult.StatusCode = response.StatusCode;
+            respResult.Content = response.Content;
+
+            if (response.ResponseStatus == ResponseStatus.TimedOut)
+            {
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ErrorTimeout", respResult.ApiName));
+                return respResult;
+            }
+
+            if (response.Content.Contains("error_code", StringComparison.OrdinalIgnoreCase))
+            {
+                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetTokenReqErrorExpiredCookie", respResult.ApiName, response.Content));
+                return respResult;
+            }
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                // 错误返回 {"error_code":"login_required","error":"login_required","error_number":"102100"}
+
+                var content = JsonHelper.JsonDeserialize<Token>(response.Content);
+                tempToken = content.access_token;
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetTokenReqSuccessTemp", respResult.ApiName, tempToken));
+
+                UpdateCookie(response.Cookies, respResult.ApiName);
+            }
+            else
+            {
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
+            }
+        }
+        catch (Exception ex)
+        {
+            respResult.Exception = ex.Message;
+            LoggerHelper.Error(I18nHelper.I18n._("Api.EaApi.ReqErrorEx", respResult.ApiName, ex));
+            return respResult;
+        }
 
         try
         {
@@ -77,11 +133,7 @@ public static class EaApi
             request.AddParameter("response_type", "token");
             request.AddParameter("redirect_uri", "https://pc.ea.com/login.html");
             request.AddParameter("token_format", "JWT");
-            request.AddParameter("pc_sign", HardwareInfo.GetPcSign());
-            if (!String.IsNullOrEmpty(Account.Remid))
-            {
-                request.AddHeader("Cookie", $"remid={Account.Remid};sid={Account.Sid};");
-            }
+            request.AddParameter("access_token", tempToken);
 
             var response = await _client.ExecuteAsync(request);
             LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.ResponseStatus));
@@ -150,6 +202,7 @@ public static class EaApi
         {
             respResult.Exception = ex.Message;
             LoggerHelper.Error(I18nHelper.I18n._("Api.EaApi.ReqErrorEx", respResult.ApiName, ex));
+            return respResult;
         }
 
         return respResult;
