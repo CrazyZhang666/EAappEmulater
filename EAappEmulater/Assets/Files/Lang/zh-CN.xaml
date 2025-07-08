@@ -316,6 +316,7 @@
     <sys:String x:Key="Api.EaApi.ErrorTimeout">{0} 请求超时</sys:String>
     <sys:String x:Key="Api.EaApi.GetTokenReqErrorExpiredCookie">{0} 请求失败，Cookie 已失效，返回结果 {1}</sys:String>
     <sys:String x:Key="Api.EaApi.GetTokenReqSuccess">{0} 获取 AccessToken 成功 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqSuccessTemp">{0} 获取 TempAccessToken 成功 {1}</sys:String>
     <sys:String x:Key="Api.EaApi.ReqError">{0} 请求失败，返回结果 {1}</sys:String>
     <sys:String x:Key="Api.EaApi.ReqErrorEx">{0} 请求异常 {1}</sys:String>
     <sys:String x:Key="Api.EaApi.ErrorNotFoundToken">EA Token 为空，{0} 请求终止</sys:String>

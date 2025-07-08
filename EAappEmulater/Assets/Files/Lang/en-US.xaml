@@ -316,6 +316,7 @@
     <sys:String x:Key="Api.EaApi.ErrorTimeout">{0} Request timed out</sys:String>
     <sys:String x:Key="Api.EaApi.GetTokenReqErrorExpiredCookie">{0} Request failed, cookie expired, response {1}</sys:String>
     <sys:String x:Key="Api.EaApi.GetTokenReqSuccess">{0} Retrieved AccessToken successfully {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqSuccessTemp">{0} Retrieved TempAccessToken successfully {1}</sys:String>
     <sys:String x:Key="Api.EaApi.ReqError">{0} Request failed, response {1}</sys:String>
     <sys:String x:Key="Api.EaApi.ReqErrorEx">{0} Request exception {1}</sys:String>
     <sys:String x:Key="Api.EaApi.ErrorNotFoundToken">EA Token is empty, {0} request aborted</sys:String>
