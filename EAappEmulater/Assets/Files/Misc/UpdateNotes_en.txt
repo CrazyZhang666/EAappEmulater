@@ -1,4 +1,10 @@
-﻿2025/04/22 v1.8.4.0
+﻿2025/07/08 v1.9.0.0
+------------------------
+- Modify the token acquisition method. #93
+- Fix the login page.
+
+
+2025/04/22 v1.8.4.0
 ------------------------
 - Fix the login acquisition logic to ensure that the third-party platform login can obtain the cookie normally. #71
 - Adjust some logic to prevent antivirus software from reporting viruses.
