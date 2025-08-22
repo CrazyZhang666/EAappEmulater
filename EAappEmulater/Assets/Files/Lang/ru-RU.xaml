@@ -1,0 +1,371 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--Windows/MainWindow.xaml-->
+    <sys:String x:Key="Windows.MainWindow.Title">Эмулятор EA App</sys:String>
+    <sys:String x:Key="Windows.MainWindow.NewVersionAvailable">Обнаружена новая версия, нажмите для загрузки</sys:String>
+    <sys:String x:Key="Windows.MainWindow.ShowMainWindow">Показать главное окно</sys:String>
+    <sys:String x:Key="Windows.MainWindow.ChangeAccount">Сменить аккаунт</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Exit">Выйти из программы</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Account">Учетная запись</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Settings">Настройки</sys:String>
+    <sys:String x:Key="Windows.MainWindow.AlreadyInstall">Установлено</sys:String>
+    <sys:String x:Key="Windows.MainWindow.GameLibrary">Библиотека игр</sys:String>
+    <sys:String x:Key="Windows.MainWindow.EaAppView">Интерфейс EA App</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Friends">Друзья</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Logs">Журнал</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Update">Обновление</sys:String>
+    <sys:String x:Key="Windows.MainWindow.About">О программе</sys:String>
+
+    
+    <!--Windows/MainWindow.xaml.cs-->
+    <sys:String x:Key="Windows.MainWindow.StartMainProcessSuccessful">Запуск главной программы успешен</sys:String>
+    <sys:String x:Key="Windows.MainWindow.TitleWithVersion">Эмулятор EA App v{0}</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingTipTitle">Эмулятор EA App был сведен в трей</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingTipDes">Вы можете полностью выйти из программы через контекстное меню в трее</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingSuccess">Закрытие главной программы успешно</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdate">Проверка новой версии...</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateError">Ошибка проверки новой версии, проверьте подключение к сети</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateErrorRetry">Ошибка проверки новой версии, начинается повторная попытка {0}...</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateSuccess">Поздравляем, у вас последняя версия {0}</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateNewVersionAvailable">Обнаружена новая версия v{0}, нажмите для обновления</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateNewVersionAvailableWeb">Обнаружена новая версия v{0}, нажмите для обновления</sys:String>
+
+
+    <!--Windows/LoginWindow.xaml-->
+    <sys:String x:Key="Windows.LoginWindow.Title">Эмулятор EA App  Вход в аккаунт</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.Reload">Перезагрузить страницу входа</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.Process">Загрузка страницы входа...</sys:String>
+
+
+    <!--Windows/LoginWindow.xaml.cs-->
+    <sys:String x:Key="Windows.LoginWindow.InitWebView2">Начало инициализации WebView2 ...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.InitWebView2Success">Инициализация WebView2 завершена...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ClearWebView2Cache">Начало очистки кэша текущего аккаунта...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ClearWebView2CacheSuccess">Очистка кэша WebView2 успешна</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.LoadWebView2LoginView">Начало загрузки страницы входа WebView2...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ReloadWebView2ViewSuccess">Перезагрузка страницы входа успешна</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2InitError">Ошибка инициализации WebView2: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.CurrentWebView2Source">Текущий адрес WebView2: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2LoginSuccess">Успешный вход игрока, начинается получение cookies...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2GetCookieError">Успешный вход в аккаунт, ошибка получения Cookie, попробуйте очистить кэш WebView2</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.FindCookieFile">Обнаружен файл cookies, начинается перебор...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.FindCookieCount">Количество Cookie {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.RemidGetSuccess">Успешное получение Remid: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.SidGetSuccess">Успешное получение Sid: {0}</sys:String>
+
+
+    <!--Windows/LoadWindow.xaml-->
+    <sys:String x:Key="Windows.LoadWindow.Title">Эмулятор EA App  Загрузка программы</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.OpenConfig">Открыть файл конфигурации</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.VerifyAccount">Проверка действительности учетной записи игрока...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.BackChooseAccount">Вернуться к выбору аккаунта</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.Exit">Выйти из программы</sys:String>
+
+
+    <!--Windows/LoadWindow.xaml.cs-->
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidity">Проверка действительности Cookie игрока...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityError">Ошибка проверки действительности Cookie игрока, программа будет завершена, проверьте подключение к сети</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityErrorRetry">Ошибка проверки действительности Cookie игрока, начинается повторная попытка {0}...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValiditySuccess">Проверка действительности Cookie успешна, Cookie игрока действителен</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityErrorStop">Cookie игрока недействителен, программа будет завершена, обновите Cookie вручную</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.InitGameInfo">Начало инициализации информации об игре...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CloseServiceProcess">Освобождение ресурсов файлов службы...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryInfo">Получение информации об игре из реестра...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfo">Получение информации об игре из реестра для «{0}»...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoSuccess">Получение информации об игре из Regedit для «{0}» успешно</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistry2GameInfoSuccess">Получение информации об игре из Regedit2 для «{0}» успешно</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoNotFound">Не удалось получить информацию об игре из реестра для «{0}»</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenProcess">Обновление данных BaseToken...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenErrorNetwork">Ошибка обновления данных BaseToken, программа будет завершена, проверьте подключение к сети</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenRetry">Ошибка обновления данных BaseToken, начинается повторная попытка {0}...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenSuccess">Обновление данных BaseToken успешно</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoProcess">Получение информации об учетной записи игрока...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoErrorNetwork">Ошибка получения информации об учетной записи игрока, программа будет завершена, проверьте подключение к сети</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoRetry">Ошибка получения информации об учетной записи игрока, начинается повторная попытка {0}...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoSuccess">Получение информации об учетной записи игрока успешно</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.StartMainProcess">Инициализация завершена, запуск главной программы...</sys:String>
+
+
+    <!--Windows/AccountWindow.xaml-->
+    <sys:String x:Key="Windows.AccountWindow.Title">Эмулятор EA App  Выбор аккаунта</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.OpenConfig">Открыть файл конфигурации</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.LoginAccount">Войти в выбранный аккаунт</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.GetCookie">Получить Cookie</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ChangeAccount">Сменить аккаунт</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ShowRemid">Показать информацию о Remid выбранного аккаунта</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ShowSid">Показать информацию о Sid выбранного аккаунта</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.SwitchLang">English</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.AutoLogin">Автовход</sys:String>
+
+    
+    <!--Windows/Dialog/AdvancedWindow.xaml-->
+    <sys:String x:Key="Windows.AdvancedWindow.Title">Эмулятор EA App  Выбор игры</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Registry">Регистратор</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Path">Путь установки игры</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.ShowPath">Показать путь установки игры в реестре</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.StartParameters">Параметры запуска</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.StartParametersExample">Введите расширенные параметры запуска игры, например: -PerfOverlay.DrawFps 1</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Custom">Пользовательский</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Browse">Обзор</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.BrowseTip">Пожалуйста, выберите файл exe главной программы игры</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.EnableCustom">Включить пользовательский</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Save">Сохранить</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Cancel">Отмена</sys:String>
+
+    
+    <!--Windows/Dialog/AdvancedWindow.xaml.cs-->
+    <sys:String x:Key="Windows.AdvancedWindow.FileDialogTitle">Пожалуйста, выберите путь к файлу exe главной программы игры</sys:String>
+
+    
+    <!--Views/SettingView.xaml-->
+    <sys:String x:Key="Views.SettingView.SystemInfo">Системная информация</sys:String>
+    <sys:String x:Key="Views.SettingView.VersionInfo">Версия программы</sys:String>
+    <sys:String x:Key="Views.SettingView.UserName">Имя пользователя</sys:String>
+    <sys:String x:Key="Views.SettingView.MachineName">Имя компьютера</sys:String>
+    <sys:String x:Key="Views.SettingView.OsVersion">Версия системы</sys:String>
+    <sys:String x:Key="Views.SettingView.SystemDirectory">Системный каталог</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeVersion">Платформа выполнения</sys:String>
+    <sys:String x:Key="Views.SettingView.OSArchitecture">Версия библиотеки выполнения</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeIdentifier">Среда выполнения</sys:String>
+    <sys:String x:Key="Views.SettingView.Tools">Полезные инструменты</sys:String>
+    <sys:String x:Key="Views.SettingView.OpenConfigFolder">Открыть каталог конфигурации</sys:String>
+    <sys:String x:Key="Views.SettingView.ChangeLanguage">English</sys:String>
+
+
+    <!--Views/LogView.xaml-->
+    <sys:String x:Key="Views.LogView.Time">Время</sys:String>
+    <sys:String x:Key="Views.LogView.Level">Уровень</sys:String>
+    <sys:String x:Key="Views.LogView.Info">Журнал</sys:String>
+
+
+    <!--Views/AccountView.xaml-->
+    <sys:String x:Key="Views.AccountView.ChangeAccount">Сменить аккаунт</sys:String>
+
+
+    <!--Views/AboutView.xaml-->
+    <sys:String x:Key="Views.AboutView.Title">Эмулятор EA App</sys:String>
+    <sys:String x:Key="Views.AboutView.CoreAlgorithm">Ядро алгоритма: Misaka_Mikoto_01</sys:String>
+    <sys:String x:Key="Views.AboutView.Design">Дизайн программы: CrazyZhang666  B1397KB</sys:String>
+    <sys:String x:Key="Views.AboutView.Declare">Эта программа предназначена только для учебных и исследовательских целей</sys:String>
+
+
+    <!--Views/FriendView.xaml.cs-->
+    <sys:String x:Key="Views.FriendView.GetFriendsProcess">Получение списка друзей текущего аккаунта...</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsErrorNetwork">Ошибка получения списка друзей текущего аккаунта, проверьте подключение к сети</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsRetry">Получение списка друзей текущего аккаунта, начинается повторная попытка {0}...</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsSuccess">Получение списка друзей текущего аккаунта успешно, количество друзей: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsError">Ошибка получения списка друзей: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatar">Подготовка к получению аватаров друзей</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarError">Ошибка получения аватаров друзей</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorUserId">Не удается разобрать userId: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorKvp">Не удается разобрать kvp.Key: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorNotFound">Не найден аватар друга {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.DownloadAvatarError">Ошибка загрузки аватара игрока {0}</sys:String>
+
+    
+    <!--Modal/GameMenu.xaml-->
+    <sys:String x:Key="Modal.GameMenu.StartGame">Запустить игру</sys:String>
+    <sys:String x:Key="Modal.GameMenu.SetGameArgs">Расширенные настройки</sys:String>
+    
+
+    <!--Utils/CoreUtil.cs-->
+    <sys:String x:Key="Utils.CoreUtil.CloseServiceProcess">Подготовка к закрытию служебного процесса</sys:String>
+    <sys:String x:Key="Utils.CoreUtil.CheckWebView2EnvInfo">Информация о версии WebView2 Runtime {0}</sys:String>
+    <sys:String x:Key="Utils.CoreUtil.CheckWebView2EnvError">Ошибка окружения WebView2 Runtime {0}</sys:String>
+
+
+    <!--Helper/FileHelper.cs-->
+    <sys:String x:Key="Helper.FileHelper.ClearDirectorySuccess">Очистка папки успешна {0}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ClearDirectoryError">Ошибка очистки папки {0} {1}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ExtractResFileSuccess">Распаковка ресурсного файла успешна {0}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ExtractResFileError">Ошибка распаковки ресурсного файла {0} {1}</sys:String>
+
+    
+    <!--Helper/JsonHelper.cs-->
+    <sys:String x:Key="Helper.JsonHelper.JsonDeserializeError">Ошибка десериализации {0}</sys:String>
+    <sys:String x:Key="Helper.JsonHelper.JsonSerializeError">Ошибка сериализации {0}</sys:String>
+
+
+    <!--Helper/MsgBoxHelper.cs-->
+    <sys:String x:Key="Helper.MsgBoxHelper.ExceptionInfo">Произошла неизвестная ошибка, проверьте сообщение об ошибке для получения дополнительной информации&#x0a;&#x0a;Информация об ошибке : &#x0a;{0}</sys:String>
+
+    
+    <!--Helper/ProcessHelper.cs-->
+    <sys:String x:Key="Helper.ProcessHelper.OpenLinkFormatError">Ссылка не в http формате {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenLinkError">Ошибка открытия http ссылки {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenDirectoryFormatError">Путь к папке не существует {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenDirectoryError">Ошибка открытия папки {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessFormatError">Путь к программе не существует {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessSuccess">Запуск программы успешен {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessError">Ошибка запуска программы {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessSuccess">Процесс успешно закрыт {0}.exe</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessErrorNotFound">Не найдена информация о процессе {0}.exe</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessError">Ошибка закрытия процесса {0} {1}</sys:String>
+
+
+    <!--Helper/RegistryHelper.cs-->
+    <sys:String x:Key="Helper.RegistryHelper.GetRegistryTargetVauleError">Ошибка чтения реестра {0} {1} {2}</sys:String>
+    <sys:String x:Key="Helper.RegistryHelper.SetRegistryTargetVaule">Ошибка записи в реестр {0} {1} {2} {3}</sys:String>
+
+
+    <!--Core/Ready.cs-->
+    <sys:String x:Key="Core.Ready.StartProcess">Запуск служебного процесса...</sys:String>
+    <sys:String x:Key="Core.Ready.StartLSXListen">Запуск службы прослушивания LSX...</sys:String>
+    <sys:String x:Key="Core.Ready.StartBattlelogListen">Запуск службы прослушивания Battlelog...</sys:String>
+    <sys:String x:Key="Core.Ready.StartUpdateToken">Запуск службы периодического обновления BaseToken...</sys:String>
+    <sys:String x:Key="Core.Ready.StartUpdateTokenSuccess">Запуск службы периодического обновления BaseToken успешен</sys:String>
+    <sys:String x:Key="Core.Ready.StopLSXListen">Остановка службы прослушивания LSX...</sys:String>
+    <sys:String x:Key="Core.Ready.StopBattlelogListen">Остановка службы прослушивания Battlelog...</sys:String>
+    <sys:String x:Key="Core.Ready.StopUpdateToken">Остановка службы периодического обновления BaseToken...</sys:String>
+    <sys:String x:Key="Core.Ready.StopUpdateTokenSuccess">Остановка службы периодического обновления BaseToken успешна</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenErrorNetwork">Ошибка периодического обновления данных BaseToken, проверьте подключение к сети</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenErrorRetry">Ошибка периодического обновления данных BaseToken, начинается повторная попытка {0}...</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenSuccess">Периодическое обновление данных BaseToken успешно</sys:String>
+    <sys:String x:Key="Core.Ready.RefreshTokenError">Ошибка обновления Token</sys:String>
+    <sys:String x:Key="Core.Ready.RefreshTokenSuccess">Обновление Token успешно</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoProcess">Получение информации о текущем игроке...</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoError">Ошибка получения информации о текущем игроке</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoSuccess">Получение информации о текущем игроке успешно</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoErrorNotFound">Не найден namespaceName для cem_ea_id</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoPlayerName">Имя игрока {0}</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoPersonaId">PId игрока {0}</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoUserId">UserId игрока {0}</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarProcess">Получение аватара текущего игрока...</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarErrorNetwork">Ошибка получения аватара текущего игрока, проверьте подключение к сети</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarErrorRetry">Ошибка получения аватара текущего игрока, начинается повторная попытка {0}...</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdProcess">Получение Id аватара текущего игрока...</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdError">Ошибка получения Id аватара текущего игрока</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdSuccess">Получение Id аватара текущего игрока успешно</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserId">AvatarId игрока {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarSkip">Обнаружено локальное изображение аватара игрока, пропуск загрузки {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarError">Ошибка загрузки аватара текущего игрока {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarSuccess">Загрузка аватара текущего игрока успешна</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatar">Игрок Avatar {0}</sys:String>
+
+
+    <!--Core/PipeServer.cs-->
+    <sys:String x:Key="Core.PipeServer.Status">{0} Статус потока {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.ListenSuccess">{0} Запуск службы прослушивания Pipe успешен</sys:String>
+    <sys:String x:Key="Core.PipeServer.StopListenSuccess">{0} Остановка службы прослушивания Pipe успешна</sys:String>
+    <sys:String x:Key="Core.PipeServer.ConnErrorTimeOut">{0} Ошибка тайм-аута при обработке подключения клиента Pipe {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.GameStatus">{0} Текущий статус игры Pipe {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.ConnError">{0} Ошибка при обработке подключения клиента Pipe {1}</sys:String>
+
+
+    <!--Core/LSXTcpServer.cs-->
+    <sys:String x:Key="Core.LSXTcpServer.AlreadyStart">Служба прослушивания LSX уже запущена, не запускайте повторно</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ListenSuccess">Запуск службы прослушивания LSX успешен, порт LSX 3216</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.StopListenSuccess">Остановка службы прослушивания LSX успешна</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.FindClientConn">Обнаружено TCP-соединение клиента {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.CurrentType">Текущий BattlelogType {1}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ChallengeRes">Текущий Challenge Response {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ContentId">Текущий ContentId {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.StartGamePrepare">Подготовка к запуску игры...</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ChallengeResError">Серьезная ошибка Challenge Response!</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.NewChallengeRes">Обработка расшифровки Challenge Response NewResponse {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.NewChallengeSeedRes">Обработка расшифровки Challenge Response Seed {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.CurrentLsxRes">Текущий {0} LSX ответ {1}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenErrorTimeout">Ошибка тайм-аута при обработке TCP-соединения Battlelog {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenError">Ошибка при обработке TCP-соединения {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenEnd">Обработка TCP-соединения завершена {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ReadTcpStringError">Ошибка при асинхронном чтении TCP-строки {0}</sys:String>
+
+
+    <!--Core/Game.cs-->
+    <sys:String x:Key="Core.Game.StartGameErrorDir">{0} Путь к игре пуст, запуск игры прерван {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorExe">{0} Файл главной программы игры не найден, запуск игры прерван {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorToken">{0} EA Token пуст, запуск игры прерван</sys:String>
+    <sys:String x:Key="Core.Game.StartGameProcess">{0} Запуск игры...</sys:String>
+    <sys:String x:Key="Core.Game.StartGameSuccess">Игра {0} успешно запущена</sys:String>
+    <sys:String x:Key="Core.Game.StartGameError">Ошибка запуска игры {0} {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorNotice">Ошибка запуска игры {0}, подробности в журнале</sys:String>
+
+    
+    <!--Core/BattlelogHttpServer.cs-->
+    <sys:String x:Key="Core.BattlelogHttpServer.AlreadyListen">Служба прослушивания Battlelog уже запущена, не запускайте повторно</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ListenSuccess">Запуск службы прослушивания Battlelog успешен</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ListenSuccessDebug">Порты прослушивания Battlelog 3215 и 4219</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StopListenSuccess">Остановка службы прослушивания Battlelog успешна</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.GetUrlDebug">Обработка GET запроса Battlelog Url {0}</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get50182">Получение статуса установки Battlefield 3</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get2f4c24">Получение статуса</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get181931">Получение статуса установки Medal of Honor Warfighter</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get76889">Получение статуса установки Battlefield 4</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get182288">Получение статуса установки Battlefield Hardline</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.PostUrlDebug">Обработка POST запроса Battlelog Url {0}</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.PingBack">Возврат Ping информации Battlelog</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBF3">Подготовка к запуску Battlefield 3</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBF4">Подготовка к запуску Battlefield 4</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBFHD">Подготовка к запуску Battlefield Hardline</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ClientError">Ошибка при обработке подключения клиента Battlelog {0}</sys:String>
+
+
+    <!--Api/EasyEaApi.cs-->
+    <sys:String x:Key="Api.EasyEaApi.FindLocalAvatarSkipDownload">Обнаружено локальное изображение аватара игрока, пропуск загрузки {0}</sys:String>
+    <sys:String x:Key="Api.EasyEaApi.DownloadAvatarError">Ошибка загрузки аватара текущего игрока {0}</sys:String>
+
+
+    <!--Api/EaApi.cs-->
+    <sys:String x:Key="Api.EaApi.UpdateCookieCount">{0} Количество Cookie {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.UpdateCookieGetRemid">{0} Успешное получение Remid {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.UpdateCookieGetSid">{0} Успешное получение Sid {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundRemidOrSid">Remid или Sid пуст, {0} Запрос прерван</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqStatus">{0} Запрос завершен, статус {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqStatusCode">{0} Запрос завершен, код статуса {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorTimeout">{0} Время запроса истекло</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqErrorExpiredCookie">{0} Запрос не удался, Cookie истек, результат {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqSuccess">{0} Успешное получение AccessToken {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqSuccessTemp">{0} Успешное получение TempAccessToken {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqError">{0} Запрос не удался, результат {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqErrorEx">{0} Ошибка запроса {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundToken">EA Token пуст, {0} Запрос прерван</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundUserId">Список UserId пуст, {0} Запрос прерван</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqErrorEmpty">{0} Запрос не удался, ответ пуст</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXLicenseSuccess">{0} Успешное получение License {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXLicenseError">{0} Ошибка получения License</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXAutuCodeLocation">{0} Получение location {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXAutuCodeSuccess">{0} Успешное получение AuthCode {1}</sys:String>
+
+
+    <!--Api/CoreApi.cs-->
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionStatus">GetWebUpdateVersion запрос завершен, статус {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionStatusCode">GetWebUpdateVersion запрос завершен, код статуса {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionTimeout">GetWebUpdateVersion время запроса истекло</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionSuccess">Успешное получение номера версии обновления сервера {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionError">Ошибка получения номера версии обновления сервера {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionErrorEx">Ошибка получения номера версии обновления сервера {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.DownloadWebImageError">Ошибка загрузки сетевого изображения {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.DownloadWebImageErrorEx">Ошибка загрузки сетевого изображения {0} {1}</sys:String>
+
+
+    <!--Globals.cs-->
+    <sys:String x:Key="Globals.ReadConfig">Начало чтения глобального конфигурационного файла...</sys:String>
+    <sys:String x:Key="Globals.CurrentConfigPath">Текущий путь к конфигурационному файлу {0}</sys:String>
+    <sys:String x:Key="Globals.ReadConfigSuccess">Успешное чтение конфигурационного файла Globals AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.EnumTryParseSuccess">Успешное преобразование перечисления AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.EnumTryParseError">Ошибка преобразования перечисления AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.SetDefaultLanguageSuccess">Успешная установка языка по умолчанию {0}</sys:String>
+    <sys:String x:Key="Globals.SetDefaultLanguageError">Неподдерживаемый язык по умолчанию, используется язык системы</sys:String>
+    <sys:String x:Key="Globals.ReadGlobalConfigSuccess">Успешное чтение глобального конфигурационного файла</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigProcess">Начало сохранения глобального конфигурационного файла...</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigPath">Текущий путь сохранения конфигурационного файла {0}</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigSuccess">Успешное сохранение глобального конфигурационного файла</sys:String>
+
+    
+    <!--App.xaml.cs-->
+    <sys:String x:Key="App.Welcome">Добро пожаловать в программу {0}</sys:String>
+    <sys:String x:Key="App.DuplicateWarn">Не открывайте программу повторно, она уже запущена</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheck">Проверка окружения WebView2...</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheckNotFound">WebView2 Runtime не найден, пожалуйста, установите с официального сайта Microsoft&#x0a;https://go.microsoft.com/fwlink/p/?LinkId=2124703</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheckSuccess">Окружение WebView2 в системе в порядке</sys:String>
+    <sys:String x:Key="App.TCPPortCheck">Проверка доступности TCP-портов...</sys:String>
+    <sys:String x:Key="App.TCPPortCheckErrorTitle">Ошибка инициализации</sys:String>
+    <sys:String x:Key="App.TCPPortCheck3216">Обнаружен занятый TCP-порт 3216, освободите порт&#x0a;Обычно достаточно закрыть программы Origin и EaApp</sys:String>
+    <sys:String x:Key="App.TCPPortCheck3215">Обнаружен занятый TCP-порт 3215, освободите порт&#x0a;Обычно достаточно закрыть программы Origin и EaApp</sys:String>
+    <sys:String x:Key="App.TCPPortCheck4219">Обнаружен занятый TCP-порт 4219, освободите порт&#x0a;Обычно достаточно закрыть программы Origin и EaApp</sys:String>
+    <sys:String x:Key="App.TCPPortCheckSuccess">Проверка TCP-портов в системе в порядке</sys:String>
+    <sys:String x:Key="App.TaskEx">Поток Task перехватил необработанное исключение</sys:String>
+    <sys:String x:Key="App.ErrorFileName">Обнаружено, что имя текущей программы-эмулятора не равно EADesktop.exe, измените имя на EADesktop.exe и перезапустите</sys:String>
+
+</ResourceDictionary>
