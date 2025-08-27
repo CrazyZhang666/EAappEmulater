@@ -1,0 +1,371 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--Windows/MainWindow.xaml-->
+    <sys:String x:Key="Windows.MainWindow.Title">EA App エミュレーター</sys:String>
+    <sys:String x:Key="Windows.MainWindow.NewVersionAvailable">新しいバージョンが見つかりました。クリックしてダウンロード</sys:String>
+    <sys:String x:Key="Windows.MainWindow.ShowMainWindow">メインウィンドウを表示</sys:String>
+    <sys:String x:Key="Windows.MainWindow.ChangeAccount">アカウントを変更</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Exit">プログラムを終了</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Account">アカウント</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Settings">設定</sys:String>
+    <sys:String x:Key="Windows.MainWindow.AlreadyInstall">インストール済み</sys:String>
+    <sys:String x:Key="Windows.MainWindow.GameLibrary">ゲームライブラリ</sys:String>
+    <sys:String x:Key="Windows.MainWindow.EaAppView">EA App インターフェース</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Friends">フレンド</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Logs">ログ</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Update">更新</sys:String>
+    <sys:String x:Key="Windows.MainWindow.About">約</sys:String>
+
+    
+    <!--Windows/MainWindow.xaml.cs-->
+    <sys:String x:Key="Windows.MainWindow.StartMainProcessSuccessful">メインプロセスの起動に成功しました</sys:String>
+    <sys:String x:Key="Windows.MainWindow.TitleWithVersion">EA App エミュレーター v{0}</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingTipTitle">EA App エミュレーター はトレイに最小化されました</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingTipDes">トレイの右クリックメニューからプログラムを完全に終了できます</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingSuccess">メインプロセスの終了に成功しました</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdate">新しいバージョンを検出中...</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateError">新しいバージョンの検出に失敗しました。ネットワーク接続を確認してください</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateErrorRetry">新しいバージョンの検出に失敗しました。再試行 {0} 回目を開始します...</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateSuccess">おめでとうございます。現在のバージョンは最新です {0}</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateNewVersionAvailable">新しいバージョン v{0} が見つかりました。クリックして更新をダウンロード</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateNewVersionAvailableWeb">新しいバージョン v{0} が見つかりました。クリックして更新をダウンロード</sys:String>
+
+
+    <!--Windows/LoginWindow.xaml-->
+    <sys:String x:Key="Windows.LoginWindow.Title">EA App エミュレーター  アカウントにログイン</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.Reload">ログイン画面を再読み込み</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.Process">ログイン画面を読み込んでいます...</sys:String>
+
+
+    <!--Windows/LoginWindow.xaml.cs-->
+    <sys:String x:Key="Windows.LoginWindow.InitWebView2">WebView2 の初期化を開始します ...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.InitWebView2Success">WebView2 の初期化が完了しました ...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ClearWebView2Cache">現在のログインアカウントのキャッシュをクリアしています...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ClearWebView2CacheSuccess">WebView2 キャッシュのクリアに成功しました</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.LoadWebView2LoginView">WebView2 ログイン画面の読み込みを開始しています...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ReloadWebView2ViewSuccess">ログインページの再読み込みに成功しました</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2InitError">WebView2 の初期化中に例外が発生しました: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.CurrentWebView2Source">現在の WebView2 アドレス: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2LoginSuccess">プレイヤーのログインに成功しました。クッキーの取得を開始します...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2GetCookieError">アカウントのログインに成功しましたが、Cookie の取得に失敗しました。WebView2 キャッシュのクリアを試みてください</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.FindCookieFile">クッキー ファイルが見つかりました。中を調べています...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.FindCookieCount">クッキーの数: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.RemidGetSuccess">Remid の取得に成功しました: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.SidGetSuccess">Sid の取得に成功しました: {0}</sys:String>
+
+
+    <!--Windows/LoadWindow.xaml-->
+    <sys:String x:Key="Windows.LoadWindow.Title">EA App エミュレーター  プログラムを読み込み中</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.OpenConfig">設定ファイルを開く</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.VerifyAccount">プレイヤーアカウントの有効性を検証中...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.BackChooseAccount">アカウント選択に戻る</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.Exit">プログラムを終了</sys:String>
+
+
+    <!--Windows/LoadWindow.xaml.cs-->
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidity">プレイヤーの Cookie の有効性を検出中...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityError">プレイヤーの Cookie の有効性の検出に失敗しました。プログラムを終了します。ネットワーク接続を確認してください</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityErrorRetry">プレイヤーの Cookie の有効性の検出に失敗しました。再試行 {0} 回目を開始します...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValiditySuccess">プレイヤーの Cookie の有効性の検出に成功しました。プレイヤーの Cookie は有効です</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityErrorStop">プレイヤーの Cookie は無効です。プログラムを終了します。手動で Cookie を更新してください</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.InitGameInfo">ゲーム情報の初期化を開始します...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CloseServiceProcess">リソースサービスプロセスファイルを解放中...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryInfo">レジストリゲーム情報を取得中...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfo">「{0}」のレジストリゲーム情報を取得中...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoSuccess">Regedit から「{0}」のレジストリゲーム情報を取得に成功しました</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistry2GameInfoSuccess">Regedit2 から「{0}」のレジストリゲーム情報を取得に成功しました</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoNotFound">「{0}」のレジストリゲーム情報が取得できませんでした</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenProcess">BaseToken データの更新中...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenErrorNetwork">BaseToken データの更新に失敗しました。プログラムを終了します。ネットワーク接続を確認してください</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenRetry">BaseToken データの更新に失敗しました。再試行 {0} 回目を開始します...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenSuccess">BaseToken データの更新に成功しました</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoProcess">プレイヤーアカウント情報を取得中...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoErrorNetwork">プレイヤーアカウント情報の取得に失敗しました。プログラムを終了します。ネットワーク接続を確認してください</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoRetry">プレイヤーアカウント情報の取得に失敗しました。再試行 {0} 回目を開始します...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoSuccess">プレイヤーアカウント情報の取得に成功しました</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.StartMainProcess">初期化が完了しました。メインプロセスの起動を開始します...</sys:String>
+
+
+    <!--Windows/AccountWindow.xaml-->
+    <sys:String x:Key="Windows.AccountWindow.Title">EA App エミュレーター  アカウント選択</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.OpenConfig">設定ファイルを開く</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.LoginAccount">選択したアカウントでログイン</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.GetCookie">Cookie を取得</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ChangeAccount">新しいアカウントに変更</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ShowRemid">選択したアカウントの Remid 情報を表示</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ShowSid">選択したアカウントの Sid 情報を表示</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.SwitchLang">English</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.AutoLogin">自動ログイン</sys:String>
+
+    
+    <!--Windows/Dialog/AdvancedWindow.xaml-->
+    <sys:String x:Key="Windows.AdvancedWindow.Title">EA App エミュレーター  ゲーム選択</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Registry">レジストリ</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Path">ゲームインストール場所</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.ShowPath">レジストリゲームインストールディレクトリの場所を表示</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.StartParameters">起動パラメータ</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.StartParametersExample">ゲームの高度な起動パラメータを入力してください。例：-PerfOverlay.DrawFps 1</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Custom">カスタム</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Browse">参照</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.BrowseTip">ゲームインストールディレクトリのメインプログラム exe ファイルの場所を選択してください</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.EnableCustom">カスタムを有効にする</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Save">保存</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Cancel">キャンセル</sys:String>
+
+    
+    <!--Windows/Dialog/AdvancedWindow.xaml.cs-->
+    <sys:String x:Key="Windows.AdvancedWindow.FileDialogTitle">現在のゲームのメインプログラム exe ファイルのパスを選択してください</sys:String>
+
+    
+    <!--Views/SettingView.xaml-->
+    <sys:String x:Key="Views.SettingView.SystemInfo">システム情報</sys:String>
+    <sys:String x:Key="Views.SettingView.VersionInfo">プログラムバージョン</sys:String>
+    <sys:String x:Key="Views.SettingView.UserName">ユーザー名</sys:String>
+    <sys:String x:Key="Views.SettingView.MachineName">コンピュータ名</sys:String>
+    <sys:String x:Key="Views.SettingView.OsVersion">システムバージョン</sys:String>
+    <sys:String x:Key="Views.SettingView.SystemDirectory">システムディレクトリ</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeVersion">ランタイムプラットフォーム</sys:String>
+    <sys:String x:Key="Views.SettingView.OSArchitecture">ランタイムバージョン</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeIdentifier">ランタイム環境</sys:String>
+    <sys:String x:Key="Views.SettingView.Tools">よく使うツール</sys:String>
+    <sys:String x:Key="Views.SettingView.OpenConfigFolder">設定ディレクトリを開く</sys:String>
+    <sys:String x:Key="Views.SettingView.ChangeLanguage">English</sys:String>
+
+
+    <!--Views/LogView.xaml-->
+    <sys:String x:Key="Views.LogView.Time">時間</sys:String>
+    <sys:String x:Key="Views.LogView.Level">レベル</sys:String>
+    <sys:String x:Key="Views.LogView.Info">ログ</sys:String>
+
+
+    <!--Views/AccountView.xaml-->
+    <sys:String x:Key="Views.AccountView.ChangeAccount">ログインアカウントを変更</sys:String>
+
+
+    <!--Views/AboutView.xaml-->
+    <sys:String x:Key="Views.AboutView.Title">EA App エミュレーター</sys:String>
+    <sys:String x:Key="Views.AboutView.CoreAlgorithm">コアアルゴリズム: Misaka_Mikoto_01</sys:String>
+    <sys:String x:Key="Views.AboutView.Design">プログラムデザイン: CrazyZhang666  B1397KB</sys:String>
+    <sys:String x:Key="Views.AboutView.Declare">このプログラムは学習研究目的のみに使用されます</sys:String>
+
+
+    <!--Views/FriendView.xaml.cs-->
+    <sys:String x:Key="Views.FriendView.GetFriendsProcess">現在のアカウントのフレンドリストを取得中...</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsErrorNetwork">現在のアカウントのフレンドリストの取得に失敗しました。ネットワーク接続を確認してください</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsRetry">現在のアカウントのフレンドリストの取得を再試行します。{0} 回目...</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsSuccess">現在のアカウントのフレンドリストの取得に成功しました。現在のアカウントのフレンド数: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsError">現在のアカウントのフレンドリストの取得中に例外が発生しました: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatar">フレンドのアバターの取得準備中</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarError">フレンドのアバターの取得に失敗しました</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorUserId">userId: {0} を解析できません</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorKvp">kvp.Key: {0} を解析できません</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorNotFound">フレンド {0} のアバターが見つかりません</sys:String>
+    <sys:String x:Key="Views.FriendView.DownloadAvatarError">プレイヤーアバターのダウンロードに失敗しました {0}</sys:String>
+
+    
+    <!--Modal/GameMenu.xaml-->
+    <sys:String x:Key="Modal.GameMenu.StartGame">ゲームを起動</sys:String>
+    <sys:String x:Key="Modal.GameMenu.SetGameArgs">高度な設定</sys:String>
+    
+
+    <!--Utils/CoreUtil.cs-->
+    <sys:String x:Key="Utils.CoreUtil.CloseServiceProcess">サービスプロセスを閉じる準備中</sys:String>
+    <sys:String x:Key="Utils.CoreUtil.CheckWebView2EnvInfo">WebView2 Runtime バージョン情報 {0}</sys:String>
+    <sys:String x:Key="Utils.CoreUtil.CheckWebView2EnvError">WebView2 Runtime 環境異常 {0}</sys:String>
+
+
+    <!--Helper/FileHelper.cs-->
+    <sys:String x:Key="Helper.FileHelper.ClearDirectorySuccess">フォルダーのクリアに成功しました {0}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ClearDirectoryError">フォルダーのクリア中に異常が発生しました {0} {1}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ExtractResFileSuccess">リソースファイルの解放に成功しました {0}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ExtractResFileError">リソースファイルの解放中に異常が発生しました {0} {1}</sys:String>
+
+    
+    <!--Helper/JsonHelper.cs-->
+    <sys:String x:Key="Helper.JsonHelper.JsonDeserializeError">逆シリアル化中に異常が発生しました {0}</sys:String>
+    <sys:String x:Key="Helper.JsonHelper.JsonSerializeError">シリアル化中に異常が発生しました {0}</sys:String>
+
+
+    <!--Helper/MsgBoxHelper.cs-->
+    <sys:String x:Key="Helper.MsgBoxHelper.ExceptionInfo">未知の異常が発生しました。異常のヒントを確認して詳細情報を取得してください&#x0a;&#x0a;異常情報 : &#x0a;{0}</sys:String>
+
+    
+    <!--Helper/ProcessHelper.cs-->
+    <sys:String x:Key="Helper.ProcessHelper.OpenLinkFormatError">リンクは http 形式ではありません {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenLinkError">http リンクを開く際に異常が発生しました {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenDirectoryFormatError">フォルダーパスが存在しません {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenDirectoryError">フォルダーを開く際に異常が発生しました {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessFormatError">プログラムパスが存在しません {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessSuccess">プログラムの起動に成功しました {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessError">プログラムの起動中に異常が発生しました {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessSuccess">プロセスの終了に成功しました {0}.exe</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessErrorNotFound">プロセス情報が見つかりません {0}.exe</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessError">プロセスの終了中に異常が発生しました {0} {1}</sys:String>
+
+
+    <!--Helper/RegistryHelper.cs-->
+    <sys:String x:Key="Helper.RegistryHelper.GetRegistryTargetVauleError">レジストリの読み取り中に異常が発生しました {0} {1} {2}</sys:String>
+    <sys:String x:Key="Helper.RegistryHelper.SetRegistryTargetVaule">レジストリの書き込み中に異常が発生しました {0} {1} {2} {3}</sys:String>
+
+
+    <!--Core/Ready.cs-->
+    <sys:String x:Key="Core.Ready.StartProcess">サービスプロセスを起動中...</sys:String>
+    <sys:String x:Key="Core.Ready.StartLSXListen">LSX 監視サービスを起動中...</sys:String>
+    <sys:String x:Key="Core.Ready.StartBattlelogListen">Battlelog 監視サービスを起動中...</sys:String>
+    <sys:String x:Key="Core.Ready.StartUpdateToken">定期的に BaseToken サービスを更新中...</sys:String>
+    <sys:String x:Key="Core.Ready.StartUpdateTokenSuccess">定期的に BaseToken サービスを更新するのに成功しました</sys:String>
+    <sys:String x:Key="Core.Ready.StopLSXListen">LSX 監視サービスを停止中...</sys:String>
+    <sys:String x:Key="Core.Ready.StopBattlelogListen">Battlelog 監視サービスを停止中...</sys:String>
+    <sys:String x:Key="Core.Ready.StopUpdateToken">定期的に BaseToken サービスを停止中...</sys:String>
+    <sys:String x:Key="Core.Ready.StopUpdateTokenSuccess">定期的に BaseToken サービスを停止するのに成功しました</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenErrorNetwork">定期的に BaseToken データの更新に失敗しました。ネットワーク接続を確認してください</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenErrorRetry">定期的に BaseToken データの更新に失敗しました。再試行 {0} 回目を開始します...</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenSuccess">定期的に BaseToken データの更新に成功しました</sys:String>
+    <sys:String x:Key="Core.Ready.RefreshTokenError">トークンの更新に失敗しました</sys:String>
+    <sys:String x:Key="Core.Ready.RefreshTokenSuccess">トークンの更新に成功しました</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoProcess">現在ログイン中のプレイヤー情報を取得中...</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoError">現在ログイン中のプレイヤー情報の取得に失敗しました</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoSuccess">現在ログイン中のプレイヤー情報の取得に成功しました</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoErrorNotFound">cem_ea_id の namespaceName が見つかりません</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoPlayerName">プレイヤー名 {0}</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoPersonaId">プレイヤー PId {0}</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoUserId">プレイヤー UserId {0}</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarProcess">現在ログイン中のプレイヤーのアバターを取得中...</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarErrorNetwork">現在ログイン中のプレイヤーのアバターの取得に失敗しました。ネットワーク接続を確認してください</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarErrorRetry">現在ログイン中のプレイヤーのアバターの取得に失敗しました。再試行 {0} 回目を開始します...</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdProcess">現在ログイン中のプレイヤーのアバター Id を取得中...</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdError">現在ログイン中のプレイヤーのアバター Id の取得に失敗しました</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdSuccess">現在ログイン中のプレイヤーのアバター Id の取得に成功しました</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserId">プレイヤーの AvatarId {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarSkip">ローカルプレイヤーアバター画像キャッシュが見つかりました。ネットワークダウンロード操作をスキップします {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarError">現在ログイン中のプレイヤーのアバターのダウンロードに失敗しました {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarSuccess">現在ログイン中のプレイヤーのアバターのダウンロードに成功しました</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatar">プレイヤーの Avatar {0}</sys:String>
+
+
+    <!--Core/PipeServer.cs-->
+    <sys:String x:Key="Core.PipeServer.Status">{0} スレッド状態 {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.ListenSuccess">{0} Pipe 監視サービスの起動に成功しました</sys:String>
+    <sys:String x:Key="Core.PipeServer.StopListenSuccess">{0} Pipe 監視サービスの停止に成功しました</sys:String>
+    <sys:String x:Key="Core.PipeServer.ConnErrorTimeOut">{0} Pipe クライアント接続の処理中にタイムアウト例外が発生しました {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.GameStatus">{0} Pipe 現在のゲーム状態 {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.ConnError">{0} Pipe クライアント接続の処理中に例外が発生しました {1}</sys:String>
+
+
+    <!--Core/LSXTcpServer.cs-->
+    <sys:String x:Key="Core.LSXTcpServer.AlreadyStart">LSX 監視サービスはすでに実行中です。重複して起動しないでください</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ListenSuccess">LSX 監視サービスの起動に成功しました。LSX サービスの監視ポートは 3216 です</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.StopListenSuccess">LSX 監視サービスの停止に成功しました</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.FindClientConn">TCP クライアント接続を発見しました {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.CurrentType">現在の BattlelogType {1}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ChallengeRes">今回の起動 Challenge Response は {0} です</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ContentId">今回の起動 ContentId は {0} です</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.StartGamePrepare">ゲームの起動準備中...</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ChallengeResError">Challenge Response 致命的エラー!</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.NewChallengeRes">Challenge 応答の復号処理 NewResponse {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.NewChallengeSeedRes">Challenge 応答の復号処理 Seed {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.CurrentLsxRes">現在 {0} LSX の応答 {1}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenErrorTimeout">TCP Battlelog クライアント接続の処理中にタイムアウト例外が発生しました {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenError">TCP クライアント接続の処理中に異常が発生しました {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenEnd">TCP クライアント接続の処理が終了しました {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ReadTcpStringError">TCP 文字列の非同期読み取り中に異常が発生しました {0}</sys:String>
+
+
+    <!--Core/Game.cs-->
+    <sys:String x:Key="Core.Game.StartGameErrorDir">{0} ゲームパスが空です。ゲームの起動を中止します {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorExe">{0} ゲームメインプログラムファイルが存在しません。ゲームの起動を中止します {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorToken">{0} EA Token が空です。ゲームの起動を中止します</sys:String>
+    <sys:String x:Key="Core.Game.StartGameProcess">{0} ゲームを起動中...</sys:String>
+    <sys:String x:Key="Core.Game.StartGameSuccess">ゲーム {0} の起動に成功しました</sys:String>
+    <sys:String x:Key="Core.Game.StartGameError">ゲームの起動中に異常が発生しました {0} {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorNotice">ゲームの起動中に異常が発生しました {0} 詳細はログを参照してください</sys:String>
+
+    
+    <!--Core/BattlelogHttpServer.cs-->
+    <sys:String x:Key="Core.BattlelogHttpServer.AlreadyListen">Battlelog 監視サービスはすでに実行中です。重複して起動しないでください</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ListenSuccess">Battlelog 監視サービスの起動に成功しました</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ListenSuccessDebug">Battlelog サービスの監視ポートは 3215 と 4219 です</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StopListenSuccess">Battlelog 監視サービスの停止に成功しました</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.GetUrlDebug">Battlelog の GET リクエストを処理中 Url {0}</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get50182">Battlelog が Battlefield 3 のインストール状態を取得</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get2f4c24">Battlelog の状態を取得</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get181931">Battlelog が Medal of Honor: Warfighter のインストール状態を取得</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get76889">Battlelog が Battlefield 4 のインストール状態を取得</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get182288">Battlelog が Battlefield Hardline のインストール状態を取得</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.PostUrlDebug">Battlelog の POST リクエストを処理中 Url {0}</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.PingBack">Battlelog が Ping 情報を返します</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBF3">Battlelog が Battlefield 3 の起動準備をしています</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBF4">Battlelog が Battlefield 4 の起動準備をしています</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBFHD">Battlelog が Battlefield Hardline の起動準備をしています</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ClientError">Battlelog クライアント接続の処理中に異常が発生しました{0}</sys:String>
+
+
+    <!--Api/EasyEaApi.cs-->
+    <sys:String x:Key="Api.EasyEaApi.FindLocalAvatarSkipDownload">ローカルプレイヤーアバター画像キャッシュが見つかりました。ネットワークダウンロード操作をスキップします {0}</sys:String>
+    <sys:String x:Key="Api.EasyEaApi.DownloadAvatarError">現在ログイン中のプレイヤーのアバターのダウンロードに失敗しました {0}</sys:String>
+
+
+    <!--Api/EaApi.cs-->
+    <sys:String x:Key="Api.EaApi.UpdateCookieCount">{0} Cookie の数: {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.UpdateCookieGetRemid">{0} Remid の取得に成功しました {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.UpdateCookieGetSid">{0} Sid の取得に成功しました {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundRemidOrSid">Remid または Sid が空です。{0} リクエストを中止します</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqStatus">{0} リクエスト終了、ステータス {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqStatusCode">{0} リクエスト終了、ステータスコード {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorTimeout">{0} リクエストタイムアウト</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqErrorExpiredCookie">{0} リクエスト失敗、Cookie が無効です。返された結果 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqSuccess">{0} AccessToken の取得に成功しました {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqSuccessTemp">{0} TempAccessToken の取得に成功しました {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqError">{0} リクエスト失敗、返された結果 {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqErrorEx">{0} リクエスト中に異常が発生しました {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundToken">EA Token が空です。{0} リクエストを中止します</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundUserId">UserId リストが空です。{0} リクエストを中止します</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqErrorEmpty">{0} リクエスト失敗、応答内容が空です</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXLicenseSuccess">{0} License の取得に成功しました {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXLicenseError">{0} License の取得に失敗しました</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXAutuCodeLocation">{0} location の取得: {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXAutuCodeSuccess">{0} AuthCode の取得に成功しました {1}</sys:String>
+
+
+    <!--Api/CoreApi.cs-->
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionStatus">GetWebUpdateVersion リクエスト終了、ステータス {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionStatusCode">GetWebUpdateVersion リクエスト終了、ステータスコード {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionTimeout">GetWebUpdateVersion リクエストタイムアウト</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionSuccess">サーバーの更新バージョン番号の取得に成功しました {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionError">サーバーの更新バージョン番号の取得に失敗しました {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionErrorEx">サーバーの更新バージョン番号の取得中に異常が発生しました {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.DownloadWebImageError">ネットワーク画像のダウンロードに失敗しました {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.DownloadWebImageErrorEx">ネットワーク画像のダウンロード中に異常が発生しました {0} {1}</sys:String>
+
+
+    <!--Globals.cs-->
+    <sys:String x:Key="Globals.ReadConfig">グローバル設定ファイルの読み取りを開始します...</sys:String>
+    <sys:String x:Key="Globals.CurrentConfigPath">現在の設定ファイルパス {0}</sys:String>
+    <sys:String x:Key="Globals.ReadConfigSuccess">設定ファイルの読み取りに成功しました Globals AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.EnumTryParseSuccess">列挙型の変換に成功しました AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.EnumTryParseError">列挙型の変換に失敗しました AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.SetDefaultLanguageSuccess">デフォルト言語の設定に成功しました {0}</sys:String>
+    <sys:String x:Key="Globals.SetDefaultLanguageError">サポートされていないデフォルト言語です。システム言語が使用されます</sys:String>
+    <sys:String x:Key="Globals.ReadGlobalConfigSuccess">グローバル設定ファイルの読み取りに成功しました</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigProcess">グローバル設定ファイルの保存を開始します...</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigPath">現在の保存設定ファイルパス {0}</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigSuccess">グローバル設定ファイルの保存に成功しました</sys:String>
+
+    
+    <!--App.xaml.cs-->
+    <sys:String x:Key="App.Welcome">ようこそ {0} プログラムへ</sys:String>
+    <sys:String x:Key="App.DuplicateWarn">重複して開かないでください。プログラムはすでに実行中です</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheck">WebView2 環境の検査を行っています...</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheckNotFound">WebView2 実行環境が見つかりません。Microsoft の公式サイトからダウンロードしてインストールしてください&#x0a;https://go.microsoft.com/fwlink/p/?LinkId=2124703</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheckSuccess">現在のシステム WebView2 環境は正常です</sys:String>
+    <sys:String x:Key="App.TCPPortCheck">TCP ポートの可用性検査を行っています...</sys:String>
+    <sys:String x:Key="App.TCPPortCheckErrorTitle">初期化エラー</sys:String>
+    <sys:String x:Key="App.TCPPortCheck3216">TCP ポート 3216 が占有されています。ポートの占有を解除してください&#x0a;通常は Origin と EaApp プログラムを閉じるだけで済みます</sys:String>
+    <sys:String x:Key="App.TCPPortCheck3215">TCP ポート 3215 が占有されています。ポートの占有を解除してください&#x0a;通常は Origin と EaApp プログラムを閉じるだけで済みます</sys:String>
+    <sys:String x:Key="App.TCPPortCheck4219">TCP ポート 4219 が占有されています。ポートの占有を解除してください&#x0a;通常は Origin と EaApp プログラムを閉じるだけで済みます</sys:String>
+    <sys:String x:Key="App.TCPPortCheckSuccess">現在のシステム TCP ポートの検査は正常です</sys:String>
+    <sys:String x:Key="App.TaskEx">Task スレッドで未処理の例外がキャッチされました</sys:String>
+    <sys:String x:Key="App.ErrorFileName">現在のエミュレータープログラム名が EADesktop.exe ではありません。EADesktop.exe に変更してから起動してください</sys:String>
+
+</ResourceDictionary>
