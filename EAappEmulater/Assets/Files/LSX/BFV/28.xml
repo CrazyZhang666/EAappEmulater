@@ -1,0 +1,5 @@
+﻿<LSX>
+  <Response id="##ID##" sender="EbisuSDK">
+    <GetSettingsResponse IsTelemetryEnabled="true" IsAutomaticGameUpdatesEnabled="false" Environment="production" IsManualOffline="false" Language="zh_CN" IsIGOAvailable="true" IsIGOEnabled="true"/>
+  </Response>
+</LSX>

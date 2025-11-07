@@ -127,8 +127,7 @@ public static class RegistryHelper
 
             if (newSubKey is not null)
             {
-                var clientPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "cmdkey.exe");
-                newSubKey.SetValue("ClientPath", clientPath, RegistryValueKind.String);
+                newSubKey.SetValue("ClientPath", "");
             }
         }
         catch (Exception ex)

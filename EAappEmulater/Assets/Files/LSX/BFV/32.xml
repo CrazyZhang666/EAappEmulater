@@ -1,0 +1,9 @@
+﻿<LSX>
+  <Response sender="EbisuSDK" id="##ID##">
+    <QueryContentResponse>
+      <Game state="INSTALLED" installedVersion="1.0.382.13608" displayName="Battlefield Labs – Content 2" contentID="Origin.OFR.50.0005994" progressValue="1" availableVersion="1.0.382.13608"/>
+      <Game state="INSTALLED" installedVersion="1.0.382.13608" displayName="Battlefield Labs – Content 1" contentID="Origin.OFR.50.0005993" progressValue="1" availableVersion="1.0.382.13608"/>
+      <Game state="INSTALLED" installedVersion="1.0.382.13608" displayName="Battlefield Labs – Content 3" contentID="Origin.OFR.50.0005995" progressValue="1" availableVersion="1.0.382.13608"/>
+    </QueryContentResponse>
+  </Response>
+</LSX>
