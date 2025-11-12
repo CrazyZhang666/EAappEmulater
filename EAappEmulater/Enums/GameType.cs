@@ -36,5 +36,6 @@ public enum GameType
     BF2042TP,
     BFVCA,
     BF1CA,
-    BF4AT
+    BF4AT,
+    BF6
 }

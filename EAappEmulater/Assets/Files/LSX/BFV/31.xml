@@ -1,0 +1,11 @@
+﻿<LSX>
+  <Response id="##ID##" sender="EbisuSDK">
+    <QueryEntitlementsResponse>
+      <Entitlement Expiration="0000-00-00T00:00:00" ItemId="Origin.OFR.50.0005997" LastModifiedDate="0000-00-00T00:00:00" GrantDate="2025-05-15T20:11:00" Version="0" UseCount="0" Group="LABSPC" Type="DEFAULT" EntitlementTag="bflabs_marker01" EntitlementId="1022569674866" ResourceId=""/>
+      <Entitlement Expiration="0000-00-00T00:00:00" ItemId="Origin.OFR.50.0005995" LastModifiedDate="0000-00-00T00:00:00" GrantDate="2025-05-15T20:11:00" Version="0" UseCount="0" Group="LABSPC" Type="DEFAULT" EntitlementTag="bflabs_content003" EntitlementId="1022569474866" ResourceId=""/>
+      <Entitlement Expiration="0000-00-00T00:00:00" ItemId="Origin.OFR.50.0005993" LastModifiedDate="0000-00-00T00:00:00" GrantDate="2025-05-15T20:11:00" Version="0" UseCount="0" Group="LABSPC" Type="DEFAULT" EntitlementTag="bflabs_content001" EntitlementId="1022569274866" ResourceId=""/>
+      <Entitlement Expiration="0000-00-00T00:00:00" ItemId="Origin.OFR.50.0005994" LastModifiedDate="0000-00-00T00:00:00" GrantDate="2025-05-15T20:11:00" Version="0" UseCount="0" Group="LABSPC" Type="DEFAULT" EntitlementTag="bflabs_content002" EntitlementId="1022569074866" ResourceId=""/>
+      <Entitlement Expiration="0000-00-00T00:00:00" ItemId="Origin.OFR.50.0006023" LastModifiedDate="0000-00-00T00:00:00" GrantDate="2025-05-15T20:11:00" Version="0" UseCount="0" Group="LABSPC" Type="ONLINE_ACCESS" EntitlementTag="LABS_ONLINE_ACCESS" EntitlementId="1022568874866" ResourceId=""/>
+    </QueryEntitlementsResponse>
+  </Response>
+</LSX>

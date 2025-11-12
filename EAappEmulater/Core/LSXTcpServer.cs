@@ -15,7 +15,7 @@ public static class LSXTcpServer
     static LSXTcpServer()
     {
         // 加载XML字符串
-        for (int i = 0; i <= 27; i++)
+        for (int i = 0; i <= 32; i++)
         {
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFV.{i:D2}.xml");
 
@@ -36,6 +36,7 @@ public static class LSXTcpServer
             var text = FileHelper.GetEmbeddedResourceText($"LSX.BFH.{i:D2}.xml");
             ScoketMsgBFH.Add(text);
         }
+
 
         // 这里结束符必须要加
         ScoketMsgBFH[0] = string.Concat(ScoketMsgBFH[0], "\0");
@@ -341,16 +342,24 @@ public static class LSXTcpServer
                 "IS_IGO_ENABLED" => ScoketMsgBFV[10].Replace("##ID##", id),
                 _ => string.Empty,
             },
+
             "><QueryFriends UserId=" => GetFriendsXmlString().Replace("##ID##", id),
             "><QueryImage ImageId=" => await EasyEaApi.GetQueryImageXml(id, partArray[5].Replace("user:", ""), partArray[7], partArray[5]),
             "><QueryPresence UserId=" => QueryPresenceResponse().Replace("##ID##", id).Replace("##UID##", Account.UserId),
             "><SetPresence UserId=" => ScoketMsgBFV[14].Replace("##ID##", id),
             "><GetAllGameInfo version=" => ScoketMsgTTF2[0].Replace("##ID##", id).Replace("##SystemTime##", $"{DateTime.Now:s}").Replace("##Locale##", RegistryHelper.GetLocaleByContentId(contentId)).Replace("##Version##", FileHelper.GetGameVersion(contentId)),
             "><IsProgressiveInstallationAvailable ItemId=" => ScoketMsgBFV[17].Replace("##ID##", id).Replace("Origin.OFR.50.0004342", "Origin.OFR.50.0001455"),
-            "><QueryContent UserId=" => ScoketMsgBFV[18].Replace("##ID##", id),
+            "><QueryContent UserId=" => contentId switch
+            {
+                "16426154" => ScoketMsgBFV[30].Replace("##ID##", id),
+                "16426154_beta" => ScoketMsgBFV[32].Replace("##ID##", id),
+                _ => ScoketMsgBFV[18].Replace("##ID##", id)
+            },
             "><QueryEntitlements UserId=" => contentId switch
             {
                 "198387" => ScoketMsgBFV[27].Replace("##ID##", id),
+                "16426154" => ScoketMsgBFV[29].Replace("##ID##", id),
+                "16426154_beta" => ScoketMsgBFV[31].Replace("##ID##", id),
                 _ => ScoketMsgBFV[21].Replace("##ID##", id),
             },
             "><QueryOffers UserId=" => ScoketMsgBFV[22].Replace("##ID##", id),
@@ -358,6 +367,7 @@ public static class LSXTcpServer
             "><QueryChunkStatus ItemId=" => ScoketMsgBFV[24].Replace("##ID##", id),
             "><GetPresenceVisibility UserId=" => ScoketMsgBFV[25].Replace("##ID##", id),
             "><GetWalletBalance UserId=" => ScoketMsgBFV[26].Replace("##ID##", id),
+            "><GetSettings version=" => ScoketMsgBFV[28].Replace("##ID##", id),
             _ => string.Empty,
         };
     }

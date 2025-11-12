@@ -1,0 +1,18 @@
+﻿<LSX>
+  <Response sender="Commerce" id="##ID##">
+    <QueryEntitlementsResponse>
+      <Entitlement ItemId="Origin.OFR.50.0005753" Type="DEFAULT" EntitlementId="1021747550248" EntitlementTag="bf_hd003" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+      <Entitlement ItemId="Origin.OFR.50.0005755" Type="DEFAULT" EntitlementId="1021747550248" EntitlementTag="bf_hd001" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+      <Entitlement ItemId="Origin.OFR.50.0005511" Type="ONLINE_ACCESS" EntitlementId="1021747550248" EntitlementTag="ONLINE_ACCESS" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+      <Entitlement ItemId="Origin.OFR.50.0005608" Type="DEFAULT" EntitlementId="1021747550248" EntitlementTag="bf_content004" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+      <Entitlement ItemId="Origin.OFR.50.0005607" Type="DEFAULT" EntitlementId="1021747550248" EntitlementTag="bf_content003" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+      <Entitlement ItemId="Origin.OFR.50.0005756" Type="DEFAULT" EntitlementId="1021747550248" EntitlementTag="bf_marker002" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+      <Entitlement ItemId="Origin.OFR.50.0005754" Type="DEFAULT" EntitlementId="1021747550248" EntitlementTag="bf_hd004" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+      <Entitlement ItemId="Origin.OFR.50.0005751" Type="DEFAULT" EntitlementId="1021747550248" EntitlementTag="bf_marker001" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+      <Entitlement ItemId="Origin.OFR.50.0005750" Type="DEFAULT" EntitlementId="1021747550248" EntitlementTag="bf_hd002" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+      <Entitlement ItemId="Origin.OFR.50.0005606" Type="DEFAULT" EntitlementId="1021747550248" EntitlementTag="bf_content002" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+      <Entitlement ItemId="Origin.OFR.50.0005605" Type="DEFAULT" EntitlementId="1021747550248" EntitlementTag="bf_content001" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+      <Entitlement ItemId="Origin.OFR.50.0005749" Type="DEFAULT" EntitlementId="1021747550248" EntitlementTag="bf_hd000" Group="GLACIERPC" ResourceId="" UseCount="0" Expiration="0000-00-00T00:00:00" GrantDate="0000-00-00T00:00:00" LastModifiedDate="0000-00-00T00:00:00" Version="0"/>
+    </QueryEntitlementsResponse>
+  </Response>
+</LSX>

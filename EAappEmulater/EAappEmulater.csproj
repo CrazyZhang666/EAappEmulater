@@ -117,6 +117,11 @@
         <EmbeddedResource Include="Assets\Files\LSX\BFV\25.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\26.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\BFV\27.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\28.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\29.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\30.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\31.xml" />
+        <EmbeddedResource Include="Assets\Files\LSX\BFV\32.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\TTF2\00.xml" />
         <EmbeddedResource Include="Assets\Files\Misc\UpdateNotes_en.txt" />
         <EmbeddedResource Include="Assets\Files\Misc\UpdateNotes.txt" />
@@ -129,6 +134,7 @@
         <Resource Include="Assets\Images\Games\BF3.jpg" />
         <Resource Include="Assets\Images\Games\BF4.jpg" />
         <Resource Include="Assets\Images\Games\BFH.jpg" />
+        <Resource Include="Assets\Images\Games\BF6.jpg" />
         <Resource Include="Assets\Images\Games\BFV.jpg" />
         <Resource Include="Assets\Images\Games\F123.jpg" />
         <Resource Include="Assets\Images\Games\F124.jpg" />

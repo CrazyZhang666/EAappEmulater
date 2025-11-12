@@ -652,14 +652,36 @@ public static class Base
             Dir2 = string.Empty,
             Args2 = string.Empty,
             IsInstalled = false,
-            IsEAAC = false,
-            AppName = "bflabs.exe",
-            ContentId = "1180461",
+            IsEAAC = true,
+            AppName = "EAAntiCheat.GameServiceLauncher.exe",
+            ContentId = "16426154_beta",
             Regedit = "SOFTWARE\\EA Games\\Battlefield Labs",
             Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield Labs",
-            Locales = new() {"en_US"},
+            Locales = new() { "en_US", "zh_CN", "ja_JP" },
             IsOldLSX = false
         };
+
+        GameInfoDb[GameType.BF6] = new()
+        {
+            GameType = GameType.BF6,
+            Name = "《战地风云™》6",
+            Name2 = "Battlefield™ 6",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/BF6.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = true,
+            AppName = "EAAntiCheat.GameServiceLauncher.exe",
+            ContentId = "16426154",
+            Regedit = "SOFTWARE\\EA Games\\Battlefield 6",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Battlefield 6",
+            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "es_MX", "it_IT", "ja_JP", "pl_PL", "zh_TW", "zh_CN", "ko_KR", "pt_BR", "ar_SA" },
+            IsOldLSX = false
+        };
+
         GameInfoDb[GameType.BF2042TP] = new()
         {
             GameType = GameType.BF2042TP,

@@ -1,0 +1,21 @@
+﻿<LSX>
+  <Response sender="EbisuSDK" id="##ID##">
+    <QueryContentResponse>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005511" availableVersion="1.0.389.47564" displayName="Battlefield™ 6" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005749" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 HD Textures" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005605" availableVersion="1.0.389.47564" displayName="Battlefield™ REDSEC" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005755" availableVersion="1.0.389.47564" displayName="Battlefield™ REDSEC HD Textures" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005606" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 Multiplayer" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005750" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 Multiplayer HD Textures" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005753" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 Multiplayer &amp; Single Player Shared HD Textures" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005607" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 Multiplayer &amp; Single Player Shared Data" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005608" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 Single Player" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005754" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 Single Player HD Textures" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005751" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 Marker 001" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005756" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 Marker 002" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005602" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 Content 002" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005603" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 Content 003" state="INSTALLED" installedVersion="1.0.389.47564"/>
+      <Game progressValue="1" contentID="Origin.OFR.50.0005604" availableVersion="1.0.389.47564" displayName="Battlefield™ 6 Content 004" state="INSTALLED" installedVersion="1.0.389.47564"/>
+    </QueryContentResponse>
+  </Response>
+</LSX>
