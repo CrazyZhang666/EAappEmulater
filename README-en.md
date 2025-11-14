@@ -57,6 +57,7 @@ By default, we will read your computer's primary language and set it as the prog
 - Battlefield 1
 - BattleField V
 - Battlefield 2042
+- Battlefield™ 6
 - Battlefield™ Labs
 - Battlefield™ 2042 Technical Game Test
 - Battlefield V™ Closed ALPHA Test
