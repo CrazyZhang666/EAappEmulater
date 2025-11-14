@@ -95,13 +95,13 @@
     <sys:String x:Key="Windows.AccountWindow.ChangeAccount">Сменить аккаунт</sys:String>
     <sys:String x:Key="Windows.AccountWindow.ShowRemid">Показать информацию о Remid выбранного аккаунта</sys:String>
     <sys:String x:Key="Windows.AccountWindow.ShowSid">Показать информацию о Sid выбранного аккаунта</sys:String>
-    <sys:String x:Key="Windows.AccountWindow.SwitchLang">English</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.SwitchLang">Сменить язык</sys:String>
     <sys:String x:Key="Windows.AccountWindow.AutoLogin">Автовход</sys:String>
 
     
     <!--Windows/Dialog/AdvancedWindow.xaml-->
     <sys:String x:Key="Windows.AdvancedWindow.Title">Эмулятор EA App  Выбор игры</sys:String>
-    <sys:String x:Key="Windows.AdvancedWindow.Registry">Регистратор</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Registry">Реестр</sys:String>
     <sys:String x:Key="Windows.AdvancedWindow.Path">Путь установки игры</sys:String>
     <sys:String x:Key="Windows.AdvancedWindow.ShowPath">Показать путь установки игры в реестре</sys:String>
     <sys:String x:Key="Windows.AdvancedWindow.StartParameters">Параметры запуска</sys:String>
@@ -125,12 +125,12 @@
     <sys:String x:Key="Views.SettingView.MachineName">Имя компьютера</sys:String>
     <sys:String x:Key="Views.SettingView.OsVersion">Версия системы</sys:String>
     <sys:String x:Key="Views.SettingView.SystemDirectory">Системный каталог</sys:String>
-    <sys:String x:Key="Views.SettingView.RuntimeVersion">Платформа выполнения</sys:String>
-    <sys:String x:Key="Views.SettingView.OSArchitecture">Версия библиотеки выполнения</sys:String>
-    <sys:String x:Key="Views.SettingView.RuntimeIdentifier">Среда выполнения</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeVersion">Версия среды выполнения</sys:String>
+    <sys:String x:Key="Views.SettingView.OSArchitecture">Архитектура ОС</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeIdentifier">Идентификатор среды выполнения</sys:String>
     <sys:String x:Key="Views.SettingView.Tools">Полезные инструменты</sys:String>
     <sys:String x:Key="Views.SettingView.OpenConfigFolder">Открыть каталог конфигурации</sys:String>
-    <sys:String x:Key="Views.SettingView.ChangeLanguage">English</sys:String>
+    <sys:String x:Key="Views.SettingView.ChangeLanguage">Сменить язык</sys:String>
 
 
     <!--Views/LogView.xaml-->

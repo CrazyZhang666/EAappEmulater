@@ -1,0 +1,371 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--Windows/MainWindow.xaml-->
+    <sys:String x:Key="Windows.MainWindow.Title">Emulador do EA App</sys:String>
+    <sys:String x:Key="Windows.MainWindow.NewVersionAvailable">Nova versão disponível, clique para baixar</sys:String>
+    <sys:String x:Key="Windows.MainWindow.ShowMainWindow">Mostrar janela principal</sys:String>
+    <sys:String x:Key="Windows.MainWindow.ChangeAccount">Trocar conta</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Exit">Sair do programa</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Account">Conta</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Settings">Configuracoes</sys:String>
+    <sys:String x:Key="Windows.MainWindow.AlreadyInstall">Instalado</sys:String>
+    <sys:String x:Key="Windows.MainWindow.GameLibrary">Biblioteca de jogos</sys:String>
+    <sys:String x:Key="Windows.MainWindow.EaAppView">Interface do EA App</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Friends">Amigos</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Logs">Logs</sys:String>
+    <sys:String x:Key="Windows.MainWindow.Update">Atualizar</sys:String>
+    <sys:String x:Key="Windows.MainWindow.About">Sobre</sys:String>
+
+    
+    <!--Windows/MainWindow.xaml.cs-->
+    <sys:String x:Key="Windows.MainWindow.StartMainProcessSuccessful">Inicialização do programa principal bem-sucedida</sys:String>
+    <sys:String x:Key="Windows.MainWindow.TitleWithVersion">Emulador do EA App v{0}</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingTipTitle">Emulador do EA App minimizado para a bandeja</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingTipDes">Voce pode sair completamente pelo menu de contexto da bandeja</sys:String>
+    <sys:String x:Key="Windows.MainWindow.MainClosingSuccess">Encerramento do programa principal bem-sucedido</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdate">Verificando nova versão...</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateError">Falha ao verificar nova versão, verifique a conexão de rede</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateErrorRetry">Falha ao verificar nova versão, iniciando tentativa {0}...</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateSuccess">Parabéns, você já está na versão mais recente {0}</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateNewVersionAvailable">Nova versão encontrada v{0}, clique para atualizar</sys:String>
+    <sys:String x:Key="Windows.MainWindow.CheckUpdateNewVersionAvailableWeb">Nova versão encontrada v{0}, clique para atualizar</sys:String>
+
+
+    <!--Windows/LoginWindow.xaml-->
+    <sys:String x:Key="Windows.LoginWindow.Title">Emulador do EA App  Login</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.Reload">Recarregar pagina de login</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.Process">Carregando página de login...</sys:String>
+
+
+    <!--Windows/LoginWindow.xaml.cs-->
+    <sys:String x:Key="Windows.LoginWindow.InitWebView2">Iniciando a inicialização do WebView2 ...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.InitWebView2Success">Inicialização do WebView2 concluída...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ClearWebView2Cache">Limpando o cache da conta atual...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ClearWebView2CacheSuccess">Cache do WebView2 limpo com sucesso</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.LoadWebView2LoginView">Carregando a página de login do WebView2...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.ReloadWebView2ViewSuccess">Recarregamento da página de login concluído</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2InitError">Falha na inicialização do WebView2: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.CurrentWebView2Source">Endereço atual do WebView2: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2LoginSuccess">Login do jogador bem-sucedido, iniciando obtenção dos cookies...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.WebView2GetCookieError">Login da conta bem-sucedido, falha ao obter Cookie, tente limpar o cache do WebView2</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.FindCookieFile">Arquivo de cookies encontrado, iniciando varredura...</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.FindCookieCount">Quantidade de cookies {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.RemidGetSuccess">Remid obtido com sucesso: {0}</sys:String>
+    <sys:String x:Key="Windows.LoginWindow.SidGetSuccess">Sid obtido com sucesso: {0}</sys:String>
+
+
+    <!--Windows/LoadWindow.xaml-->
+    <sys:String x:Key="Windows.LoadWindow.Title">Emulador do EA App  Carregando programa</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.OpenConfig">Abrir arquivo de configuracao</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.VerifyAccount">Verificando validade da conta do jogador...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.BackChooseAccount">Voltar a selecao de conta</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.Exit">Sair do programa</sys:String>
+
+
+    <!--Windows/LoadWindow.xaml.cs-->
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidity">Verificando a validade dos cookies do jogador...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityError">Falha ao verificar a validade dos cookies do jogador, o programa será encerrado, verifique a conexão de rede</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityErrorRetry">Falha ao verificar a validade dos cookies do jogador, iniciando tentativa {0}...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValiditySuccess">Validação dos cookies do jogador concluída, cookies válidos</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CheckCookieValidityErrorStop">Cookies do jogador inválidos, o programa será encerrado, atualize os cookies manualmente</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.InitGameInfo">Iniciando a inicialização das informações do jogo...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.CloseServiceProcess">Liberando arquivos do processo de serviço...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryInfo">Obtendo informações do jogo no Registro...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfo">Obtendo informações do jogo no Registro para "{0}"...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoSuccess">Informações do jogo no Registro obtidas com sucesso para "{0}"</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistry2GameInfoSuccess">Informações do jogo no Regedit2 obtidas com sucesso para "{0}"</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoNotFound">Não foram encontradas informações do jogo no Registro para "{0}"</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenProcess">Atualizando dados do BaseToken...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenErrorNetwork">Falha ao atualizar dados do BaseToken, o programa será encerrado, verifique a conexão de rede</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenRetry">Falha ao atualizar dados do BaseToken, iniciando tentativa {0}...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenSuccess">Atualização dos dados do BaseToken concluída</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoProcess">Obtendo informações da conta do jogador...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoErrorNetwork">Falha ao obter informações da conta do jogador, o programa será encerrado, verifique a conexão de rede</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoRetry">Falha ao obter informações da conta do jogador, iniciando tentativa {0}...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoSuccess">Informações da conta do jogador obtidas com sucesso</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.StartMainProcess">Inicialização concluída, iniciando o programa principal...</sys:String>
+
+
+    <!--Windows/AccountWindow.xaml-->
+    <sys:String x:Key="Windows.AccountWindow.Title">Emulador do EA App  Seleção de conta</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.OpenConfig">Abrir arquivo de configuracao</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.LoginAccount">Entrar com a conta selecionada</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.GetCookie">Obter Cookie</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ChangeAccount">Trocar para nova conta</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ShowRemid">Mostrar informacoes de Remid da conta selecionada</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ShowSid">Mostrar informacoes de Sid da conta selecionada</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.SwitchLang">Mudar idioma</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.AutoLogin">Login automatico</sys:String>
+
+    
+    <!--Windows/Dialog/AdvancedWindow.xaml-->
+    <sys:String x:Key="Windows.AdvancedWindow.Title">Emulador do EA App  Selecao de jogo</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Registry">Registro</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Path">Local de instalacao do jogo</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.ShowPath">Mostrar local do diretorio de instalacao do jogo no Registro</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.StartParameters">Parametros de inicializacao</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.StartParametersExample">Insira parâmetros avançados de inicialização do jogo, por exemplo: -PerfOverlay.DrawFps 1</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Custom">Personalizado</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Browse">Procurar</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.BrowseTip">Selecione o arquivo exe do programa principal do jogo</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.EnableCustom">Ativar personalizado</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Save">Salvar</sys:String>
+    <sys:String x:Key="Windows.AdvancedWindow.Cancel">Cancelar</sys:String>
+
+    
+    <!--Windows/Dialog/AdvancedWindow.xaml.cs-->
+    <sys:String x:Key="Windows.AdvancedWindow.FileDialogTitle">Selecione o caminho do arquivo exe do programa principal do jogo</sys:String>
+
+    
+    <!--Views/SettingView.xaml-->
+    <sys:String x:Key="Views.SettingView.SystemInfo">Informacoes do sistema</sys:String>
+    <sys:String x:Key="Views.SettingView.VersionInfo">Versao do programa</sys:String>
+    <sys:String x:Key="Views.SettingView.UserName">Nome de usuario</sys:String>
+    <sys:String x:Key="Views.SettingView.MachineName">Nome do computador</sys:String>
+    <sys:String x:Key="Views.SettingView.OsVersion">Versao do sistema</sys:String>
+    <sys:String x:Key="Views.SettingView.SystemDirectory">Diretorio do sistema</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeVersion">Versao do runtime</sys:String>
+    <sys:String x:Key="Views.SettingView.OSArchitecture">Arquitetura do SO</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeIdentifier">Ambiente do runtime</sys:String>
+    <sys:String x:Key="Views.SettingView.Tools">Ferramentas uteis</sys:String>
+    <sys:String x:Key="Views.SettingView.OpenConfigFolder">Abrir pasta de configuracao</sys:String>
+    <sys:String x:Key="Views.SettingView.ChangeLanguage">Mudar idioma</sys:String>
+
+
+    <!--Views/LogView.xaml-->
+    <sys:String x:Key="Views.LogView.Time">Hora</sys:String>
+    <sys:String x:Key="Views.LogView.Level">Nivel</sys:String>
+    <sys:String x:Key="Views.LogView.Info">Log</sys:String>
+
+
+    <!--Views/AccountView.xaml-->
+    <sys:String x:Key="Views.AccountView.ChangeAccount">Trocar conta de login</sys:String>
+
+
+    <!--Views/AboutView.xaml-->
+    <sys:String x:Key="Views.AboutView.Title">Emulador do EA App</sys:String>
+    <sys:String x:Key="Views.AboutView.CoreAlgorithm">Algoritmo principal: Misaka_Mikoto_01</sys:String>
+    <sys:String x:Key="Views.AboutView.Design">Design do programa: CrazyZhang666  B1397KB</sys:String>
+    <sys:String x:Key="Views.AboutView.Declare">Este programa e apenas para estudo e pesquisa</sys:String>
+
+
+    <!--Views/FriendView.xaml.cs-->
+    <sys:String x:Key="Views.FriendView.GetFriendsProcess">Obtendo a lista de amigos da conta atual...</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsErrorNetwork">Falha ao obter a lista de amigos da conta atual, verifique a conexao de rede</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsRetry">Obtendo a lista de amigos da conta atual, iniciando tentativa {0}...</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsSuccess">Lista de amigos obtida com sucesso, quantidade de amigos: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsError">Erro ao obter a lista de amigos: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatar">Preparando para obter os avatares dos amigos</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarError">Falha ao obter os avatares dos amigos</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorUserId">Nao e possivel analisar userId: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorKvp">Nao e possivel analisar kvp.Key: {0}</sys:String>
+    <sys:String x:Key="Views.FriendView.GetFriendsAvatarErrorNotFound">Avatar do amigo {0} nao encontrado</sys:String>
+    <sys:String x:Key="Views.FriendView.DownloadAvatarError">Erro ao baixar avatar do jogador {0}</sys:String>
+
+    
+    <!--Modal/GameMenu.xaml-->
+    <sys:String x:Key="Modal.GameMenu.StartGame">Iniciar jogo</sys:String>
+    <sys:String x:Key="Modal.GameMenu.SetGameArgs">Configuracoes avancadas</sys:String>
+    
+
+    <!--Utils/CoreUtil.cs-->
+    <sys:String x:Key="Utils.CoreUtil.CloseServiceProcess">Preparando para fechar o processo de servico</sys:String>
+    <sys:String x:Key="Utils.CoreUtil.CheckWebView2EnvInfo">Informacoes da versao do WebView2 Runtime {0}</sys:String>
+    <sys:String x:Key="Utils.CoreUtil.CheckWebView2EnvError">Erro no ambiente do WebView2 Runtime {0}</sys:String>
+
+
+    <!--Helper/FileHelper.cs-->
+    <sys:String x:Key="Helper.FileHelper.ClearDirectorySuccess">Limpeza da pasta concluida {0}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ClearDirectoryError">Erro ao limpar a pasta {0} {1}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ExtractResFileSuccess">Extracao do arquivo de recurso concluida {0}</sys:String>
+    <sys:String x:Key="Helper.FileHelper.ExtractResFileError">Erro ao extrair arquivo de recurso {0} {1}</sys:String>
+
+    
+    <!--Helper/JsonHelper.cs-->
+    <sys:String x:Key="Helper.JsonHelper.JsonDeserializeError">Erro ao desserializar {0}</sys:String>
+    <sys:String x:Key="Helper.JsonHelper.JsonSerializeError">Erro ao serializar {0}</sys:String>
+
+
+    <!--Helper/MsgBoxHelper.cs-->
+    <sys:String x:Key="Helper.MsgBoxHelper.ExceptionInfo">Ocorreu um erro desconhecido. Verifique a mensagem para mais informacoes&#x0a;&#x0a;Detalhes do erro: &#x0a;{0}</sys:String>
+
+    
+    <!--Helper/ProcessHelper.cs-->
+    <sys:String x:Key="Helper.ProcessHelper.OpenLinkFormatError">O link nao esta no formato http {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenLinkError">Erro ao abrir link http {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenDirectoryFormatError">O caminho da pasta nao existe {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenDirectoryError">Erro ao abrir a pasta {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessFormatError">O caminho do programa nao existe {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessSuccess">Programa iniciado com sucesso {0}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.OpenProcessError">Erro ao iniciar o programa {0} {1}</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessSuccess">Processo encerrado com sucesso {0}.exe</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessErrorNotFound">Informacoes do processo nao encontradas {0}.exe</sys:String>
+    <sys:String x:Key="Helper.ProcessHelper.CloseProcessError">Erro ao encerrar processo {0} {1}</sys:String>
+
+
+    <!--Helper/RegistryHelper.cs-->
+    <sys:String x:Key="Helper.RegistryHelper.GetRegistryTargetVauleError">Erro ao ler o Registro {0} {1} {2}</sys:String>
+    <sys:String x:Key="Helper.RegistryHelper.SetRegistryTargetVaule">Erro ao escrever no Registro {0} {1} {2} {3}</sys:String>
+
+
+    <!--Core/Ready.cs-->
+    <sys:String x:Key="Core.Ready.StartProcess">Iniciando processo de servico...</sys:String>
+    <sys:String x:Key="Core.Ready.StartLSXListen">Iniciando servico de escuta LSX...</sys:String>
+    <sys:String x:Key="Core.Ready.StartBattlelogListen">Iniciando servico de escuta Battlelog...</sys:String>
+    <sys:String x:Key="Core.Ready.StartUpdateToken">Iniciando servico de atualizacao periodica do BaseToken...</sys:String>
+    <sys:String x:Key="Core.Ready.StartUpdateTokenSuccess">Servico de atualizacao periodica do BaseToken iniciado com sucesso</sys:String>
+    <sys:String x:Key="Core.Ready.StopLSXListen">Parando servico de escuta LSX...</sys:String>
+    <sys:String x:Key="Core.Ready.StopBattlelogListen">Parando servico de escuta Battlelog...</sys:String>
+    <sys:String x:Key="Core.Ready.StopUpdateToken">Parando servico de atualizacao periodica do BaseToken...</sys:String>
+    <sys:String x:Key="Core.Ready.StopUpdateTokenSuccess">Servico de atualizacao periodica do BaseToken parado com sucesso</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenErrorNetwork">Falha na atualizacao periodica do BaseToken, verifique a conexao de rede</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenErrorRetry">Falha na atualizacao periodica do BaseToken, iniciando tentativa {0}...</sys:String>
+    <sys:String x:Key="Core.Ready.AutoUpdateTokenSuccess">Atualizacao periodica do BaseToken concluida</sys:String>
+    <sys:String x:Key="Core.Ready.RefreshTokenError">Falha ao atualizar Token</sys:String>
+    <sys:String x:Key="Core.Ready.RefreshTokenSuccess">Token atualizado com sucesso</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoProcess">Obtendo informacoes do jogador logado...</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoError">Falha ao obter informacoes do jogador logado</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoSuccess">Informacoes do jogador logado obtidas com sucesso</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoErrorNotFound">Nao foi encontrado persona com namespaceName cem_ea_id</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoPlayerName">Nome do jogador {0}</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoPersonaId">PId do jogador {0}</sys:String>
+    <sys:String x:Key="Core.Ready.GetLoginAccountInfoUserId">UserId do jogador {0}</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarProcess">Obtendo avatar do jogador logado...</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarErrorNetwork">Falha ao obter avatar do jogador logado, verifique a conexao de rede</sys:String>
+    <sys:String x:Key="Core.Ready.LoadAvatarErrorRetry">Falha ao obter avatar do jogador logado, iniciando tentativa {0}...</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdProcess">Obtendo Id do avatar do jogador logado...</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdError">Falha ao obter Id do avatar do jogador logado</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserIdSuccess">Id do avatar do jogador logado obtido com sucesso</sys:String>
+    <sys:String x:Key="Core.Ready.GetAccountAvatarByUserId">AvatarId do jogador {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarSkip">Imagem de avatar local encontrada, pulando download {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarError">Erro ao baixar avatar do jogador logado {0}</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatarSuccess">Download do avatar do jogador logado concluido</sys:String>
+    <sys:String x:Key="Core.Ready.DownloadAvatar">Avatar do jogador {0}</sys:String>
+
+
+    <!--Core/PipeServer.cs-->
+    <sys:String x:Key="Core.PipeServer.Status">{0} Status da thread {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.ListenSuccess">{0} Servico de escuta Pipe iniciado com sucesso</sys:String>
+    <sys:String x:Key="Core.PipeServer.StopListenSuccess">{0} Servico de escuta Pipe parado com sucesso</sys:String>
+    <sys:String x:Key="Core.PipeServer.ConnErrorTimeOut">{0} Tempo limite ao processar conexao do cliente Pipe {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.GameStatus">{0} Status atual do jogo via Pipe {1}</sys:String>
+    <sys:String x:Key="Core.PipeServer.ConnError">{0} Erro ao processar conexao do cliente Pipe {1}</sys:String>
+
+
+    <!--Core/LSXTcpServer.cs-->
+    <sys:String x:Key="Core.LSXTcpServer.AlreadyStart">Servico de escuta LSX ja esta em execucao, nao inicie novamente</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ListenSuccess">Servico de escuta LSX iniciado com sucesso, porta 3216</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.StopListenSuccess">Servico de escuta LSX parado com sucesso</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.FindClientConn">Conexao de cliente TCP detectada {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.CurrentType">BattlelogType atual {1}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ChallengeRes">Challenge Response atual {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ContentId">ContentId atual {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.StartGamePrepare">Preparando para iniciar o jogo...</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ChallengeResError">Erro fatal do Challenge Response!</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.NewChallengeRes">Processando decriptacao do Challenge Response NewResponse {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.NewChallengeSeedRes">Processando decriptacao do Challenge Response Seed {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.CurrentLsxRes">Resposta LSX atual {0} {1}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenErrorTimeout">Tempo limite ao processar conexao TCP do Battlelog {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenError">Erro ao processar conexao TCP {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.TCPListenEnd">Processamento da conexao TCP concluido {0}</sys:String>
+    <sys:String x:Key="Core.LSXTcpServer.ReadTcpStringError">Erro ao ler string TCP de forma assincrona {0}</sys:String>
+
+
+    <!--Core/Game.cs-->
+    <sys:String x:Key="Core.Game.StartGameErrorDir">{0} Caminho do jogo vazio, inicializacao interrompida {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorExe">{0} Arquivo executavel principal do jogo nao encontrado, inicializacao interrompida {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorToken">{0} EA Token vazio, inicializacao interrompida</sys:String>
+    <sys:String x:Key="Core.Game.StartGameProcess">{0} Iniciando o jogo...</sys:String>
+    <sys:String x:Key="Core.Game.StartGameSuccess">Jogo {0} iniciado com sucesso</sys:String>
+    <sys:String x:Key="Core.Game.StartGameError">Erro ao iniciar o jogo {0} {1}</sys:String>
+    <sys:String x:Key="Core.Game.StartGameErrorNotice">Erro ao iniciar o jogo {0}, veja o log para detalhes</sys:String>
+
+    
+    <!--Core/BattlelogHttpServer.cs-->
+    <sys:String x:Key="Core.BattlelogHttpServer.AlreadyListen">Servico de escuta Battlelog ja esta em execucao, nao inicie novamente</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ListenSuccess">Servico de escuta Battlelog iniciado com sucesso</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ListenSuccessDebug">Portas de escuta do Battlelog: 3215 e 4219</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StopListenSuccess">Servico de escuta Battlelog parado com sucesso</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.GetUrlDebug">Processando requisicao GET do Battlelog Url {0}</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get50182">Battlelog obtendo status de instalacao do Battlefield 3</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get2f4c24">Obtendo status</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get181931">Battlelog obtendo status de instalacao do Medal of Honor Warfighter</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get76889">Battlelog obtendo status de instalacao do Battlefield 4</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.Get182288">Battlelog obtendo status de instalacao do Battlefield Hardline</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.PostUrlDebug">Processando requisicao POST do Battlelog Url {0}</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.PingBack">Retornando informacoes de Ping do Battlelog</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBF3">Preparando para iniciar Battlefield 3</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBF4">Preparando para iniciar Battlefield 4</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.StartBFHD">Preparando para iniciar Battlefield Hardline</sys:String>
+    <sys:String x:Key="Core.BattlelogHttpServer.ClientError">Erro ao processar conexao do cliente Battlelog {0}</sys:String>
+
+
+    <!--Api/EasyEaApi.cs-->
+    <sys:String x:Key="Api.EasyEaApi.FindLocalAvatarSkipDownload">Imagem de avatar local encontrada, pulando download {0}</sys:String>
+    <sys:String x:Key="Api.EasyEaApi.DownloadAvatarError">Erro ao baixar avatar do jogador logado {0}</sys:String>
+
+    
+    <!--Api/EaApi.cs-->
+    <sys:String x:Key="Api.EaApi.UpdateCookieCount">{0} Quantidade de Cookies {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.UpdateCookieGetRemid">{0} Remid obtido com sucesso {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.UpdateCookieGetSid">{0} Sid obtido com sucesso {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundRemidOrSid">Remid ou Sid vazio, {0} requisicao encerrada</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqStatus">{0} Requisicao finalizada, status {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqStatusCode">{0} Requisicao finalizada, codigo de status {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorTimeout">{0} Tempo de requisicao esgotado</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqErrorExpiredCookie">{0} Falha na requisicao, Cookie expirado, resultado {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqSuccess">{0} AccessToken obtido com sucesso {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetTokenReqSuccessTemp">{0} TempAccessToken obtido com sucesso {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqError">{0} Requisicao falhou, resultado {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqErrorEx">{0} Erro na requisicao {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundToken">EA Token vazio, {0} requisicao encerrada</sys:String>
+    <sys:String x:Key="Api.EaApi.ErrorNotFoundUserId">Lista de UserId vazia, {0} requisicao encerrada</sys:String>
+    <sys:String x:Key="Api.EaApi.ReqErrorEmpty">{0} Requisicao falhou, resposta vazia</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXLicenseSuccess">{0} License obtida com sucesso {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXLicenseError">{0} Falha ao obter License</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXAutuCodeLocation">{0} Obtendo location {1}</sys:String>
+    <sys:String x:Key="Api.EaApi.GetLSXAutuCodeSuccess">{0} AuthCode obtido com sucesso {1}</sys:String>
+
+
+    <!--Api/CoreApi.cs-->
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionStatus">GetWebUpdateVersion finalizado, status {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionStatusCode">GetWebUpdateVersion finalizado, codigo de status {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionTimeout">GetWebUpdateVersion tempo esgotado</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionSuccess">Versao de atualizacao do servidor obtida com sucesso {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionError">Falha ao obter versao de atualizacao do servidor {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.GetWebUpdateVersionErrorEx">Erro ao obter versao de atualizacao do servidor {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.DownloadWebImageError">Falha ao baixar imagem da web {0}</sys:String>
+    <sys:String x:Key="Api.CoreApi.DownloadWebImageErrorEx">Erro ao baixar imagem da web {0} {1}</sys:String>
+
+
+    <!--Globals.cs-->
+    <sys:String x:Key="Globals.ReadConfig">Iniciando leitura do arquivo de configuracao global...</sys:String>
+    <sys:String x:Key="Globals.CurrentConfigPath">Caminho atual do arquivo de configuracao {0}</sys:String>
+    <sys:String x:Key="Globals.ReadConfigSuccess">Leitura do arquivo de configuracao concluida Globals AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.EnumTryParseSuccess">Conversao de enum concluida AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.EnumTryParseError">Falha na conversao de enum AccountSlot {0}</sys:String>
+    <sys:String x:Key="Globals.SetDefaultLanguageSuccess">Idioma padrao definido com sucesso {0}</sys:String>
+    <sys:String x:Key="Globals.SetDefaultLanguageError">Idioma padrao nao suportado, usando idioma do sistema</sys:String>
+    <sys:String x:Key="Globals.ReadGlobalConfigSuccess">Leitura do arquivo de configuracao global concluida</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigProcess">Iniciando salvamento do arquivo de configuracao global...</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigPath">Caminho atual de salvamento do arquivo de configuracao {0}</sys:String>
+    <sys:String x:Key="Globals.SaveGlobalConfigSuccess">Arquivo de configuracao global salvo com sucesso</sys:String>
+
+    
+    <!--App.xaml.cs-->
+    <sys:String x:Key="App.Welcome">Bem-vindo ao programa {0}</sys:String>
+    <sys:String x:Key="App.DuplicateWarn">Nao abra repetidamente, o programa ja esta em execucao</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheck">Verificando ambiente do WebView2...</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheckNotFound">WebView2 Runtime nao encontrado, instale no site da Microsoft&#x0a;https://go.microsoft.com/fwlink/p/?LinkId=2124703</sys:String>
+    <sys:String x:Key="App.WebView2EnvCheckSuccess">Ambiente do WebView2 no sistema esta OK</sys:String>
+    <sys:String x:Key="App.TCPPortCheck">Verificando disponibilidade de portas TCP...</sys:String>
+    <sys:String x:Key="App.TCPPortCheckErrorTitle">Erro de inicializacao</sys:String>
+    <sys:String x:Key="App.TCPPortCheck3216">Porta TCP 3216 ocupada, libere a porta&#x0a;Geralmente basta fechar os programas Origin e EaApp</sys:String>
+    <sys:String x:Key="App.TCPPortCheck3215">Porta TCP 3215 ocupada, libere a porta&#x0a;Geralmente basta fechar os programas Origin e EaApp</sys:String>
+    <sys:String x:Key="App.TCPPortCheck4219">Porta TCP 4219 ocupada, libere a porta&#x0a;Geralmente basta fechar os programas Origin e EaApp</sys:String>
+    <sys:String x:Key="App.TCPPortCheckSuccess">Verificacao de portas TCP concluida com sucesso</sys:String>
+    <sys:String x:Key="App.TaskEx">Thread de Task capturou excecao nao tratada</sys:String>
+    <sys:String x:Key="App.ErrorFileName">O nome do programa do emulador atual nao e EADesktop.exe, renomeie para EADesktop.exe e reabra</sys:String>
+
+</ResourceDictionary>

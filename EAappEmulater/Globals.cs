@@ -58,14 +58,26 @@ public static class Globals
         }
 
 
-        if (defaultLanguage == "zh-CN" || defaultLanguage == "en-US")
+        // Accept any configured language if it's in the supported language list
+        if (!string.IsNullOrWhiteSpace(defaultLanguage))
         {
-            DefaultLanguage = defaultLanguage;
-            LoggerHelper.Info(I18nHelper.I18n._("Globals.SetDefaultLanguageSuccess", DefaultLanguage));
-        }
-        else
-        {
-            LoggerHelper.Warn(I18nHelper.I18n._("Globals.SetDefaultLanguageError"));
+            try
+            {
+                var langEntry = LanguageConfigHelper.FindByCode(defaultLanguage);
+                if (langEntry != null)
+                {
+                    DefaultLanguage = defaultLanguage;
+                    LoggerHelper.Info(I18nHelper.I18n._("Globals.SetDefaultLanguageSuccess", DefaultLanguage));
+                }
+                else
+                {
+                    LoggerHelper.Warn(I18nHelper.I18n._("Globals.SetDefaultLanguageError"));
+                }
+            }
+            catch
+            {
+                LoggerHelper.Warn(I18nHelper.I18n._("Globals.SetDefaultLanguageError"));
+            }
         }
 
         LoggerHelper.Info(I18nHelper.I18n._("Globals.ReadGlobalConfigSuccess"));
@@ -78,9 +90,22 @@ public static class Globals
     {
         LoggerHelper.Info(I18nHelper.I18n._("Globals.SaveGlobalConfigProcess"));
 
-        IniHelper.WriteString("Globals", "AccountSlot", $"{AccountSlot}", _configPath);
-        LoggerHelper.Info(I18nHelper.I18n._("Globals.SaveGlobalConfigPath", _configPath));
-        LoggerHelper.Info(I18nHelper.I18n._("Globals.SaveGlobalConfigSuccess"));
+        try
+        {
+            // ensure config dir and file exist
+            FileHelper.CreateDirectory(CoreUtil.Dir_Config);
+            FileHelper.CreateFile(_configPath);
+
+            IniHelper.WriteString("Globals", "AccountSlot", $"{AccountSlot}", _configPath);
+            IniHelper.WriteString("Globals", "lang", DefaultLanguage ?? string.Empty, _configPath);
+
+            LoggerHelper.Info(I18nHelper.I18n._("Globals.SaveGlobalConfigPath", _configPath));
+            LoggerHelper.Info(I18nHelper.I18n._("Globals.SaveGlobalConfigSuccess"));
+        }
+        catch (Exception ex)
+        {
+            LoggerHelper.Error(I18nHelper.I18n._("Globals.SaveGlobalConfigError", ex));
+        }
     }
 
     /// <summary>

@@ -95,7 +95,7 @@
     <sys:String x:Key="Windows.AccountWindow.ChangeAccount">Cambia a un nuovo account</sys:String>
     <sys:String x:Key="Windows.AccountWindow.ShowRemid">Mostra informazioni Remid dell'account selezionato</sys:String>
     <sys:String x:Key="Windows.AccountWindow.ShowSid">Mostra informazioni Sid dell'account selezionato</sys:String>
-    <sys:String x:Key="Windows.AccountWindow.SwitchLang">English</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.SwitchLang">Cambia lingua</sys:String>
     <sys:String x:Key="Windows.AccountWindow.AutoLogin">Accesso automatico</sys:String>
 
     
@@ -125,12 +125,12 @@
     <sys:String x:Key="Views.SettingView.MachineName">Nome computer</sys:String>
     <sys:String x:Key="Views.SettingView.OsVersion">Versione del sistema operativo</sys:String>
     <sys:String x:Key="Views.SettingView.SystemDirectory">Directory di sistema</sys:String>
-    <sys:String x:Key="Views.SettingView.RuntimeVersion">Piattaforma runtime</sys:String>
-    <sys:String x:Key="Views.SettingView.OSArchitecture">Versione della libreria di runtime</sys:String>
-    <sys:String x:Key="Views.SettingView.RuntimeIdentifier">Ambiente di runtime</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeVersion">Versione del runtime</sys:String>
+    <sys:String x:Key="Views.SettingView.OSArchitecture">Architettura del SO</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeIdentifier">Identificatore del runtime</sys:String>
     <sys:String x:Key="Views.SettingView.Tools">Strumenti comuni</sys:String>
     <sys:String x:Key="Views.SettingView.OpenConfigFolder">Apri cartella di configurazione</sys:String>
-    <sys:String x:Key="Views.SettingView.ChangeLanguage">English</sys:String>
+    <sys:String x:Key="Views.SettingView.ChangeLanguage">Cambia lingua</sys:String>
 
 
     <!--Views/LogView.xaml-->
@@ -305,7 +305,7 @@
     <sys:String x:Key="Api.EasyEaApi.FindLocalAvatarSkipDownload">Avatar del giocatore già presente in cache locale, salto del download da rete {0}</sys:String>
     <sys:String x:Key="Api.EasyEaApi.DownloadAvatarError">Errore nel download dell'avatar del giocatore attualmente connesso {0}</sys:String>
 
-
+    
     <!--Api/EaApi.cs-->
     <sys:String x:Key="Api.EaApi.UpdateCookieCount">{0} Numero di cookie: {1}</sys:String>
     <sys:String x:Key="Api.EaApi.UpdateCookieGetRemid">{0} Ottenimento di Remid riuscito {1}</sys:String>

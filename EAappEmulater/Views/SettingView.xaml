@@ -12,12 +12,12 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="360" />
+            <ColumnDefinition Width="506" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <Border
-            Margin="5"
+            Margin="5,5,3,5"
             Padding="5,5,5,10"
             BorderBrush="#E5E5E5"
             BorderThickness="1"
@@ -34,7 +34,7 @@
                     <ui:FormLabel x:Name="FormLabel_SystemDirectory" Title="{DynamicResource Views.SettingView.SystemDirectory}" />
 
                     <Label />
-                    <ui:FormLabel x:Name="FormLabel_RuntimeVersion" Title="{DynamicResource Views.SettingView.RuntimeVersion}" />
+                    <ui:FormLabel x:Name="FormLabel_RuntimeVersion" Title="{DynamicResource Views.SettingView.RuntimeVersion}" RenderTransformOrigin="0.498,0.625" />
                     <ui:FormLabel x:Name="FormLabel_OSArchitecture" Title="{DynamicResource Views.SettingView.OSArchitecture}" />
                     <ui:FormLabel x:Name="FormLabel_RuntimeIdentifier" Title="{DynamicResource Views.SettingView.RuntimeIdentifier}" />
 
@@ -47,10 +47,30 @@
                         Command="{Binding OpenConfigFolderCommand}"
                         Content="{DynamicResource Views.SettingView.OpenConfigFolder}"
                         Icon="&#xEC25;" />
-                    <ui:IconButton
-                        Command="{Binding ChangeLanguageCommand}"
-                        Content="{DynamicResource Views.SettingView.ChangeLanguage}"
-                        Icon="&#xE774;" />
+
+                    <!-- Language selector compact with prefix -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0,0,0">
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,6,0">Lang:</TextBlock>
+                        <ComboBox
+                            x:Name="ComboBox_Language_Setting"
+                            Width="120"
+                            Height="24"
+                            ItemsSource="{Binding LanguageList}"
+                            SelectedValuePath="Code"
+                            SelectedValue="{Binding CurrentLanguage, Mode=TwoWay}"
+                            FontFamily="Segoe UI, Arial"
+                            FontSize="12">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Width="18" Height="12" Source="{Binding Image}" Margin="0,0,6,0" />
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+
                 </WrapPanel>
             </StackPanel>
         </Border>

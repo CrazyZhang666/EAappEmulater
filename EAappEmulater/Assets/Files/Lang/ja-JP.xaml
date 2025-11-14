@@ -15,7 +15,7 @@
     <sys:String x:Key="Windows.MainWindow.Friends">フレンド</sys:String>
     <sys:String x:Key="Windows.MainWindow.Logs">ログ</sys:String>
     <sys:String x:Key="Windows.MainWindow.Update">更新</sys:String>
-    <sys:String x:Key="Windows.MainWindow.About">約</sys:String>
+    <sys:String x:Key="Windows.MainWindow.About">バージョン情報</sys:String>
 
     
     <!--Windows/MainWindow.xaml.cs-->
@@ -95,7 +95,7 @@
     <sys:String x:Key="Windows.AccountWindow.ChangeAccount">新しいアカウントに変更</sys:String>
     <sys:String x:Key="Windows.AccountWindow.ShowRemid">選択したアカウントの Remid 情報を表示</sys:String>
     <sys:String x:Key="Windows.AccountWindow.ShowSid">選択したアカウントの Sid 情報を表示</sys:String>
-    <sys:String x:Key="Windows.AccountWindow.SwitchLang">English</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.SwitchLang">言語を切り替え</sys:String>
     <sys:String x:Key="Windows.AccountWindow.AutoLogin">自動ログイン</sys:String>
 
     
@@ -125,12 +125,12 @@
     <sys:String x:Key="Views.SettingView.MachineName">コンピュータ名</sys:String>
     <sys:String x:Key="Views.SettingView.OsVersion">システムバージョン</sys:String>
     <sys:String x:Key="Views.SettingView.SystemDirectory">システムディレクトリ</sys:String>
-    <sys:String x:Key="Views.SettingView.RuntimeVersion">ランタイムプラットフォーム</sys:String>
-    <sys:String x:Key="Views.SettingView.OSArchitecture">ランタイムバージョン</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeVersion">ランタイムのバージョン</sys:String>
+    <sys:String x:Key="Views.SettingView.OSArchitecture">OS アーキテクチャ</sys:String>
     <sys:String x:Key="Views.SettingView.RuntimeIdentifier">ランタイム環境</sys:String>
     <sys:String x:Key="Views.SettingView.Tools">よく使うツール</sys:String>
     <sys:String x:Key="Views.SettingView.OpenConfigFolder">設定ディレクトリを開く</sys:String>
-    <sys:String x:Key="Views.SettingView.ChangeLanguage">English</sys:String>
+    <sys:String x:Key="Views.SettingView.ChangeLanguage">言語を切り替え</sys:String>
 
 
     <!--Views/LogView.xaml-->
@@ -305,7 +305,7 @@
     <sys:String x:Key="Api.EasyEaApi.FindLocalAvatarSkipDownload">ローカルプレイヤーアバター画像キャッシュが見つかりました。ネットワークダウンロード操作をスキップします {0}</sys:String>
     <sys:String x:Key="Api.EasyEaApi.DownloadAvatarError">現在ログイン中のプレイヤーのアバターのダウンロードに失敗しました {0}</sys:String>
 
-
+    
     <!--Api/EaApi.cs-->
     <sys:String x:Key="Api.EaApi.UpdateCookieCount">{0} Cookie の数: {1}</sys:String>
     <sys:String x:Key="Api.EaApi.UpdateCookieGetRemid">{0} Remid の取得に成功しました {1}</sys:String>

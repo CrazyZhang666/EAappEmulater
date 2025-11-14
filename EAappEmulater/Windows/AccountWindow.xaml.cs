@@ -6,19 +6,67 @@ using EAappEmulater.Utils;
 using EAappEmulater.Api;
 using EAappEmulater.Enums;
 using Newtonsoft.Json.Linq;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace EAappEmulater.Windows;
 
 /// <summary>
 /// AccountWindow.xaml 的交互逻辑
 /// </summary>
-public partial class AccountWindow
+public partial class AccountWindow : INotifyPropertyChanged
 {
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     public ObservableCollection<AccountInfo> ObsCol_AccountInfos { get; set; } = new();
+
+    private ObservableCollection<LanguageEntry> _languageList = new();
+    public ObservableCollection<LanguageEntry> LanguageList
+    {
+        get => _languageList;
+        set { _languageList = value; OnPropertyChanged(nameof(LanguageList)); }
+    }
+
+    private string _currentLanguage = string.Empty;
+    public string CurrentLanguage
+    {
+        get => _currentLanguage;
+        set
+        {
+            if (_currentLanguage == value) return;
+            _currentLanguage = value;
+            OnPropertyChanged(nameof(CurrentLanguage));
+
+            // Apply immediately
+            if (!string.IsNullOrWhiteSpace(_currentLanguage))
+            {
+                try
+                {
+                    App.SetLanguage(_currentLanguage);
+                    Globals.Language = _currentLanguage;
+                    Globals.DefaultLanguage = _currentLanguage;
+                    Globals.Write();
+                }
+                catch { }
+            }
+        }
+    }
+
+    private void OnPropertyChanged(string name) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
     public AccountWindow()
     {
         InitializeComponent();
+
+        // load languages
+        var langs = LanguageConfigHelper.GetLanguages();
+        LanguageList = new ObservableCollection<LanguageEntry>(langs);
+
+        CurrentLanguage = string.IsNullOrWhiteSpace(Globals.Language) ? (Globals.DefaultLanguage ?? "") : Globals.Language;
+        if (string.IsNullOrWhiteSpace(CurrentLanguage) && LanguageList.Count > 0)
+            CurrentLanguage = LanguageList[0].Code;
+
+        DataContext = this;
     }
 
     /// <summary>
@@ -128,11 +176,12 @@ public partial class AccountWindow
     [RelayCommand]
     private void ChangeLanguage()
     {
-        if (Globals.Language != null && Globals.Language == "zh-CN") {
-            App.SetLanguage("en-US");
-        } else if (Globals.Language != null && Globals.Language == "en-US")
+        if (!string.IsNullOrWhiteSpace(CurrentLanguage))
         {
-            App.SetLanguage("zh-CN");
+            App.SetLanguage(CurrentLanguage);
+            Globals.Language = CurrentLanguage;
+            Globals.DefaultLanguage = CurrentLanguage;
+            Globals.Write();
         }
     }
 
