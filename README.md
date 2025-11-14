@@ -12,17 +12,13 @@ https://github.com/CrazyZhang666/EAappEmulater/releases
 https://pan.baidu.com/s/1qMwwt4kSFjfHbNBKS-CoIg?pwd=sbea 提取码: sbea 
 
 ## 语言切换
-程序支持动态设置语言, 你可以在设置界面, 点击切换语言按钮
-![image](https://github.com/user-attachments/assets/cb34ad42-1ce6-4f91-91ad-66d9c1894a1f)
+程序支持动态设置语言, 你可以在设置界面, 选择你需要的语言
+<img width="1496" height="968" alt="image" src="https://github.com/user-attachments/assets/193be31c-41e1-43ff-af22-c251627d97b0" />
 
-或在账户登录界面, 点击右上角 🌏 按钮, 切换语言
-![QQ_1744206817863](https://github.com/user-attachments/assets/c4b9803e-71ea-43e0-a7cc-89b684c37b89)
 
-目前仅支持简体中文(zh-CN)与英语(en-US). 如果您对其他语言的翻译感兴趣, 请Fork代码, 并在Assets/Files/Lang中新建你的语言文件, 并按照zh-CN.xaml标准进行编写.
+如果您对其他语言的翻译感兴趣, 请Fork代码, 并在Assets/Files/Lang中新建你的语言文件, 并按照zh-CN.xaml标准进行编写.
 
 默认情况下，我们会读取您电脑的主要语言，并将其设置为程序的默认显示语言。
-
-如果您对翻译有任何疑问，请 Fork 代码并提交正确的翻译，或提交新的Issue。
 
 ## 截图预览
 
