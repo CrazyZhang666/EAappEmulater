@@ -10,22 +10,33 @@
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Margin" Value="5,5,5,0" />
-        <Setter Property="TitleWidth" Value="100" />
+        <!-- increase default title width to provide room for various languages -->
+        <Setter Property="TitleWidth" Value="160" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:FormLabel}">
                     <Border Background="{TemplateBinding Background}">
-                        <DockPanel>
+                        <DockPanel LastChildFill="True">
+                            <!-- Left label: fixed width, supports wrapping and shows ellipsis if too long -->
                             <TextBlock
-                                Width="{TemplateBinding TitleWidth}"
                                 DockPanel.Dock="Left"
+                                Width="{TemplateBinding TitleWidth}"
                                 FontSize="{TemplateBinding FontSize}"
                                 Foreground="{TemplateBinding Foreground}"
-                                Text="{TemplateBinding Title}" />
+                                Text="{TemplateBinding Title}"
+                                TextWrapping="Wrap"
+                                TextTrimming="CharacterEllipsis"
+                                VerticalAlignment="Top"
+                                Margin="0,0,8,0"
+                                ToolTip="{TemplateBinding Title}" />
+
+                            <!-- Right content: left-aligned and wraps to multiple lines; its left edge aligns because left label has fixed width -->
                             <TextBlock
                                 FontSize="{TemplateBinding FontSize}"
                                 Foreground="{TemplateBinding Foreground}"
-                                Text="{TemplateBinding Content}" />
+                                Text="{TemplateBinding Content}"
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Top" />
                         </DockPanel>
                     </Border>
                 </ControlTemplate>

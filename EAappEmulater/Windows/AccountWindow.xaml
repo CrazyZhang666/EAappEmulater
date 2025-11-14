@@ -26,11 +26,29 @@
                 DockPanel.Dock="Right"
                 Orientation="Horizontal"
                 WindowChrome.IsHitTestVisibleInChrome="True">
-                <ui:WinButton
-                    Command="{Binding ChangeLanguageCommand}"
-                    FontSize="14"
-                    Icon="&#xE774;"
-                    ToolTip="{DynamicResource Windows.AccountWindow.SwitchLang}" />
+
+                <!-- Language ComboBox (compact) -->
+                <ComboBox
+                    x:Name="ComboBox_Language"
+                    Width="110"
+                    Height="24"
+                    Margin="4,0,10,0"
+                    VerticalAlignment="Center"
+                    ItemsSource="{Binding LanguageList}"
+                    SelectedValuePath="Code"
+                    SelectedValue="{Binding CurrentLanguage, Mode=TwoWay}"
+                    FontFamily="Segoe UI, Arial"
+                    FontSize="12">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="18" Height="12" Source="{Binding Image}" Margin="0,0,6,0" />
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
                 <ui:IconHyperlink
                     Margin="0,0,7,0"
                     Text="GitHub"

@@ -95,7 +95,7 @@
     <sys:String x:Key="Windows.AccountWindow.ChangeAccount">更换新账号</sys:String>
     <sys:String x:Key="Windows.AccountWindow.ShowRemid">显示选中账号Remid信息</sys:String>
     <sys:String x:Key="Windows.AccountWindow.ShowSid">显示选中账号Sid信息</sys:String>
-    <sys:String x:Key="Windows.AccountWindow.SwitchLang">English</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.SwitchLang">切换语言</sys:String>
     <sys:String x:Key="Windows.AccountWindow.AutoLogin">自动登录</sys:String>
 
     
@@ -125,12 +125,12 @@
     <sys:String x:Key="Views.SettingView.MachineName">电脑名称</sys:String>
     <sys:String x:Key="Views.SettingView.OsVersion">系统版本</sys:String>
     <sys:String x:Key="Views.SettingView.SystemDirectory">系统目录</sys:String>
-    <sys:String x:Key="Views.SettingView.RuntimeVersion">运行库平台</sys:String>
-    <sys:String x:Key="Views.SettingView.OSArchitecture">运行库版本</sys:String>
+    <sys:String x:Key="Views.SettingView.RuntimeVersion">运行库版本</sys:String>
+    <sys:String x:Key="Views.SettingView.OSArchitecture">系统架构</sys:String>
     <sys:String x:Key="Views.SettingView.RuntimeIdentifier">运行库环境</sys:String>
     <sys:String x:Key="Views.SettingView.Tools">常用工具</sys:String>
     <sys:String x:Key="Views.SettingView.OpenConfigFolder">打开配置目录</sys:String>
-    <sys:String x:Key="Views.SettingView.ChangeLanguage">English</sys:String>
+    <sys:String x:Key="Views.SettingView.ChangeLanguage">切换语言</sys:String>
 
 
     <!--Views/LogView.xaml-->
@@ -305,7 +305,7 @@
     <sys:String x:Key="Api.EasyEaApi.FindLocalAvatarSkipDownload">发现本地玩家头像图片缓存，跳过网络下载操作 {0}</sys:String>
     <sys:String x:Key="Api.EasyEaApi.DownloadAvatarError">下载当前登录玩家头像失败 {0}</sys:String>
 
-
+    
     <!--Api/EaApi.cs-->
     <sys:String x:Key="Api.EaApi.UpdateCookieCount">{0} Cookie 数量为 {1}</sys:String>
     <sys:String x:Key="Api.EaApi.UpdateCookieGetRemid">{0} 获取 Remid 成功 {1}</sys:String>

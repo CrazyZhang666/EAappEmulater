@@ -22,23 +22,57 @@ public partial class App : Application
     /// </summary>
     protected override void OnStartup(StartupEventArgs e)
     {
+        // Load global config first so we know if user specified a language
+        Globals.Read();
 
-        if (!string.IsNullOrWhiteSpace(Globals.DefaultLanguage))
+        // Determine language to set following rules:
+        // - If Config (Globals.DefaultLanguage) has a supported language -> use it
+        // - If Config has but not supported -> use system default (if supported) else zh-CN
+        // - If no Config -> use system default (if supported) else zh-CN
+        string langToSet = string.Empty;
+        var supported = LanguageConfigHelper.GetLanguages().Select(x => x.Code).ToList();
+
+        if (!string.IsNullOrWhiteSpace(Globals.DefaultLanguage) && supported.Any(s => s.Equals(Globals.DefaultLanguage, StringComparison.OrdinalIgnoreCase)))
         {
-            SetLanguage(Globals.DefaultLanguage);
+            langToSet = Globals.DefaultLanguage;
         }
         else
         {
             var systemLanguage = CultureInfo.CurrentUICulture.Name;
-            if (systemLanguage.StartsWith("zh", StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrWhiteSpace(systemLanguage))
             {
-                SetLanguage("zh-CN");
+                // exact match
+                var exact = supported.FirstOrDefault(s => s.Equals(systemLanguage, StringComparison.OrdinalIgnoreCase));
+                if (!string.IsNullOrWhiteSpace(exact))
+                {
+                    langToSet = exact;
+                }
+                else
+                {
+                    // match by language part (e.g., "en" -> "en-US")
+                    var langPart = systemLanguage.Split(new[] { '-', '_' })[0];
+                    var partial = supported.FirstOrDefault(s => s.StartsWith(langPart, StringComparison.OrdinalIgnoreCase));
+                    if (!string.IsNullOrWhiteSpace(partial))
+                        langToSet = partial;
+                }
             }
-            else
+
+            // if config had value but not supported, we already tried system; if still empty continue
+            if (string.IsNullOrWhiteSpace(langToSet) && !string.IsNullOrWhiteSpace(Globals.DefaultLanguage))
             {
-                SetLanguage("en-US");
+                // config invalid and system didn't match -> fallback to zh-CN
+                langToSet = "zh-CN";
+            }
+
+            // if no config and system not supported -> fallback to zh-CN
+            if (string.IsNullOrWhiteSpace(langToSet) && string.IsNullOrWhiteSpace(Globals.DefaultLanguage))
+            {
+                langToSet = "zh-CN";
             }
         }
+
+        // Finally set language
+        SetLanguage(langToSet);
 
         LoggerHelper.Info(I18nHelper.I18n._("App.Welcome", AppName));
 

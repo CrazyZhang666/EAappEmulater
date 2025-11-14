@@ -1,4 +1,11 @@
-﻿2025/07/08 v1.9.0.0
+﻿2025/11/13 v1.9.1.0
+
+------------------------ 
+- Added support for Battlefield™ 6. #106 #107
+- Internationalization support for more languages ​​(German, French, Spanish, Italian, Japanese, etc.) #103
+
+
+2025/07/08 v1.9.0.0
 ------------------------
 - Modify the token acquisition method. #93
 - Fix the login page.
