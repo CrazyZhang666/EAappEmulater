@@ -59,6 +59,7 @@ https://pan.baidu.com/s/1qMwwt4kSFjfHbNBKS-CoIg?pwd=sbea 提取码: sbea
 - 战地风云1
 - 战地风云V
 - 战地风云2042
+- 战地风云™6
 - 《战地风云™》实验室
 - 《战地风云™ 2042》 技术性游戏测试
 - 《战地风云 5™》 封闭 ALPHA 测试
