@@ -9,18 +9,14 @@ EAapp Emulater by `Misaka_Mikoto_01`  `CrazyZhang666`  `B1397KB`
 
 https://github.com/CrazyZhang666/EAappEmulater/releases
 
-## English Support
-The program supports dynamic language setting. You can click the switch language button in the settings interface.
-![image](https://github.com/user-attachments/assets/cb34ad42-1ce6-4f91-91ad-66d9c1894a1f)
+## Language Switching
+The program supports dynamic language setting. You can select your desired language in the settings interface.
 
-Or on the account login interface, click the 🌏 button in the upper right corner to switch the language
-![QQ_1744206817863](https://github.com/user-attachments/assets/c4b9803e-71ea-43e0-a7cc-89b684c37b89)
+<img width="1496" height="968" alt="image" src="https://github.com/user-attachments/assets/193be31c-41e1-43ff-af22-c251627d97b0" />
 
-Currently only Simplified Chinese (zh-CN) and English (en-US) are supported. If you are interested in translating to other languages, please fork the code and create your language file in Assets/Files/Lang and write it according to the zh-CN.xaml standard.
+If you are interested in translating other languages, please fork the code and create your language file in Assets/Files/Lang, following the zh-CN.xaml standard.
 
-By default, we will read your computer's primary language and set it as the default display language for the program.
-
-If you have any questions about the translation, please fork the code and submit the correct translation, or submit a new issue
+By default, we will read your computer's primary language and set it as the program's default display language.
 
 ## Screenshots
 
