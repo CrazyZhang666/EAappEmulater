@@ -131,6 +131,7 @@ public partial class MainWindow
         NavDictionary.Add("GameView", new GameView());
         NavDictionary.Add("Game2View", new Game2View());
         NavDictionary.Add("EADesktopWeb", new EADesktopWeb());
+        NavDictionary.Add("DownloadView", new DownloadView());
         NavDictionary.Add("FriendView", new FriendView());
         NavDictionary.Add("LogView", new LogView());
         NavDictionary.Add("UpdateView", new UpdateView());

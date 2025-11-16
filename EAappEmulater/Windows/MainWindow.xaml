@@ -147,6 +147,12 @@
                             ToolTip="{DynamicResource Windows.MainWindow.EaAppView}" />
                         <ui:NavMenu
                             Command="{Binding NavigateCommand}"
+                            CommandParameter="DownloadView"
+                            GroupName="NavMenu"
+                            Icon="&#xE896;"
+                            ToolTip="{DynamicResource Windows.MainWindow.EaAppView}" />
+                        <ui:NavMenu
+                            Command="{Binding NavigateCommand}"
                             CommandParameter="FriendView"
                             GroupName="NavMenu"
                             Icon="&#xE716;"

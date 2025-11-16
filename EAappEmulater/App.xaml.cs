@@ -136,14 +136,18 @@ public partial class App : Application
                 return;
             }
         }
-        Process currentProcess = Process.GetCurrentProcess();
-        if (currentProcess.ProcessName != "EADesktop")
-        {
-            LoggerHelper.Error(I18nHelper.I18n._("App.ErrorFileName"));
-            MsgBoxHelper.Error(I18nHelper.I18n._("App.ErrorFileName"));
-            Current.Shutdown();
-            return;
-        }
+#if !DEBUG
+using (Process currentProcess = Process.GetCurrentProcess())
+{
+    if (currentProcess.ProcessName != "EADesktop")
+    {
+        LoggerHelper.Error(I18nHelper.I18n._("App.ErrorFileName"));
+        MsgBoxHelper.Error(I18nHelper.I18n._("App.ErrorFileName"));
+        Current.Shutdown();
+        return;
+    }
+}
+#endif
         LoggerHelper.Info(I18nHelper.I18n._("App.TCPPortCheckSuccess"));
 
         //////////////////////////////////////////////////////
