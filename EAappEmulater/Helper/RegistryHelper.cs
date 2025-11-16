@@ -118,6 +118,8 @@ public static class RegistryHelper
         /*
          * 这样可以解决F1 23等游戏不安装EA Desktop/Origin并且注册表ClientPath路径没有程序则没办法启动的问题
          * 还能顺便解决TTF2等游戏启动的时候会弹出EA App的问题
+         * 使用sdiagnhost能避免cmdkey弹个不停的问题
+         * 千万不能为空，否则老一点有检测的游戏都会无法启动
          */
 
         try
@@ -127,7 +129,8 @@ public static class RegistryHelper
 
             if (newSubKey is not null)
             {
-                newSubKey.SetValue("ClientPath", "");
+                var clientPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sdiagnhost.exe");
+                newSubKey.SetValue("ClientPath", clientPath, RegistryValueKind.String);
             }
         }
         catch (Exception ex)
