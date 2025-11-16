@@ -1,5 +1,10 @@
-﻿2025/11/13 v1.9.1.0
+﻿2025/11/16 v1.9.1.1
+------------------------
+- Fixed the issue of some games crashing upon launch. #109 #110
+- Added a basic download page. #110
 
+
+2025/11/13 v1.9.1.0
 ------------------------ 
 - Added support for Battlefield™ 6. #106 #107
 - Internationalization support for more languages ​​(German, French, Spanish, Italian, Japanese, etc.) #103
