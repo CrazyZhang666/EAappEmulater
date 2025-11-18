@@ -72,10 +72,10 @@
     <sys:String x:Key="Windows.LoadWindow.InitGameInfo">Initializing game information...</sys:String>
     <sys:String x:Key="Windows.LoadWindow.CloseServiceProcess">Releasing resource service process files...</sys:String>
     <sys:String x:Key="Windows.LoadWindow.GetRegistryInfo">Retrieving game info from the registry...</sys:String>
-    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfo">Retrieving registry information for “{0}”...</sys:String>
-    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoSuccess">Successfully retrieved registry information for “{0}” from Regedit</sys:String>
-    <sys:String x:Key="Windows.LoadWindow.GetRegistry2GameInfoSuccess">Successfully retrieved registry information for “{0}” from Regedit2</sys:String>
-    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoNotFound">No registry information found for “{0}”</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfo">Retrieving registry information for "{0}"...</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoSuccess">Successfully retrieved registry information for "{0}" from Regedit</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistry2GameInfoSuccess">Successfully retrieved registry information for "{0}" from Regedit2</sys:String>
+    <sys:String x:Key="Windows.LoadWindow.GetRegistryGameInfoNotFound">No registry information found for "{0}"</sys:String>
     <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenProcess">Refreshing BaseToken data...</sys:String>
     <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenErrorNetwork">Failed to refresh BaseToken data. The program will exit. Please check your network connection</sys:String>
     <sys:String x:Key="Windows.LoadWindow.RefreshBaseTokenRetry">Failed to refresh BaseToken data. Retrying attempt {0}...</sys:String>
@@ -112,6 +112,20 @@
     <sys:String x:Key="Windows.AdvancedWindow.EnableCustom">Enable Custom</sys:String>
     <sys:String x:Key="Windows.AdvancedWindow.Save">Save</sys:String>
     <sys:String x:Key="Windows.AdvancedWindow.Cancel">Cancel</sys:String>
+
+
+    <!--Windows/Dialog/DownloadSettingsWindow.xaml-->
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Title">EA App Emulator - Download Game</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.BrowseTip">Please select the folder where you want to install the game</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Info">Game Info</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.OfferId">Game ID:</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Size">Size:</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Language">Install Language</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.InstallFolder">Install Folder</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Browse">Browse...</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.FreeSpace">Free space:</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Download">Download</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Cancel">Cancel</sys:String>
 
     
     <!--Windows/Dialog/AdvancedWindow.xaml.cs-->
@@ -181,12 +195,85 @@
     <sys:String x:Key="Helper.FileHelper.ExtractResFileSuccess">Resource file extracted successfully {0}</sys:String>
     <sys:String x:Key="Helper.FileHelper.ExtractResFileError">Error extracting resource file {0} {1}</sys:String>
 
+
+    <!--Helper/NotifierHelper.cs-->
+    <sys:String x:Key="Helper.NotifierHelper.Information">Information</sys:String>
+    <sys:String x:Key="Helper.NotifierHelper.Success">Success</sys:String>
+    <sys:String x:Key="Helper.NotifierHelper.Warning">Warning</sys:String>
+    <sys:String x:Key="Helper.NotifierHelper.Error">Error</sys:String>
+    <sys:String x:Key="Helper.NotifierHelper.Notice">Notice</sys:String>
+    <sys:String x:Key="Helper.NotifierHelper.TaskbarIconNull">Taskbar icon not initialized, falling back to toast notification</sys:String>
+
+
+    <!--Helper/DownloadHelper.cs-->
+    <sys:String x:Key="Helper.DownloadHelper.EnqueueTask">Enqueue download task: {0} - {1}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.EnqueueSuccess">《{0}》 added to download queue</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.RunDownloadStart">Start download task: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.GetDownloadUrlFailed">Failed to get download URL</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.UrlEmpty">Download URL is empty</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DownloadPaused">Download paused, preserving paused state</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DownloadCancelled">Download cancelled</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DownloadCompleted">《{0}》 download completed! Click to open installation directory</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.SystemNotificationTitle">EA App Emulator - Download Completed</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.SystemNotificationMessage">《{0}》 download completed, click to open installation directory</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.OpenInstallDir">Open installation directory: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.OpenInstallDirError">Failed to open installation directory: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.RunDownloadException">Download task exception {0}: {1}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.FoundExistingFile">Found existing file: {0}, total size: {1}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.FileComplete">File is complete, using existing file</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ResumeFrom">Attempting resume from {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.FileSizeMismatch">Existing file size ({0}) doesn't match, redownloading</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.UseChunkedDownload">Using chunked download (large file: {0})</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.UseSingleStreamDownload">Using single-stream download</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkedDownloadPaused">Chunked download paused, downloaded {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkedDownloadCancelled">Chunked download cancelled</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkedDownloadCompleted">Chunked download completed: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkInfo">Total chunks: {0}, chunk size: {1}, concurrency: {2}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkDownloadRetry">Thread {0}: Chunk download failed (attempt {1}/{2}): {3}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkDownloadFailed">Thread {0}: Chunk {1}-{2} failed after {3} retries</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkedInterrupted">Chunked download interrupted</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkedError">Chunked download error: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunksFailed">One or more chunks failed to download</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ZipNotFound">ZIP file not found: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractStart">Starting extraction {0} (size: {1})</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractArchiveEntries">Archive contains {0} files</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractTotalSize">Estimated total uncompressed size: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractCommonRoot">Detected common root folder: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractProgress">Extracted {0}/{1} files ({2})</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractSuccess">Successfully extracted {0} files, total {1} ({2} errors)</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractWithErrors">Extraction completed with {0} errors, game may not work correctly</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractFailed">ZIP extraction failed: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractInterrupted">Extraction interrupted: paused={0}, cancelled={1}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractFileFailed">Failed to extract {0}: {1}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractTooManyErrors">Too many extraction errors ({0}), aborting</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractExceptionType">Exception type: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractInnerException">Inner exception: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DeleteZip">Deleting ZIP file: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DeleteZipSuccess">ZIP file deleted successfully</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DeleteZipFailed">Failed to delete ZIP file: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ZipRetained">ZIP file retained due to extraction errors, please check and retry</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.FoundTouchupExe">Found touchup.exe: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.NoTouchupExe">touchup.exe not found in {0}, skipping runtime installation</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.RuntimeInstallComplete">Runtime installation completed</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.RuntimeInstallFailed">Runtime installation failed: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DnsWarmupStart">DNS warmup: starting resolution for {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DnsWarmupResult">DNS warmup #{0}: {1} -&gt; {2}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DnsWarmupComplete">DNS warmup completed: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DnsWarmupFailed">DNS warmup failed: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DnsWarmupAttemptFailed">DNS warmup #{0} failed: {1}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.FoundInstallerDataXml">Found installerdata.xml: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ParseInstallerDataXmlFailed">Failed to parse installerdata.xml: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.TouchupParametersFound">Found touchup parameters: {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.TouchupParametersNotFound">Touchup parameters not found in XML, using default</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.UsingCustomTouchupParameters">Using custom touchup parameters from installerdata.xml</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.UsingDefaultTouchupParameters">Using default touchup parameters</sys:String>
+
     
     <!--Helper/JsonHelper.cs-->
     <sys:String x:Key="Helper.JsonHelper.JsonDeserializeError">Exception during deserialization {0}</sys:String>
     <sys:String x:Key="Helper.JsonHelper.JsonSerializeError">Exception during serialization {0}</sys:String>
 
-    
+
     <!--Helper/MsgBoxHelper.cs-->
     <sys:String x:Key="Helper.MsgBoxHelper.ExceptionInfo">An unknown exception occurred. See the message for details.&#x0a;&#x0a;Exception:&#x0a;{0}</sys:String>
 

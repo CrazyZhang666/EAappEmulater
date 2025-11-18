@@ -113,7 +113,21 @@
     <sys:String x:Key="Windows.AdvancedWindow.Save">保存</sys:String>
     <sys:String x:Key="Windows.AdvancedWindow.Cancel">取消</sys:String>
 
+
+    <!--Windows/Dialog/DownloadSettingsWindow.xaml-->
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Title">EA App 模拟器  下载游戏</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.BrowseTip">请选择你需要将游戏安装到的文件夹</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Info">游戏信息</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.OfferId">游戏ID:</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Size">大小:</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Language">安装语言</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.InstallFolder">安装目录</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Browse">浏览...</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.FreeSpace">剩余空间:</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Download">下载</sys:String>
+    <sys:String x:Key="Windows.DownloadSettingsWindow.Cancel">取消</sys:String>
     
+
     <!--Windows/Dialog/AdvancedWindow.xaml.cs-->
     <sys:String x:Key="Windows.AdvancedWindow.FileDialogTitle">请选择当前游戏主程序exe文件路径</sys:String>
 
@@ -181,6 +195,64 @@
     <sys:String x:Key="Helper.FileHelper.ExtractResFileSuccess">释放资源文件成功 {0}</sys:String>
     <sys:String x:Key="Helper.FileHelper.ExtractResFileError">释放资源文件异常 {0} {1}</sys:String>
 
+    <!--Helper/NotifierHelper.cs-->
+    <sys:String x:Key="Helper.NotifierHelper.Information">信息</sys:String>
+    <sys:String x:Key="Helper.NotifierHelper.Success">成功</sys:String>
+    <sys:String x:Key="Helper.NotifierHelper.Warning">警告</sys:String>
+    <sys:String x:Key="Helper.NotifierHelper.Error">错误</sys:String>
+    <sys:String x:Key="Helper.NotifierHelper.Notice">通知</sys:String>
+    <sys:String x:Key="Helper.NotifierHelper.TaskbarIconNull">托盘图标未初始化，回退到Toast通知</sys:String>
+
+    <!--Helper/DownloadHelper.cs-->
+    <sys:String x:Key="Helper.DownloadHelper.EnqueueTask">下载任务入队：{0} - {1}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.EnqueueSuccess">《{0}》已加入下载队列</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.RunDownloadStart">开始下载任务：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.GetDownloadUrlFailed">获取下载地址失败</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.UrlEmpty">下载地址为空</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DownloadPaused">下载已暂停，保留暂停状态</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DownloadCancelled">下载已取消</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DownloadCompleted">《{0}》下载完成！点击打开安装目录</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.SystemNotificationTitle">EA App 模拟器 - 下载完成</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.SystemNotificationMessage">《{0}》已下载完成，点击通知打开安装目录</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.OpenInstallDir">打开安装目录：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.OpenInstallDirError">打开安装目录失败：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.RunDownloadException">下载任务异常 {0}：{1}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.FoundExistingFile">发现已存在文件：{0}，总大小：{1}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.FileComplete">文件已完整，使用现有文件</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ResumeFrom">尝试从 {0} 处断点续传</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.FileSizeMismatch">已存在文件大小（{0}）不匹配，重新下载</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.UseChunkedDownload">使用分片下载（大文件：{0}）</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.UseSingleStreamDownload">使用单线程下载</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkedDownloadPaused">分片下载已暂停，已下载 {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkedDownloadCancelled">分片下载已取消</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkedDownloadCompleted">分片下载完成：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractStart">开始解压 {0}（大小：{1}）</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractArchiveEntries">压缩包包含 {0} 个文件</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractTotalSize">预计解压总大小：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractCommonRoot">检测到公共根目录：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractProgress">已解压 {0}/{1} 个文件（{2}）</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractSuccess">成功解压 {0} 个文件，总计 {1}（{2} 个错误）</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractWithErrors">解压完成但有 {0} 个错误，游戏可能无法正常运行</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractFailed">解压ZIP失败：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DeleteZip">删除ZIP文件：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DeleteZipSuccess">ZIP文件删除成功</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DeleteZipFailed">删除ZIP文件失败：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ZipRetained">由于解压错误，ZIP文件已保留，请检查后重试</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.FoundTouchupExe">找到 touchup.exe：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.NoTouchupExe">在 {0} 中未找到 touchup.exe，跳过运行库安装</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.RuntimeInstallComplete">运行库安装完成</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.RuntimeInstallFailed">运行库安装失败：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DnsWarmupStart">DNS预热：开始解析 {0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DnsWarmupResult">DNS预热 #{0}：{1} -&gt; {2}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DnsWarmupComplete">DNS预热完成：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DnsWarmupFailed">DNS预热失败：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.DnsWarmupAttemptFailed">DNS预热 #{0} 失败：{1}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.FoundInstallerDataXml">找到 installerdata.xml：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ParseInstallerDataXmlFailed">解析 installerdata.xml 失败：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.TouchupParametersFound">找到 touchup 参数：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.TouchupParametersNotFound">XML 中未找到 touchup 参数，使用默认值</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.UsingCustomTouchupParameters">使用 installerdata.xml 中的自定义 touchup 参数</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.UsingDefaultTouchupParameters">使用默认 touchup 参数</sys:String>
     
     <!--Helper/JsonHelper.cs-->
     <sys:String x:Key="Helper.JsonHelper.JsonDeserializeError">反序列化发生异常 {0}</sys:String>

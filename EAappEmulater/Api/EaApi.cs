@@ -329,8 +329,6 @@ public static class EaApi
         return respResult;
     }
 
-
-
     /// <summary>
     /// 获取登录玩家好友列表 (access_token)
     /// </summary>
@@ -575,6 +573,243 @@ public static class EaApi
         return respResult;
     }
 
+    /// <summary>
+    /// 获取游戏下载 URL (access_token)
+    /// GraphQL: downloadUrl
+    /// </summary>
+    public static async Task<RespResult> GetDownloadUrl(string offerId, string cdnOverride = null)
+    {
+        var respResult = new RespResult("GetDownloadUrl Api");
+
+        if (string.IsNullOrWhiteSpace(Account.AccessToken))
+        {
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundToken", respResult.ApiName));
+            return respResult;
+        }
+
+        if (string.IsNullOrWhiteSpace(offerId))
+        {
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundOfferId", respResult.ApiName));
+            return respResult;
+        }
+
+        try
+        {
+            const string query = @"
+query JitUrlRequest(
+  $offerId: String!,
+  $cdnOverride: String
+){
+  jitUrl: downloadUrl(offerId: $offerId, cdnOverride: $cdnOverride) {
+    url
+    archiveSize
+    syncUrl
+    syncArchiveSize
+  }
+}";
+
+            var variables = new
+            {
+                offerId,
+                cdnOverride
+            };
+
+            // 创建 GraphQL 客户端
+            var graphQLClient = new GraphQLHttpClient("https://service-aggregation-layer.juno.ea.com/graphql", new NewtonsoftJsonSerializer());
+            
+            // 创建 GraphQL 请求
+            var graphQLRequest = new GraphQLRequest
+            {
+                Query = query,
+                Variables = variables
+            };
+
+            graphQLClient.HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "EAApp/PC/13.463.0.5976");
+            graphQLClient.HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("x-client-id", "EAX-JUNO-CLIENT");
+            graphQLClient.HttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {Account.AccessToken}");
+            
+            var response = await graphQLClient.SendQueryAsync<object>(graphQLRequest);
+            string responseContent = JsonConvert.SerializeObject(response.Data);
+
+            respResult.StatusCode = HttpStatusCode.OK;
+            respResult.Content = responseContent;
+
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.AsGraphQLHttpResponse().StatusCode));
+            LoggerHelper.Debug($"{respResult.ApiName} JSON响应: {responseContent}");
+
+            if (!string.IsNullOrWhiteSpace(responseContent))
+            {
+                respResult.IsSuccess = true;
+            }
+            else
+            {
+                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ReqErrorEmpty", respResult.ApiName));
+            }
+        }
+        catch (Exception ex)
+        {
+            respResult.Exception = ex.Message;
+            LoggerHelper.Error(I18nHelper.I18n._("Api.EaApi.ReqErrorEx", respResult.ApiName, ex));
+        }
+
+        return respResult;
+    }
+
+    /// <summary>
+    /// 获取游戏目录定义信息 (access_token)
+    /// GraphQL: getLegacyCatalogDefs
+    /// </summary>
+    public static async Task<RespResult> GetLegacyCatalogDefs(List<string> offerIds, string locale = "zh-hans")
+    {
+        var respResult = new RespResult("GetLegacyCatalogDefs Api");
+
+        if (string.IsNullOrWhiteSpace(Account.AccessToken))
+        {
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundToken", respResult.ApiName));
+            return respResult;
+        }
+
+        if (offerIds == null || offerIds.Count == 0)
+        {
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundOfferId", respResult.ApiName));
+            return respResult;
+        }
+
+        try
+        {
+            const string query = @"
+query getLegacyCatalogDefs($offerIds: [String!]!, $locale: Locale) {
+  legacyOffers(offerIds: $offerIds, locale: $locale) {
+    offerId: id
+    contentId
+    basePlatform
+    primaryMasterTitleId
+    mdmProjectNumber
+    achievementSetOverride
+    gameLauncherURL
+    gameLauncherURLClientID
+    stagingKeyPath
+    mdmTitleIds
+    multiplayerId
+    executePathOverride
+    installationDirectory
+    installCheckOverride
+    monitorPlay
+    displayName
+    displayType
+    igoBrowserDefaultUrl
+    executeParameters
+    softwareLocales
+    dipManifestRelativePath
+    metadataInstallLocation
+    distributionSubType
+    downloads {
+      igoApiEnabled
+      downloadType
+      version
+      executeElevated
+      buildReleaseVersion
+      buildLiveDate
+      buildMetaData
+      gameVersion
+      treatUpdatesAsMandatory
+      enableDifferentialUpdate
+    }
+    locale
+    greyMarketControls
+    isDownloadable
+    isPreviewDownload
+    downloadStartDate
+    releaseDate
+    useEndDate
+    subscriptionUnlockDate
+    subscriptionUseEndDate
+    softwarePlatform
+    softwareId
+    downloadPackageType
+    installerPath
+    processorArchitecture
+    macBundleID
+    gameEditionTypeFacetKeyRankDesc
+    appliedCountryCode
+    cloudSaveConfigurationOverride
+    firstParties{
+      partner
+      partnerId
+      partnerIdType
+    }
+    suppressedOfferIds
+  }
+  gameProducts(offerIds: $offerIds, locale: $locale) {
+    items {
+      name
+      originOfferId
+      baseItem {
+        title
+        regionalRatingV2 {
+          ageRating {
+            minAge
+          }
+        }
+      }
+      gameSlug
+      lifecycleStatus {
+        lifecycleType
+        revealDate
+        playableStartDate
+        playableEndDate
+        downloadDate
+      }
+    }
+  }
+}";
+
+            var variables = new
+            {
+                locale,
+                offerIds
+            };
+
+            // 创建 GraphQL 客户端
+            var graphQLClient = new GraphQLHttpClient("https://service-aggregation-layer.juno.ea.com/graphql", new NewtonsoftJsonSerializer());
+            
+            // 创建 GraphQL 请求
+            var graphQLRequest = new GraphQLRequest
+            {
+                Query = query,
+                Variables = variables
+            };
+
+            graphQLClient.HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "EAApp/PC/13.463.0.5976");
+            graphQLClient.HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("x-client-id", "EAX-JUNO-CLIENT");
+            graphQLClient.HttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {Account.AccessToken}");
+            
+            var response = await graphQLClient.SendQueryAsync<object>(graphQLRequest);
+            string responseContent = JsonConvert.SerializeObject(response.Data, Newtonsoft.Json.Formatting.Indented);
+
+            respResult.StatusCode = HttpStatusCode.OK;
+            respResult.Content = responseContent;
+
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.AsGraphQLHttpResponse().StatusCode));
+            LoggerHelper.Debug($"{respResult.ApiName} DEBUG JSON响应:\n{responseContent}");
+
+            if (!string.IsNullOrWhiteSpace(responseContent))
+            {
+                respResult.IsSuccess = true;
+            }
+            else
+            {
+                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ReqErrorEmpty", respResult.ApiName));
+            }
+        }
+        catch (Exception ex)
+        {
+            respResult.Exception = ex.Message;
+            LoggerHelper.Error(I18nHelper.I18n._("Api.EaApi.ReqErrorEx", respResult.ApiName, ex));
+        }
+
+        return respResult;
+    }
 
     class HardwareInfo
     {
