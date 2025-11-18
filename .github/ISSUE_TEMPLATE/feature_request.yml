@@ -1,0 +1,79 @@
+name: "💡 Feature Request｜功能建议"
+description: "Suggest a feature / 提出功能增强建议"
+labels: ["enhancement"]
+title: "[Feature] <请填写简要描述 / short summary>"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 💡 Feature Request｜功能建议
+
+        请根据实际增强类型选择：  
+        Select enhancement type below:
+
+        **游戏增强 / Game Enhancement**：与游戏运行、兼容性、联机、适配相关  
+        **软件增强 / Software Enhancement**：程序功能、界面、语言、多平台相关
+
+  - type: dropdown
+    id: enhance_type
+    attributes:
+      label: "Enhancement Type｜增强类型"
+      options:
+        - 游戏增强 Game Enhancement
+        - 软件增强 Software Enhancement
+    validations:
+      required: true
+
+  # For Game Enhancement
+  - type: textarea
+    id: game_info
+    attributes:
+      label: "🎮 Game Information｜游戏信息"
+      description: "当增强类型为【游戏增强】时请填写 / Required if enhancement type is *Game Enhancement*"
+      placeholder: |
+        游戏名称 / Game Name:
+        游戏版本 / Game Version:
+        分发平台 / Platform (Steam / EA App / Epic ...):
+    validations:
+      required: false
+
+  # For Software Enhancement
+  - type: textarea
+    id: software_info
+    attributes:
+      label: "🛠 Software Enhancement Details｜软件增强详情"
+      description: "当增强类型为【软件增强】时请填写 / Required if enhancement type is *Software Enhancement*"
+      placeholder: |
+        希望增加的功能 / Requested feature:
+        功能逻辑大致描述 / Feature logic description:
+        使用场景举例 / Example use case:
+        是否涉及多语言 / Language requirement:
+    validations:
+      required: false
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: "📌 Motivation｜提出原因"
+      description: "为什么需要这个增强？Why is this enhancement necessary?"
+      placeholder: "示例：改进用户体验 / improve usability ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "🔄 Alternatives｜替代方案"
+      description: "是否有替代方案？Any alternative solutions?"
+      placeholder: "例如：使用其它工具 / Using other tools ..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "Additional context｜附加内容"
+      description: "截图、流程图、设计稿等 / Add any other context"
+      placeholder: "可选 Optional"
+    validations:
+      required: false
