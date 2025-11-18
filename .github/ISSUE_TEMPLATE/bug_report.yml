@@ -1,6 +1,7 @@
 name: "🐞 Bug Report｜错误反馈"
 description: "Report a bug / 提交错误反馈"
 labels: ["bug"]
+title: "[BUG] <请填写简要描述 / short summary>"
 body:
   - type: markdown
     attributes:
