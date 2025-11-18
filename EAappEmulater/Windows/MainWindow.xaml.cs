@@ -59,6 +59,9 @@ public partial class MainWindow
         MainWinInstance = this;
         // 重置窗口关闭标志
         IsCodeClose = false;
+        
+        // 设置托盘图标引用（用于Windows系统通知）
+        NotifierHelper.SetTaskbarIcon(NotifyIcon_Main);
 
         // 首页导航
         Navigate(NavDictionary.First().Key);

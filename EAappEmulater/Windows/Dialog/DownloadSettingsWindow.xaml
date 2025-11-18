@@ -1,0 +1,103 @@
+﻿<ui:Window
+    x:Class="EAappEmulater.Windows.DownloadSettingsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
+    xmlns:conv="clr-namespace:ModernWpf.Converters;assembly=ModernWpf"
+    Title="{DynamicResource Windows.DownloadSettingsWindow.Title}"
+    Width="720"
+    Height="390"
+    CaptionHeight="32"
+    Icon="/Assets/Icons/Favicon.ico"
+    ResizeMode="NoResize"
+    Style="{StaticResource FitSystemWindowStyle}"
+    WindowStartupLocation="CenterOwner"
+    Loaded="DownloadSettingsWindow_Loaded"
+    mc:Ignorable="d">
+
+    <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="233"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="#EEE" CornerRadius="4" Width="233" Height="365" VerticalAlignment="Top" />
+
+        <Grid Grid.Column="1" Margin="12,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock FontSize="24" FontWeight="Bold" Text="{Binding GameName}"/>
+
+            <StackPanel Grid.Row="1">
+                <ui:IconHeader Title="{DynamicResource Windows.DownloadSettingsWindow.Info}"/>
+                <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                    <TextBlock Text="{DynamicResource Windows.DownloadSettingsWindow.OfferId}" Width="80"/>
+                    <TextBlock Text="{Binding OfferId}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                    <TextBlock Text="{DynamicResource Windows.DownloadSettingsWindow.Size}" Width="80"/>
+                    <TextBlock Text="{Binding GameSizeDisplay}"/>
+                </StackPanel>
+
+                <ui:IconHeader Title="{DynamicResource Windows.DownloadSettingsWindow.Language}"/>
+                <ComboBox ItemsSource="{Binding InstallLanguages}" SelectedItem="{Binding SelectedLanguage}" Width="160" HorizontalAlignment="Left"/>
+
+                <ui:IconHeader Title="{DynamicResource Windows.DownloadSettingsWindow.InstallFolder}"/>
+                <DockPanel>
+                    <ui:IconButton DockPanel.Dock="Right" Content="{DynamicResource Windows.DownloadSettingsWindow.Browse}" Icon="&#xE71E;" Command="{Binding BrowseFolderCommand}"/>
+                    <ui:TextBoxHint
+                        Hint="{DynamicResource Windows.DownloadSettingsWindow.BrowseTip}"
+                        Icon="&#xE838;"
+                        IsReadOnly="True"
+                        Text="{Binding InstallDirectory}"/>
+                </DockPanel>
+
+                <TextBlock Margin="0,6,0,0" Foreground="{Binding ValidationBrush}" Text="{Binding ValidationText}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ValidationText, Converter={StaticResource IsNullOrWhiteSpaceConverter}}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="0,6,0,8">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding InstallDirectory, Converter={StaticResource IsNullOrWhiteSpaceConverter}}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                    <Run Text="{DynamicResource Windows.DownloadSettingsWindow.FreeSpace}"/>
+                    <Run Text="{Binding FreeSpaceDisplay}"/>
+                </TextBlock>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <ui:IconButton Content="{DynamicResource Windows.DownloadSettingsWindow.Download}" Icon="&#xE896;" Height="34" Margin="0,6,8,8" VerticalAlignment="Center" Command="{Binding StartDownloadCommand}" IsEnabled="{Binding StartDownloadCommand.CanExecute}"/>
+                    <ui:IconButton Content="{DynamicResource Windows.DownloadSettingsWindow.Cancel}" Icon="&#xE711;" Height="34" Margin="0,6,0,8" VerticalAlignment="Center" Command="{Binding CloseCommand}"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</ui:Window>

@@ -31,6 +31,8 @@
         <ResourceDictionary Source="/ModernWpf;component/Styles/GameMenu.xaml" />
         <ResourceDictionary Source="/ModernWpf;component/Styles/CardMenu.xaml" />
         <ResourceDictionary Source="/ModernWpf;component/Styles/IconHyperlink.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/OwnedGameMenu.xaml" />
+        <ResourceDictionary Source="/ModernWpf;component/Styles/DownloadGameItem.xaml" />
 
         <ResourceDictionary Source="/ModernWpf;component/Styles/ContextMenu.xaml" />
         <ResourceDictionary Source="/ModernWpf;component/Styles/UserControl.xaml" />

@@ -59,6 +59,7 @@
         <PackageReference Include="NLog" Version="5.3.4" />
         <PackageReference Include="Notification.Wpf" Version="8.0.0" />
         <PackageReference Include="RestSharp" Version="112.1.0" />
+        <PackageReference Include="SharpCompress" Version="0.41.0" />
         <PackageReference Include="System.Management" Version="9.0.3" />
     </ItemGroup>
 
