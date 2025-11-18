@@ -40,47 +40,47 @@ name: Build & Package EAappEmulater
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main, master ]
   pull_request:
-    branches:
-      - main
-  workflow_dispatch:  # 手动触发
+    branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   build-windows:
     runs-on: windows-latest
 
+    defaults:
+      run:
+        shell: cmd
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup .NET 6 SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "6.0.x"
+          dotnet-version: 6.0.x
 
-      - name: Restore NuGet packages
+      - name: Restore
         run: dotnet restore EAappEmulater.sln
 
-      - name: Build (Release)
+      - name: Build
         run: dotnet build EAappEmulater.sln -c Release --no-restore
 
-      # 发布 WPF 程序为自包含单文件（win-x64）
-      - name: Publish EAappEmulater (win-x64 self-contained)
-        run: |
-          dotnet publish EAappEmulater/EAappEmulater.csproj ^
-            -c Release ^
-            -r win-x64 ^
-            --self-contained true ^
-            -p:PublishSingleFile=true ^
-            -p:IncludeAllContentForSelfExtract=true ^
-            -p:PublishTrimmed=false ^
-            -o publish/EAappEmulater-win-x64
+      - name: Publish (Self-contained, Single File)
+        run: dotnet publish EAappEmulater/EAappEmulater.csproj ^
+              -c Release ^
+              -r win-x64 ^
+              --self-contained true ^
+              -p:PublishSingleFile=true ^
+              -p:IncludeAllContentForSelfExtract=true ^
+              -p:PublishTrimmed=false ^
+              -o publish/EAappEmulater-win-x64
 
-      # 上传打包结果为 Artifact（可在 Actions 页面下载）
-      - name: Upload artifact (EAappEmulater-win-x64)
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EAappEmulater-win-x64
           path: publish/EAappEmulater-win-x64
+
