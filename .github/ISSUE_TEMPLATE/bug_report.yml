@@ -1,0 +1,121 @@
+name: "🐞 Bug Report｜错误反馈"
+description: "Report a bug / 提交错误反馈"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 🐞 Bug Report / 错误反馈
+
+        请尽可能完整地填写以下内容，以帮助我们定位问题。  
+        Please fill in as much information as possible to help us identify the issue.
+
+  - type: dropdown
+    id: bug_type
+    attributes:
+      label: "Bug Type｜错误类型"
+      description: "请选择 Bug 类型 / Please select the bug type"
+      options:
+        - 崩溃 Crash
+        - 功能异常 Feature Malfunction
+    validations:
+      required: true
+
+  - type: input
+    id: app_version
+    attributes:
+      label: "App Version｜程序版本"
+      description: "请填写程序版本号 / Please enter the application version"
+      placeholder: "例如: 2.0.0.201-beta1"
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: "Describe the bug｜问题描述"
+      description: "简要描述问题是什么 / A clear and concise description of the issue."
+      placeholder: "例如：启动后闪退 / Program crashes on startup..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "To Reproduce｜复现步骤"
+      description: "提供复现问题的步骤 / Steps to reproduce the behavior."
+      placeholder: |
+        1. 打开软件 / Open the application
+        2. 点击 … / Click …
+        3. 出现问题 / Issue occurs
+    validations:
+      required: true
+
+  - type: textarea
+    id: expect
+    attributes:
+      label: "Expected behavior｜预期行为"
+      description: "预期应该发生什么？ / What did you expect to happen?"
+      placeholder: "例如：应正常进入主界面 / Should successfully enter the main UI"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ## 📁 Log Files｜日志文件
+
+        🟦 程序日志目录 Program log directory:  
+        ```
+        %USERPROFILE%\Documents\EAappEmulater\Log
+        ```
+
+        🔴 崩溃日志 Crash logs:  
+        ```
+        %USERPROFILE%\Documents\EAappEmulater\Log\Crash
+        ```
+
+        🟡 功能异常日志 NLog runtime logs:  
+        ```
+        %USERPROFILE%\Documents\EAappEmulater\Log\NLog
+        ```
+
+  - type: textarea
+    id: log_note
+    attributes:
+      label: "About your logs｜日志说明"
+      description: "请描述您上传的日志内容 / Describe your uploaded logs"
+      placeholder: "例如：包含启动过程、错误堆栈等… / Includes startup process, stack trace..."
+    validations:
+      required: false
+
+  - type: file-upload
+    id: log_files
+    attributes:
+      label: "📎 Upload Logs｜上传日志文件"
+      description: "崩溃：请上传 Crash 文件夹日志；功能异常：请上传 NLog 日志。"
+    validations:
+      required: true
+
+  - type: textarea
+    id: system_info
+    attributes:
+      label: "🖥 System Info｜系统信息"
+      description: "请填写您的系统环境信息 / Please provide system information"
+      placeholder: |
+        Windows 版本 Version: Windows 10 22H2
+        系统语言 Language: zh-CN
+        CPU: AMD Ryzen xxxx
+        内存 RAM: 16GB
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "Additional context｜其他信息"
+      description: "可选：你认为可能导致问题的其他线索 / Additional context"
+      placeholder: "疑似杀毒软件干扰 / Maybe caused by antivirus..."
+    validations:
+      required: false
+
