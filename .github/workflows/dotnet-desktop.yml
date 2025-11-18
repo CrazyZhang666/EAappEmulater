@@ -68,17 +68,27 @@ jobs:
       - name: Build
         run: dotnet build EAappEmulater.sln -c Release --no-restore
 
-      - name: Publish (Self-contained, Single File)
+      - name: Publish (framework-dependent single-file EXE)
         run: dotnet publish EAappEmulater/EAappEmulater.csproj ^
               -c Release ^
               -r win-x64 ^
-              --self-contained true ^
-              -p:PublishTrimmed=false ^
+              --self-contained false ^
+              -p:PublishSingleFile=true ^
+              -p:IncludeNativeLibrariesForSelfExtract=true ^
+              -p:DebugType=None ^
+              -p:DebugSymbols=false ^
+              -p:AssemblyName=EADesktop ^
               -o publish/EAappEmulater-win-x64
+
+      - name: Keep only EADesktop.exe
+        run: |
+          cd publish\EAappEmulater-win-x64
+          for %%f in (*) do @if /I not "%%f"=="EADesktop.exe" del /Q "%%f"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EAappEmulater-win-x64
           path: publish/EAappEmulater-win-x64
+
 
