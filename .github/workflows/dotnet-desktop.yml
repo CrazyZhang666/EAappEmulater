@@ -77,13 +77,32 @@ jobs:
               -p:IncludeNativeLibrariesForSelfExtract=true ^
               -p:DebugType=None ^
               -p:DebugSymbols=false ^
-              -p:AssemblyName=EADesktop ^
               -o publish/EAappEmulater-win-x64
 
-      - name: Keep only EADesktop.exe
+      # 用 PowerShell 处理输出文件：重命名 + 清理
+      - name: Rename to EADesktop.exe and clean folder
+        shell: pwsh
         run: |
-          cd publish\EAappEmulater-win-x64
-          for %%f in (*) do @if /I not "%%f"=="EADesktop.exe" del /Q "%%f"
+          Set-Location "publish/EAappEmulater-win-x64"
+
+          $exe = Get-ChildItem -Filter *.exe | Select-Object -First 1
+
+          if (-not $exe) {
+            Write-Error "No .exe file found in publish output."
+            exit 1
+          }
+
+          if ($exe.Name -ne "EADesktop.exe") {
+            Write-Host "Renaming $($exe.Name) -> EADesktop.exe"
+            Rename-Item $exe.Name "EADesktop.exe"
+          } else {
+            Write-Host "Output exe is already named EADesktop.exe"
+          }
+
+          Get-ChildItem | Where-Object { $_.Name -ne "EADesktop.exe" } | Remove-Item -Force
+
+          Write-Host "Final contents:"
+          Get-ChildItem
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
