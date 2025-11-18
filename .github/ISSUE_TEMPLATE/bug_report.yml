@@ -63,9 +63,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## 📁 Log Files｜日志文件（请拖拽上传）
+        ## 📁 Log｜日志
 
-        请根据 Bug 类型上传对应日志文件（直接拖拽到此 Issue 输入框即可）
+        打开日志文件, 复制有关发生报错的相关日志.
 
         🟦 程序日志目录 Program log directory:
         ```
@@ -82,12 +82,15 @@ body:
         %USERPROFILE%\Documents\EAappEmulater\Log\NLog
         ```
 
+        !!! 务必注意, 日志内包含了敏感信息(如Cookie), 请检查复制的日志是否包含这些敏感信息, 如果包含, 请手动删除.
+        Please note that the log contains sensitive information (such as cookies). Please check if the copied log contains this sensitive information. If it does, please delete it manually.
+
   - type: textarea
     id: log_note
     attributes:
-      label: "Log notes｜日志说明"
-      description: "请描述您上传的日志内容 / Describe your uploaded logs"
-      placeholder: "例如：包含启动过程、错误堆栈等… / Includes startup process, stack trace..."
+      label: "Log｜日志"
+      description: "请将日志的报错部分复制到此处 / Please copy the error message from the log here."
+      placeholder: "2025-11-18 20:00:00.00000 INFO XXXX "
     validations:
       required: false
 
