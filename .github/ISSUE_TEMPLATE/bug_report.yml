@@ -7,7 +7,7 @@ body:
       value: |
         # 🐞 Bug Report / 错误反馈
 
-        请尽可能完整地填写以下内容，以帮助我们定位问题。  
+        请尽可能完整填写以下内容，以帮助我们定位问题。  
         Please fill in as much information as possible to help us identify the issue.
 
   - type: dropdown
@@ -56,26 +56,28 @@ body:
     attributes:
       label: "Expected behavior｜预期行为"
       description: "预期应该发生什么？ / What did you expect to happen?"
-      placeholder: "例如：应正常进入主界面 / Should successfully enter the main UI"
+      placeholder: "例如：应正常进入主界面 / Should successfully enter main UI"
     validations:
       required: false
 
   - type: markdown
     attributes:
       value: |
-        ## 📁 Log Files｜日志文件
+        ## 📁 Log Files｜日志文件（请拖拽上传）
 
-        🟦 程序日志目录 Program log directory:  
+        请根据 Bug 类型上传对应日志文件（直接拖拽到此 Issue 输入框即可）
+
+        🟦 程序日志目录 Program log directory:
         ```
         %USERPROFILE%\Documents\EAappEmulater\Log
         ```
 
-        🔴 崩溃日志 Crash logs:  
+        🔴 崩溃日志 Crash logs (若 Bug 类型为 崩溃 Crash):
         ```
         %USERPROFILE%\Documents\EAappEmulater\Log\Crash
         ```
 
-        🟡 功能异常日志 NLog runtime logs:  
+        🟡 功能异常日志 NLog runtime logs (若 Bug 类型为 功能异常):
         ```
         %USERPROFILE%\Documents\EAappEmulater\Log\NLog
         ```
@@ -83,19 +85,11 @@ body:
   - type: textarea
     id: log_note
     attributes:
-      label: "About your logs｜日志说明"
+      label: "Log notes｜日志说明"
       description: "请描述您上传的日志内容 / Describe your uploaded logs"
       placeholder: "例如：包含启动过程、错误堆栈等… / Includes startup process, stack trace..."
     validations:
       required: false
-
-  - type: file-upload
-    id: log_files
-    attributes:
-      label: "📎 Upload Logs｜上传日志文件"
-      description: "崩溃：请上传 Crash 文件夹日志；功能异常：请上传 NLog 日志。"
-    validations:
-      required: true
 
   - type: textarea
     id: system_info
@@ -103,10 +97,10 @@ body:
       label: "🖥 System Info｜系统信息"
       description: "请填写您的系统环境信息 / Please provide system information"
       placeholder: |
-        Windows 版本 Version: Windows 10 22H2
-        系统语言 Language: zh-CN
+        Windows Version: Windows 10 22H2
+        System Language: zh-CN
         CPU: AMD Ryzen xxxx
-        内存 RAM: 16GB
+        RAM: 16GB
     validations:
       required: true
 
@@ -114,8 +108,7 @@ body:
     id: additional
     attributes:
       label: "Additional context｜其他信息"
-      description: "可选：你认为可能导致问题的其他线索 / Additional context"
-      placeholder: "疑似杀毒软件干扰 / Maybe caused by antivirus..."
+      description: "可选，你认为可能导致问题的其他线索 / Additional context"
+      placeholder: "例如：疑似杀毒软件干扰 / Maybe caused by antivirus..."
     validations:
       required: false
-
