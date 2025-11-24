@@ -97,8 +97,30 @@
     <sys:String x:Key="Windows.AccountWindow.ShowSid">Show Sid for selected account</sys:String>
     <sys:String x:Key="Windows.AccountWindow.SwitchLang">Switch Language</sys:String>
     <sys:String x:Key="Windows.AccountWindow.AutoLogin">Auto Login</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ShowCookie">Show Cookie</sys:String>
 
-    
+
+    <!--Views/DownloadView -->
+    <sys:String x:Key="Views.DownloadView.MovedToCompleted">Moved to completed: {0} status {1}</sys:String>
+    <sys:String x:Key="Views.DownloadView.StartNowQueued">Started queued task now: {0}</sys:String>
+    <sys:String x:Key="Views.DownloadView.OpenedFolder">Opened install folder: {0}</sys:String>
+    <sys:String x:Key="Views.DownloadView.FolderNotFound">Install folder not found: {0}</sys:String>
+    <sys:String x:Key="Views.DownloadView.OpenFolderFailed">Failed to open install folder: {0}</sys:String>
+    <sys:String x:Key="Views.DownloadView.RetryDownload">Retry download {0}</sys:String>
+
+    <sys:String x:Key="Views.DownloadView.StatusWaiting">Waiting</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusPaused">Paused</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusDownloading">Downloading</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusInstalling">Installing</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusInstallingRuntime">Installing runtime</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusFailed">Failed</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusCancelled">Cancelled</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusCompleted">Completed</sys:String>
+
+    <sys:String x:Key="Views.DownloadView.EtaUnknown">ETA unknown</sys:String>
+    <sys:String x:Key="Views.DownloadView.EtaPrefix">ETA</sys:String>
+
+
     <!--Windows/Dialog/AdvancedWindow.xaml-->
     <sys:String x:Key="Windows.AdvancedWindow.Title">EA App Emulator  Game Selection</sys:String>
     <sys:String x:Key="Windows.AdvancedWindow.Registry">Registry</sys:String>
@@ -162,6 +184,16 @@
     <sys:String x:Key="Views.AboutView.CoreAlgorithm">Core Algorithm: Misaka_Mikoto_01</sys:String>
     <sys:String x:Key="Views.AboutView.Design">Program Design: CrazyZhang666  B1397KB</sys:String>
     <sys:String x:Key="Views.AboutView.Declare">This program is for learning and research purposes only</sys:String>
+
+
+    <!--Views/DownloadView.xaml-->
+    <sys:String x:Key="Views.DownloadView.Downloading">Downloading</sys:String>
+    <sys:String x:Key="Views.DownloadView.LimitSpeed">Limit speed (Mbps)</sys:String>
+    <sys:String x:Key="Views.DownloadView.SpeedUnit">Mbps</sys:String>
+    <sys:String x:Key="Views.DownloadView.NoActiveTask">No active downloads</sys:String>
+    <sys:String x:Key="Views.DownloadView.Queue">Queue</sys:String>
+    <sys:String x:Key="Views.DownloadView.NoQueuedTask">No queued tasks</sys:String>
+    <sys:String x:Key="Views.DownloadView.Completed">Completed</sys:String>
 
 
     <!--Views/FriendView.xaml.cs-->
@@ -454,5 +486,11 @@
     <sys:String x:Key="App.TCPPortCheckSuccess">TCP port check passed</sys:String>
     <sys:String x:Key="App.TaskEx">Unhandled exception captured on Task thread</sys:String>
     <sys:String x:Key="App.ErrorFileName">The simulator executable name is not EADesktop.exe. Please rename it to EADesktop.exe and start again</sys:String>
+
+    <!--Views/DownloadView tooltips -->
+    <sys:String x:Key="Views.DownloadView.Tooltip.Pause">Pause</sys:String>
+    <sys:String x:Key="Views.DownloadView.Tooltip.Cancel">Cancel</sys:String>
+    <sys:String x:Key="Views.DownloadView.Tooltip.Retry">Retry</sys:String>
+    <sys:String x:Key="Views.DownloadView.Tooltip.OpenFolder">Open Folder</sys:String>
 
 </ResourceDictionary>

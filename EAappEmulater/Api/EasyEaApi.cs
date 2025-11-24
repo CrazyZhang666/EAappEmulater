@@ -14,6 +14,7 @@ public static class EasyEaApi
         if (!result.IsSuccess)
             return string.Empty;
 
+        // 返回值用于后续协议，不写日志
         return Account.LSXAuthCode;
     }
 
@@ -26,6 +27,7 @@ public static class EasyEaApi
         if (!result.IsSuccess)
             return string.Empty;
 
+        // 不记录许可证内容
         return result.Content;
     }
 

@@ -68,14 +68,6 @@ public static class CoreUtil
         File_Service_OriginDebug = Path.Combine(Dir_Service, "OriginDebug.exe");
         #endregion
 
-        // 批量创建账号槽缓存目录
-        foreach (int value in Enum.GetValues(typeof(AccountSlot)))
-        {
-            var path = Path.Combine(Dir_Cache, $"Account{value}");
-            FileHelper.CreateDirectory(path);
-
-            AccountCacheDb[(AccountSlot)value] = path;
-        }
 
         VersionInfo = Application.ResourceAssembly.GetName().Version;
 
@@ -87,6 +79,18 @@ public static class CoreUtil
         RuntimeVersion = RuntimeInformation.FrameworkDescription;
         OSArchitecture = RuntimeInformation.OSArchitecture.ToString();
         RuntimeIdentifier = RuntimeInformation.RuntimeIdentifier;
+    }
+
+    /// <summary>
+    /// 获取或创建指定账号槽的缓存目录
+    /// </summary>
+    public static string GetAccountCacheDir(AccountSlot slot)
+    {
+        var path = Path.Combine(Dir_Cache, $"Account{(int)slot}");
+        FileHelper.CreateDirectory(path);
+        // keep a reference for compatibility
+        AccountCacheDb[slot] = path;
+        return path;
     }
 
     /// <summary>
