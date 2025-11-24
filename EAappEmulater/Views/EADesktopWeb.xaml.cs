@@ -59,6 +59,7 @@ namespace EAappEmulater.Views
             cookie2.IsHttpOnly = true;
             cookie2.IsSecure = true;
             cookieManager.AddOrUpdateCookie(cookie2);
+            // 不在日志中输出任何令牌或Cookie
             webView2.CoreWebView2.Navigate($"https://pc.ea.com/login.html#access_token={Account.AccessToken}&token_type=Bearer");
         }
 

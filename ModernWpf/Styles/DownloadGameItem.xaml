@@ -118,7 +118,7 @@
                                             Command="{TemplateBinding PauseResumeCommand}" 
                                             CommandParameter="{TemplateBinding PauseResumeCommandParameter}"
                                             Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowPauseResumeButton, Converter={StaticResource BoolToVis}}"
-                                            ToolTip="暂停">
+                                            ToolTip="{DynamicResource Views.DownloadView.Tooltip.Pause}">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" Foreground="White">
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
@@ -142,7 +142,7 @@
                                             CommandParameter="{TemplateBinding CancelCommandParameter}"
                                             IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CanCancel}"
                                             Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowCancelButton, Converter={StaticResource BoolToVis}}"
-                                            ToolTip="取消">
+                                            ToolTip="{DynamicResource Views.DownloadView.Tooltip.Cancel}">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE711;" Foreground="White" />
                                     </Button>
                                     
@@ -152,7 +152,7 @@
                                             Command="{TemplateBinding RetryCommand}" 
                                             CommandParameter="{TemplateBinding RetryCommandParameter}"
                                             Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowRetryButton, Converter={StaticResource BoolToVis}}"
-                                            ToolTip="重新下载">
+                                            ToolTip="{DynamicResource Views.DownloadView.Tooltip.Retry}">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE72C;" Foreground="White" />
                                     </Button>
                                     
@@ -162,7 +162,7 @@
                                             Command="{TemplateBinding OpenFolderCommand}" 
                                             CommandParameter="{TemplateBinding OpenFolderCommandParameter}"
                                             Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowOpenFolderButton, Converter={StaticResource BoolToVis}}"
-                                            ToolTip="打开目录">
+                                            ToolTip="{DynamicResource Views.DownloadView.Tooltip.OpenFolder}">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE838;" Foreground="White" />
                                     </Button>
                                 </StackPanel>

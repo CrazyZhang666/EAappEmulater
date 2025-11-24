@@ -226,6 +226,26 @@ query getPreloadedOwnedGames(
             // 仅当 API 返回至少一个条目时才更新 UI，防止因请求失败清空已有数据
             if (tempList.Count >= 1)
             {
+                // 临时调用：对第一个游戏调用 GetLegacyCatalogDefs，仅传入一个 offerId，防止返回过多内容
+                try
+                {
+                    var firstOffer = tempList[0].OfferId;
+                    var legacyResp = await EAappEmulater.Api.EaApi.GetLegacyCatalogDefs(new List<string> { firstOffer }, locale);
+                    if (legacyResp != null)
+                    {
+                        LoggerHelper.Info($"GetLegacyCatalogDefs for {firstOffer} success={legacyResp.IsSuccess}, status={legacyResp.StatusCode}");
+                        LoggerHelper.Debug($"GetLegacyCatalogDefs content: {legacyResp.Content}");
+                    }
+                    else
+                    {
+                        LoggerHelper.Warn($"GetLegacyCatalogDefs returned null for {firstOffer}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LoggerHelper.Error($"GetLegacyCatalogDefs error: {ex.Message}");
+                }
+
                 ObsCol_OwnedGames.Clear();
                 foreach (var g in tempList) ObsCol_OwnedGames.Add(g);
                 // 恢复滚动位置

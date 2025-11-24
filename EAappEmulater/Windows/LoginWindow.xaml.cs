@@ -254,7 +254,8 @@ public partial class LoginWindow
                 if (!string.IsNullOrWhiteSpace(item.Value))
                 {
                     IniHelper.WriteString("Cookie", "Remid", item.Value, Globals.GetAccountIniPath());
-                    LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.RemidGetSuccess", item.Value));
+                    // 不记录敏感值
+                    LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.RemidGetSuccess", "<redacted>"));
                     isRemidGet = true;
                     continue;
                 }
@@ -265,7 +266,8 @@ public partial class LoginWindow
                 if (!string.IsNullOrWhiteSpace(item.Value))
                 {
                     IniHelper.WriteString("Cookie", "Sid", item.Value, Globals.GetAccountIniPath());
-                    LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.SidGetSuccess", item.Value));
+                    // 不记录敏感值
+                    LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.SidGetSuccess", "<redacted>"));
                     continue;
                 }
             }
@@ -295,13 +297,13 @@ public partial class LoginWindow
                 !string.IsNullOrEmpty(val))
             {
                 IniHelper.WriteString("Cookie", "Sid", val, Globals.GetAccountIniPath());
-                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.SidGetSuccess", val));
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.SidGetSuccess", "<redacted>"));
             }
             else if (key.Equals("remid", StringComparison.OrdinalIgnoreCase) &&
                      !string.IsNullOrEmpty(val))
             {
                 IniHelper.WriteString("Cookie", "Remid", val, Globals.GetAccountIniPath());
-                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.RemidGetSuccess", val));
+                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.RemidGetSuccess", "<redacted>"));
                 gotRemid = true;
             }
         }

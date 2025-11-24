@@ -52,6 +52,14 @@ public partial class AccountWindow : INotifyPropertyChanged
         }
     }
 
+    // 是否显示真实 Cookie
+    private bool _showCookie;
+    public bool ShowCookie
+    {
+        get => _showCookie;
+        set { _showCookie = value; OnPropertyChanged(nameof(ShowCookie)); }
+    }
+
     private void OnPropertyChanged(string name) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
     public AccountWindow()
@@ -76,37 +84,61 @@ public partial class AccountWindow : INotifyPropertyChanged
     {
         Title = $"EA App 模拟器 v{CoreUtil.VersionInfo}";
 
-
-        // 遍历读取10个配置文件槽
-        foreach (var item in Account.AccountPathDb)
-        {
-            var account = new AccountInfo()
-            {
-                // 账号槽
-                AccountSlot = item.Key,
-                // 仅展示用
-                PlayerName = IniHelper.ReadString("Account", "PlayerName", item.Value),
-                AvatarId = IniHelper.ReadString("Account", "AvatarId", item.Value),
-                Avatar = IniHelper.ReadString("Account", "Avatar", item.Value),
-                // 可被修改
-                Remid = IniHelper.ReadString("Cookie", "Remid", item.Value),
-                Sid = IniHelper.ReadString("Cookie", "Sid", item.Value)
-            };
-
-            // 玩家头像为空处理（仅有Cookie数据）
-            if (!string.IsNullOrWhiteSpace(account.Remid) && string.IsNullOrWhiteSpace(account.Avatar))
-                account.Avatar = "Default";
-
-            // 添加到动态集合中
-            ObsCol_AccountInfos.Add(account);
-        }
-
-        ////////////////////////////////
+        // 动态扫描已有的 Account*.ini 文件
+        LoadExistingAccounts();
 
         // 读取全局配置文件
         Globals.Read();
         // 设置上次选中配置槽
         ListBox_AccountInfo.SelectedIndex = (int)Globals.AccountSlot;
+    }
+
+    private void LoadExistingAccounts()
+    {
+        ObsCol_AccountInfos.Clear();
+
+        // 扫描目录
+        if (!Directory.Exists(CoreUtil.Dir_Account))
+            Directory.CreateDirectory(CoreUtil.Dir_Account);
+
+        var files = Directory.GetFiles(CoreUtil.Dir_Account, "Account*.ini").OrderBy(f => f).ToList();
+        // if none, create one
+        if (files.Count == 0)
+        {
+            var path = Path.Combine(CoreUtil.Dir_Account, "Account0.ini");
+            FileHelper.CreateFile(path);
+            files.Add(path);
+        }
+
+        Account.AccountPathDb.Clear();
+        int slotIndex = 0;
+        foreach (var file in files)
+        {
+            // 忽略不符合命名规范的文件
+            var fileName = Path.GetFileName(file);
+            if (!fileName.StartsWith("Account", StringComparison.OrdinalIgnoreCase) || !fileName.EndsWith(".ini", StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            var slot = (AccountSlot)slotIndex;
+            Account.AccountPathDb[slot] = file;
+
+            var account = new AccountInfo()
+            {
+                AccountSlot = slot,
+                PlayerName = IniHelper.ReadString("Account", "PlayerName", file),
+                AvatarId = IniHelper.ReadString("Account", "AvatarId", file),
+                Avatar = IniHelper.ReadString("Account", "Avatar", file),
+                Remid = IniHelper.ReadString("Cookie", "Remid", file),
+                Sid = IniHelper.ReadString("Cookie", "Sid", file)
+            };
+            // 玩家头像为空处理（仅有Cookie数据）
+            if (!string.IsNullOrWhiteSpace(account.Remid) && string.IsNullOrWhiteSpace(account.Avatar))
+                account.Avatar = "Default";
+            ObsCol_AccountInfos.Add(account);
+            // ensure cache directory mapping set
+            CoreUtil.GetAccountCacheDir(slot);
+            slotIndex++;
+        }
     }
 
     /// <summary>
@@ -259,4 +291,131 @@ public partial class AccountWindow : INotifyPropertyChanged
         
     }
 
+    /// <summary>
+    /// 复制 Remid
+    /// </summary>
+    [RelayCommand]
+    private void CopyRemid()
+    {
+        if (ListBox_AccountInfo.SelectedItem is AccountInfo account && !string.IsNullOrWhiteSpace(account.Remid))
+        {
+            Clipboard.SetText(account.Remid);
+        }
+    }
+
+    /// <summary>
+    /// 复制 Sid
+    /// </summary>
+    [RelayCommand]
+    private void CopySid()
+    {
+        if (ListBox_AccountInfo.SelectedItem is AccountInfo account && !string.IsNullOrWhiteSpace(account.Sid))
+        {
+            Clipboard.SetText(account.Sid);
+        }
+    }
+
+    /// <summary>
+    /// 添加账号
+    /// </summary>
+    [RelayCommand]
+    private void AddAccount()
+    {
+        int nextIndex = ObsCol_AccountInfos.Count;
+        if (nextIndex >= 100) return; // 保留上限
+
+        var slot = (AccountSlot)nextIndex;
+        // 创建配置文件与缓存目录
+        var path = Account.EnsureIniForSlot(slot);
+        CoreUtil.GetAccountCacheDir(slot);
+
+        var info = new AccountInfo { AccountSlot = slot, PlayerName = string.Empty, AvatarId = string.Empty, Avatar = string.Empty, Remid = string.Empty, Sid = string.Empty };
+        ObsCol_AccountInfos.Add(info);
+        ListBox_AccountInfo.SelectedItem = info;
+
+        // 确保选中新增账号
+        Globals.AccountSlot = slot;
+        Globals.Write();
+    }
+
+    /// <summary>
+    /// 删除账号
+    /// </summary>
+    [RelayCommand]
+    private void DeleteAccount()
+    {
+        if (ListBox_AccountInfo.SelectedItem is not AccountInfo account) return;
+        if (ObsCol_AccountInfos.Count <= 1) return;
+
+        var removedIndex = (int)account.AccountSlot;
+
+        // 删除对应 ini 文件 与 cache 文件夹
+        try
+        {
+            var path = Account.AccountPathDb[account.AccountSlot];
+            if (File.Exists(path)) File.Delete(path);
+        }
+        catch { }
+
+        try
+        {
+            var cacheDir = Path.Combine(CoreUtil.Dir_Cache, $"Account{removedIndex}");
+            if (Directory.Exists(cacheDir)) Directory.Delete(cacheDir, true);
+        }
+        catch { }
+
+        // 移除集合
+        ObsCol_AccountInfos.Remove(account);
+
+        // 重新整理索引与路径映射：重命名剩余文件到连续编号（Account0.ini..）并更新映射
+        var remaining = ObsCol_AccountInfos.ToList();
+        Account.AccountPathDb.Clear();
+        for (int i = 0; i < remaining.Count; i++)
+        {
+            var info = remaining[i];
+            var desiredPath = Path.Combine(CoreUtil.Dir_Account, $"Account{i}.ini");
+
+            // 如果当前路径不是期望路径，则重命名
+            var currentPathCandidates = Directory.GetFiles(CoreUtil.Dir_Account, $"Account*.ini").OrderBy(f => f).ToList();
+            string currentPath = currentPathCandidates.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals($"Account{(int)info.AccountSlot}", StringComparison.OrdinalIgnoreCase)) ?? desiredPath;
+
+            if (!string.Equals(currentPath, desiredPath, StringComparison.OrdinalIgnoreCase))
+            {
+                try { if (File.Exists(currentPath)) File.Move(currentPath, desiredPath, true); } catch { FileHelper.CreateFile(desiredPath); }
+            }
+            else
+            {
+                FileHelper.CreateFile(desiredPath);
+            }
+
+            // 移动缓存目录
+            var oldCache = Path.Combine(CoreUtil.Dir_Cache, $"Account{(int)info.AccountSlot}");
+            var newCache = Path.Combine(CoreUtil.Dir_Cache, $"Account{i}");
+            try
+            {
+                if (Directory.Exists(oldCache) && !Directory.Exists(newCache))
+                    Directory.Move(oldCache, newCache);
+                else
+                    FileHelper.CreateDirectory(newCache);
+            }
+            catch { FileHelper.CreateDirectory(newCache); }
+
+            info.AccountSlot = (AccountSlot)i;
+            Account.AccountPathDb[info.AccountSlot] = desiredPath;
+        }
+
+        // 选中最后一个可用
+        if (ObsCol_AccountInfos.Count > 0)
+        {
+            ListBox_AccountInfo.SelectedIndex = ObsCol_AccountInfos.Count - 1;
+            Globals.AccountSlot = ObsCol_AccountInfos.Last().AccountSlot;
+        }
+        else
+        {
+            ListBox_AccountInfo.SelectedIndex = 0;
+            Globals.AccountSlot = AccountSlot.S0;
+        }
+
+        Globals.Write();
+    }
 }

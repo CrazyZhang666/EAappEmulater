@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://wpf.microsoft.com/ui/2024/xaml"
+    xmlns:conv="clr-namespace:ModernWpf.Converters;assembly=ModernWpf"
     x:Name="Window_Account"
     Title="{DynamicResource Windows.AccountWindow.Title}"
     Width="600"
@@ -18,6 +19,10 @@
     ResizeMode="NoResize"
     Style="{StaticResource CustomSystemWindowStyle}"
     mc:Ignorable="d">
+
+    <ui:Window.Resources>
+        <conv:CookieMaskMultiConverter x:Key="CookieMaskMultiConverter" />
+    </ui:Window.Resources>
 
     <ui:Window.TitleContent>
         <DockPanel>
@@ -85,50 +90,63 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <ListBox
-            x:Name="ListBox_AccountInfo"
-            ItemsSource="{Binding ObsCol_AccountInfos}"
-            Style="{StaticResource ListBoxStyle_Avatar}" Cursor="">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <ui:IconFont
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Icon="&#xE948;" />
-                        <ui:Avatar
-                            Width="46"
-                            Height="46"
-                            Margin="0,5,5,5"
-                            VerticalAlignment="Center"
-                            Source="{Binding Avatar}" />
-                        <TextBlock
-                            Margin="2,7,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            FontSize="8"
-                            Foreground="Gray"
-                            Text="{Binding AccountSlot}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <DockPanel Grid.Column="0">
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5,0,0,5">
+                <ui:IconButton
+                    Width="46"
+                    Height="46"
+                    Padding="0"
+                    Command="{Binding AddAccountCommand}"
+                    Icon="&#xE710;"
+                    ToolTip="添加账号配置" />
+            </StackPanel>
+            <ListBox
+                x:Name="ListBox_AccountInfo"
+                ItemsSource="{Binding ObsCol_AccountInfos}"
+                Style="{StaticResource ListBoxStyle_Avatar}" Cursor="">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <ui:IconFont
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Icon="&#xE948;" />
+                            <ui:Avatar
+                                Width="46"
+                                Height="46"
+                                Margin="0,5,5,5"
+                                VerticalAlignment="Center"
+                                Source="{Binding Avatar}" />
+                            <TextBlock
+                                Margin="2,7,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                d:Text="S0"
+                                FontSize="8"
+                                Foreground="Gray"
+                                Text="{Binding AccountSlot}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
 
         <DockPanel Grid.Column="1">
-            <StackPanel DockPanel.Dock="Bottom">
+            <StackPanel DockPanel.Dock="Bottom" Height="52" Orientation="Horizontal" Width="506">
+
                 <ui:IconButton
                     Padding="10"
                     Command="{Binding LoginAccountCommand}"
                     Content="{DynamicResource Windows.AccountWindow.LoginAccount}"
-                    Icon="&#xE77B;">
+                    Icon="&#xE77B;" Width="437" Height="41">
                     <ui:IconButton.Style>
                         <Style BasedOn="{StaticResource IconButtonStyle_Base}" TargetType="{x:Type ui:IconButton}">
                             <Setter Property="IsEnabled" Value="False" />
                             <Style.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding ElementName=TextBoxHint_Remid, Path=Text, Converter={StaticResource IsNullOrWhiteSpace2Converter}}" Value="True" />
-                                        <Condition Binding="{Binding ElementName=TextBoxHint_Sid, Path=Text, Converter={StaticResource IsNullOrWhiteSpace2Converter}}" Value="True" />
+                                        <Condition Binding="{Binding Text, Converter={StaticResource IsNullOrWhiteSpace2Converter}, ElementName=TextBoxHint_Remid}" Value="True" />
+                                        <Condition Binding="{Binding Text, Converter={StaticResource IsNullOrWhiteSpace2Converter}, ElementName=TextBoxHint_Sid}" Value="True" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="IsEnabled" Value="True" />
                                 </MultiDataTrigger>
@@ -136,6 +154,17 @@
                         </Style>
                     </ui:IconButton.Style>
                 </ui:IconButton>
+
+                <ui:IconButton
+                    Margin="6,0,0,0"
+                    Width="46"
+                    Height="41"
+                    Padding="0"
+                    Command="{Binding DeleteAccountCommand}"
+                    Icon="&#xE74D;"
+                    ToolTip="删除当前配置"
+                    Background="#FFE57373" />
+
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Top">
@@ -170,6 +199,7 @@
                                 Command="{Binding ChangeAccountCommand}"
                                 Content="{DynamicResource Windows.AccountWindow.ChangeAccount}"
                                 Icon="&#xE8FA;" />
+                            <ToggleButton Margin="0,0,5,5" IsChecked="{Binding ShowCookie}" Content="显示Cookie" />
                         </WrapPanel>
                         <TextBlock
                             VerticalAlignment="Center"
@@ -181,20 +211,46 @@
                 </DockPanel>
 
                 <ui:IconHeader Title="Remid" />
-                <ui:TextBoxHint
-                    x:Name="TextBoxHint_Remid"
-                    Height="70"
-                    Hint="{DynamicResource Windows.AccountWindow.ShowRemid}"
-                    Style="{StaticResource TextBoxHintStyle_MultiLine}"
-                    Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Remid}" />
+                <DockPanel>
+                    <ui:TextBoxHint
+                        x:Name="TextBoxHint_Remid"
+                        Height="70"
+                        Hint="{DynamicResource Windows.AccountWindow.ShowRemid}"
+                        Style="{StaticResource TextBoxHintStyle_MultiLine}" Width="457">
+                        <ui:TextBoxHint.Text>
+                            <MultiBinding Converter="{StaticResource CookieMaskMultiConverter}">
+                                <Binding ElementName="ListBox_AccountInfo" Path="SelectedItem.Remid" />
+                                <Binding Path="ShowCookie" />
+                            </MultiBinding>
+                        </ui:TextBoxHint.Text>
+                    </ui:TextBoxHint>
+                    <ui:IconButton
+                        Margin="5,0,0,0"
+                        Command="{Binding CopyRemidCommand}"
+                        Icon="&#xE8C8;"
+                        ToolTip="复制 Remid" Height="70" Width="42" />
+                </DockPanel>
 
                 <ui:IconHeader Title="Sid" />
-                <ui:TextBoxHint
-                    x:Name="TextBoxHint_Sid"
-                    Height="70"
-                    Hint="{DynamicResource Windows.AccountWindow.ShowSid}"
-                    Style="{StaticResource TextBoxHintStyle_MultiLine}"
-                    Text="{Binding ElementName=ListBox_AccountInfo, Path=SelectedItem.Sid}" />
+                <DockPanel>
+                    <ui:TextBoxHint
+                        x:Name="TextBoxHint_Sid"
+                        Height="70"
+                        Hint="{DynamicResource Windows.AccountWindow.ShowSid}"
+                        Style="{StaticResource TextBoxHintStyle_MultiLine}" Width="457">
+                        <ui:TextBoxHint.Text>
+                            <MultiBinding Converter="{StaticResource CookieMaskMultiConverter}">
+                                <Binding ElementName="ListBox_AccountInfo" Path="SelectedItem.Sid" />
+                                <Binding Path="ShowCookie" />
+                            </MultiBinding>
+                        </ui:TextBoxHint.Text>
+                    </ui:TextBoxHint>
+                    <ui:IconButton
+                        Margin="5,0,0,0"
+                        Command="{Binding CopySidCommand}"
+                        Icon="&#xE8C8;"
+                        ToolTip="复制 Sid" Width="42" Height="70" />
+                </DockPanel>
 
             </StackPanel>
         </DockPanel>

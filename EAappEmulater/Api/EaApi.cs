@@ -44,7 +44,7 @@ public static class EaApi
             if (item.Name.Equals("remid", StringComparison.OrdinalIgnoreCase))
             {
                 Account.Remid = item.Value;
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.UpdateCookieGetRemid", apiName, Account.Remid));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.UpdateCookieGetRemid", apiName, "<redacted>"));
                 IniHelper.WriteString("Cookie", "Remid", item.Value, Globals.GetAccountIniPath());
                 continue;
             }
@@ -52,7 +52,7 @@ public static class EaApi
             if (item.Name.Equals("sid", StringComparison.OrdinalIgnoreCase))
             {
                 Account.Sid = item.Value;
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.UpdateCookieGetSid", apiName, Account.Sid));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.UpdateCookieGetSid", apiName, "<redacted>"));
                 IniHelper.WriteString("Cookie", "Sid", item.Value, Globals.GetAccountIniPath());
                 continue;
             }
@@ -101,7 +101,7 @@ public static class EaApi
 
             if (response.Content.Contains("error_code", StringComparison.OrdinalIgnoreCase))
             {
-                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetTokenReqErrorExpiredCookie", respResult.ApiName, response.Content));
+                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetTokenReqErrorExpiredCookie", respResult.ApiName, "<redacted>"));
                 return respResult;
             }
 
@@ -111,13 +111,13 @@ public static class EaApi
 
                 var content = JsonHelper.JsonDeserialize<Token>(response.Content);
                 tempToken = content.access_token;
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetTokenReqSuccessTemp", respResult.ApiName, tempToken));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetTokenReqSuccessTemp", respResult.ApiName, "<redacted>"));
 
                 UpdateCookie(response.Cookies, respResult.ApiName);
             }
             else
             {
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, "<redacted>"));
                 return null;
             }
         }
@@ -158,7 +158,7 @@ public static class EaApi
 
             if (response.Content.Contains("error_code", StringComparison.OrdinalIgnoreCase))
             {
-                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetTokenReqErrorExpiredCookie", respResult.ApiName, response.Headers.ToString()));
+                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetTokenReqErrorExpiredCookie", respResult.ApiName, "<redacted>"));
                 return respResult;
             }
 
@@ -174,7 +174,8 @@ public static class EaApi
                     // 如果没有 "Location" 头部或包含 "#"，返回 null
                     return null;
                 }
-                if (location.StartsWith("https://signin.ea.com/p/juno/login?fid=")) {
+                if (location.StartsWith("https://signin.ea.com/p/juno/login?fid="))
+                {
                     respResult.Content = location;
                     return respResult;
                 }
@@ -186,21 +187,22 @@ public static class EaApi
                 string accessToken = query["access_token"];
                 string expiresStr = query["expires_in"];
 
-                if (string.IsNullOrEmpty(accessToken)) {
-                    LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetTokenReqErrorExpiredCookie", respResult.ApiName, query.ToString()));
+                if (string.IsNullOrEmpty(accessToken))
+                {
+                    LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.GetTokenReqErrorExpiredCookie", respResult.ApiName, "<redacted>"));
                     return null;
                 }
 
                 Account.AccessToken = accessToken;
                 Account.OriginPCToken = accessToken;
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetTokenReqSuccess", respResult.ApiName, Account.AccessToken));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetTokenReqSuccess", respResult.ApiName, "<redacted>"));
                 respResult.IsSuccess = true;
 
                 UpdateCookie(response.Cookies, respResult.ApiName);
             }
             else
             {
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, "<redacted>"));
             }
         }
         catch (Exception ex)
@@ -259,7 +261,7 @@ public static class EaApi
             }
             else
             {
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, "<redacted>"));
             }
         }
         catch (Exception ex)
@@ -385,7 +387,7 @@ public static class EaApi
             }
             else
             {
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, "<redacted>"));
             }
         }
         catch (Exception ex)
@@ -455,13 +457,13 @@ public static class EaApi
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                var decryptStr = EaCrypto.Decrypt(response.RawBytes).Replace("", "");
+                var decryptStr = EaCrypto.Decrypt(response.RawBytes).Replace("\u0005", "");
                 var decryptArray = decryptStr.Split(new string[] { "<GameToken>", "</GameToken>" }, StringSplitOptions.RemoveEmptyEntries);
 
                 if (!string.IsNullOrWhiteSpace(decryptArray[1]))
                 {
                     respResult.Content = decryptArray[1];
-                    LoggerHelper.Debug(I18nHelper.I18n._("Api.EaApi.GetLSXLicenseSuccess", respResult.ApiName, decryptArray[1]));
+                    LoggerHelper.Debug(I18nHelper.I18n._("Api.EaApi.GetLSXLicenseSuccess", respResult.ApiName, "<redacted>"));
 
                     respResult.IsSuccess = true;
 
@@ -474,7 +476,7 @@ public static class EaApi
             }
             else
             {
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, "<redacted>"));
             }
         }
         catch (Exception ex)
@@ -548,11 +550,11 @@ public static class EaApi
                     .Find(x => x.Name.Equals("location", StringComparison.OrdinalIgnoreCase))
                     .Value.ToString();
 
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetLSXAutuCodeLocation", respResult.ApiName, location));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetLSXAutuCodeLocation", respResult.ApiName, "<redacted>"));
                 if (location is not null)
                 {
                     Account.LSXAuthCode = location.Split("=")[1];
-                    LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetLSXAutuCodeSuccess", respResult.ApiName, Account.LSXAuthCode));
+                    LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.GetLSXAutuCodeSuccess", respResult.ApiName, "<redacted>"));
 
                     respResult.IsSuccess = true;
 
@@ -561,7 +563,7 @@ public static class EaApi
             }
             else
             {
-                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, response.Content));
+                LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqError", respResult.ApiName, "<redacted>"));
             }
         }
         catch (Exception ex)
@@ -616,7 +618,7 @@ query JitUrlRequest(
 
             // 创建 GraphQL 客户端
             var graphQLClient = new GraphQLHttpClient("https://service-aggregation-layer.juno.ea.com/graphql", new NewtonsoftJsonSerializer());
-            
+
             // 创建 GraphQL 请求
             var graphQLRequest = new GraphQLRequest
             {
@@ -627,7 +629,7 @@ query JitUrlRequest(
             graphQLClient.HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "EAApp/PC/13.463.0.5976");
             graphQLClient.HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("x-client-id", "EAX-JUNO-CLIENT");
             graphQLClient.HttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {Account.AccessToken}");
-            
+
             var response = await graphQLClient.SendQueryAsync<object>(graphQLRequest);
             string responseContent = JsonConvert.SerializeObject(response.Data);
 
@@ -635,7 +637,7 @@ query JitUrlRequest(
             respResult.Content = responseContent;
 
             LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.AsGraphQLHttpResponse().StatusCode));
-            LoggerHelper.Debug($"{respResult.ApiName} JSON响应: {responseContent}");
+            LoggerHelper.Debug($"{respResult.ApiName} JSON响应: <redacted>");
 
             if (!string.IsNullOrWhiteSpace(responseContent))
             {
@@ -772,7 +774,7 @@ query getLegacyCatalogDefs($offerIds: [String!]!, $locale: Locale) {
 
             // 创建 GraphQL 客户端
             var graphQLClient = new GraphQLHttpClient("https://service-aggregation-layer.juno.ea.com/graphql", new NewtonsoftJsonSerializer());
-            
+
             // 创建 GraphQL 请求
             var graphQLRequest = new GraphQLRequest
             {
@@ -783,7 +785,7 @@ query getLegacyCatalogDefs($offerIds: [String!]!, $locale: Locale) {
             graphQLClient.HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "EAApp/PC/13.463.0.5976");
             graphQLClient.HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("x-client-id", "EAX-JUNO-CLIENT");
             graphQLClient.HttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {Account.AccessToken}");
-            
+
             var response = await graphQLClient.SendQueryAsync<object>(graphQLRequest);
             string responseContent = JsonConvert.SerializeObject(response.Data, Newtonsoft.Json.Formatting.Indented);
 
@@ -791,7 +793,87 @@ query getLegacyCatalogDefs($offerIds: [String!]!, $locale: Locale) {
             respResult.Content = responseContent;
 
             LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.AsGraphQLHttpResponse().StatusCode));
-            LoggerHelper.Debug($"{respResult.ApiName} DEBUG JSON响应:\n{responseContent}");
+            LoggerHelper.Debug($"{respResult.ApiName} JSON响应: {responseContent}");
+            if (!string.IsNullOrWhiteSpace(responseContent))
+            {
+                respResult.IsSuccess = true;
+            }
+            else
+            {
+                LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ReqErrorEmpty", respResult.ApiName));
+            }
+        }
+        catch (Exception ex)
+        {
+            respResult.Exception = ex.Message;
+            LoggerHelper.Error(I18nHelper.I18n._("Api.EaApi.ReqErrorEx", respResult.ApiName, ex));
+        }
+
+        return respResult;
+    }
+
+    /// <summary>
+    /// 获取游戏图片信息
+    /// GraphQL: game(slug, locale)
+    /// </summary>
+    public static async Task<RespResult> GetGameImages(string masterTitleId, string locale = "zh-hans")
+    {
+        var respResult = new RespResult("GetGameImages Api");
+
+        if (string.IsNullOrWhiteSpace(masterTitleId))
+        {
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundOfferId", respResult.ApiName));
+            return respResult;
+        }
+
+        if (string.IsNullOrWhiteSpace(Account.AccessToken))
+        {
+            LoggerHelper.Warn(I18nHelper.I18n._("Api.EaApi.ErrorNotFoundToken", respResult.ApiName));
+        }
+
+        try
+        {
+            const string query = @"
+query GetGameMasterTitle($slug: String!, $locale: Locale) {
+  game(slug: $slug, locale: $locale) {
+    title
+    keyArt {
+      aspect1x1Image { path }
+    }
+    packArt {
+      aspect9x16Image { path }
+    }
+    slug
+    id
+  }
+}";
+
+            var variables = new
+            {
+                masterTitleId,
+                locale
+            };
+
+            var graphQLClient = new GraphQLHttpClient("https://service-aggregation-layer.juno.ea.com/graphql", new NewtonsoftJsonSerializer());
+            var graphQLRequest = new GraphQLRequest
+            {
+                Query = query,
+                Variables = variables
+            };
+
+            graphQLClient.HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "EAApp/PC/13.463.0.5976");
+            graphQLClient.HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("x-client-id", "EAX-JUNO-CLIENT");
+            if (!string.IsNullOrWhiteSpace(Account.AccessToken))
+                graphQLClient.HttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {Account.AccessToken}");
+
+            var response = await graphQLClient.SendQueryAsync<object>(graphQLRequest);
+            string responseContent = JsonConvert.SerializeObject(response.Data, Newtonsoft.Json.Formatting.Indented);
+
+            respResult.StatusCode = HttpStatusCode.OK;
+            respResult.Content = responseContent;
+
+            LoggerHelper.Info(I18nHelper.I18n._("Api.EaApi.ReqStatus", respResult.ApiName, response.AsGraphQLHttpResponse().StatusCode));
+            LoggerHelper.Debug($"{respResult.ApiName} JSON响应: {responseContent}");
 
             if (!string.IsNullOrWhiteSpace(responseContent))
             {

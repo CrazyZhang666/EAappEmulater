@@ -31,24 +31,41 @@ public static class Account
 
     static Account()
     {
-        // 批量创建账号槽配置文件
-        foreach (int value in Enum.GetValues(typeof(AccountSlot)))
-        {
-            var path = Path.Combine(CoreUtil.Dir_Account, $"Account{value}.ini");
-            FileHelper.CreateFile(path);
-
-            AccountPathDb[(AccountSlot)value] = path;
-        }
-
         GetIniPath();
     }
 
     /// <summary>
-    /// 获取当前配置文件路径
+    /// 获取当前槽位的配置文件路径
     /// </summary>
     public static void GetIniPath()
     {
-        _iniPath = AccountPathDb[Globals.AccountSlot];
+        if (AccountPathDb.ContainsKey(Globals.AccountSlot))
+            _iniPath = AccountPathDb[Globals.AccountSlot];
+        else
+            _iniPath = Path.Combine(CoreUtil.Dir_Account, $"Account{(int)Globals.AccountSlot}.ini");
+    }
+
+    /// <summary>
+    /// 创建指定槽位的配置文件
+    /// </summary>
+    public static string EnsureIniForSlot(AccountSlot slot)
+    {
+        var path = Path.Combine(CoreUtil.Dir_Account, $"Account{(int)slot}.ini");
+        FileHelper.CreateFile(path);
+        AccountPathDb[slot] = path;
+        return path;
+    }
+
+    /// <summary>
+    /// 删除指定槽位的配置文件
+    /// </summary>
+    public static void RemoveIniForSlot(AccountSlot slot)
+    {
+        if (AccountPathDb.TryGetValue(slot, out var path))
+        {
+            try { if (File.Exists(path)) File.Delete(path); } catch { }
+            AccountPathDb.Remove(slot);
+        }
     }
 
     /// <summary>

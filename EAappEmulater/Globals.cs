@@ -121,6 +121,6 @@ public static class Globals
     /// </summary>
     public static string GetAccountCacheDir()
     {
-        return CoreUtil.AccountCacheDb[AccountSlot];
+        return CoreUtil.GetAccountCacheDir(AccountSlot);
     }
 }

@@ -86,7 +86,6 @@
     <sys:String x:Key="Windows.LoadWindow.GetLoginAccountInfoSuccess">获取玩家账号信息成功</sys:String>
     <sys:String x:Key="Windows.LoadWindow.StartMainProcess">初始化完成，开始启动主程序...</sys:String>
 
-
     <!--Windows/AccountWindow.xaml-->
     <sys:String x:Key="Windows.AccountWindow.Title">EA App 模拟器  账号选择</sys:String>
     <sys:String x:Key="Windows.AccountWindow.OpenConfig">打开配置文件</sys:String>
@@ -97,8 +96,9 @@
     <sys:String x:Key="Windows.AccountWindow.ShowSid">显示选中账号Sid信息</sys:String>
     <sys:String x:Key="Windows.AccountWindow.SwitchLang">切换语言</sys:String>
     <sys:String x:Key="Windows.AccountWindow.AutoLogin">自动登录</sys:String>
+    <sys:String x:Key="Windows.AccountWindow.ShowCookie">显示Cookie</sys:String>
 
-    
+
     <!--Windows/Dialog/AdvancedWindow.xaml-->
     <sys:String x:Key="Windows.AdvancedWindow.Title">EA App 模拟器  游戏选择</sys:String>
     <sys:String x:Key="Windows.AdvancedWindow.Registry">注册表</sys:String>
@@ -162,6 +162,35 @@
     <sys:String x:Key="Views.AboutView.CoreAlgorithm">核心算法: Misaka_Mikoto_01</sys:String>
     <sys:String x:Key="Views.AboutView.Design">程序设计: CrazyZhang666  B1397KB</sys:String>
     <sys:String x:Key="Views.AboutView.Declare">本程序仅供学习研究使用</sys:String>
+
+    <!--Views/DownloadView.xaml-->
+    <sys:String x:Key="Views.DownloadView.Downloading">正在下载</sys:String>
+    <sys:String x:Key="Views.DownloadView.LimitSpeed">限速（Mbps）</sys:String>
+    <sys:String x:Key="Views.DownloadView.SpeedUnit">Mbps</sys:String>
+    <sys:String x:Key="Views.DownloadView.NoActiveTask">暂无正在下载的任务</sys:String>
+    <sys:String x:Key="Views.DownloadView.Queue">下载队列</sys:String>
+    <sys:String x:Key="Views.DownloadView.NoQueuedTask">暂无队列任务</sys:String>
+    <sys:String x:Key="Views.DownloadView.Completed">已完成</sys:String>
+    <sys:String x:Key="Views.DownloadView.MovedToCompleted">移动到已完成：{0} 状态 {1}</sys:String>
+    <sys:String x:Key="Views.DownloadView.StartNowQueued">已立即开始队列任务：{0}</sys:String>
+    <sys:String x:Key="Views.DownloadView.OpenedFolder">已打开安装目录：{0}</sys:String>
+    <sys:String x:Key="Views.DownloadView.FolderNotFound">未找到安装目录：{0}</sys:String>
+    <sys:String x:Key="Views.DownloadView.OpenFolderFailed">打开安装目录失败：{0}</sys:String>
+    <sys:String x:Key="Views.DownloadView.RetryDownload">重新下载 {0}</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusWaiting">等待中</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusPaused">已暂停</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusDownloading">下载中</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusInstalling">安装中</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusInstallingRuntime">安装运行库</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusFailed">下载失败</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusCancelled">已取消</sys:String>
+    <sys:String x:Key="Views.DownloadView.StatusCompleted">已完成</sys:String>
+    <sys:String x:Key="Views.DownloadView.EtaUnknown">预计时间未知</sys:String>
+    <sys:String x:Key="Views.DownloadView.EtaPrefix">剩余</sys:String>
+    <sys:String x:Key="Views.DownloadView.Tooltip.Pause">暂停</sys:String>
+    <sys:String x:Key="Views.DownloadView.Tooltip.Cancel">取消</sys:String>
+    <sys:String x:Key="Views.DownloadView.Tooltip.Retry">重新下载</sys:String>
+    <sys:String x:Key="Views.DownloadView.Tooltip.OpenFolder">打开目录</sys:String>
 
 
     <!--Views/FriendView.xaml.cs-->
@@ -253,7 +282,17 @@
     <sys:String x:Key="Helper.DownloadHelper.TouchupParametersNotFound">XML 中未找到 touchup 参数，使用默认值</sys:String>
     <sys:String x:Key="Helper.DownloadHelper.UsingCustomTouchupParameters">使用 installerdata.xml 中的自定义 touchup 参数</sys:String>
     <sys:String x:Key="Helper.DownloadHelper.UsingDefaultTouchupParameters">使用默认 touchup 参数</sys:String>
-    
+    <sys:String x:Key="Helper.DownloadHelper.ChunkInfo">分片信息：总分片 {0}, 分片大小：{1}, 并发：{2}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkDownloadRetry">线程 {0}: 分片下载失败（尝试 {1}/{2}）：{3}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkDownloadFailed">线程 {0}: 分片 {1}-{2} 在 {3} 次重试后失败</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkedInterrupted">分片下载被中断</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunkedError">分片下载错误：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ChunksFailed">一个或多个分片下载失败</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ZipNotFound">ZIP 文件未找到：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractExceptionType">异常类型：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractInnerException">内部异常：{0}</sys:String>
+    <sys:String x:Key="Helper.DownloadHelper.ExtractTooManyErrors">解压错误过多（{0}），中止</sys:String>
+
     <!--Helper/JsonHelper.cs-->
     <sys:String x:Key="Helper.JsonHelper.JsonDeserializeError">反序列化发生异常 {0}</sys:String>
     <sys:String x:Key="Helper.JsonHelper.JsonSerializeError">序列化发生异常 {0}</sys:String>

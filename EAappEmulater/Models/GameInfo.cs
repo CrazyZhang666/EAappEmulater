@@ -8,6 +8,8 @@ public class GameInfo
 
     public string Name { get; set; }
     public string Name2 { get; set; }
+
+    public string Slug { get; set; }
     public string Image { get; set; }
     public string Image2 { get; set; }
 
