@@ -1,0 +1,86 @@
+name: Release EAappEmulater
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        shell: cmd
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 6 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore
+        run: dotnet restore EAappEmulater.sln
+
+      - name: Build
+        run: dotnet build EAappEmulater.sln -c Release --no-restore
+
+      - name: Publish (framework-dependent single-file EXE)
+        run: dotnet publish EAappEmulater/EAappEmulater.csproj ^
+              -c Release ^
+              -r win-x64 ^
+              --self-contained false ^
+              -p:PublishSingleFile=true ^
+              -p:IncludeNativeLibrariesForSelfExtract=true ^
+              -p:DebugType=None ^
+              -p:DebugSymbols=false ^
+              -o publish/EAappEmulater-win-x64
+
+      - name: Rename to EADesktop.exe and clean folder
+        shell: pwsh
+        run: |
+          Set-Location "publish/EAappEmulater-win-x64"
+
+          $exe = Get-ChildItem -Filter *.exe | Select-Object -First 1
+
+          if (-not $exe) {
+            Write-Error "No .exe file found in publish output."
+            exit 1
+          }
+
+          if ($exe.Name -ne "EADesktop.exe") {
+            Rename-Item $exe.Name "EADesktop.exe"
+          }
+
+          Get-ChildItem | Where-Object { $_.Name -ne "EADesktop.exe" } | Remove-Item -Force
+
+      # 查找此 commit 对应的 PR
+      - name: Find Related Pull Request
+        id: find_pr
+        uses: actions-ecosystem/action-get-related-pr@v1
+        with:
+          commit_sha: ${{ github.sha }}
+
+      # 生成 Release 名字 和 Body
+        # 如果找不到 PR，会 fallback 到 tag 名
+      - name: Prepare Release Notes
+        id: notes
+        run: |
+          echo "title=${{ steps.find_pr.outputs.title || github.ref_name }}" >> $GITHUB_OUTPUT
+          echo "body=${{ steps.find_pr.outputs.body || 'No PR description available.' }}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ steps.notes.outputs.title }}
+          body: ${{ steps.notes.outputs.body }}
+          draft: false
+          prerelease: false
+          files: publish/EAappEmulater-win-x64/EADesktop.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
