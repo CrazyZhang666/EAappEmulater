@@ -1,6 +1,7 @@
 # EAapp模拟器
 **简体中文 | [English](README-en.md)**
 
+
 EAapp模拟器（EA App Emulater） by `Misaka_Mikoto_01`  `CrazyZhang666`  `B1397KB`
 
 > 本项目开发目标是作为一个简易的EA Desktop/Origin替代品，毕竟新的EA Desktop/Origin实在是太烂了
@@ -88,3 +89,8 @@ https://pan.baidu.com/s/1qMwwt4kSFjfHbNBKS-CoIg?pwd=sbea 提取码: sbea
 - 泰坦陨落2
 - 圣歌
 - PGA Tour
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=CrazyZhang666/EAappEmulater&type=date&legend=top-left)](https://www.star-history.com/#CrazyZhang666/EAappEmulater&type=date&legend=top-left)
