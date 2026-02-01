@@ -42,6 +42,22 @@
                 </StackPanel>
 
                 <ui:IconHeader Title="{DynamicResource Views.SettingView.Tools}" />
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock VerticalAlignment="Center" Text="关闭窗口:" Margin="0,0,10,0" />
+                        <ComboBox
+                            x:Name="ComboBox_CloseBehavior"
+                            Width="160"
+                            Height="24"
+                            FontFamily="Segoe UI, Arial"
+                            FontSize="12"
+                            SelectionChanged="ComboBox_CloseBehavior_SelectionChanged">
+                            <ComboBoxItem Content="最小化到托盘" Tag="True" />
+                            <ComboBoxItem Content="完全退出" Tag="False" />
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+
                 <WrapPanel>
                     <ui:IconButton
                         Command="{Binding OpenConfigFolderCommand}"

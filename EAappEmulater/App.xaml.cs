@@ -4,6 +4,8 @@ using EAappEmulater.Windows;
 
 namespace EAappEmulater;
 
+using EAappEmulater.Enums;
+
 /// <summary>
 /// App.xaml 的交互逻辑
 /// </summary>
@@ -153,6 +155,10 @@ using (Process currentProcess = Process.GetCurrentProcess())
 
         //////////////////////////////////////////////////////
 
+        // 解析命令行参数
+        ParseCommandLine(e);
+
+        // 检查自动登录
         CheckAutoLogin();
 
         base.OnStartup(e);
@@ -265,6 +271,108 @@ using (Process currentProcess = Process.GetCurrentProcess())
     }
 
     /// <summary>
+    /// 解析命令行参数
+    /// </summary>
+    private void ParseCommandLine(StartupEventArgs e)
+    {
+        try
+        {
+            // e.Args 不包含程序路径，只包含实际的命令行参数
+            var args = e.Args;
+            if (args == null || args.Length == 0)
+                return;
+
+            LoggerHelper.Info($"命令行参数: {string.Join(" ", args)}");
+            LoggerHelper.Info($"参数数量: {args.Length}");
+
+            // 遍历参数，处理 --account 和 --game
+            for (int i = 0; i < args.Length; i++)
+            {
+                var arg = args[i];
+
+                // 处理 --account
+                if (arg.Equals("--account", StringComparison.OrdinalIgnoreCase) || arg.StartsWith("--account="))
+                {
+                    string slotValue = null;
+
+                    // 格式: --account=S0
+                    if (arg.StartsWith("--account="))
+                    {
+                        slotValue = arg.Substring("--account=".Length);
+                    }
+                    // 格式: --account S0
+                    else if (i + 1 < args.Length)
+                    {
+                        slotValue = args[i + 1];
+                        i++; // 跳过下一个参数
+                    }
+
+                    // 解析账号槽
+                    if (!string.IsNullOrEmpty(slotValue))
+                    {
+                        // 尝试直接解析 S0 格式
+                        if (Enum.TryParse(slotValue, out AccountSlot slot))
+                        {
+                            Globals.CommandLineAccountSlot = slot;
+                            LoggerHelper.Info($"命令行指定账号槽: {slot}");
+                            continue;
+                        }
+                        // 尝试解析数字格式 0, 1, 2...
+                        else if (int.TryParse(slotValue, out int slotNumber) && slotNumber >= 0 && slotNumber <= 99)
+                        {
+                            var slotName = $"S{slotNumber}";
+                            if (Enum.TryParse(slotName, out AccountSlot slot2))
+                            {
+                                Globals.CommandLineAccountSlot = slot2;
+                                LoggerHelper.Info($"命令行指定账号槽: {slotName}");
+                                continue;
+                            }
+                        }
+                    }
+                }
+
+                // 处理 --game
+                else if (arg.Equals("--game", StringComparison.OrdinalIgnoreCase) || arg.StartsWith("--game="))
+                {
+                    string gameValue = null;
+
+                    // 格式: --game=BF4
+                    if (arg.StartsWith("--game="))
+                    {
+                        gameValue = arg.Substring("--game=".Length);
+                    }
+                    // 格式: --game BF4
+                    else if (i + 1 < args.Length)
+                    {
+                        gameValue = args[i + 1];
+                        i++; // 跳过下一个参数
+                    }
+
+                    // 解析游戏类型
+                    if (!string.IsNullOrEmpty(gameValue))
+                    {
+                        if (Enum.TryParse(gameValue, true, out GameType gameType))
+                        {
+                            Globals.CommandLineGameType = gameType;
+                            LoggerHelper.Info($"命令行指定游戏: {gameType}");
+                        }
+                        else
+                        {
+                            LoggerHelper.Warn($"命令行游戏参数无效: {gameValue}");
+                        }
+                    }
+                }
+            }
+
+            LoggerHelper.Info($"命令行解析完成 - AccountSlot: {Globals.CommandLineAccountSlot}, GameType: {Globals.CommandLineGameType}");
+        }
+        catch (Exception ex)
+        {
+            LoggerHelper.Error($"解析命令行参数失败: {ex.Message}");
+        }
+    }
+
+    /// <summary>
     /// 检查并执行自动登录
     /// </summary>
     private void CheckAutoLogin()
@@ -272,16 +380,25 @@ using (Process currentProcess = Process.GetCurrentProcess())
         try
         {
             LoggerHelper.Info(I18nHelper.I18n._("App.CheckAutoLogin"));
-            
-            // 检查自动登录是否启用
-            if (!Globals.AutoLoginEnabled)
-            {
-                LoggerHelper.Info(I18nHelper.I18n._("App.AutoLoginDisabled"));
-                ShowAccountWindow();
-                return;
-            }
 
-            LoggerHelper.Info(I18nHelper.I18n._("App.AutoLoginEnabled"));
+            // 如果命令行指定了账号槽，使用命令行指定的槽
+            if (Globals.CommandLineAccountSlot.HasValue)
+            {
+                Globals.AccountSlot = Globals.CommandLineAccountSlot.Value;
+                LoggerHelper.Info($"使用命令行指定的账号槽: {Globals.AccountSlot}");
+            }
+            else
+            {
+                // 检查自动登录是否启用
+                if (!Globals.AutoLoginEnabled)
+                {
+                    LoggerHelper.Info(I18nHelper.I18n._("App.AutoLoginDisabled"));
+                    ShowAccountWindow();
+                    return;
+                }
+
+                LoggerHelper.Info(I18nHelper.I18n._("App.AutoLoginEnabled"));
+            }
 
             // 检查当前选中的账号是否有有效的Cookie
             var accountIniPath = Globals.GetAccountIniPath();
@@ -296,7 +413,7 @@ using (Process currentProcess = Process.GetCurrentProcess())
             }
 
             LoggerHelper.Info(I18nHelper.I18n._("App.AutoLoginCookieValid"));
-            
+
             // 直接启动加载窗口，跳过账号选择
             var loadWindow = new LoadWindow();
             Current.MainWindow = loadWindow;

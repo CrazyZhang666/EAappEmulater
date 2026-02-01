@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using EAappEmulater.Api;
 using EAappEmulater.Core;
+using EAappEmulater.Enums;
 using EAappEmulater.Helper;
 using EAappEmulater.Models;
 using EAappEmulater.Utils;
@@ -86,6 +87,9 @@ public partial class MainWindow
         // 初始化工作
         Ready.Run();
 
+        // 检查是否需要自动启动游戏
+        await AutoStartGameIfNeeded();
+
         // 检查更新（放到最后执行）
         await CheckUpdate();
     }
@@ -98,19 +102,23 @@ public partial class MainWindow
         // 当用户从UI点击关闭时才执行
         if (!IsCodeClose)
         {
-            // 取消关闭事件，隐藏主窗口
-            e.Cancel = true;
-            this.Hide();
-
-            // 仅第一次通知
-            if (!_isFirstNotice)
+            // 根据配置决定是隐藏窗口还是完全退出
+            if (Globals.CloseToTray)
             {
+                // 最小化到托盘（当前默认行为）
+                e.Cancel = true;
+                this.Hide();
 
-                NotifyIcon_Main.ShowBalloonTip(I18nHelper.I18n._("Windows.MainWindow.MainClosingTipTitle"), I18nHelper.I18n._("Windows.MainWindow.MainClosingTipDes"), BalloonIcon.Info);
-                _isFirstNotice = true;
+                // 仅第一次通知
+                if (!_isFirstNotice)
+                {
+                    NotifyIcon_Main.ShowBalloonTip(I18nHelper.I18n._("Windows.MainWindow.MainClosingTipTitle"), I18nHelper.I18n._("Windows.MainWindow.MainClosingTipDes"), BalloonIcon.Info);
+                    _isFirstNotice = true;
+                }
+
+                return;
             }
-
-            return;
+            // CloseToTray 为 false 时，继续执行完全退出逻辑
         }
 
         // 清理工作
@@ -238,5 +246,38 @@ public partial class MainWindow
         // 设置关闭标志
         IsCodeClose = true;
         this.Close();
+    }
+
+    /// <summary>
+    /// 如果命令行指定了游戏，自动启动
+    /// </summary>
+    private async Task AutoStartGameIfNeeded()
+    {
+        if (!Globals.CommandLineGameType.HasValue)
+            return;
+
+        var gameType = Globals.CommandLineGameType.Value;
+        var gameInfo = Base.GameInfoDb[gameType];
+
+        // 等待一段时间确保初始化完成
+        await Task.Delay(3000);
+
+        LoggerHelper.Info($"命令行指定自动启动游戏: {gameInfo.Name}");
+
+        // 检查游戏是否已安装
+        if (!gameInfo.IsInstalled)
+        {
+            LoggerHelper.Warn($"游戏 {gameInfo.Name} 未安装，跳过自动启动");
+            NotifierHelper.Warning($"游戏 {gameInfo.Name} 未安装");
+            return;
+        }
+
+        // 启动游戏
+        await Task.Run(() =>
+        {
+            // 稍微延迟确保所有服务已启动
+            Thread.Sleep(3000);
+            Game.RunGame(gameType, "", false);
+        });
     }
 }

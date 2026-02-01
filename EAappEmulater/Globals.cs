@@ -33,6 +33,21 @@ public static class Globals
     /// </summary>
     public static bool AutoLoginEnabled { get; set; } = false;
 
+    /// <summary>
+    /// 关闭窗口时是否最小化到托盘（true=最小化到托盘，false=完全退出）
+    /// </summary>
+    public static bool CloseToTray { get; set; } = true;
+
+    /// <summary>
+    /// 命令行指定的账号槽（如果为null则使用配置文件）
+    /// </summary>
+    public static AccountSlot? CommandLineAccountSlot { get; set; } = null;
+
+    /// <summary>
+    /// 命令行指定的游戏类型（如果为null则不自动启动游戏）
+    /// </summary>
+    public static GameType? CommandLineGameType { get; set; } = null;
+
     static Globals()
     {
         _configPath = Path.Combine(CoreUtil.Dir_Config, "Config.ini");
@@ -48,6 +63,7 @@ public static class Globals
         var slot = IniHelper.ReadString("Globals", "AccountSlot", _configPath);
         var defaultLanguage = IniHelper.ReadString("Globals", "lang", _configPath);
         var autoLoginEnabled = IniHelper.ReadString("Globals", "AutoLoginEnabled", _configPath);
+        var closeToTray = IniHelper.ReadString("Globals", "CloseToTray", _configPath);
 
         LoggerHelper.Info(I18nHelper.I18n._("Globals.CurrentConfigPath", _configPath));
         LoggerHelper.Info(I18nHelper.I18n._("Globals.ReadConfigSuccess", slot));
@@ -102,6 +118,19 @@ public static class Globals
             LoggerHelper.Info(I18nHelper.I18n._("Globals.AutoLoginNotConfigured"));
         }
 
+        if (!string.IsNullOrWhiteSpace(closeToTray))
+        {
+            if (bool.TryParse(closeToTray, out bool closeToTrayValue))
+            {
+                CloseToTray = closeToTrayValue;
+                LoggerHelper.Info($"关闭窗口行为: {(CloseToTray ? "最小化到托盘" : "完全退出")}");
+            }
+            else
+            {
+                LoggerHelper.Warn($"关闭窗口行为解析失败: {closeToTray}");
+            }
+        }
+
         LoggerHelper.Info(I18nHelper.I18n._("Globals.ReadGlobalConfigSuccess"));
     }
 
@@ -121,6 +150,7 @@ public static class Globals
             IniHelper.WriteString("Globals", "AccountSlot", $"{AccountSlot}", _configPath);
             IniHelper.WriteString("Globals", "lang", DefaultLanguage ?? string.Empty, _configPath);
             IniHelper.WriteString("Globals", "AutoLoginEnabled", $"{AutoLoginEnabled}", _configPath);
+            IniHelper.WriteString("Globals", "CloseToTray", $"{CloseToTray}", _configPath);
 
             LoggerHelper.Info(I18nHelper.I18n._("Globals.SaveGlobalConfigPath", _configPath));
             LoggerHelper.Info(I18nHelper.I18n._("Globals.SaveGlobalConfigSuccess"));

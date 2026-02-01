@@ -13,6 +13,22 @@ public partial class SettingView : UserControl, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    private bool _closeToTray = true;
+    public bool CloseToTray
+    {
+        get => _closeToTray;
+        set
+        {
+            if (_closeToTray == value) return;
+            _closeToTray = value;
+            OnPropertyChanged(nameof(CloseToTray));
+
+            // 同步到全局配置
+            Globals.CloseToTray = value;
+            Globals.Write();
+        }
+    }
+
     private ObservableCollection<LanguageEntry> _languageList = new();
     public ObservableCollection<LanguageEntry> LanguageList
     {
@@ -60,10 +76,37 @@ public partial class SettingView : UserControl, INotifyPropertyChanged
         if (string.IsNullOrWhiteSpace(CurrentLanguage) && LanguageList.Count > 0)
             CurrentLanguage = LanguageList[0].Code;
 
+        // 初始化关闭窗口行为设置
+        CloseToTray = Globals.CloseToTray;
+
+        // 设置 ComboBox 默认选中项
+        foreach (ComboBoxItem item in ComboBox_CloseBehavior.Items)
+        {
+            if (item.Tag?.ToString() == CloseToTray.ToString())
+            {
+                ComboBox_CloseBehavior.SelectedItem = item;
+                break;
+            }
+        }
+
         DataContext = this;
     }
 
     private void OnPropertyChanged(string name) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+    /// <summary>
+    /// 关闭窗口行为 ComboBox 选择改变事件
+    /// </summary>
+    private void ComboBox_CloseBehavior_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (ComboBox_CloseBehavior.SelectedItem is ComboBoxItem selectedItem && selectedItem.Tag != null)
+        {
+            if (bool.TryParse(selectedItem.Tag.ToString(), out bool closeToTray))
+            {
+                CloseToTray = closeToTray;
+            }
+        }
+    }
 
     private void ToDoList()
     {

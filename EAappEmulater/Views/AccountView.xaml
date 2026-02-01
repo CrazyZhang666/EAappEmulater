@@ -9,7 +9,6 @@
     d:DesignWidth="1000"
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
     mc:Ignorable="d">
-
     <StackPanel Width="600" HorizontalAlignment="Left">
         <StackPanel Orientation="Horizontal">
             <ui:Avatar
@@ -78,7 +77,5 @@
             IsReadOnly="True"
             Style="{StaticResource TextBoxHintStyle_MultiLine}"
             Text="{Binding AccountModel.Token}" />
-
     </StackPanel>
-
 </UserControl>
