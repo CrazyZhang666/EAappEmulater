@@ -11,65 +11,58 @@ namespace EAappEmulater.Windows;
 /// </summary>
 public partial class LoginWindow
 {
-    private string _host = "";
-
-    /**
-     * 2024/04/29
-     * 关于 WebView2 第一次加载设置 Visibility 不可见会导致短暂白屏
-     * https://github.com/MicrosoftEdge/WebView2Feedback/issues/3707#issuecomment-1679440957
-     */
-
-    /// <summary>
-    /// 是否清理缓存（用于切换新账号使用）
-    /// </summary>
     private readonly bool _isClear;
+    private readonly CancellationTokenSource _lifetimeCts = new();
+    private JunoOAuthSession _oauthSession;
+    private int _callbackHandled;
+    private bool _initialized;
+    private bool _isClosing;
 
     public LoginWindow(bool isClear, string host = "")
     {
         InitializeComponent();
-        this._isClear = isClear;
-        if (String.IsNullOrEmpty(host)) { 
-            _host = host;
-        }
-    }   
+        _isClear = isClear;
+        _ = host;
+    }
 
-    /// <summary>
-    /// 窗口加载完成事件
-    /// </summary>
     private void Window_Login_Loaded(object sender, RoutedEventArgs e)
     {
     }
 
-    /// <summary>
-    /// 窗口内容呈现完毕后事件
-    /// </summary>
     private async void Window_Login_ContentRendered(object sender, EventArgs e)
     {
-        // 初始化WebView2
+        if (_initialized)
+        {
+            return;
+        }
+
+        _initialized = true;
         await InitWebView2();
     }
 
-    /// <summary>
-    /// 窗口关闭时事件
-    /// </summary>
     private void Window_Login_Closing(object sender, CancelEventArgs e)
     {
+        _isClosing = true;
+        _lifetimeCts.Cancel();
+
+        var core = WebView2_Main?.CoreWebView2;
+        if (core != null)
+        {
+            core.NewWindowRequested -= CoreWebView2_NewWindowRequested;
+            core.NavigationStarting -= CoreWebView2_NavigationStarting;
+            core.NavigationCompleted -= CoreWebView2_NavigationCompleted;
+            core.LaunchingExternalUriScheme -= CoreWebView2_LaunchingExternalUriScheme;
+        }
+
+        _oauthSession?.Dispose();
+        _oauthSession = null;
         WebView2_Main?.Dispose();
 
-        ////////////////////////////////
-
         var accountWindow = new AccountWindow();
-
-        // 转移主程序控制权
         Application.Current.MainWindow = accountWindow;
-
-        // 显示切换账号窗口
         accountWindow.Show();
     }
 
-    /// <summary>
-    /// 初始化WebView2登录信息
-    /// </summary>
     private async Task InitWebView2()
     {
         try
@@ -77,280 +70,303 @@ public partial class LoginWindow
             LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.InitWebView2"));
 
             var options = new CoreWebView2EnvironmentOptions();
+            var environment = await CoreWebView2Environment.CreateAsync(null, Globals.GetAccountCacheDir(), options);
+            await WebView2_Main.EnsureCoreWebView2Async(environment);
 
-            // 初始化WebView2环境
-            var env = await CoreWebView2Environment.CreateAsync(null, Globals.GetAccountCacheDir(), options);
-            await WebView2_Main.EnsureCoreWebView2Async(env);
+            var core = WebView2_Main.CoreWebView2;
+            core.Settings.AreDevToolsEnabled = false;
+            core.Settings.AreDefaultContextMenusEnabled = false;
+            core.Settings.IsZoomControlEnabled = false;
+            core.Settings.IsStatusBarEnabled = false;
+            core.NewWindowRequested += CoreWebView2_NewWindowRequested;
+            core.NavigationStarting += CoreWebView2_NavigationStarting;
+            core.NavigationCompleted += CoreWebView2_NavigationCompleted;
+            core.LaunchingExternalUriScheme += CoreWebView2_LaunchingExternalUriScheme;
 
-            if (String.IsNullOrEmpty(_host))
-            {
-                var loginUrlData = await Api.EaApi.GetToken();
-                if (loginUrlData != null && !loginUrlData.IsSuccess)
-                {
-                    _host = loginUrlData.Content;
-                }
-                else
-                {
-                    _host = "https://accounts.ea.com/connect/auth?response_type=code&locale=zh_CN&client_id=EADOTCOM-WEB-SERVER";
-                }
-            }
-            
-
-            LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.InitWebView2Success"));
-
-
-            // 禁止Dev开发工具
-            WebView2_Main.CoreWebView2.Settings.AreDevToolsEnabled = false;
-            // 禁止右键菜单
-            WebView2_Main.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-            // 禁止浏览器缩放
-            WebView2_Main.CoreWebView2.Settings.IsZoomControlEnabled = false;
-            // 禁止显示状态栏（鼠标悬浮在链接上时右下角没有url地址显示）
-            WebView2_Main.CoreWebView2.Settings.IsStatusBarEnabled = false;
-
-            // 新窗口打开页面的处理
-            WebView2_Main.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
-            // Url变化的处理
-            WebView2_Main.CoreWebView2.SourceChanged += CoreWebView2_SourceChanged;
-
-            // 导航开始事件
-            WebView2_Main.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
-            // 导航完成事件
-            WebView2_Main.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
-
-            // 添加请求拦截器过滤器
-            WebView2_Main.CoreWebView2.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.All);
-
-            await WebView2_Main.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync(@"
-    window.addEventListener('DOMContentLoaded', () => {
-        let href = window.location.href;
-        if (href.startsWith('https://pc.ea.com/login.html')) {
-            window.chrome.webview.postMessage({ type: 'redirect', url: href });
-        }
-    });
-");
-
-            // 注册事件处理程序
-            WebView2_Main.CoreWebView2.WebResourceRequested += (sender, args) =>
-            {
-                var uri = new Uri(args.Request.Uri);
-                if (uri.Host.Equals("pc.ea.com", StringComparison.OrdinalIgnoreCase))
-                {
-                    // 设置或覆盖请求头
-                    args.Request.Headers.SetHeader("x-juno-max-img-res", "1080");
-                    args.Request.Headers.SetHeader("User-Agent",
-                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Origin/10.6.0.00000 EAApp/13.377.0.5890 Chrome/109.0.5414.120 Safari/537.36");
-
-                }
-            };
-
-            WebView2_Main.CoreWebView2.NewWindowRequested += (sender, args) =>
-            {
-                args.Handled = true; // 阻止 WebView2 创建新窗口
-
-                var targetUri = args.Uri;
-
-                // 在当前窗口导航目标链接
-                WebView2_Main.CoreWebView2.Navigate(targetUri);
-            };
-
-            await WebView2_Main.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync(@"
-    window.open = function(url) {
-        location.href = url;
-        return null;
-    };
-    document.querySelectorAll('a[target=""_blank""]').forEach(a => a.target = '_self');
-");
-            WebView2_Main.CoreWebView2.Settings.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Origin/10.6.0.00000 EAApp/13.377.0.5890 Chrome/109.0.5414.120 Safari/537.36";
-
-            WebView2_Main.CoreWebView2.WebMessageReceived += (s, e) =>
-            {
-                var msg = e.WebMessageAsJson;
-
-                try
-                {
-                    var data = System.Text.Json.JsonDocument.Parse(msg);
-                    if (data.RootElement.GetProperty("type").GetString() == "redirect")
-                    {
-                        var redirectUrl = data.RootElement.GetProperty("url").GetString();
-
-                        // 提取 token 逻辑
-                        var uri = new Uri(redirectUrl.Replace("qrc:/", "http://fake/")); // 避免非法 URI 报错
-                        var fragment = uri.Fragment; // 取 # 后的参数
-                        var queryParams = System.Web.HttpUtility.ParseQueryString(fragment.TrimStart('#'));
-                        var token = queryParams["access_token"];
-                        IniHelper.WriteString("Cookie", "AccessToken", token, Globals.GetAccountIniPath());
-                        IniHelper.WriteString("Cookie", "OriginPCToken", token, Globals.GetAccountIniPath());
-
-                        Account.AccessToken = token;
-                        Account.OriginPCToken = token;
-
-                        // 跳转空白页
-                        WebView2_Main.CoreWebView2.Navigate("about:blank");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LoggerHelper.Debug("解析重定向失败：" + ex.Message);
-                }
-            };
-
-
-
-            // 用于更换新账号
             if (_isClear)
             {
-                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.ClearWebView2Cache"));
                 await ClearWebView2Cache();
             }
-            else
-            {
-                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.LoadWebView2LoginView"));
 
-                // 导航到指定Url
-                WebView2_Main.CoreWebView2.Navigate(_host);
-            }
+            await CreateAndNavigateSessionAsync(false);
+            LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.InitWebView2Success"));
+        }
+        catch (OperationCanceledException) when (_isClosing)
+        {
         }
         catch (Exception ex)
         {
             LoggerHelper.Error(I18nHelper.I18n._("Windows.LoginWindow.WebView2InitError", ex));
+            ShowBrowser();
+        }
+    }
+
+    private async Task CreateAndNavigateSessionAsync(bool resetCallback)
+    {
+        ShowLoading();
+        var newSession = await EaApi.GetToken(_lifetimeCts.Token);
+
+        if (newSession == null || !IsJunoAuthorizationUrl(newSession.AuthorizationUrl))
+        {
+            newSession?.Dispose();
+            throw new InvalidOperationException("EaApi did not create a valid JUNO login session.");
+        }
+
+        _oauthSession?.Dispose();
+        _oauthSession = newSession;
+
+        if (resetCallback)
+        {
+            Interlocked.Exchange(ref _callbackHandled, 0);
+        }
+
+        WebView2_Main.CoreWebView2.Navigate(_oauthSession.AuthorizationUrl);
+    }
+
+    private static bool IsJunoAuthorizationUrl(string value)
+    {
+        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri))
+        {
+            return false;
+        }
+
+        if (!uri.Scheme.Equals(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase) || !uri.Host.Equals("accounts.ea.com", StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        return query["client_id"] == "JUNO_PC_CLIENT" && query["response_type"] == "code" && query["code_challenge_method"] == "S256" && !string.IsNullOrWhiteSpace(query["pc_sign"]) && !string.IsNullOrWhiteSpace(query["code_challenge"]);
+    }
+
+    private static bool IsQrcUri(string value)
+    {
+        return Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme.Equals("qrc", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsJunoCallbackUri(string value)
+    {
+        return Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme.Equals("qrc", StringComparison.OrdinalIgnoreCase) && string.IsNullOrEmpty(uri.Host) && uri.AbsolutePath.Equals("/html/login_successful.html", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private void CoreWebView2_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
+    {
+        if (IsQrcUri(e.Uri))
+        {
+            e.Cancel = true;
+            if (IsJunoCallbackUri(e.Uri))
+            {
+                StartQrcExchange(e.Uri);
+            }
+
+            return;
+        }
+
+        ShowLoading();
+        LoggerHelper.Trace("NavigationStarting");
+    }
+
+    private void CoreWebView2_LaunchingExternalUriScheme(object sender, CoreWebView2LaunchingExternalUriSchemeEventArgs e)
+    {
+        if (!IsQrcUri(e.Uri))
+        {
+            return;
+        }
+
+        e.Cancel = true;
+        if (IsJunoCallbackUri(e.Uri))
+        {
+            StartQrcExchange(e.Uri);
         }
     }
 
     private void CoreWebView2_NewWindowRequested(object sender, CoreWebView2NewWindowRequestedEventArgs e)
     {
-        var deferral = e.GetDeferral();
-        e.NewWindow = WebView2_Main.CoreWebView2;
-        deferral.Complete();
-    }
+        e.Handled = true;
 
-    private async void CoreWebView2_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
-    {
-        LoggerHelper.Trace("SourceChanged");
-
-        var source = WebView2_Main.Source.ToString();
-        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.CurrentWebView2Source", source));
-        if (!source.Contains("pc.ea.com") && !source.Contains("test.pulse.ea.com"))
-            return;
-
-        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.WebView2LoginSuccess"));
-        var cookies = await WebView2_Main.CoreWebView2.CookieManager.GetCookiesAsync(null);
-        if (cookies == null)
+        if (IsQrcUri(e.Uri))
         {
-            LoggerHelper.Warn(I18nHelper.I18n._("Windows.LoginWindow.WebView2GetCookieError"));
+            if (IsJunoCallbackUri(e.Uri))
+            {
+                StartQrcExchange(e.Uri);
+            }
+
             return;
         }
 
-        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.FindCookieFile"));
-        LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.FindCookieCount", cookies.Count));
-        bool isRemidGet = false;
-        foreach (var item in cookies)
+        if (!string.IsNullOrWhiteSpace(e.Uri))
         {
-            if (!item.Domain.EndsWith(".ea.com", StringComparison.OrdinalIgnoreCase))
-                continue;
+            WebView2_Main.CoreWebView2.Navigate(e.Uri);
+        }
+    }
 
-            if (item.Name.Equals("remid", StringComparison.OrdinalIgnoreCase))
+    private void StartQrcExchange(string callbackUri)
+    {
+        if (_isClosing || Interlocked.CompareExchange(ref _callbackHandled, 1, 0) != 0)
+        {
+            return;
+        }
+
+        ShowLoading();
+        _ = CompleteJunoLoginAsync(callbackUri);
+    }
+
+    private async Task CompleteJunoLoginAsync(string callbackUri)
+    {
+        try
+        {
+            await SaveEaCookiesAsync();
+            var result = await EaApi.GetToken(_oauthSession, callbackUri, _lifetimeCts.Token);
+
+            if (result == null || !result.IsSuccess)
             {
-                if (!string.IsNullOrWhiteSpace(item.Value))
+                throw new InvalidOperationException(result?.Exception ?? "EA JUNO token exchange failed.");
+            }
+
+            if (!_isClosing)
+            {
+                Close();
+            }
+        }
+        catch (OperationCanceledException) when (_isClosing)
+        {
+        }
+        catch (Exception ex)
+        {
+            LoggerHelper.Error($"EA JUNO login failed: {ex.Message}");
+            _oauthSession?.Dispose();
+            _oauthSession = null;
+
+            if (!_isClosing)
+            {
+                ShowBrowser();
+            }
+        }
+    }
+
+    private async Task SaveEaCookiesAsync()
+    {
+        string remid = null;
+        string sid = null;
+        var cookieUris = new[] { "https://accounts.ea.com/", "https://signin.ea.com/", "https://www.ea.com/", null };
+
+        for (var attempt = 0; attempt < 10 && (string.IsNullOrWhiteSpace(remid) || string.IsNullOrWhiteSpace(sid)); attempt++)
+        {
+            foreach (var cookieUri in cookieUris)
+            {
+                var foundCookies = await FindEaCookiesAsync(cookieUri);
+                remid ??= foundCookies.Remid;
+                sid ??= foundCookies.Sid;
+
+                if (!string.IsNullOrWhiteSpace(remid) && !string.IsNullOrWhiteSpace(sid))
                 {
-                    IniHelper.WriteString("Cookie", "Remid", item.Value, Globals.GetAccountIniPath());
-                    LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.RemidGetSuccess", item.Value));
-                    isRemidGet = true;
-                    continue;
+                    break;
                 }
             }
 
-            if (item.Name.Equals("sid", StringComparison.OrdinalIgnoreCase))
+            if ((string.IsNullOrWhiteSpace(remid) || string.IsNullOrWhiteSpace(sid)) && attempt < 9)
             {
-                if (!string.IsNullOrWhiteSpace(item.Value))
+                await Task.Delay(200, _lifetimeCts.Token);
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(remid))
+        {
+            Account.Remid = remid;
+            IniHelper.WriteString("Cookie", "Remid", remid, Globals.GetAccountIniPath());
+        }
+
+        if (!string.IsNullOrWhiteSpace(sid))
+        {
+            Account.Sid = sid;
+            IniHelper.WriteString("Cookie", "Sid", sid, Globals.GetAccountIniPath());
+        }
+
+        LoggerHelper.Info($"EA login cookie scan completed. RemidFound={!string.IsNullOrWhiteSpace(remid)}, SidFound={!string.IsNullOrWhiteSpace(sid)}.");
+    }
+
+    private async Task<(string Remid, string Sid)> FindEaCookiesAsync(string uri)
+    {
+        try
+        {
+            var cookies = await WebView2_Main.CoreWebView2.CookieManager.GetCookiesAsync(uri);
+            string remid = null;
+            string sid = null;
+
+            foreach (var cookie in cookies)
+            {
+                var domain = cookie.Domain?.TrimStart('.');
+                if (string.IsNullOrWhiteSpace(domain) || !domain.Equals("ea.com", StringComparison.OrdinalIgnoreCase) && !domain.EndsWith(".ea.com", StringComparison.OrdinalIgnoreCase))
                 {
-                    IniHelper.WriteString("Cookie", "Sid", item.Value, Globals.GetAccountIniPath());
-                    LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.SidGetSuccess", item.Value));
                     continue;
                 }
-            }
-        }
 
-        ////////////////////////////////
-        if (isRemidGet)
+                if (cookie.Name.Equals("remid", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrWhiteSpace(cookie.Value))
+                {
+                    remid ??= cookie.Value;
+                }
+                else if (cookie.Name.Equals("sid", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrWhiteSpace(cookie.Value))
+                {
+                    sid ??= cookie.Value;
+                }
+            }
+
+            return (remid, sid);
+        }
+        catch (Exception ex)
         {
-            this.Close();
+            LoggerHelper.Warn($"EA CookieManager query failed: {ex.GetType().Name}.");
+            return (null, null);
         }
-    }
-
-    
-
-    private void ProcessHeader(string name, string value, ref bool gotRemid)
-    {
-        if (!name.Equals("Cookie", StringComparison.OrdinalIgnoreCase))
-            return;
-
-        foreach (var cookie in value.Split(';'))
-        {
-            var kv = cookie.Split('=', 2);
-            var key = kv[0].Trim();
-            var val = kv.Length > 1 ? kv[1].Trim() : "";
-
-            if (key.Equals("sid", StringComparison.OrdinalIgnoreCase) &&
-                !string.IsNullOrEmpty(val))
-            {
-                IniHelper.WriteString("Cookie", "Sid", val, Globals.GetAccountIniPath());
-                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.SidGetSuccess", val));
-            }
-            else if (key.Equals("remid", StringComparison.OrdinalIgnoreCase) &&
-                     !string.IsNullOrEmpty(val))
-            {
-                IniHelper.WriteString("Cookie", "Remid", val, Globals.GetAccountIniPath());
-                LoggerHelper.Info(I18nHelper.I18n._("Windows.LoginWindow.RemidGetSuccess", val));
-                gotRemid = true;
-            }
-        }
-    }
-
-    private void ContinueFetch(string requestId)
-    {
-        _ = WebView2_Main.CoreWebView2.CallDevToolsProtocolMethodAsync(
-            "Fetch.continueRequest",
-            $@"{{ ""requestId"": ""{requestId}"" }}");
-    }
-
-
-    private void CoreWebView2_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
-    {
-        WebView2_Main.Visibility = Visibility.Hidden;
-        WebView2_Loading.Visibility = Visibility.Visible;
-
-        LoggerHelper.Trace("NavigationStarting");
     }
 
     private void CoreWebView2_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
     {
-        WebView2_Main.Visibility = Visibility.Visible;
-        WebView2_Loading.Visibility = Visibility.Hidden;
+        if (Volatile.Read(ref _callbackHandled) == 0)
+        {
+            ShowBrowser();
+        }
 
         LoggerHelper.Trace("NavigationCompleted");
     }
 
-    /// <summary>
-    /// 清空WebView2缓存
-    /// </summary>
-    /// <returns></returns>
+    private void ShowLoading()
+    {
+        WebView2_Main.Visibility = Visibility.Hidden;
+        WebView2_Loading.Visibility = Visibility.Visible;
+    }
+
+    private void ShowBrowser()
+    {
+        WebView2_Main.Visibility = Visibility.Visible;
+        WebView2_Loading.Visibility = Visibility.Hidden;
+    }
+
     private async Task ClearWebView2Cache()
     {
         await WebView2_Main.CoreWebView2.ExecuteScriptAsync("localStorage.clear()");
         WebView2_Main.CoreWebView2.CookieManager.DeleteAllCookies();
-        WebView2_Main.CoreWebView2.Navigate(_host);
-
         LoggerHelper.Info(I18nHelper.I18n._("ClearWebView2CacheSuccess"));
     }
 
-    /// <summary>
-    /// 重新加载登录页面
-    /// </summary>
     [RelayCommand]
-    private void ReloadLoginPage()
+    private async Task ReloadLoginPage()
     {
-        WebView2_Main.CoreWebView2.Navigate(_host);
+        if (_isClosing || WebView2_Main?.CoreWebView2 == null)
+        {
+            return;
+        }
+
+        if (_oauthSession == null || Volatile.Read(ref _callbackHandled) != 0)
+        {
+            await CreateAndNavigateSessionAsync(true);
+        }
+        else
+        {
+            ShowLoading();
+            WebView2_Main.CoreWebView2.Navigate(_oauthSession.AuthorizationUrl);
+        }
+
         LoggerHelper.Info(I18nHelper.I18n._("ReloadWebView2ViewSuccess"));
     }
 }
