@@ -1,4 +1,9 @@
-﻿2026/04/15 v1.9.1.2
+﻿2026/8/1  v1.9.1.3
+------------------------
+- Fixed the issue where games using EAAC anti-cheat failed to launch. #140
+- Modified login to match EA Desktop, allowing banned accounts to login.
+
+2026/04/15 v1.9.1.2
 ------------------------
 - Fixed an issue where games utilizing EAAC anti-cheat failed to launch. #134
 - Added an auto-login button.
