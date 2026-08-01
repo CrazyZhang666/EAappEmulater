@@ -147,6 +147,7 @@
         <Resource Include="Assets\Images\Games\PVZGW.jpg" />
         <Resource Include="Assets\Images\Games\SWBF1.jpg" />
         <Resource Include="Assets\Images\Games\NFS21.jpg" />
+		<Resource Include="Assets\Images\Games\NFS20.jpg" />
         <Resource Include="Assets\Images\Games\PVZBN.jpg" />
         <Resource Include="Assets\Images\Games\ITT.jpg" />
         <Resource Include="Assets\Images\Games\FIFA22.jpg" />
