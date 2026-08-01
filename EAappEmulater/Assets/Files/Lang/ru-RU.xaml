@@ -373,7 +373,7 @@
     <sys:String x:Key="App.TCPPortCheck4219">Порт TCP 4219 сейчас занят. Освободите его.&#x0a;Для этого попробуйте завершить процесс EA App.</sys:String>
     <sys:String x:Key="App.TCPPortCheckSuccess">Проверка портов TCP выполнена</sys:String>
     <sys:String x:Key="App.TaskEx">Возникло необрабатываемое исключение</sys:String>
-    <sys:String x:Key="App.ErrorFileName">Обнаружено изменение названия исполняемого файла: его имя должно быть "EADesktop.exe".&#x0a;Пожалуйста, переименуйте его и запустите программу снова.</sys:String>
+    <sys:String x:Key="App.ErrorFileName">Обнаружено несоответствие названия исполняемого файла: его имя должно быть "EADesktop.exe".&#x0a;Пожалуйста, переименуйте его и запустите программу снова.</sys:String>
     <sys:String x:Key="App.CheckAutoLogin">Проверка автоматического входа…</sys:String>
     <sys:String x:Key="App.AutoLoginEnabled">Автоматический вход включён</sys:String>
     <sys:String x:Key="App.AutoLoginDisabled">Автоматический вход отключён</sys:String>
