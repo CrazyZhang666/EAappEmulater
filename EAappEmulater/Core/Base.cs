@@ -267,7 +267,7 @@ public static class Base
         GameInfoDb[GameType.NFS20] = new()
         {
             GameType = GameType.NFS20,
-            Name = "极品飞车20",
+            Name = "极品飞车20：复仇",
             Name2 = "Need for Speed™ Payback",
             Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS20.jpg",
             IsUseCustom = false,
