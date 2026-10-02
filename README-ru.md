@@ -88,4 +88,4 @@ https://github.com/CrazyZhang666/EAappEmulater/releases
 
 ## История роста звёздочек
 
-[![Star History Chart](https://api.star-history.com/svg?repos=CrazyZhang666/EAappEmulater&type=date&legend=top-left)](https://www.star-history.com/#CrazyZhang666/EAappEmulater&type=date&legend=top-left)
+[![Star History Chart](https://star-history.dera.page/svg?repos=CrazyZhang666/EAappEmulater&type=date&legend=top-left)](https://star-history.dera.page/#CrazyZhang666/EAappEmulater&type=date&legend=top-left)
