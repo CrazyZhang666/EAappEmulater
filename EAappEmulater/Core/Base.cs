@@ -264,6 +264,27 @@ public static class Base
             IsOldLSX = false
         };
 
+        GameInfoDb[GameType.NFS20] = new()
+        {
+            GameType = GameType.NFS20,
+            Name = "极品飞车20：复仇",
+            Name2 = "Need for Speed™ Payback",
+            Image = "pack://application:,,,/EAappEmulater;component/Assets/Images/Games/NFS20.jpg",
+            IsUseCustom = false,
+            Dir = string.Empty,
+            Args = string.Empty,
+            Dir2 = string.Empty,
+            Args2 = string.Empty,
+            IsInstalled = false,
+            IsEAAC = false,
+            AppName = "NeedForSpeedPayback.exe",
+            ContentId = "1035208",
+            Regedit = "SOFTWARE\\EA Games\\Need for Speed Payback",
+            Regedit2 = "SOFTWARE\\WOW6432Node\\EA Games\\Need for Speed Payback",
+            Locales = new() { "en_US", "fr_FR", "de_DE", "es_ES", "it_IT", "ru_RU", "pl_PL", "ja_JP", "zh_TW", "pt_BR", "es_MX", "zh_CN" },
+            IsOldLSX = false
+        };
+
         GameInfoDb[GameType.NFS21] = new()
         {
             GameType = GameType.NFS21,

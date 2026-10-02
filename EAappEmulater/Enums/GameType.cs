@@ -14,6 +14,7 @@ public enum GameType
     FIFA23,
     ITT,
     NFS19,
+    NFS20,
     NFS21,
     NFS22,
     PVZGN,
