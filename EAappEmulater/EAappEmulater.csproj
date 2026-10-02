@@ -124,6 +124,7 @@
         <EmbeddedResource Include="Assets\Files\LSX\BFV\32.xml" />
         <EmbeddedResource Include="Assets\Files\LSX\TTF2\00.xml" />
         <EmbeddedResource Include="Assets\Files\Misc\UpdateNotes_en.txt" />
+		<EmbeddedResource Include="Assets\Files\Misc\UpdateNotes_ru.txt" />
         <EmbeddedResource Include="Assets\Files\Misc\UpdateNotes.txt" />
     </ItemGroup>
 

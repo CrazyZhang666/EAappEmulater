@@ -19,7 +19,12 @@ public partial class UpdateView : UserControl
         if (Globals.Language == "zh-CN")
         {
             TextBoxHint_UpdateNotes.Text = FileHelper.GetEmbeddedResourceText("Misc.UpdateNotes.txt");
-        } else
+        }
+        else if (Globals.Language == "ru-RU")
+        {
+            TextBoxHint_UpdateNotes.Text = FileHelper.GetEmbeddedResourceText("Misc.UpdateNotes_ru.txt");
+        }
+        else
         {
             TextBoxHint_UpdateNotes.Text = FileHelper.GetEmbeddedResourceText("Misc.UpdateNotes_en.txt");
         }
